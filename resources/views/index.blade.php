@@ -625,7 +625,7 @@
               <h3 class="card-title">Informasi Pribadi</h3>
 
               <div class="card-tools">
-                <a href="#" class="btn btn-sm btn-success">Ubah Profil</a>
+                <a href="#" class="btn btn-success">Ubah Profil</a>
               </div>
             </div>
             <!-- /.card-header -->

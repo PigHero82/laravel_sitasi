@@ -66,7 +66,7 @@
                                 <a class="dropdown-item" href="page-user-profile.html">Pimpinan</a>
                                 <a class="dropdown-item" href="page-user-profile.html">Reviewer</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="page-user-profile.html"><i class="feather icon-user"></i> Edit Profile</a>
+                                <a class="dropdown-item" href="/profil"><i class="feather icon-user"></i> Profil</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                 document.getElementById('logout-form').submit();"><i class="feather icon-power"></i> Logout</a>
