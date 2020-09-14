@@ -29,7 +29,7 @@
     <!-- END: Page CSS-->
 
     <!-- BEGIN: Custom CSS-->
-    {{-- <link rel="stylesheet" type="text/css" href="{{ asset('/assets/css/style.css') }}"> --}}
+    <link rel="stylesheet" type="text/css" href="{{ asset('/css/fontawesome5.css') }}">
     <!-- END: Custom CSS-->
 
     @yield('css')
@@ -133,6 +133,11 @@
     <script src="{{ asset('/app-assets/js/core/app.js') }}"></script>
     <script src="{{ asset('/app-assets/js/scripts/components.js') }}"></script>
     <!-- END: Theme JS-->
+    
+    <!-- BEGIN: Custom JS-->
+    <script src="{{ asset('/js/fontawesome5.js') }}"></script>
+    <!-- END: Custom JS-->
+    {{-- <script src="{{ asset('/app-assets/js/scripts/datatables/datatable.min.js') }}"></script> --}}
 
     @yield('js')
 

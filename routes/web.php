@@ -21,6 +21,11 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 Route::namespace('admin')->name('admin.')->group(function() {
     Route::group(['prefix' => 'admin'], function () {
         Route::view('', 'index')->name('index');
+        Route::namespace('master')->name('master.')->group(function() {
+            Route::group(['prefix' => 'master'], function () {
+                Route::view('dosen', 'master.dosen')->name('dosen');
+            });
+        });
     });
 });
 
