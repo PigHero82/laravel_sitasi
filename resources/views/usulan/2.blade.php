@@ -77,6 +77,13 @@
                 </div>
             </div>
             <!-- /.card-body -->
+            <div class="card-footer">
+                <a href="{{ route('dosen.usulan.1') }}" class="btn btn-warning px-1">Kembali</a>
+                <div class="float-right">
+                    <a href="{{ route('dosen.usulan.3') }}" class="btn btn-success px-1">Lanjut</a>
+                </div>
+            </div>
+            <!-- /.card-footer -->
         </div>
         <!-- /.card -->
     <!-- general form elements -->

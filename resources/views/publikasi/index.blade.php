@@ -17,7 +17,7 @@
             <h3 class="card-title">Riwayat Publikasi</h3>
 
             <div class="card-tools">
-            <a href="/publikasi/create" class="btn btn-success px-1">Tambah</a>
+            <a href="{{ route('dosen.publikasi.create') }}" class="btn btn-success px-1">Tambah</a>
             </div>
         </div>
         <!-- /.card-header -->

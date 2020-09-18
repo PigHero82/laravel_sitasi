@@ -33,7 +33,7 @@
                                 <option value="">2021</option>
                             </select>
                         </div>
-                        <a href="{{ route('usulan.1') }}">
+                        <a href="{{ route('dosen.usulan.1') }}">
                             <button type="button" class="btn btn-primary btn-block mb-3">Daftar</button>
                         </a>
                         <h3>Informasi Ketersediaan Skema</h3>
@@ -125,7 +125,7 @@
                                 <option value="">2021</option>
                             </select>
                         </div>
-                        <a href="{{ route('usulan.1') }}">
+                        <a href="{{ route('dosen.usulan.1') }}">
                             <button type="button" class="btn btn-primary btn-block mb-3">Daftar</button>
                         </a>                        <h3>Informasi Ketersediaan Skema</h3>
                         <div class="card collapse-icon accordion-icon-rotate">

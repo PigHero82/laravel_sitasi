@@ -156,6 +156,12 @@
                 </div>
             </div>
             <!-- /.card-body -->
+            <div class="card-footer">
+                <div class="float-right">
+                    <a href="{{ route('dosen.usulan.2') }}" class="btn btn-success px-1">Lanjut</a>
+                </div>
+            </div>
+            <!-- /.card-footer -->
         </div>
         <!-- /.card -->
     <!-- general form elements -->

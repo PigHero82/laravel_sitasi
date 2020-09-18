@@ -4,7 +4,7 @@
             <li class="{{ (request()->is('admin')) ? 'active' : '' }} nav-item"><a href="{{ route('admin.index') }}"><i class="feather icon-home"></i><span class="menu-title">Dashboard</span></a></li>
             <li class="nav-item"><a href="#"><i class="feather icon-mail"></i><span class="menu-title">Data Master</span></a>
                 <ul class="menu-content">
-                    <li class="{{ (request()->is('admin/master/dosen*')) ? 'active' : '' }}"><a href="#"><i></i><span class="menu-item">Dosen</span></a></li>
+                    <li class="{{ (request()->is('admin/master/dosen*')) ? 'active' : '' }}"><a href="{{ route('admin.master.dosen') }}"><i></i><span class="menu-item">Dosen</span></a></li>
                     <li class="{{ (strpos(Route::currentRouteName(), 'admin.master.user.index') == 1) ? 'active' : '' }}"><a href="#"><i></i><span class="menu-item">User</span></a></li>
                     <li class="{{ (strpos(Route::currentRouteName(), 'admin.master.skema.index') == 1) ? 'active' : '' }}"><a href="#"><i></i><span class="menu-item">Skema</span></a></li>
                     <li class="{{ (strpos(Route::currentRouteName(), 'admin.master.prodi.index') == 1) ? 'active' : '' }}"><a href="#"><i></i><span class="menu-item">Program Studi</span></a></li>
@@ -20,7 +20,7 @@
             <li class="nav-item"><a href="#"><i class="feather icon-mail"></i><span class="menu-title">Usulan</span></a>
                 <ul class="menu-content">
                     <li class="{{ (request()->is('dosen/usulan*')) ? 'active' : '' }}"><a href="{{ route('dosen.usulan.index') }}"><i></i><span class="menu-item">Tambah Usulan</span></a></li>
-                    <li class="{{ (strpos(Route::currentRouteName(), 'dosen.tanggungan') == 0) ? 'active' : '' }}"><a href="{{ route('dosen.tanggungan') }}"><i></i><span class="menu-item">Tanggungan</span></a></li>
+                    <li class="{{ (request()->is('dosen/tanggungan')) ? 'active' : '' }}"><a href="{{ route('dosen.tanggungan') }}"><i></i><span class="menu-item">Tanggungan</span></a></li>
                     <li class="@yield('riwayatactive')"><a href="#"><i></i><span class="menu-item">Riwayat Usulan</span></a></li>
                 </ul>
             </li>

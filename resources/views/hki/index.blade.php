@@ -17,7 +17,7 @@
             <h3 class="card-title">Riwayat HKI</h3>
 
             <div class="card-tools">
-                <a href="/hki/create" class="btn btn-success px-1">Tambah</a>
+                <a href="{{ route('dosen.hki.create') }}" class="btn btn-success px-1">Tambah</a>
             </div>
         </div>
         <!-- /.card-header -->
