@@ -36,48 +36,23 @@
                 <table id="myTable" class="table zero-configuration" style="width:100%">
                     <thead>
                         <tr>
-                            <th>No</th>
-                            <th>Nama</th>
-                            <th>Aksi</th>
+                            <th>Nama Skema</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>1</td>
-                            <td>System Architect</td>
-                            <td>Edinburgh</td>
+                            <td><a href="#modalPenelitian" data-toggle="modal">Penelitian 1</a></td>
                         </tr>
                         <tr>
-                            <td>2</td>
-                            <td>Accountant</td>
-                            <td>Tokyo</td>
+                            <td><a href="#modalPenelitian" data-toggle="modal">Penelitian 2</a></td>
                         </tr>
                         <tr>
-                            <td>3</td>
-                            <td>Junior Technical Author</td>
-                            <td>San Francisco</td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>Senior Javascript Developer</td>
-                            <td>Edinburgh</td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>Accountant</td>
-                            <td>Tokyo</td>
-                        </tr>
-                        <tr>
-                            <td>6</td>
-                            <td>Integration Specialist</td>
-                            <td>New York</td>
+                            <td><a href="#modalPenelitian" data-toggle="modal">Penelitian 3</a></td>
                         </tr>
                     </tbody>
                     <tfoot>
                         <tr>
-                            <th>No</th>
-                            <th>Nama</th>
-                            <th>Aksi</th>
+                            <th>Nama Skema</th>
                         </tr>
                     </tfoot>
                 </table>
@@ -103,48 +78,23 @@
                 <table id="myTable" class="table zero-configuration" style="width:100%">
                     <thead>
                         <tr>
-                            <th>No</th>
-                            <th>Nama</th>
-                            <th>Aksi</th>
+                            <th>Nama Skema</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>1</td>
-                            <td>System Architect</td>
-                            <td>Edinburgh</td>
+                            <td><a href="#modalPengabdian" data-toggle="modal">Pengabdian 1</a></td>
                         </tr>
                         <tr>
-                            <td>2</td>
-                            <td>Accountant</td>
-                            <td>Tokyo</td>
+                            <td><a href="#modalPengabdian" data-toggle="modal">Pengabdian 2</a></td>
                         </tr>
                         <tr>
-                            <td>3</td>
-                            <td>Junior Technical Author</td>
-                            <td>San Francisco</td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>Senior Javascript Developer</td>
-                            <td>Edinburgh</td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>Accountant</td>
-                            <td>Tokyo</td>
-                        </tr>
-                        <tr>
-                            <td>6</td>
-                            <td>Integration Specialist</td>
-                            <td>New York</td>
+                            <td><a href="#modalPengabdian" data-toggle="modal">Pengabdian 3</a></td>
                         </tr>
                     </tbody>
                     <tfoot>
                         <tr>
-                            <th>No</th>
-                            <th>Nama</th>
-                            <th>Aksi</th>
+                            <th>Nama Skema</th>
                         </tr>
                     </tfoot>
                 </table>
@@ -159,7 +109,7 @@
 
         <!-- modal penelitian -->
         <div class="modal fade text-left" id="modalPenelitian" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title" id="myModalLabel33">Tambah Skema Penelitian</h4>
@@ -169,28 +119,19 @@
                     </div>
                     <form action="#">
                         <div class="modal-body">
-                            <label>Nama Skema</label>
-                            <div class="form-group">
-                                <select class="form-control" name="" id="">
-                                    <option value="">Penelitian 1</option>
-                                    <option value="">Penelitian 2</option>
-                                    <option value="">Penelitian 3</option>
-                                </select>
-                            </div>
-
                             <div class="row">
+
                                 <div class="col-md-6">
+                                    <label>Nama Skema</label>
                                     <div class="form-group">
-                                        <label for="firstName1">Tahun Skema</label>
-                                        <input type="number" class="form-control" id="firstName1">
+                                        <select class="form-control" name="" id="">
+                                            <option value="">Penelitian 1</option>
+                                            <option value="">Penelitian 2</option>
+                                            <option value="">Penelitian 3</option>
+                                        </select>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="firstName1">Tahun Penelitian</label>
-                                        <input type="number" class="form-control" id="firstName1">
-                                    </div>
-                                </div>
+    
                                 <div class="col-md-6">
                                     <label>Jumlah Peneliti</label>
                                     <div class="form-group">
@@ -203,13 +144,41 @@
                                         </select>
                                     </div>
                                 </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="firstName1">Tahun Skema</label>
+                                        <input type="number" class="form-control" id="firstName1">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="firstName1">Tahun Penelitian</label>
+                                        <input type="number" class="form-control" id="firstName1">
+                                    </div>
+                                </div>
+
                                 <div class="col-md-6">
                                     <label>Jabatan Minimal</label>
                                     <div class="form-group">
                                         <select class="form-control" name="" id="">
-                                            <option value="">Penelitian 1</option>
-                                            <option value="">Penelitian 2</option>
-                                            <option value="">Penelitian 3</option>
+                                            <option value="">Tidak ada</option>
+                                            <option value="">Dosen</option>
+                                            <option value="">Guru Besar</option>
+                                            <option value="">Ketua</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label>Jabatan Maksimal</label>
+                                    <div class="form-group">
+                                        <select class="form-control" name="" id="">
+                                            <option value="">Tidak ada</option>
+                                            <option value="">Dosen</option>
+                                            <option value="">Guru Besar</option>
+                                            <option value="">Ketua</option>
                                         </select>
                                     </div>
                                 </div>
@@ -236,18 +205,74 @@
                     </div>
                     <form action="#">
                         <div class="modal-body">
-                            <label>Email: </label>
-                            <div class="form-group">
-                                <input type="text" placeholder="Email Address" class="form-control">
+                            <div class="row">
+
+                                <div class="col-md-6">
+                                    <label>Nama Skema</label>
+                                    <div class="form-group">
+                                        <select class="form-control" name="" id="">
+                                            <option value="">Pengabdian 1</option>
+                                            <option value="">Pengabdian 2</option>
+                                            <option value="">Pengabdian 3</option>
+                                        </select>
+                                    </div>
+                                </div>
+    
+                                <div class="col-md-6">
+                                    <label>Jumlah Pengabdi</label>
+                                    <div class="form-group">
+                                        <select class="form-control" name="" id="">
+                                            <option value="">1</option>
+                                            <option value="">2</option>
+                                            <option value="">3</option>
+                                            <option value="">4</option>
+                                            <option value="">5</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="firstName1">Tahun Skema</label>
+                                        <input type="number" class="form-control" id="firstName1">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="firstName1">Tahun Pengabdian</label>
+                                        <input type="number" class="form-control" id="firstName1">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label>Jabatan Minimal</label>
+                                    <div class="form-group">
+                                        <select class="form-control" name="" id="">
+                                            <option value="">Tidak ada</option>
+                                            <option value="">Dosen</option>
+                                            <option value="">Guru Besar</option>
+                                            <option value="">Ketua</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label>Jabatan Maksimal</label>
+                                    <div class="form-group">
+                                        <select class="form-control" name="" id="">
+                                            <option value="">Tidak ada</option>
+                                            <option value="">Dosen</option>
+                                            <option value="">Guru Besar</option>
+                                            <option value="">Ketua</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
 
-                            <label>Password: </label>
-                            <div class="form-group">
-                                <input type="password" placeholder="Password" class="form-control">
-                            </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" data-dismiss="modal">Login</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Tambah Skema</button>
                         </div>
                     </form>
                 </div>

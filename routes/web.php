@@ -24,8 +24,8 @@ Route::namespace('admin')->name('admin.')->prefix('admin')->group(function() {
     Route::view('', 'index')->name('index');
     Route::namespace('master')->name('master.')->prefix('master')->group(function() {
         Route::view('dosen', 'master.dosen')->name('dosen');
-        Route::view('skema', 'master.skema')->name('skema');
     });
+    Route::view('skema', 'skema')->name('skema');
 });
 
 Route::namespace('dosen')->name('dosen.')->prefix('dosen')->group(function() {
