@@ -58,16 +58,6 @@
                 </div>
                 <div class="form-group row">
                     <div class="col-md-2 col-4 text-right">
-                        <span>Target Nilai TKT Tahun ke 1 :</span>
-                    </div>
-                    <div class="col-md-9 col-8">
-                        <select name="tkt-1" class="form-control">
-                            <option value="">2</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-md-2 col-4 text-right">
                         <span>Program :</span>
                     </div>
                     <div class="col-md-9 col-8">
@@ -113,16 +103,6 @@
                     <div class="col-md-9 col-8">
                         <select name="lama" class="form-control">
                             <option value="">2 Tahun</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-md-2 col-4 text-right">
-                        <span>Target Nilai TKT Tahun ke 2 :</span>
-                    </div>
-                    <div class="col-md-9 col-8">
-                        <select name="tkt-2" class="form-control">
-                            <option value="">2</option>
                         </select>
                     </div>
                 </div>

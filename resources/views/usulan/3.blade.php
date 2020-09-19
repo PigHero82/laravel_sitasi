@@ -13,48 +13,19 @@
     @endif
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Step 3 - Identitas Usulan</h3>
+                <h3 class="card-title">Step 3 - Atribut Usulan</h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-                <div class="form-group row">
-                    <div class="col-md-2 col-4 text-right">
-                        <span>Pendahuluan :</span>
+                <p>Unggah file berdasarkan template dibawah</p>
+                <button type="button" class="btn btn-success">Unduh Template</button>
+                <hr>
+                <div class="form-group row mt-2">
+                    <div class="col-md-2 col-4">
+                        <span>Unggah File :</span>
                     </div>
                     <div class="col-md-9 col-8">
-                        <textarea name="" cols="50" rows="5" class="form-control" placeholder="Ringkasan penelitian tidak lebih dari 500 kata."></textarea>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-md-2 col-4 text-right">
-                        <span>Solusi Permasalahan :</span>
-                    </div>
-                    <div class="col-md-9 col-8">
-                        <textarea name="" cols="50" rows="5" class="form-control" placeholder="Ringkasan penelitian tidak lebih dari 500 kata."></textarea>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-md-2 col-4 text-right">
-                        <span>Metode Pelaksanaan :</span>
-                    </div>
-                    <div class="col-md-9 col-8">
-                        <textarea name="" cols="50" rows="5" class="form-control" placeholder="Ringkasan penelitian tidak lebih dari 500 kata."></textarea>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-md-2 col-4 text-right">
-                        <span>Gambaran IPTEK :</span>
-                    </div>
-                    <div class="col-md-9 col-8">
-                        <textarea name="" cols="50" rows="5" class="form-control" placeholder="Ringkasan penelitian tidak lebih dari 500 kata."></textarea>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-md-2 col-4 text-right">
-                        <span>Daftar Pustaka :</span>
-                    </div>
-                    <div class="col-md-9 col-8">
-                        <textarea name="" cols="50" rows="5" class="form-control" placeholder="Ringkasan penelitian tidak lebih dari 500 kata."></textarea>
+                        <input type="file" name="" id="" class="form-control-file">
                     </div>
                 </div>
             </div>
