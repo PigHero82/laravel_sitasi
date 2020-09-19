@@ -13,7 +13,7 @@
                     <li class="@yield('riwayatactive')"><a href="#"><i></i><span class="menu-item">Riwayat Usulan</span></a></li> --}}
                 </ul>
             </li>
-            <li class="{{ (request()->is('admin/skema')) ? 'active' : '' }} nav-item"><a href="{{ route('admin.skema') }}" title="Skema Usulan"><i class="feather icon-calendar"></i><span class="menu-title">Skema Usulan</span></a></li>
+            <li class="{{ (request()->is('admin/skema')) ? 'active' : '' }} nav-item"><a href="{{ route('admin.master.skema') }}" title="Skema Usulan"><i class="feather icon-calendar"></i><span class="menu-title">Skema Usulan</span></a></li>
             {{-- <li class="@yield('persetujuanactive') nav-item"><a href="#"><i class="feather icon-user"></i><span class="menu-title">Persetujuan Personil</span></a></li> --}}
         @elseif (request()->is('dosen*'))
             <li class="{{ (request()->is('dosen')) ? 'active' : '' }} nav-item"><a href="{{ route('dosen.index') }}"><i class="feather icon-home"></i><span class="menu-title">Dashboard</span></a></li>
