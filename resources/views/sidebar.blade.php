@@ -5,7 +5,7 @@
             <li class="nav-item"><a href="#" title="Data Master"><i class="feather icon-mail"></i><span class="menu-title">Data Master</span></a>
                 <ul class="menu-content">
                     <li class="{{ (request()->is('admin/master/dosen*')) ? 'active' : '' }}"><a href="{{ route('admin.master.dosen') }}"><i></i><span class="menu-item">Dosen</span></a></li>
-                    <li class="{{ (strpos(Route::currentRouteName(), 'admin.master.user.index') == 1) ? 'active' : '' }}"><a href="#"><i></i><span class="menu-item">User</span></a></li>
+                    <li class="{{ (request()->is('admin/master/user*')) ? 'active' : '' }}"><a href="{{ route('admin.master.user') }}"><i></i><span class="menu-item">User</span></a></li>
                     <li class="{{ (strpos(Route::currentRouteName(), 'admin.master.skema.index') == 1) ? 'active' : '' }}"><a href="#"><i></i><span class="menu-item">Skema</span></a></li>
                     <li class="{{ (strpos(Route::currentRouteName(), 'admin.master.prodi.index') == 1) ? 'active' : '' }}"><a href="#"><i></i><span class="menu-item">Program Studi</span></a></li>
                     <li class="{{ (strpos(Route::currentRouteName(), 'admin.master.pimpinan.index') == 1) ? 'active' : '' }}"><a href="#"><i></i><span class="menu-item">Pimpinan & Koordinator</span></a></li>
