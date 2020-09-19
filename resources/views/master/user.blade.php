@@ -29,7 +29,7 @@
                 {{-- <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#inlineForm">
                     Launch Modal
                 </button> --}}
-                <a href="#" class="btn btn-outline-success"><i class="fas fa-plus"></i> Tambah User</a>
+                <a href="#createUser" data-toggle="modal" class="btn btn-outline-success"><i class="fas fa-plus"></i> Tambah</a>
               </div>
             </div>
             <!-- /.card-header -->
@@ -209,6 +209,49 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-primary" data-dismiss="modal">Update</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade text-left" id="createUser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel33">Tambah User</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form action="#">
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>NIDN</label>
+                                    <div class="form-group">
+                                        <input type="number" placeholder="NIDN" class="form-control">
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-12">
+                                    <label>Nama</label>
+                                    <div class="form-group">
+                                        <input type="text" placeholder="Nama" class="form-control">
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-12">
+                                    <label>Kata Sandi</label>
+                                    <div class="form-group">
+                                        <input type="password" placeholder="Kata Sandi" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Tambah User</button>
                         </div>
                     </form>
                 </div>
