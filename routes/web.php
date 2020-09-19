@@ -24,6 +24,7 @@ Route::namespace('admin')->name('admin.')->prefix('admin')->group(function() {
     Route::view('', 'index')->name('index');
     Route::namespace('master')->name('master.')->prefix('master')->group(function() {
         Route::view('dosen', 'master.dosen')->name('dosen');
+        Route::view('pimpinan', 'master.pimpinan')->name('pimpinan');
         Route::view('prodi', 'master.prodi')->name('prodi');
         Route::view('skema', 'master.skema')->name('skema');
         Route::view('user', 'master.user')->name('user');
