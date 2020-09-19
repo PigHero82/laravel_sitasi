@@ -87,7 +87,21 @@
     <div class="main-menu menu-fixed menu-light menu-accordion menu-shadow" data-scroll-to-active="true">
         <div class="navbar-header">
             <ul class="nav navbar-nav flex-row">
-                <li class="nav-item mr-auto"><a class="navbar-brand" href="#">
+                <li class="nav-item mr-auto"><a class="navbar-brand" href="
+                    @if (request()->is('admin*'))
+                        {{ route('admin.index') }}
+                    @elseif (request()->is('dosen*'))
+                        {{ route('dosen.index') }}
+                    @elseif (request()->is('pimpinan*'))
+                        #
+                    @elseif (request()->is('penelitian*'))
+                        #
+                    @elseif (request()->is('pengabdian*'))
+                        #
+                    @elseif (request()->is('reviewer'))
+                        #
+                    @endif
+                    ">
                         <div class="brand-logo"></div>
                         <h2 class="brand-text mb-0">Vuexy</h2>
                     </a></li>
