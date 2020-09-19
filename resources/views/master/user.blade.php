@@ -29,7 +29,7 @@
                 {{-- <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#inlineForm">
                     Launch Modal
                 </button> --}}
-                <a href="#" class="btn btn-outline-success"><i class="fas fa-sync-alt"></i> Sinkronisasi Data Dosen</a>
+                <a href="#" class="btn btn-outline-success"><i class="fas fa-plus"></i> Tambah User</a>
               </div>
             </div>
             <!-- /.card-header -->
@@ -52,7 +52,7 @@
                                     <li>Admin</li>
                                 </ul>
                             </td>
-                            <td><button class="btn btn-success"><i class="fas fa-key"></i> Reset Password</button></td>
+                            <td><button class="btn btn-primary"><i class="fas fa-key"></i> Reset Password</button></td>
                         </tr>
                         <tr>
                             <td><a href="#inlineForm" data-toggle="modal">0843098017</a></td>
@@ -63,7 +63,7 @@
                                     <li>Dosen</li>
                                 </ul>
                             </td>
-                            <td><button class="btn btn-success"><i class="fas fa-key"></i> Reset Password</button></td>
+                            <td><button class="btn btn-primary"><i class="fas fa-key"></i> Reset Password</button></td>
                         </tr>
                         <tr>
                             <td><a href="#inlineForm" data-toggle="modal">0864093620</a></td>
@@ -74,7 +74,7 @@
                                     <li>Reviewer</li>
                                 </ul>
                             </td>
-                            <td><button class="btn btn-success"><i class="fas fa-key"></i> Reset Password</button></td>
+                            <td><button class="btn btn-primary"><i class="fas fa-key"></i> Reset Password</button></td>
                         </tr>
                         <tr>
                             <td><a href="#inlineForm" data-toggle="modal">0813584614</a></td>
@@ -85,7 +85,7 @@
                                     <li>Penelitian</li>
                                 </ul>
                             </td>
-                            <td><button class="btn btn-success"><i class="fas fa-key"></i> Reset Password</button></td>
+                            <td><button class="btn btn-primary"><i class="fas fa-key"></i> Reset Password</button></td>
                         </tr>
                         <tr>
                             <td><a href="#inlineForm" data-toggle="modal">0894370767</a></td>
@@ -96,7 +96,7 @@
                                     <li>Pengabdian</li>
                                 </ul>
                             </td>
-                            <td><button class="btn btn-success"><i class="fas fa-key"></i> Reset Password</button></td>
+                            <td><button class="btn btn-primary"><i class="fas fa-key"></i> Reset Password</button></td>
                         </tr>
                     </tbody>
                     <tfoot>
