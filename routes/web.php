@@ -14,14 +14,14 @@ use Illuminate\Support\Facades\Route;
 */
 Route::redirect('', 'dosen', 301);
 
-Route::view('profil', 'index')->name('profil');
+Route::view('profil', 'profil')->name('profil');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
 Route::namespace('admin')->name('admin.')->prefix('admin')->group(function() {
-    Route::view('', 'index')->name('index');
+    Route::view('', 'index.admin')->name('index');
     Route::namespace('master')->name('master.')->prefix('master')->group(function() {
         Route::view('dosen', 'master.dosen')->name('dosen');
         Route::view('prodi', 'master.prodi')->name('prodi');
@@ -38,7 +38,7 @@ Route::namespace('admin')->name('admin.')->prefix('admin')->group(function() {
 });
 
 Route::namespace('dosen')->name('dosen.')->prefix('dosen')->group(function() {
-    Route::view('', 'index')->name('index');
+    Route::view('', 'index.dosen')->name('index');
     Route::view('tanggungan', 'tanggungan')->name('tanggungan');
     Route::namespace('publikasi')->name('publikasi.')->prefix('publikasi')->group(function() {
         Route::view('', 'publikasi.index')->name('index');
