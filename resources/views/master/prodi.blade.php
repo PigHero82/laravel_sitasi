@@ -83,20 +83,6 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-12">
-                                    <label>Pimpinan</label>
-                                    <div class="form-group">
-                                        <select class="form-control" name="" id="">
-                                            <option value="" hidden>--Pilih Dosen</option>
-                                            <option value="">Airi Satou - 0894370767</option>
-                                            <option value="">Ashton Cox - 0864093620</option>
-                                            <option value="">Cedric Kelly - 0813584614</option>
-                                            <option value="">Garrett Winters - 0843098017</option>
-                                            <option value="">Tiger Nixon - 0898841078</option>
-                                        </select>
-                                    </div>
-                                </div>
-
                             </div>
                         </div>
                         <div class="modal-footer">
