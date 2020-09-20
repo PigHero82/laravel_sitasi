@@ -24,11 +24,6 @@
               <h3 class="card-title">Dosen</h3>
 
               <div class="card-tools">
-
-                
-                {{-- <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#inlineForm">
-                    Launch Modal
-                </button> --}}
                 <a href="#" class="btn btn-outline-success"><i class="fas fa-sync-alt"></i> Sinkronisasi Data Dosen</a>
               </div>
             </div>

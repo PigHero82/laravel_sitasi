@@ -29,6 +29,10 @@ Route::namespace('admin')->name('admin.')->prefix('admin')->group(function() {
         Route::view('skema', 'master.skema')->name('skema');
         Route::view('user', 'master.user')->name('user');
     });
+    Route::namespace('review')->name('review.')->prefix('review')->group(function() {
+        Route::view('pembagian-reviewer', 'review.pembagian-reviewer')->name('pembagian-reviewer');
+        Route::view('penilaian', 'review.penilaian')->name('penilaian');
+    });
     Route::view('pimpinan', 'master.pimpinan')->name('pimpinan');
     Route::view('skema', 'skema')->name('skema');
 });

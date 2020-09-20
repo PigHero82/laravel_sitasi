@@ -13,6 +13,14 @@
                     <li class="@yield('riwayatactive')"><a href="#"><i></i><span class="menu-item">Riwayat Usulan</span></a></li> --}}
                 </ul>
             </li>
+            <li class="nav-item"><a href="#" title="Review"><i class="feather icon-mail"></i><span class="menu-title">Review</span></a>
+                <ul class="menu-content">
+                    <li class="{{ (request()->is('admin/review/pembagian-reviewer*')) ? 'active' : '' }}"><a href="{{ route('admin.review.pembagian-reviewer') }}" title="Dosen"><i></i><span class="menu-item">Pembagian Reviewer</span></a></li>
+                    <li class="{{ (request()->is('admin/review/penilaian*')) ? 'active' : '' }}"><a href="{{ route('admin.review.penilaian') }}" title="User"><i></i><span class="menu-item">Penilaian</span></a></li>
+                    {{-- <li class="@yield('tanggunganactive')"><a href="{{ route('dosen.tanggungan') }}"><i></i><span class="menu-item">Tanggungan</span></a></li>
+                    <li class="@yield('riwayatactive')"><a href="#"><i></i><span class="menu-item">Riwayat Usulan</span></a></li> --}}
+                </ul>
+            </li>
             <li class="{{ (request()->is('admin/skema')) ? 'active' : '' }} nav-item"><a href="{{ route('admin.skema') }}" title="Skema Usulan"><i class="feather icon-calendar"></i><span class="menu-title">Skema Usulan</span></a></li>
             <li class="{{ (request()->is('admin/pimpinan*')) ? 'active' : '' }} nav-item"><a href="{{ route('admin.pimpinan') }}" title="Pimpinan & Koordinator"><i class="feather icon-calendar"></i><span class="menu-item">Pimpinan & Koordinator</span></a></li>
             {{-- <li class="@yield('persetujuanactive') nav-item"><a href="#"><i class="feather icon-user"></i><span class="menu-title">Persetujuan Personil</span></a></li> --}}
