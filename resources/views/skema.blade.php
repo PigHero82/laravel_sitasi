@@ -24,38 +24,46 @@
           <div class="card">
             <div class="card-header">
               <h3 class="card-title">Skema Penelitian</h3>
+              <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+              <div class="heading-elements">
+                  <ul class="list-inline mb-0">
+                      <li><a data-action="collapse"><i class="feather icon-chevron-down"></i></a></li>
+                  </ul>
+              </div>
 
-              <div class="card-tools">
-                <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#modalPenelitian">
-                    <i class="fas fa-plus"></i> Tambah
-                </button>
+              <div class="card-tools mr-3">
+                  <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#modalPenelitian">
+                      <i class="fas fa-plus"></i> Tambah
+                  </button>
               </div>
             </div>
             <!-- /.card-header -->
-            <div class="card-body">
-                <table id="myTable" class="table zero-configuration" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th>Nama Skema</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><a href="#modalPenelitian" data-toggle="modal">Penelitian 1</a></td>
-                        </tr>
-                        <tr>
-                            <td><a href="#modalPenelitian" data-toggle="modal">Penelitian 2</a></td>
-                        </tr>
-                        <tr>
-                            <td><a href="#modalPenelitian" data-toggle="modal">Penelitian 3</a></td>
-                        </tr>
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <th>Nama Skema</th>
-                        </tr>
-                    </tfoot>
-                </table>
+            <div class="card-content collapse show">
+                <div class="card-body">
+                    <table id="myTable" class="table zero-configuration" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Nama Skema</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="#modalPenelitian" data-toggle="modal">Penelitian 1</a></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#modalPenelitian" data-toggle="modal">Penelitian 2</a></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#modalPenelitian" data-toggle="modal">Penelitian 3</a></td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Nama Skema</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
             </div>
             <!-- /.card-body -->
           </div>
@@ -66,38 +74,46 @@
           <div class="card">
             <div class="card-header">
               <h3 class="card-title">Skema Pengabdian</h3>
+              <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+              <div class="heading-elements">
+                  <ul class="list-inline mb-0">
+                      <li><a data-action="collapse"><i class="feather icon-chevron-down"></i></a></li>
+                  </ul>
+              </div>
 
-              <div class="card-tools">
-                <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#modalPengabdian">
-                    <i class="fas fa-plus"></i> Tambah
-                </button>
+              <div class="card-tools mr-3">
+                  <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#modalPenelitian">
+                      <i class="fas fa-plus"></i> Tambah
+                  </button>
               </div>
             </div>
             <!-- /.card-header -->
-            <div class="card-body">
-                <table id="myTable" class="table zero-configuration" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th>Nama Skema</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><a href="#modalPengabdian" data-toggle="modal">Pengabdian 1</a></td>
-                        </tr>
-                        <tr>
-                            <td><a href="#modalPengabdian" data-toggle="modal">Pengabdian 2</a></td>
-                        </tr>
-                        <tr>
-                            <td><a href="#modalPengabdian" data-toggle="modal">Pengabdian 3</a></td>
-                        </tr>
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <th>Nama Skema</th>
-                        </tr>
-                    </tfoot>
-                </table>
+            <div class="card-content collapse show">
+                <div class="card-body">
+                    <table id="myTable" class="table zero-configuration" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Nama Skema</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="#modalPengabdian" data-toggle="modal">Pengabdian 1</a></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#modalPengabdian" data-toggle="modal">Pengabdian 2</a></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#modalPengabdian" data-toggle="modal">Pengabdian 3</a></td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Nama Skema</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
             </div>
             <!-- /.card-body -->
           </div>

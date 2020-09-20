@@ -24,63 +24,71 @@
           <div class="card">
             <div class="card-header">
               <h3 class="card-title">Usulan Penelitian</h3>
+              <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+              <div class="heading-elements">
+                  <ul class="list-inline mb-0">
+                      <li><a data-action="collapse"><i class="feather icon-chevron-down"></i></a></li>
+                  </ul>
+              </div>
 
-              <div class="card-tools">
+              <div class="card-tools mr-3">
                 <a href="#" class="btn btn-outline-success"><i class="fas fa-sync-alt"></i> Acak Reviewer</a>
               </div>
             </div>
             <!-- /.card-header -->
-            <div class="card-body">
-                <table id="myTable" class="table zero-configuration" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th style="width: 50%">Judul</th>
-                            <th>Skema Usulan</th>
-                            <th>Tahun Pelaksanaan</th>
-                            <th>Reviewer</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><a href="#modalPenelitian" data-toggle="modal">Implementasi Komik Interaktif Cerita Rakyat Cupak Grantang dengan Bahasa Isyarat berbasis Mobile</a></td>
-                            <td>2020 - Penelitian 1</td>
-                            <td>2020</td>
-                            <td>-</td>
-                        </tr>
-                        <tr>
-                            <td><a href="#modalPenelitian" data-toggle="modal">Penerapan Extreme Programming pada Sistem Pengarsipan Lembaga Penelitian dan Pengabdian Masyarakat STMIK STIKOM Indonesia</a></td>
-                            <td>2020 - Penelitian 1</td>
-                            <td>2020</td>
-                            <td>-</td>
-                        </tr>
-                        <tr>
-                            <td><a href="#modalPenelitian" data-toggle="modal">Analisa Prosodi Lirik Pupuh Pucung pada Software Speech Synthesis Mbrola</a></td>
-                            <td>2020 - Penelitian 1</td>
-                            <td>2020</td>
-                            <td>-</td>
-                        </tr>
-                        <tr>
-                            <td><a href="#modalPenelitian" data-toggle="modal">Implementasi Metode Certainty Factor Untuk Diagnosa Penyakit Mata Merah Visus Turun Pada Manusia</a></td>
-                            <td>2020 - Penelitian 1</td>
-                            <td>2020</td>
-                            <td>-</td>
-                        </tr>
-                        <tr>
-                            <td><a href="#modalPenelitian" data-toggle="modal">Education Data Mining pada E-Learning STMIK STIKOM Indonesia Menggunakan Metode Fuzzy C-Means dan Algoritma Apriori</a></td>
-                            <td>2020 - Penelitian 1</td>
-                            <td>2020</td>
-                            <td>-</td>
-                        </tr>
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <th>Judul</th>
-                            <th>Skema Usulan</th>
-                            <th>Tahun Pelaksanaan</th>
-                            <th>Reviewer</th>
-                        </tr>
-                    </tfoot>
-                </table>
+            <div class="card-content collapse show">
+                <div class="card-body">
+                    <table id="myTable" class="table zero-configuration" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th style="width: 50%">Judul</th>
+                                <th>Skema Usulan</th>
+                                <th>Tahun Pelaksanaan</th>
+                                <th>Reviewer</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="#modalPenelitian" data-toggle="modal">Implementasi Komik Interaktif Cerita Rakyat Cupak Grantang dengan Bahasa Isyarat berbasis Mobile</a></td>
+                                <td>2020 - Penelitian 1</td>
+                                <td>2020</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#modalPenelitian" data-toggle="modal">Penerapan Extreme Programming pada Sistem Pengarsipan Lembaga Penelitian dan Pengabdian Masyarakat STMIK STIKOM Indonesia</a></td>
+                                <td>2020 - Penelitian 1</td>
+                                <td>2020</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#modalPenelitian" data-toggle="modal">Analisa Prosodi Lirik Pupuh Pucung pada Software Speech Synthesis Mbrola</a></td>
+                                <td>2020 - Penelitian 1</td>
+                                <td>2020</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#modalPenelitian" data-toggle="modal">Implementasi Metode Certainty Factor Untuk Diagnosa Penyakit Mata Merah Visus Turun Pada Manusia</a></td>
+                                <td>2020 - Penelitian 1</td>
+                                <td>2020</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#modalPenelitian" data-toggle="modal">Education Data Mining pada E-Learning STMIK STIKOM Indonesia Menggunakan Metode Fuzzy C-Means dan Algoritma Apriori</a></td>
+                                <td>2020 - Penelitian 1</td>
+                                <td>2020</td>
+                                <td>-</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Judul</th>
+                                <th>Skema Usulan</th>
+                                <th>Tahun Pelaksanaan</th>
+                                <th>Reviewer</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
             </div>
             <!-- /.card-body -->
           </div>
@@ -91,63 +99,71 @@
           <div class="card">
             <div class="card-header">
               <h3 class="card-title">Usulan Pengabdian</h3>
+              <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+              <div class="heading-elements">
+                  <ul class="list-inline mb-0">
+                      <li><a data-action="collapse"><i class="feather icon-chevron-down"></i></a></li>
+                  </ul>
+              </div>
 
-              <div class="card-tools">
+              <div class="card-tools mr-3">
                 <a href="#" class="btn btn-outline-success"><i class="fas fa-sync-alt"></i> Acak Reviewer</a>
               </div>
             </div>
             <!-- /.card-header -->
-            <div class="card-body">
-                <table id="myTable" class="table zero-configuration" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th style="width: 50%">Judul</th>
-                            <th>Skema Usulan</th>
-                            <th>Tahun Pelaksanaan</th>
-                            <th>Reviewer</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><a href="#modalPengabdian" data-toggle="modal">Pelatihan Teknologi Komputer Dasar DI Taman Belajar Anak Br Pedahan Kaja Desa Tianyar Tengah, Kecamatan Kubu, Karangasem</a></td>
-                            <td>2020 - Pengabdian 1</td>
-                            <td>2020</td>
-                            <td>-</td>
-                        </tr>
-                        <tr>
-                            <td><a href="#modalPengabdian" data-toggle="modal">Implementasi dan Pengelolaan Mobile Based E-complaint System Bagi Masyarakat Desa Kukuh Kecamatan Kerambitan Kabupaten Tabanan</a></td>
-                            <td>2020 - Pengabdian 1</td>
-                            <td>2020</td>
-                            <td>-</td>
-                        </tr>
-                        <tr>
-                            <td><a href="#modalPengabdian" data-toggle="modal">Pelatihan Media Pembelajaran Guru SD 1 Pesaban berbasis daring</a></td>
-                            <td>2020 - Pengabdian 1</td>
-                            <td>2020</td>
-                            <td>-</td>
-                        </tr>
-                        <tr>
-                            <td><a href="#modalPengabdian" data-toggle="modal">PKM Perbekel Desa Kukuh Kecamata Kerambitan Kabupaten Tabanan</a></td>
-                            <td>2020 - Pengabdian 1</td>
-                            <td>2020</td>
-                            <td>-</td>
-                        </tr>
-                        <tr>
-                            <td><a href="#modalPengabdian" data-toggle="modal">PKM Penerapan Sistem Informasi Manajemen Dalam Peningkatan Kualitas Pengelolaan Data Penjualan BUMDes Kukuh Winangun</a></td>
-                            <td>2020 - Pengabdian 1</td>
-                            <td>2020</td>
-                            <td>-</td>
-                        </tr>
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <th>Judul</th>
-                            <th>Skema Usulan</th>
-                            <th>Tahun Pelaksanaan</th>
-                            <th>Reviewer</th>
-                        </tr>
-                    </tfoot>
-                </table>
+            <div class="card-content collapse show">
+                <div class="card-body">
+                    <table id="myTable" class="table zero-configuration" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th style="width: 50%">Judul</th>
+                                <th>Skema Usulan</th>
+                                <th>Tahun Pelaksanaan</th>
+                                <th>Reviewer</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="#modalPengabdian" data-toggle="modal">Pelatihan Teknologi Komputer Dasar DI Taman Belajar Anak Br Pedahan Kaja Desa Tianyar Tengah, Kecamatan Kubu, Karangasem</a></td>
+                                <td>2020 - Pengabdian 1</td>
+                                <td>2020</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#modalPengabdian" data-toggle="modal">Implementasi dan Pengelolaan Mobile Based E-complaint System Bagi Masyarakat Desa Kukuh Kecamatan Kerambitan Kabupaten Tabanan</a></td>
+                                <td>2020 - Pengabdian 1</td>
+                                <td>2020</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#modalPengabdian" data-toggle="modal">Pelatihan Media Pembelajaran Guru SD 1 Pesaban berbasis daring</a></td>
+                                <td>2020 - Pengabdian 1</td>
+                                <td>2020</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#modalPengabdian" data-toggle="modal">PKM Perbekel Desa Kukuh Kecamata Kerambitan Kabupaten Tabanan</a></td>
+                                <td>2020 - Pengabdian 1</td>
+                                <td>2020</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#modalPengabdian" data-toggle="modal">PKM Penerapan Sistem Informasi Manajemen Dalam Peningkatan Kualitas Pengelolaan Data Penjualan BUMDes Kukuh Winangun</a></td>
+                                <td>2020 - Pengabdian 1</td>
+                                <td>2020</td>
+                                <td>-</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Judul</th>
+                                <th>Skema Usulan</th>
+                                <th>Tahun Pelaksanaan</th>
+                                <th>Reviewer</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
             </div>
             <!-- /.card-body -->
           </div>
