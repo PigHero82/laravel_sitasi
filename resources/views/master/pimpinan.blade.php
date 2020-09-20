@@ -6,7 +6,7 @@
 @endsection
 
 @section('judul')
-    Data Master
+    Dosen Pimpinan & Koordinator
 @endsection
 
 @section('content')
@@ -43,18 +43,18 @@
                     <tbody>
                         <tr>
                             <td><a href="#modal" data-toggle="modal">Pimpinan LPPM</a></td>
-                            <td>0898841078</td>
-                            <td>Tiger Nixon</td>
+                            <td>0824048801</td>
+                            <td>Ida Bagus Ary Indra Iswara, M.Kom.</td>
                         </tr>
                         <tr>
-                            <td><a href="#modal" data-toggle="modal">Koordinator Penelitian</a></td>
-                            <td>0843098017</td>
-                            <td>Garrett Winters</td>
+                            <td><a href="#modal" data-toggle="modal">Kaprodi Teknik Informatika</a></td>
+                            <td>0822088901</td>
+                            <td>Wayan Gede Suka Parwita, M.Cs.</td>
                         </tr>
                         <tr>
-                            <td><a href="#modal" data-toggle="modal">Koordinator Pengabdian</a></td>
-                            <td>0864093620</td>
-                            <td>Ashton Cox</td>
+                            <td><a href="#modal" data-toggle="modal">Kaprodi Sistem Komputer</a></td>
+                            <td>0822088902</td>
+                            <td>I Nyoman Buda Hartawan, M.Kom.</td>
                         </tr>
                     </tbody>
                     <tfoot>
@@ -95,8 +95,8 @@
                                         <select class="form-control" name="" id="">
                                             <option value="" hidden>--Pilih Keterangan</option>
                                             <option value="">Pimpinan LPPM</option>
-                                            <option value="">Koordinator Penelitian</option>
-                                            <option value="">Koordinator Pengabdian</option>
+                                            <option value="">Kaprodi Teknik Informatika</option>
+                                            <option value="">Kaprodi Sistem Komputer</option>
                                         </select>
                                     </div>
                                 </div>

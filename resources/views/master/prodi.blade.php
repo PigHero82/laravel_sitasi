@@ -35,28 +35,20 @@
                 <table id="myTable" class="table zero-configuration" style="width:100%">
                     <thead>
                         <tr>
-                            <th>Nama</th>
-                            <th>NIDN</th>
-                            <th>Dosen</th>
+                            <th>Keterangan</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td><a href="#modal" data-toggle="modal">Teknik Informatika</a></td>
-                            <td>0822088901</td>
-                            <td>Wayan Gede Suka Parwita, M.Cs.</td>
                         </tr>
                         <tr>
                             <td><a href="#modal" data-toggle="modal">Sistem Komputer</a></td>
-                            <td>0822088902</td>
-                            <td>I Nyoman Buda Hartawan, M.Kom.</td>
                         </tr>
                     </tbody>
                     <tfoot>
                         <tr>
-                            <th>Nama</th>
-                            <th>NIDN</th>
-                            <th>Dosen</th>
+                            <th>Keterangan</th>
                         </tr>
                     </tfoot>
                 </table>
