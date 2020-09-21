@@ -239,6 +239,7 @@
                                 <th style="width: 60%">Judul</th>
                                 <th>Skema Usulan</th>
                                 <th>Tahun Pelaksanaan</th>
+                                <th>Reviewer</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -246,16 +247,19 @@
                                 <td><a href="#modalPenelitian" data-toggle="modal">Implementasi Komik Interaktif Cerita Rakyat Cupak Grantang dengan Bahasa Isyarat berbasis Mobile</a></td>
                                 <td>2020 - Penelitian 1</td>
                                 <td>2020</td>
+                                <td>Airi Satou</td>
                             </tr>
                             <tr>
                                 <td><a href="#modalPenelitian" data-toggle="modal">Penerapan Extreme Programming pada Sistem Pengarsipan Lembaga Penelitian dan Pengabdian Masyarakat STMIK STIKOM Indonesia</a></td>
                                 <td>2020 - Penelitian 1</td>
                                 <td>2020</td>
+                                <td>-</td>
                             </tr>
                             <tr>
                                 <td><a href="#modalPenelitian" data-toggle="modal">Analisa Prosodi Lirik Pupuh Pucung pada Software Speech Synthesis Mbrola</a></td>
                                 <td>2020 - Penelitian 1</td>
                                 <td>2020</td>
+                                <td>-</td>
                             </tr>
                         </tbody>
                         <tfoot>
@@ -293,6 +297,7 @@
                                 <th style="width: 60%">Judul</th>
                                 <th>Skema Usulan</th>
                                 <th>Tahun Pelaksanaan</th>
+                                <th>Reviewer</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -300,16 +305,19 @@
                                 <td><a href="#modalPengabdian" data-toggle="modal">Pelatihan Teknologi Komputer Dasar DI Taman Belajar Anak Br Pedahan Kaja Desa Tianyar Tengah, Kecamatan Kubu, Karangasem</a></td>
                                 <td>2020 - Pengabdian 1</td>
                                 <td>2020</td>
+                                <td>Garrett Winters</td>
                             </tr>
                             <tr>
                                 <td><a href="#modalPengabdian" data-toggle="modal">Implementasi dan Pengelolaan Mobile Based E-complaint System Bagi Masyarakat Desa Kukuh Kecamatan Kerambitan Kabupaten Tabanan</a></td>
                                 <td>2020 - Pengabdian 1</td>
                                 <td>2020</td>
+                                <td>-</td>
                             </tr>
                             <tr>
                                 <td><a href="#modalPengabdian" data-toggle="modal">Pelatihan Media Pembelajaran Guru SD 1 Pesaban berbasis daring</a></td>
                                 <td>2020 - Pengabdian 1</td>
                                 <td>2020</td>
+                                <td>-</td>
                             </tr>
                         </tbody>
                         <tfoot>
@@ -317,6 +325,7 @@
                                 <th>Judul</th>
                                 <th>Skema Usulan</th>
                                 <th>Tahun Pelaksanaan</th>
+                                <th>Reviewer</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -346,6 +355,10 @@
                             <dl class="row">
                                 <dt class="col-sm-4 text-md-right">Judul</dt>
                                 <dd class="col-sm-8">Implementasi Komik Interaktif Cerita Rakyat Cupak Grantang dengan Bahasa Isyarat berbasis Mobile</dd>
+                            </dl>
+                            <dl class="row">
+                                <dt class="col-sm-4 text-md-right">Reviewer</dt>
+                                <dd class="col-sm-8">Airi Satou</dd>
                             </dl>
                             <dl class="row">
                                 <dt class="col-sm-4 text-md-right">Skema</dt>
@@ -412,6 +425,10 @@
                             <dl class="row">
                                 <dt class="col-sm-4 text-md-right">Judul</dt>
                                 <dd class="col-sm-8">Pelatihan Teknologi Komputer Dasar DI Taman Belajar Anak Br Pedahan Kaja Desa Tianyar Tengah, Kecamatan Kubu, Karangasem</dd>
+                            </dl>
+                            <dl class="row">
+                                <dt class="col-sm-4 text-md-right">Reviewer</dt>
+                                <dd class="col-sm-8">Garrett Winters</dd>
                             </dl>
                             <dl class="row">
                                 <dt class="col-sm-4 text-md-right">Skema</dt>

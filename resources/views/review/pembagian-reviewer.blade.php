@@ -52,7 +52,7 @@
                                 <td><a href="#modalPenelitian" data-toggle="modal">Implementasi Komik Interaktif Cerita Rakyat Cupak Grantang dengan Bahasa Isyarat berbasis Mobile</a></td>
                                 <td>2020 - Penelitian 1</td>
                                 <td>2020</td>
-                                <td>-</td>
+                                <td>Airi Satou</td>
                             </tr>
                             <tr>
                                 <td><a href="#modalPenelitian" data-toggle="modal">Penerapan Extreme Programming pada Sistem Pengarsipan Lembaga Penelitian dan Pengabdian Masyarakat STMIK STIKOM Indonesia</a></td>
@@ -127,7 +127,7 @@
                                 <td><a href="#modalPengabdian" data-toggle="modal">Pelatihan Teknologi Komputer Dasar DI Taman Belajar Anak Br Pedahan Kaja Desa Tianyar Tengah, Kecamatan Kubu, Karangasem</a></td>
                                 <td>2020 - Pengabdian 1</td>
                                 <td>2020</td>
-                                <td>-</td>
+                                <td>Garrett Winters</td>
                             </tr>
                             <tr>
                                 <td><a href="#modalPengabdian" data-toggle="modal">Implementasi dan Pengelolaan Mobile Based E-complaint System Bagi Masyarakat Desa Kukuh Kecamatan Kerambitan Kabupaten Tabanan</a></td>
@@ -175,7 +175,7 @@
 
         <!-- modal penelitian -->
         <div class="modal fade text-left" id="modalPenelitian" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+            <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title" id="myModalLabel33">Detail Usulan Penelitian</h4>
@@ -183,19 +183,66 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form action="#">
-                        <div class="modal-body">
-                            <div class="row">
-
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label for="firstName1">Judul</label>
-                                        <input type="text" class="form-control" value="Implementasi Komik Interaktif Cerita Rakyat Cupak Grantang dengan Bahasa Isyarat berbasis Mobile" disabled>
-                                    </div>
-                                </div>
-
-                                <div class="col-12">
-                                    <label>Reviewer</label>
+                    <div class="modal-body">
+                        <div class="card-text">
+                            <dl class="row">
+                                <dt class="col-sm-4 text-md-right">Judul</dt>
+                                <dd class="col-sm-8">Implementasi Komik Interaktif Cerita Rakyat Cupak Grantang dengan Bahasa Isyarat berbasis Mobile</dd>
+                            </dl>
+                            <dl class="row">
+                                <dt class="col-sm-4 text-md-right">Reviewer</dt>
+                                <dd class="col-sm-8">Airi Satou</dd>
+                            </dl>
+                            <dl class="row">
+                                <dt class="col-sm-4 text-md-right">Skema</dt>
+                                <dd class="col-sm-8">PPDS Batch 1</dd>
+                            </dl>
+                            <dl class="row">
+                                <dt class="col-sm-4 text-md-right">Tahun Usulan</dt>
+                                <dd class="col-sm-8">2020</dd>
+                            </dl>
+                            <dl class="row">
+                                <dt class="col-sm-4 text-md-right">Tahun Penelitian</dt>
+                                <dd class="col-sm-8">2020</dd>
+                            </dl>
+                            <dl class="row">
+                                <dt class="col-sm-4 text-md-right">Jenis Usulan</dt>
+                                <dd class="col-sm-8">Penelitian</dd>
+                            </dl>
+                            <dl class="row">
+                                <dt class="col-sm-4 text-md-right">Proposal</dt>
+                                <dd class="col-sm-8"><a href="#">Berkas Proposal</a></dd>
+                            </dl>
+                            <dl class="row">
+                                <dt class="col-sm-4 text-md-right">Laporan Kemajuan</dt>
+                                <dd class="col-sm-8">-</dd>
+                            </dl>
+                            <dl class="row">
+                                <dt class="col-sm-4 text-md-right">Laporan Akhir</dt>
+                                <dd class="col-sm-8">-</dd>
+                            </dl>
+                            <dl class="row">
+                                <dt class="col-sm-4 text-md-right">Laporan Anggaran</dt>
+                                <dd class="col-sm-8">-</dd>
+                            </dl>
+                            <dl class="row">
+                                <dt class="col-sm-4 text-md-right">Laporan Belanja</dt>
+                                <dd class="col-sm-8">-</dd>
+                            </dl>
+                            <dl class="row">
+                                <dt class="col-sm-4 text-md-right">Laporan Publikasi</dt>
+                                <dd class="col-sm-8">-</dd>
+                            </dl>
+                            <dl class="row">
+                                <dt class="col-sm-4 text-md-right">Link Publikasi/Google Scholar</dt>
+                                <dd class="col-sm-8">-</dd>
+                            </dl>
+                        </div>
+                        <hr/>
+                        <form action="#" method="POST">
+                            <dl class="row mb-0">
+                                <dt class="col-sm-4 text-md-right">Reviewer</dt>
+                                <dd class="col-sm-8">
                                     <div class="form-group">
                                         <select class="form-control" name="" id="">
                                             <option value="" hidden="">--Pilih Reviewer</option>
@@ -206,23 +253,22 @@
                                             <option value="">Tiger Nixon - 0898841078</option>
                                         </select>
                                     </div>
-                                </div>
+                                </dd>
+                            </dl>
 
+                            <div class="modal-footer justify-content-between">
+                                <button type="button" class="btn btn-success" data-dismiss="modal">Pilih Acak</button>
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">Ubah</button>
                             </div>
-
-                        </div>
-                        <div class="modal-footer justify-content-between">
-                            <button type="button" class="btn btn-success" data-dismiss="modal">Pilih Acak</button>
-                            <button type="button" class="btn btn-primary" data-dismiss="modal">Ubah</button>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- modal pengabdian -->
         <div class="modal fade text-left" id="modalPengabdian" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+            <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title" id="myModalLabel33">Detail Usulan Pengabdian</h4>
@@ -230,19 +276,66 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form action="#">
-                        <div class="modal-body">
-                            <div class="row">
-
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label for="firstName1">Judul</label>
-                                        <input type="text" class="form-control" value="Pelatihan Teknologi Komputer Dasar DI Taman Belajar Anak Br Pedahan Kaja Desa Tianyar Tengah, Kecamatan Kubu, Karangasem" disabled>
-                                    </div>
-                                </div>
-
-                                <div class="col-12">
-                                    <label>Reviewer</label>
+                    <div class="modal-body">
+                        <div class="card-text">
+                            <dl class="row">
+                                <dt class="col-sm-4 text-md-right">Judul</dt>
+                                <dd class="col-sm-8">Pelatihan Teknologi Komputer Dasar DI Taman Belajar Anak Br Pedahan Kaja Desa Tianyar Tengah, Kecamatan Kubu, Karangasem</dd>
+                            </dl>
+                            <dl class="row">
+                                <dt class="col-sm-4 text-md-right">Reviewer</dt>
+                                <dd class="col-sm-8">Garrett Winters</dd>
+                            </dl>
+                            <dl class="row">
+                                <dt class="col-sm-4 text-md-right">Skema</dt>
+                                <dd class="col-sm-8">PKM STIKI Peduli (Tahunan) Batch 1</dd>
+                            </dl>
+                            <dl class="row">
+                                <dt class="col-sm-4 text-md-right">Tahun Usulan</dt>
+                                <dd class="col-sm-8">2020</dd>
+                            </dl>
+                            <dl class="row">
+                                <dt class="col-sm-4 text-md-right">Tahun Penelitian</dt>
+                                <dd class="col-sm-8">2020</dd>
+                            </dl>
+                            <dl class="row">
+                                <dt class="col-sm-4 text-md-right">Jenis Usulan</dt>
+                                <dd class="col-sm-8">Pengabdian</dd>
+                            </dl>
+                            <dl class="row">
+                                <dt class="col-sm-4 text-md-right">Proposal</dt>
+                                <dd class="col-sm-8"><a href="#">Berkas Proposal</a></dd>
+                            </dl>
+                            <dl class="row">
+                                <dt class="col-sm-4 text-md-right">Laporan Kemajuan</dt>
+                                <dd class="col-sm-8">-</dd>
+                            </dl>
+                            <dl class="row">
+                                <dt class="col-sm-4 text-md-right">Laporan Akhir</dt>
+                                <dd class="col-sm-8">-</dd>
+                            </dl>
+                            <dl class="row">
+                                <dt class="col-sm-4 text-md-right">Laporan Anggaran</dt>
+                                <dd class="col-sm-8">-</dd>
+                            </dl>
+                            <dl class="row">
+                                <dt class="col-sm-4 text-md-right">Laporan Belanja</dt>
+                                <dd class="col-sm-8">-</dd>
+                            </dl>
+                            <dl class="row">
+                                <dt class="col-sm-4 text-md-right">Laporan Publikasi</dt>
+                                <dd class="col-sm-8">-</dd>
+                            </dl>
+                            <dl class="row">
+                                <dt class="col-sm-4 text-md-right">Link Publikasi/Google Scholar</dt>
+                                <dd class="col-sm-8">-</dd>
+                            </dl>
+                        </div>
+                        <hr/>
+                        <form action="#" method="POST">
+                            <dl class="row mb-0">
+                                <dt class="col-sm-4 text-md-right">Reviewer</dt>
+                                <dd class="col-sm-8">
                                     <div class="form-group">
                                         <select class="form-control" name="" id="">
                                             <option value="" hidden="">--Pilih Reviewer</option>
@@ -253,16 +346,15 @@
                                             <option value="">Tiger Nixon - 0898841078</option>
                                         </select>
                                     </div>
-                                </div>
+                                </dd>
+                            </dl>
 
+                            <div class="modal-footer justify-content-between">
+                                <button type="button" class="btn btn-success" data-dismiss="modal">Pilih Acak</button>
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">Ubah</button>
                             </div>
-
-                        </div>
-                        <div class="modal-footer justify-content-between">
-                            <button type="button" class="btn btn-success" data-dismiss="modal">Pilih Acak</button>
-                            <button type="button" class="btn btn-primary" data-dismiss="modal">Ubah</button>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
