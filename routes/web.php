@@ -58,13 +58,14 @@ Route::namespace('dosen')->name('dosen.')->prefix('dosen')->group(function() {
     });
     Route::namespace('usulan')->name('usulan.')->prefix('usulan')->group(function() {
         Route::view('', 'usulan.index')->name('index');
-        Route::view('1', 'usulan.1')->name('1');
-        Route::view('2', 'usulan.2')->name('2');
-        Route::view('3', 'usulan.3')->name('3');
-        Route::view('4', 'usulan.4')->name('4');
-        Route::view('5', 'usulan.5')->name('5');
-        Route::view('6', 'usulan.6')->name('6');
-        Route::view('7', 'usulan.7')->name('7');
-        Route::view('8', 'usulan.8')->name('8');
+        Route::view('create/1', 'usulan.1')->name('1');
+        Route::view('create/2', 'usulan.2')->name('2');
+        Route::view('create/3', 'usulan.3')->name('3');
+        Route::view('create/4', 'usulan.4')->name('4');
+        Route::view('create/5', 'usulan.5')->name('5');
+        Route::view('create/6', 'usulan.6')->name('6');
+        Route::view('create/7', 'usulan.7')->name('7');
+        Route::view('create/8', 'usulan.8')->name('8');
+        Route::view('riwayat', 'usulan.riwayat')->name('riwayat');
     });
 });

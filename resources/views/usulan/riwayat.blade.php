@@ -1,7 +1,12 @@
 @extends('layout')
 
+@section('css')
+    {{-- <link rel="stylesheet" type="text/css" href="{{ asset('/app-assets/vendors/css/tables/datatable/datatables.min.css') }}"> --}}
+    {{-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.5/css/responsive.dataTables.min.css"> --}}
+@endsection
+
 @section('judul')
-    SITASI
+    Riwayat Penelitian & Pengabdian
 @endsection
 
 @section('content')
@@ -10,225 +15,7 @@
             {{ session()->get('success') }}  
         </div><br />
     @endif
-
-    <div class="row">
-        <!-- left column -->
-        <div class="col-md-6">
-          <!-- general form elements -->
-          <div class="card">
-            <div class="card-header">
-              <h3 class="card-title">Usulan yang Dapat Diajukan</h3>
-            </div>
-            <!-- /.card-header -->
-            <div class="card-body">
-                <table id="myTable" class="table zero-configuration table-striped" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th>Kode</th>
-                            <th>Skema</th>
-                            <th>Jenis Usulan</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>PDP</td>
-                            <td>Penelitian Dosen Pemula</td>
-                            <td>Penelitian</td>
-                        </tr>
-                        <tr>
-                            <td>PPDS Batch 1</td>
-                            <td>Penelitian Pengembangan Dosen STIKI</td>
-                            <td>Penelitian</td>
-                        </tr>
-                        <tr>
-                            <td>PKM STIKI Peduli (Tahunan) Batch 1</td>
-                            <td>Pengabdian Kepada Masyarakat</td>
-                            <td>Pengabdian</td>
-                        </tr>
-                        <tr>
-                            <td>PKM STIKI Peduli (Insidental) Batch 1</td>
-                            <td>Pengabdian Kepada Masyarakat</td>
-                            <td>Pengabdian</td>
-                        </tr>
-                        <tr>
-                            <td>PPDS Batch 2</td>
-                            <td>Penelitian Pengembangan Dosen STIKI Batch 2</td>
-                            <td>Penelitian</td>
-                        </tr>
-                        <tr>
-                            <td>PKM STIKI Peduli (Tahunan) Batch 2</td>
-                            <td>Pengabdian Kepada Masyarakat STIKI Peduli (Tahunan) Batch 2</td>
-                            <td>Pengabdian</td>
-                        </tr>
-                        <tr>
-                            <td>PKM STIKI Peduli (Insidental) Batch 2</td>
-                            <td>Pengabdian Kepada Masyarakat STIKI Peduli (Insidental) Batch 2</td>
-                            <td>Pengabdian</td>
-                        </tr>
-                        <tr>
-                            <td>PPDS</td>
-                            <td>Penelitian Pengembangan Dosen STIKI</td>
-                            <td>Penelitian</td>
-                        </tr>
-                        <tr>
-                            <td>PDM</td>
-                            <td>Penelitian Dosen Mahasiswa</td>
-                            <td>Penelitian</td>
-                        </tr>
-                        <tr>
-                            <td>SSE</td>
-                            <td>STIKI Social Engagement</td>
-                            <td>Pengabdian</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <!-- /.card-body -->
-          </div>
-          <!-- /.card -->
-        </div>
-        <!--/.col (left) -->
-
-        <div class="col-md-6">
-            <div class="row">
-                <!-- left column -->
-                <div class="col-md-12">
-                  <!-- general form elements -->
-                  <div class="card">
-                    <div class="card-header">
-                      <h3 class="card-title">Informasi Pribadi</h3>
-        
-                      <div class="card-tools">
-                        <a href="#" class="btn btn-success">Ubah Profil</a>
-                      </div>
-                    </div>
-                    <!-- /.card-header -->
-                    <div class="card-body">
-                        <div class="card-text">
-                            <dl class="row">
-                                <dt class="col-sm-3 text-right">Foto Profil</dt>
-                                <dd class="col-sm-9">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <img src="{{ asset('app-assets/images/portrait/small/avatar-s-11.jpg') }}" alt="Profile picture">
-                                        </div>
-                                        <div class="col-12">
-                                            <form action="#" method="post">
-                                                <fieldset class="form-group">
-                                                    <label for="basicInputFile"><strong>Ubah Foto</strong> *Maksimal Ukuran Foto 250Kb</label>
-                                                    <div class="custom-file">
-                                                        <input type="file" class="custom-file-input" id="inputGroupFile01">
-                                                        <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-                                                    </div>
-                                                </fieldset>
-                                            </form>
-                                        </div>
-                                        <div class="col-12">
-                                            <button type="button" class="btn btn-primary" data-dismiss="modal">Unggah</button>
-                                        </div>
-                                    </div>
-                                </dd>
-                            </dl>
-                            <dl class="row">
-                                <dt class="col-sm-3 text-right">Nama</dt>
-                                <dd class="col-sm-9">John Doe</dd>
-                            </dl>
-                            <dl class="row">
-                                <dt class="col-sm-3 text-right">NIDN</dt>
-                                <dd class="col-sm-9">0843098017</dd>
-                            </dl>
-                            <dl class="row">
-                                <dt class="col-sm-3 text-right">Email</dt>
-                                <dd class="col-sm-9">john@example.com</dd>
-                            </dl>
-                            <dl class="row">
-                                <dt class="col-sm-3 text-right">Link Google Scholar</dt>
-                                <dd class="col-sm-9"><a href="#" class="text-danger">Ubah Biodata Untuk Setting Link Google Scholar</a></dd>
-                            </dl>
-                        </div>
-                    </div>
-                    <!-- /.card-body -->
-                  </div>
-                  <!-- /.card -->
-                </div>
-                <!--/.col (left) -->
-              </div>
-              <!-- /.row -->
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-xl-3 col-md-4 col-sm-6">
-            <div class="card text-center">
-                <div class="card-content">
-                    <div class="card-body">
-                        <div class="avatar bg-rgba-info p-50 m-0 mb-1">
-                            <div class="avatar-content">
-                                <i class="feather icon-bar-chart-2 text-info font-medium-5"></i>
-                            </div>
-                        </div>
-                        <h2 class="text-bold-700">279</h2>
-                        <p class="mb-0 line-ellipsis">Total Penelitian Internal</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-3 col-md-4 col-sm-6">
-            <div class="card text-center">
-                <div class="card-content">
-                    <div class="card-body">
-                        <div class="avatar bg-rgba-warning p-50 m-0 mb-1">
-                            <div class="avatar-content">
-                                <i class="feather icon-pie-chart text-warning font-medium-5"></i>
-                            </div>
-                        </div>
-                        <h2 class="text-bold-700">0</h2>
-                        <p class="mb-0 line-ellipsis">Total Penelitian Eksternal</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-3 col-md-4 col-sm-6">
-            <div class="card text-center">
-                <div class="card-content">
-                    <div class="card-body">
-                        <div class="avatar bg-rgba-danger p-50 m-0 mb-1">
-                            <div class="avatar-content">
-                                <i class="feather icon-globe text-danger font-medium-5"></i>
-                            </div>
-                        </div>
-                        <h2 class="text-bold-700">90</h2>
-                        <p class="mb-0 line-ellipsis">Total Pengabdian Internal</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-3 col-md-4 col-sm-6">
-            <div class="card text-center">
-                <div class="card-content">
-                    <div class="card-body">
-                        <div class="avatar bg-rgba-primary p-50 m-0 mb-1">
-                            <div class="avatar-content">
-                                <i class="feather icon-users text-primary font-medium-5"></i>
-                            </div>
-                        </div>
-                        <h2 class="text-bold-700">0</h2>
-                        <p class="mb-0 line-ellipsis">Total Pengabdian Eksternal</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     
-    <div class="content-header row">
-        <div class="content-header-left col-md-9 col-12 mb-2">
-            <div class="row breadcrumbs-top">
-                <div class="col-12">
-                    <h2 class="content-header-title mb-0">Riwayat Penelitian & Pengabdian</h2>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="row">
         <!-- left column -->
         <div class="col-md-12">
@@ -238,11 +25,11 @@
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">Daftar Penelitian</h3>
-
-                <div class="card-tools">
-                    <a href="#" class="btn btn-outline-success">
-                        Lihat Semua
-                    </a>
+                <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+                <div class="heading-elements">
+                    <ul class="list-inline mb-0">
+                        <li><a data-action="collapse"><i class="feather icon-chevron-down"></i></a></li>
+                    </ul>
                 </div>
               </div>
               <!-- /.card-header -->
@@ -272,6 +59,16 @@
                                 <td>2020 - Penelitian 1</td>
                                 <td>2020</td>
                             </tr>
+                            <tr>
+                                <td><a href="#modalPenelitian" data-toggle="modal">Implementasi Metode Certainty Factor Untuk Diagnosa Penyakit Mata Merah Visus Turun Pada Manusia</a></td>
+                                <td>2020 - Penelitian 1</td>
+                                <td>2020</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#modalPenelitian" data-toggle="modal">Education Data Mining pada E-Learning STMIK STIKOM Indonesia Menggunakan Metode Fuzzy C-Means dan Algoritma Apriori</a></td>
+                                <td>2020 - Penelitian 1</td>
+                                <td>2020</td>
+                            </tr>
                         </tbody>
                         <tfoot>
                             <tr>
@@ -292,11 +89,11 @@
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">Daftar Pengabdian</h3>
-
-                <div class="card-tools">
-                    <a href="#" class="btn btn-outline-success">
-                        Lihat Semua
-                    </a>
+                <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+                <div class="heading-elements">
+                    <ul class="list-inline mb-0">
+                        <li><a data-action="collapse"><i class="feather icon-chevron-down"></i></a></li>
+                    </ul>
                 </div>
               </div>
               <!-- /.card-header -->
@@ -323,6 +120,16 @@
                             </tr>
                             <tr>
                                 <td><a href="#modalPengabdian" data-toggle="modal">Pelatihan Media Pembelajaran Guru SD 1 Pesaban berbasis daring</a></td>
+                                <td>2020 - Pengabdian 1</td>
+                                <td>2020</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#modalPengabdian" data-toggle="modal">PKM Perbekel Desa Kukuh Kecamata Kerambitan Kabupaten Tabanan</a></td>
+                                <td>2020 - Pengabdian 1</td>
+                                <td>2020</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#modalPengabdian" data-toggle="modal">PKM Penerapan Sistem Informasi Manajemen Dalam Peningkatan Kualitas Pengelolaan Data Penjualan BUMDes Kukuh Winangun</a></td>
                                 <td>2020 - Pengabdian 1</td>
                                 <td>2020</td>
                             </tr>
@@ -369,9 +176,9 @@
                                     <dt class="col-sm-3 text-md-right">Ketua</dt>
                                     <dd class="col-sm-9">Airi Satou</dd>
                                 </dl>
-                                <dl class="row">
-                                    <dt class="col-sm-3 text-md-right">Anggota</dt>
-                                    <dd class="col-sm-9">
+                                <dl class="row mb-0">
+                                    <dt class="col-sm-3 mb-0 text-md-right">Anggota</dt>
+                                    <dd class="col-sm-9 mb-0">
                                         <ul class="list-unstyled">
                                             <li>Ashton Cox</li>
                                             <li class="mt-1">Cedric Kelly</li>
@@ -455,9 +262,9 @@
                                     <dt class="col-sm-3 text-md-right">Ketua</dt>
                                     <dd class="col-sm-9">Airi Satou</dd>
                                 </dl>
-                                <dl class="row">
-                                    <dt class="col-sm-3 text-md-right">Anggota</dt>
-                                    <dd class="col-sm-9">
+                                <dl class="row mb-0">
+                                    <dt class="col-sm-3 mb-0 text-md-right">Anggota</dt>
+                                    <dd class="col-sm-9 mb-0">
                                         <ul class="list-unstyled">
                                             <li>Ashton Cox</li>
                                             <li class="mt-1">Cedric Kelly</li>
@@ -520,11 +327,4 @@
 @endsection
 
 @section('js')
-    <!-- BEGIN: Page Vendor JS-->
-    <script src="{{ asset('app-assets/vendors/js/charts/apexcharts.min.js') }}"></script>
-    <!-- END: Page Vendor JS-->
-
-    <!-- BEGIN: Page JS-->
-    <script src="{{ asset('app-assets/js/scripts/cards/card-statistics.js') }}"></script>
-    <!-- END: Page JS-->
 @endsection
