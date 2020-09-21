@@ -69,3 +69,8 @@ Route::namespace('dosen')->name('dosen.')->prefix('dosen')->group(function() {
         Route::view('riwayat', 'usulan.riwayat')->name('riwayat');
     });
 });
+
+Route::namespace('reviewer')->name('reviewer.')->prefix('reviewer')->group(function() {
+    Route::view('', 'index.reviewer')->name('index');
+    Route::view('review', 'review')->name('review');
+});

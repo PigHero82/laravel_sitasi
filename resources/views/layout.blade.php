@@ -56,15 +56,24 @@
                     <ul class="nav navbar-nav float-right">
                         <li class="nav-item d-none d-lg-block"><a class="nav-link nav-link-expand"><i class="ficon feather icon-maximize"></i></a></li>
                         <li class="dropdown dropdown-user nav-item"><a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
-                                <div class="user-nav d-sm-flex d-none"><span class="user-name text-bold-600">Admin</span><span class="user-status">Dosen</span></div><span><div class="avatar bg-primary mr-1">
+                                <div class="user-nav d-sm-flex d-none"><span class="user-name text-bold-600">Garrett Winters</span><span class="user-status">
+                                    @if (request()->is('admin*'))
+                                        Admin
+                                    @elseif (request()->is('dosen*'))
+                                        Dosen
+                                    @elseif (request()->is('reviewer*'))
+                                        Reviewer
+                                    @endif
+                                </span></div><span><div class="avatar bg-primary mr-1">
                                     <div class="avatar-content">
-                                      A
+                                      GW
                                     </div>
                                 </div></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="page-user-profile.html">Pimpinan</a>
-                                <a class="dropdown-item" href="page-user-profile.html">Reviewer</a>
+                                <a class="dropdown-item" href="{{ route('admin.index') }}">Admin</a>
+                                <a class="dropdown-item" href="{{ route('dosen.index') }}">Dosen</a>
+                                <a class="dropdown-item" href="{{ route('reviewer.index') }}">Reviewer</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="/profil"><i class="feather icon-user"></i> Profil</a>
                                 <div class="dropdown-divider"></div>
@@ -99,7 +108,7 @@
                     @elseif (request()->is('pengabdian*'))
                         #
                     @elseif (request()->is('reviewer'))
-                        #
+                        {{ route('reviewer.index') }}
                     @endif
                     ">
                         <div class="brand-logo"></div>
