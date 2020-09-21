@@ -38,7 +38,7 @@
             <!-- /.card-header -->
             <div class="card-content collapse show">
                 <div class="card-body">
-                    <table id="myTable" class="table zero-configuration" style="width:100%">
+                    <table id="myTable" class="table zero-configuration table-striped table-responsive" style="width:100%">
                         <thead>
                             <tr>
                                 <th style="width: 50%">Judul</th>
@@ -113,7 +113,7 @@
             <!-- /.card-header -->
             <div class="card-content collapse show">
                 <div class="card-body">
-                    <table id="myTable" class="table zero-configuration" style="width:100%">
+                    <table id="myTable" class="table zero-configuration table-striped table-responsive" style="width:100%">
                         <thead>
                             <tr>
                                 <th style="width: 50%">Judul</th>
