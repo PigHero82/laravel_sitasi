@@ -3,7 +3,7 @@
 
         @if (request()->is('admin*'))
             <li class="{{ (request()->is('admin')) ? 'active' : '' }} nav-item"><a href="{{ route('admin.index') }}" title="Dashboard"><i class="feather icon-home"></i><span class="menu-title">Dashboard</span></a></li>
-            <li class="nav-item"><a href="#" title="Data Master"><i class="feather icon-mail"></i><span class="menu-title">Data Master</span></a>
+            <li class="nav-item"><a href="#" title="Data Master"><i class="feather icon-codepen"></i><span class="menu-title">Data Master</span></a>
                 <ul class="menu-content">
                     <li class="{{ (request()->is('admin/master/dosen*')) ? 'active' : '' }}"><a href="{{ route('admin.master.dosen') }}" title="Dosen"><i></i><span class="menu-item">Dosen</span></a></li>
                     <li class="{{ (request()->is('admin/master/user*')) ? 'active' : '' }}"><a href="{{ route('admin.master.user') }}" title="User"><i></i><span class="menu-item">User</span></a></li>
@@ -12,18 +12,18 @@
                     <li class="{{ (request()->is('admin/master/prodi*')) ? 'active' : '' }}"><a href="{{ route('admin.master.prodi') }}" title="Program Studi"><i></i><span class="menu-item">Program Studi</span></a></li>
                 </ul>
             </li>
-            <li class="nav-item"><a href="#" title="Review"><i class="feather icon-mail"></i><span class="menu-title">Review</span></a>
+            <li class="nav-item"><a href="#" title="Review"><i class="feather icon-book"></i><span class="menu-title">Review</span></a>
                 <ul class="menu-content">
                     <li class="{{ (request()->is('admin/review/pembagian-reviewer*')) ? 'active' : '' }}"><a href="{{ route('admin.review.pembagian-reviewer') }}" title="Dosen"><i></i><span class="menu-item">Pembagian Reviewer</span></a></li>
                     <li class="{{ (request()->is('admin/review/penilaian*')) ? 'active' : '' }}"><a href="{{ route('admin.review.penilaian') }}" title="User"><i></i><span class="menu-item">Penilaian</span></a></li>
                 </ul>
             </li>
-            <li class="{{ (request()->is('admin/skema')) ? 'active' : '' }} nav-item"><a href="{{ route('admin.skema') }}" title="Skema Usulan"><i class="feather icon-calendar"></i><span class="menu-title">Skema Usulan</span></a></li>
-            <li class="{{ (request()->is('admin/pimpinan*')) ? 'active' : '' }} nav-item"><a href="{{ route('admin.pimpinan') }}" title="Pimpinan & Koordinator"><i class="feather icon-calendar"></i><span class="menu-item">Pimpinan & Koordinator</span></a></li>
+            <li class="{{ (request()->is('admin/skema')) ? 'active' : '' }} nav-item"><a href="{{ route('admin.skema') }}" title="Skema Usulan"><i class="feather icon-paperclip"></i><span class="menu-title">Skema Usulan</span></a></li>
+            <li class="{{ (request()->is('admin/pimpinan*')) ? 'active' : '' }} nav-item"><a href="{{ route('admin.pimpinan') }}" title="Pimpinan & Koordinator"><i class="feather icon-user"></i><span class="menu-item">Pimpinan & Koordinator</span></a></li>
         
         @elseif (request()->is('dosen*'))
             <li class="{{ (request()->is('dosen')) ? 'active' : '' }} nav-item"><a href="{{ route('dosen.index') }}"><i class="feather icon-home"></i><span class="menu-title">Dashboard</span></a></li>
-            <li class="nav-item"><a href="#"><i class="feather icon-mail"></i><span class="menu-title">Usulan</span></a>
+            <li class="nav-item"><a href="#"><i class="feather icon-book"></i><span class="menu-title">Usulan</span></a>
                 <ul class="menu-content">
                     <li class="{{ (request()->is('dosen/usulan')) || (request()->is('dosen/usulan/create*')) ? 'active' : '' }}"><a href="{{ route('dosen.usulan.index') }}"><i></i><span class="menu-item">Tambah Usulan</span></a></li>
                     <li class="{{ (request()->is('dosen/tanggungan')) ? 'active' : '' }}"><a href="{{ route('dosen.tanggungan') }}"><i></i><span class="menu-item">Tanggungan</span></a></li>
