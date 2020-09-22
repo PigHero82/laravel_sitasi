@@ -69,6 +69,7 @@
                     <table id="myTable" class="table zero-configuration table-striped table-responsive" style="width:100%">
                         <thead>
                             <tr>
+                                <th>Progress</th>
                                 <th style="width: 50%">Judul</th>
                                 <th>Skema Usulan</th>
                                 <th>Tahun Pelaksanaan</th>
@@ -76,6 +77,12 @@
                         </thead>
                         <tbody>
                             <tr>
+                                <td>
+                                    <div class="progress progress-bar-success progress-lg mb-0">
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="20" aria-valuemin="20" aria-valuemax="100" style="width:20%"></div>
+                                    </div>
+                                    <div class="badge badge-pill badge-glow badge-success block">20% | Lengkap</div>
+                                </td>
                                 <td><a href="#modalPengabdian" data-toggle="modal">Pelatihan Teknologi Komputer Dasar DI Taman Belajar Anak Br Pedahan Kaja Desa Tianyar Tengah, Kecamatan Kubu, Karangasem</a></td>
                                 <td>2020 - Pengabdian 1</td>
                                 <td>2020</td>
@@ -83,6 +90,7 @@
                         </tbody>
                         <tfoot>
                             <tr>
+                                <th>Progress</th>
                                 <th>Judul</th>
                                 <th>Skema Usulan</th>
                                 <th>Tahun Pelaksanaan</th>
@@ -130,6 +138,15 @@
                             <dl class="row">
                                 <dt class="col-sm-4 text-md-right">Jenis Usulan</dt>
                                 <dd class="col-sm-8">Penelitian</dd>
+                            </dl>
+                            <dl class="row">
+                                <dt class="col-sm-4 text-md-right">Progress</dt>
+                                <dd class="col-sm-8">
+                                    <div class="progress progress-bar-success progress-lg mb-0">
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="20" aria-valuemin="20" aria-valuemax="100" style="width:20%"></div>
+                                    </div>
+                                    <div class="badge badge-pill badge-glow badge-success block">20% | Lengkap</div>
+                                </dd>
                             </dl>
                             <dl class="row">
                                 <dt class="col-sm-4 text-md-right">Proposal</dt>
@@ -221,6 +238,15 @@
                             <dl class="row">
                                 <dt class="col-sm-4 text-md-right">Jenis Usulan</dt>
                                 <dd class="col-sm-8">Pengabdian</dd>
+                            </dl>
+                            <dl class="row">
+                                <dt class="col-sm-4 text-md-right">Progress</dt>
+                                <dd class="col-sm-8">
+                                    <div class="progress progress-bar-success progress-lg mb-0">
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="20" aria-valuemin="20" aria-valuemax="100" style="width:20%"></div>
+                                    </div>
+                                    <div class="badge badge-pill badge-glow badge-success block">20% | Lengkap</div>
+                                </dd>
                             </dl>
                             <dl class="row">
                                 <dt class="col-sm-4 text-md-right">Proposal</dt>
