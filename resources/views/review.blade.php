@@ -69,31 +69,36 @@
                     <table id="myTable" class="table zero-configuration table-striped table-responsive" style="width:100%">
                         <thead>
                             <tr>
-                                <th>Progress</th>
+                                {{-- <th>Progress</th> --}}
                                 <th style="width: 50%">Judul</th>
                                 <th>Skema Usulan</th>
                                 <th>Tahun Pelaksanaan</th>
+                                <th>Status Review</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>
+                                {{-- <td>
                                     <div class="progress progress-bar-success progress-lg mb-0">
                                         <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="20" aria-valuemin="20" aria-valuemax="100" style="width:20%"></div>
                                     </div>
                                     <div class="badge badge-pill badge-glow badge-success block">20% | Lengkap</div>
-                                </td>
+                                </td> --}}
                                 <td><a href="#modalPengabdian" data-toggle="modal">Pelatihan Teknologi Komputer Dasar DI Taman Belajar Anak Br Pedahan Kaja Desa Tianyar Tengah, Kecamatan Kubu, Karangasem</a></td>
                                 <td>2020 - Pengabdian 1</td>
                                 <td>2020</td>
+                                <td><h3 class="text-success"><i class="feather icon-check"></i></h3></td>
+                                {{-- <td><h3 class="text-danger"><i class="feather icon-x"></i></h3></td> --}}
+                                {{-- <td><h3 class="text-warning"><i class="feather icon-clock"></i></h3></td> --}}
                             </tr>
                         </tbody>
                         <tfoot>
                             <tr>
-                                <th>Progress</th>
+                                {{-- <th>Progress</th> --}}
                                 <th>Judul</th>
                                 <th>Skema Usulan</th>
                                 <th>Tahun Pelaksanaan</th>
+                                <th>Status Review</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -139,7 +144,7 @@
                                 <dt class="col-sm-4 text-md-right">Jenis Usulan</dt>
                                 <dd class="col-sm-8">Penelitian</dd>
                             </dl>
-                            <dl class="row">
+                            {{-- <dl class="row">
                                 <dt class="col-sm-4 text-md-right">Progress</dt>
                                 <dd class="col-sm-8">
                                     <div class="progress progress-bar-success progress-lg mb-0">
@@ -147,7 +152,7 @@
                                     </div>
                                     <div class="badge badge-pill badge-glow badge-success block">20% | Lengkap</div>
                                 </dd>
-                            </dl>
+                            </dl> --}}
                             <dl class="row">
                                 <dt class="col-sm-4 text-md-right">Proposal</dt>
                                 <dd class="col-sm-8"><a href="#">Berkas Proposal</a></dd>
@@ -175,6 +180,67 @@
                             <dl class="row">
                                 <dt class="col-sm-4 text-md-right">Link Publikasi/Google Scholar</dt>
                                 <dd class="col-sm-8">-</dd>
+                            </dl>
+                            <dl class="row">
+                                <dt class="col-sm-4 text-md-right">Rencana Anggaran</dt>
+                                <dd class="col-sm-8">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th rowspan="2" class="text-center align-middle my-auto">Jenis Pembelanjaan</th>
+                                                    <th rowspan="2" class="text-center align-middle my-auto">Tahun</th>
+                                                    <th rowspan="2" class="text-center align-middle my-auto">Penggunaan</th>
+                                                    <th rowspan="2" class="text-center align-middle my-auto">Nama Item</th>
+                                                    <th colspan="6" class="text-center">Volume</th>
+                                                    <th colspan="2" rowspan="2" class="text-center align-middle my-auto">Total</th>
+                                                </tr>
+                                                <tr>
+                                                    <th class="text-center">Jumlah</th>
+                                                    <th class="text-center">Satuan</th>
+                                                    <th class="text-center">Jumlah</th>
+                                                    <th class="text-center">Satuan</th>
+                                                    <th class="text-center">Jumlah</th>
+                                                    <th class="text-center">Satuan</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr class="text-center">
+                                                    <td>BELANJA BARANG NON OPERASIONAL LAINNYA</td>
+                                                    <td>1</td>
+                                                    <td>Konsumsi</td>
+                                                    <td>Uang Makan</td>
+                                                    <td>80</td>
+                                                    <td>Orang</td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td>Rp. 20.000</td>
+                                                    <td>Rp. 1.000.000</td>
+                                                </tr>
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <th rowspan="2" class="text-center align-middle my-auto">Jenis Pembelanjaan</th>
+                                                    <th rowspan="2" class="text-center align-middle my-auto">Tahun</th>
+                                                    <th rowspan="2" class="text-center align-middle my-auto">Penggunaan</th>
+                                                    <th rowspan="2" class="text-center align-middle my-auto">Nama Item</th>
+                                                    <th class="text-center">Jumlah</th>
+                                                    <th class="text-center">Satuan</th>
+                                                    <th class="text-center">Jumlah</th>
+                                                    <th class="text-center">Satuan</th>
+                                                    <th class="text-center">Jumlah</th>
+                                                    <th class="text-center">Satuan</th>
+                                                    <th colspan="2" rowspan="2" class="text-center align-middle my-auto">Total</th>
+                                                </tr>
+                                                <tr>
+                                                    <th colspan="6" class="text-center">Volume</th>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </dd>
                             </dl>
                         </div>
                         <hr/>
@@ -239,7 +305,7 @@
                                 <dt class="col-sm-4 text-md-right">Jenis Usulan</dt>
                                 <dd class="col-sm-8">Pengabdian</dd>
                             </dl>
-                            <dl class="row">
+                            {{-- <dl class="row">
                                 <dt class="col-sm-4 text-md-right">Progress</dt>
                                 <dd class="col-sm-8">
                                     <div class="progress progress-bar-success progress-lg mb-0">
@@ -247,7 +313,7 @@
                                     </div>
                                     <div class="badge badge-pill badge-glow badge-success block">20% | Lengkap</div>
                                 </dd>
-                            </dl>
+                            </dl> --}}
                             <dl class="row">
                                 <dt class="col-sm-4 text-md-right">Proposal</dt>
                                 <dd class="col-sm-8"><a href="#">Berkas Proposal</a></dd>
@@ -275,6 +341,67 @@
                             <dl class="row">
                                 <dt class="col-sm-4 text-md-right">Link Publikasi/Google Scholar</dt>
                                 <dd class="col-sm-8">-</dd>
+                            </dl>
+                            <dl class="row">
+                                <dt class="col-sm-4 text-md-right">Rencana Anggaran</dt>
+                                <dd class="col-sm-8">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th rowspan="2" class="text-center align-middle my-auto">Jenis Pembelanjaan</th>
+                                                    <th rowspan="2" class="text-center align-middle my-auto">Tahun</th>
+                                                    <th rowspan="2" class="text-center align-middle my-auto">Penggunaan</th>
+                                                    <th rowspan="2" class="text-center align-middle my-auto">Nama Item</th>
+                                                    <th colspan="6" class="text-center">Volume</th>
+                                                    <th colspan="2" rowspan="2" class="text-center align-middle my-auto">Total</th>
+                                                </tr>
+                                                <tr>
+                                                    <th class="text-center">Jumlah</th>
+                                                    <th class="text-center">Satuan</th>
+                                                    <th class="text-center">Jumlah</th>
+                                                    <th class="text-center">Satuan</th>
+                                                    <th class="text-center">Jumlah</th>
+                                                    <th class="text-center">Satuan</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr class="text-center">
+                                                    <td>BELANJA BARANG NON OPERASIONAL LAINNYA</td>
+                                                    <td>1</td>
+                                                    <td>Konsumsi</td>
+                                                    <td>Uang Makan</td>
+                                                    <td>80</td>
+                                                    <td>Orang</td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td>Rp. 20.000</td>
+                                                    <td>Rp. 1.000.000</td>
+                                                </tr>
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <th rowspan="2" class="text-center align-middle my-auto">Jenis Pembelanjaan</th>
+                                                    <th rowspan="2" class="text-center align-middle my-auto">Tahun</th>
+                                                    <th rowspan="2" class="text-center align-middle my-auto">Penggunaan</th>
+                                                    <th rowspan="2" class="text-center align-middle my-auto">Nama Item</th>
+                                                    <th class="text-center">Jumlah</th>
+                                                    <th class="text-center">Satuan</th>
+                                                    <th class="text-center">Jumlah</th>
+                                                    <th class="text-center">Satuan</th>
+                                                    <th class="text-center">Jumlah</th>
+                                                    <th class="text-center">Satuan</th>
+                                                    <th colspan="2" rowspan="2" class="text-center align-middle my-auto">Total</th>
+                                                </tr>
+                                                <tr>
+                                                    <th colspan="6" class="text-center">Volume</th>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </dd>
                             </dl>
                         </div>
                         <hr/>
