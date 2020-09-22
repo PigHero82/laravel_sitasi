@@ -39,6 +39,7 @@ Route::namespace('admin')->name('admin.')->prefix('admin')->group(function() {
 
 Route::namespace('dosen')->name('dosen.')->prefix('dosen')->group(function() {
     Route::view('', 'index.dosen')->name('index');
+    Route::view('persetujuan-personil', 'persetujuan-personil')->name('persetujuan-personil');
     Route::view('tanggungan', 'tanggungan')->name('tanggungan');
     Route::namespace('publikasi')->name('publikasi.')->prefix('publikasi')->group(function() {
         Route::view('', 'publikasi.index')->name('index');
