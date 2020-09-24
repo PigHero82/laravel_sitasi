@@ -64,7 +64,7 @@
                                                 <h4 class="mb-0">SITASI</h4>
                                             </div>
                                         </div>
-                                        <p class="px-2">Selamat datang, silahkan masuk dengan akun Anda</p>
+                                        <p class="px-2">Masuk untuk melanjutkan</p>
                                         <div class="card-content">
                                             <div class="card-body pt-1">
                                                 @if (session('status'))
@@ -101,11 +101,11 @@
                                                                             <i class="vs-icon feather icon-check"></i>
                                                                         </span>
                                                                     </span>
-                                                                    <span class="">Remember me</span>
+                                                                    <span class="">Tetap masuk</span>
                                                                 </div>
                                                             </fieldset>
                                                         </div>
-                                                        <button type="submit" class="btn btn-primary float-right btn-inline">Login</button>
+                                                        <button type="submit" class="btn btn-primary float-right btn-inline">Masuk</button>
                                                     </div>
                                                 </form>
                                             </div>
