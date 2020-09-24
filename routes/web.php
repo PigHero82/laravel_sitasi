@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::redirect('', 'dosen', 301);
+Route::get('', [HomeController::class, 'index']);
 
 Route::view('profil', 'profil')->name('profil');
 
@@ -20,7 +21,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
-Route::namespace('admin')->name('admin.')->prefix('admin')->group(function() {
+Route::namespace('admin')->name('admin.')->prefix('admin')->middleware('role:admin')->group(function() {
     Route::view('', 'index.admin')->name('index');
     Route::namespace('master')->name('master.')->prefix('master')->group(function() {
         Route::view('dosen', 'master.dosen')->name('dosen');
@@ -37,7 +38,7 @@ Route::namespace('admin')->name('admin.')->prefix('admin')->group(function() {
     Route::view('skema', 'skema')->name('skema');
 });
 
-Route::namespace('dosen')->name('dosen.')->prefix('dosen')->group(function() {
+Route::namespace('dosen')->name('dosen.')->prefix('dosen')->middleware('role:dosen')->group(function() {
     Route::view('', 'index.dosen')->name('index');
     Route::view('persetujuan-personil', 'persetujuan-personil')->name('persetujuan-personil');
     Route::view('tanggungan', 'tanggungan')->name('tanggungan');
@@ -71,7 +72,7 @@ Route::namespace('dosen')->name('dosen.')->prefix('dosen')->group(function() {
     });
 });
 
-Route::namespace('reviewer')->name('reviewer.')->prefix('reviewer')->group(function() {
+Route::namespace('reviewer')->name('reviewer.')->prefix('reviewer')->middleware('role:reviewer')->group(function() {
     Route::view('', 'index.reviewer')->name('index');
     Route::view('review', 'review')->name('review');
 });
