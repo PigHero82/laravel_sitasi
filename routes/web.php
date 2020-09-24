@@ -1,6 +1,8 @@
 <?php
 
-use App\Http\Controllers\HomeController;
+use App\Models\Dosen;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,7 +15,14 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('', [HomeController::class, 'index']);
+
+View::composer(['*'], function ($view) {
+    if (Auth::user() !== NULL) {
+        $user = User::join('dosen', 'users.nidn', 'dosen.nidn')
+                    ->firstWhere('users.id', Auth::user()->id);
+        View::share('user', $user);
+    }
+});
 
 Route::view('profil', 'profil')->name('profil');
 
@@ -21,8 +30,8 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
-Route::namespace('admin')->name('admin.')->prefix('admin')->middleware('role:admin')->group(function() {
-    Route::view('', 'index.admin')->name('index');
+Route::name('admin.')->prefix('admin')->middleware('auth', 'role:admin')->group(function() {
+    Route::get('', 'Admin\HomeController@index')->name('index');
     Route::namespace('master')->name('master.')->prefix('master')->group(function() {
         Route::view('dosen', 'master.dosen')->name('dosen');
         Route::view('prodi', 'master.prodi')->name('prodi');
@@ -38,7 +47,7 @@ Route::namespace('admin')->name('admin.')->prefix('admin')->middleware('role:adm
     Route::view('skema', 'skema')->name('skema');
 });
 
-Route::namespace('dosen')->name('dosen.')->prefix('dosen')->middleware('role:dosen')->group(function() {
+Route::name('dosen.')->prefix('dosen')->middleware('auth', 'role:dosen')->group(function() {
     Route::view('', 'index.dosen')->name('index');
     Route::view('persetujuan-personil', 'persetujuan-personil')->name('persetujuan-personil');
     Route::view('tanggungan', 'tanggungan')->name('tanggungan');
@@ -72,7 +81,7 @@ Route::namespace('dosen')->name('dosen.')->prefix('dosen')->middleware('role:dos
     });
 });
 
-Route::namespace('reviewer')->name('reviewer.')->prefix('reviewer')->middleware('role:reviewer')->group(function() {
+Route::name('reviewer.')->prefix('reviewer')->middleware('auth', 'role:reviewer')->group(function() {
     Route::view('', 'index.reviewer')->name('index');
     Route::view('review', 'review')->name('review');
 });

@@ -158,7 +158,7 @@
                                 <dd class="col-sm-9">
                                     <div class="row">
                                         <div class="col-12">
-                                            <img src="{{ asset('app-assets/images/portrait/small/avatar-s-11.jpg') }}" alt="Profile picture">
+                                            <img src="{{ asset($user->profile_photo_path) }}" alt="Profile picture">
                                         </div>
                                         <div class="col-12">
                                             <form action="#" method="post">
@@ -179,19 +179,25 @@
                             </dl>
                             <dl class="row">
                                 <dt class="col-sm-3 text-right">Nama</dt>
-                                <dd class="col-sm-9">John Doe</dd>
+                                <dd class="col-sm-9">{{ $user->nama }}</dd>
                             </dl>
                             <dl class="row">
                                 <dt class="col-sm-3 text-right">NIDN</dt>
-                                <dd class="col-sm-9">0843098017</dd>
+                                <dd class="col-sm-9">{{ $user->nidn }}</dd>
                             </dl>
                             <dl class="row">
                                 <dt class="col-sm-3 text-right">Email</dt>
-                                <dd class="col-sm-9">john@example.com</dd>
+                                <dd class="col-sm-9">{{ $user->email }}</dd>
                             </dl>
                             <dl class="row">
                                 <dt class="col-sm-3 text-right">Link Google Scholar</dt>
-                                <dd class="col-sm-9"><a href="#" class="text-danger">Ubah Biodata Untuk Setting Link Google Scholar</a></dd>
+                                <dd class="col-sm-9">
+                                    @if ($user->email !== NULL)
+                                        <a href="https://scholar.google.com/citations?user={{ $user->google_scholar_id }}&hl=id">{{ $user->google_scholar_id }}</a>
+                                    @else
+                                        <a href="#" class="text-danger">Ubah Biodata Untuk Setting Link Google Scholar</a>
+                                    @endif
+                                </dd>
                             </dl>
                         </div>
                     </div>

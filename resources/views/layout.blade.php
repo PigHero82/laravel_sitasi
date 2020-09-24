@@ -56,7 +56,7 @@
                     <ul class="nav navbar-nav float-right">
                         <li class="nav-item d-none d-lg-block"><a class="nav-link nav-link-expand"><i class="ficon feather icon-maximize"></i></a></li>
                         <li class="dropdown dropdown-user nav-item"><a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
-                                <div class="user-nav d-sm-flex d-none"><span class="user-name text-bold-600">Garrett Winters</span><span class="user-status">
+                                <div class="user-nav d-sm-flex d-none"><span class="user-name text-bold-600">{{ $user->nama }}</span><span class="user-status">
                                     @if (request()->is('admin*'))
                                         Admin
                                     @elseif (request()->is('dosen*'))
@@ -64,11 +64,10 @@
                                     @elseif (request()->is('reviewer*'))
                                         Reviewer
                                     @endif
-                                </span></div><span><div class="avatar bg-primary mr-1">
-                                    <div class="avatar-content">
-                                      GW
-                                    </div>
-                                </div></span>
+                                </span></div>
+                                <span>
+                                    <img class="round" src="{{ asset($user->profile_photo_path) }}" alt="avatar" height="40" width="40">
+                                </span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
                                 <a class="dropdown-item" href="{{ route('admin.index') }}">Admin</a>
