@@ -93,4 +93,33 @@ class User extends Authenticatable
     {
         return null !== $this->roles()->where('name', $role)->first();
     }
+
+    static function firstUser($id)
+    {
+        $data = User::select('users.id', 'users.nidn', 'users.profile_photo_path', 'dosen.nama')
+                    ->join('dosen', 'users.nidn', 'dosen.nidn')
+                    ->findOrFail($id);
+        $data['roles'] = ListRole::where('user_id', $id)
+                                ->select('roles.id', 'roles.description')
+                                ->join('roles', 'list_roles.role_id', 'roles.id')
+                                ->get();
+        return $data;
+    }
+
+    static function getUser()
+    {
+        $user = User::all();
+        if ($user->isNotEmpty()) {
+            foreach ($user as $key => $value) {
+                $data[$key] = User::select('users.id', 'users.nidn', 'users.profile_photo_path', 'dosen.nama')
+                                    ->join('dosen', 'users.nidn', 'dosen.nidn')
+                                    ->findOrFail($value->id);
+                $data[$key]['roles'] = ListRole::where('user_id', $value->id)
+                                                ->select('roles.id', 'roles.description')
+                                                ->join('roles', 'list_roles.role_id', 'roles.id')
+                                                ->get();
+            }
+        }
+        return $data;
+    }
 }

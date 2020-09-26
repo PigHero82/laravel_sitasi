@@ -34,7 +34,7 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-                <table id="myTable" class="table zero-configuration table-striped" style="width:100%">
+                <table id="myTable" class="table zero-configuration table-striped table-responsive" style="width:100%">
                     <thead>
                         <tr>
                             <th>NIDN</th>
@@ -44,60 +44,24 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td><a href="#inlineForm" data-toggle="modal">0898841078</a></td>
-                            <td>Tiger Nixon</td>
-                            <td>
-                                <ul>
-                                    <li>Admin</li>
-                                </ul>
-                            </td>
-                            <td><button class="btn btn-primary"><i class="fas fa-key"></i> Reset Password</button></td>
-                        </tr>
-                        <tr>
-                            <td><a href="#inlineForm" data-toggle="modal">0843098017</a></td>
-                            <td>Garrett Winters</td>
-                            <td>
-                                <ul>
-                                    <li>Pimpinan</li>
-                                    <li>Dosen</li>
-                                </ul>
-                            </td>
-                            <td><button class="btn btn-primary"><i class="fas fa-key"></i> Reset Password</button></td>
-                        </tr>
-                        <tr>
-                            <td><a href="#inlineForm" data-toggle="modal">0864093620</a></td>
-                            <td>Ashton Cox</td>
-                            <td>
-                                <ul>
-                                    <li>Dosen</li>
-                                    <li>Reviewer</li>
-                                </ul>
-                            </td>
-                            <td><button class="btn btn-primary"><i class="fas fa-key"></i> Reset Password</button></td>
-                        </tr>
-                        <tr>
-                            <td><a href="#inlineForm" data-toggle="modal">0813584614</a></td>
-                            <td>Cedric Kelly</td>
-                            <td>
-                                <ul>
-                                    <li>Dosen</li>
-                                    <li>Penelitian</li>
-                                </ul>
-                            </td>
-                            <td><button class="btn btn-primary"><i class="fas fa-key"></i> Reset Password</button></td>
-                        </tr>
-                        <tr>
-                            <td><a href="#inlineForm" data-toggle="modal">0894370767</a></td>
-                            <td>Airi Satou</td>
-                            <td>
-                                <ul>
-                                    <li>Dosen</li>
-                                    <li>Pengabdian</li>
-                                </ul>
-                            </td>
-                            <td><button class="btn btn-primary"><i class="fas fa-key"></i> Reset Password</button></td>
-                        </tr>
+                        @foreach ($data as $item)
+                            <tr>
+                                <td><a href="#inlineForm" data-toggle="modal" data-value="{{ $item->id }}">{{ $item->nidn }}</a></td>
+                                <td>{{ $item->nama }}</td>
+                                <td>
+                                    @if(count($item['roles']) > 0)
+                                        <ul>
+                                            @foreach ($item['roles'] as $role)
+                                                <li>{{ $role->description }}</li>
+                                            @endforeach
+                                        </ul>
+                                    @else
+                                        -
+                                    @endif
+                                </td>
+                                <td><button class="btn btn-primary"><i class="fas fa-key"></i> Reset Password</button></td>
+                            </tr>
+                        @endforeach
                     </tbody>
                     <tfoot>
                         <tr>
@@ -122,7 +86,7 @@
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title" id="myModalLabel33">0898841078 | Detail User</h4>
+                        <h4 class="modal-title" id="myModalLabel33"> | Detail User</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -131,79 +95,82 @@
                         <div class="modal-body">
                             <dl class="row">
                                 <dt class="col-sm-3">NIDN</dt>
-                                <dd id="name-text" class="col-sm-9">0898841078</dd>
+                                <dd id="nidn-text" class="col-sm-9"></dd>
                                 
                                 <dt class="col-sm-3">Nama</dt>
-                                <dd id="code-text" class="col-sm-9">Tiger Nixon</dd>
+                                <dd id="nama-text" class="col-sm-9"></dd>
                                 
                                 <dt class="col-sm-3">Role</dt>
-                                <dd id="address-text" class="col-sm-9">
-                                    <fieldset>
-                                        <div class="vs-checkbox-con vs-checkbox-primary">
-                                            <input type="checkbox" checked value="false">
-                                            <span class="vs-checkbox">
-                                                <span class="vs-checkbox--check">
-                                                    <i class="vs-icon feather icon-check"></i>
+                                <dd class="col-sm-9">
+                                    <form action="{{ route('admin.master.user.update', 0)}}">
+                                        <input type="text" id="id" hidden>
+                                        <fieldset>
+                                            <div class="vs-checkbox-con vs-checkbox-primary">
+                                                <input class="input-role" id="admin" type="checkbox" checked value="false">
+                                                <span class="vs-checkbox">
+                                                    <span class="vs-checkbox--check">
+                                                        <i class="vs-icon feather icon-check"></i>
+                                                    </span>
                                                 </span>
-                                            </span>
-                                            <span class="">Admin</span>
-                                        </div>
-                                    </fieldset>
-                                    <fieldset>
-                                        <div class="vs-checkbox-con vs-checkbox-primary">
-                                            <input type="checkbox" value="false">
-                                            <span class="vs-checkbox">
-                                                <span class="vs-checkbox--check">
-                                                    <i class="vs-icon feather icon-check"></i>
+                                                <span class="">Admin</span>
+                                            </div>
+                                        </fieldset>
+                                        <fieldset>
+                                            <div class="vs-checkbox-con vs-checkbox-primary">
+                                                <input class="input-role" id="pimpinan" type="checkbox" value="false">
+                                                <span class="vs-checkbox">
+                                                    <span class="vs-checkbox--check">
+                                                        <i class="vs-icon feather icon-check"></i>
+                                                    </span>
                                                 </span>
-                                            </span>
-                                            <span class="">Pimpinan</span>
-                                        </div>
-                                    </fieldset>
-                                    <fieldset>
-                                        <div class="vs-checkbox-con vs-checkbox-primary">
-                                            <input type="checkbox" value="false">
-                                            <span class="vs-checkbox">
-                                                <span class="vs-checkbox--check">
-                                                    <i class="vs-icon feather icon-check"></i>
+                                                <span class="">Pimpinan</span>
+                                            </div>
+                                        </fieldset>
+                                        <fieldset>
+                                            <div class="vs-checkbox-con vs-checkbox-primary">
+                                                <input class="input-role" id="dosen" type="checkbox" value="false">
+                                                <span class="vs-checkbox">
+                                                    <span class="vs-checkbox--check">
+                                                        <i class="vs-icon feather icon-check"></i>
+                                                    </span>
                                                 </span>
-                                            </span>
-                                            <span class="">Dosen</span>
-                                        </div>
-                                    </fieldset>
-                                    <fieldset>
-                                        <div class="vs-checkbox-con vs-checkbox-primary">
-                                            <input type="checkbox" value="false">
-                                            <span class="vs-checkbox">
-                                                <span class="vs-checkbox--check">
-                                                    <i class="vs-icon feather icon-check"></i>
+                                                <span class="">Dosen</span>
+                                            </div>
+                                        </fieldset>
+                                        <fieldset>
+                                            <div class="vs-checkbox-con vs-checkbox-primary">
+                                                <input class="input-role" id="penelitian" type="checkbox" value="false">
+                                                <span class="vs-checkbox">
+                                                    <span class="vs-checkbox--check">
+                                                        <i class="vs-icon feather icon-check"></i>
+                                                    </span>
                                                 </span>
-                                            </span>
-                                            <span class="">Koordinator Penelitian</span>
-                                        </div>
-                                    </fieldset>
-                                    <fieldset>
-                                        <div class="vs-checkbox-con vs-checkbox-primary">
-                                            <input type="checkbox" value="false">
-                                            <span class="vs-checkbox">
-                                                <span class="vs-checkbox--check">
-                                                    <i class="vs-icon feather icon-check"></i>
+                                                <span class="">Koordinator Penelitian</span>
+                                            </div>
+                                        </fieldset>
+                                        <fieldset>
+                                            <div class="vs-checkbox-con vs-checkbox-primary">
+                                                <input class="input-role" id="pengabdian" type="checkbox" value="false">
+                                                <span class="vs-checkbox">
+                                                    <span class="vs-checkbox--check">
+                                                        <i class="vs-icon feather icon-check"></i>
+                                                    </span>
                                                 </span>
-                                            </span>
-                                            <span class="">Koordinator Pengabdian</span>
-                                        </div>
-                                    </fieldset>
-                                    <fieldset>
-                                        <div class="vs-checkbox-con vs-checkbox-primary">
-                                            <input type="checkbox" value="false">
-                                            <span class="vs-checkbox">
-                                                <span class="vs-checkbox--check">
-                                                    <i class="vs-icon feather icon-check"></i>
+                                                <span class="">Koordinator Pengabdian</span>
+                                            </div>
+                                        </fieldset>
+                                        <fieldset>
+                                            <div class="vs-checkbox-con vs-checkbox-primary">
+                                                <input class="input-role" id="reviewer" type="checkbox" value="false">
+                                                <span class="vs-checkbox">
+                                                    <span class="vs-checkbox--check">
+                                                        <i class="vs-icon feather icon-check"></i>
+                                                    </span>
                                                 </span>
-                                            </span>
-                                            <span class="">Reviewer</span>
-                                        </div>
-                                    </fieldset>
+                                                <span class="">Reviewer</span>
+                                            </div>
+                                        </fieldset>
+                                    </form>
                                 </dd>
                             </dl>
                         </div>
@@ -260,18 +227,45 @@
 @endsection
 
 @section('js')
-
-    {{-- <script src="{{ asset('app-assets/vendors/js/pickers/pickadate/picker.js') }}"></script>
-    <script src="{{ asset('app-assets/vendors/js/pickers/pickadate/picker.date.js') }}"></script>
-    <script src="{{ asset('app-assets/vendors/js/pickers/pickadate/picker.time.js') }}"></script>
-    <script src="{{ asset('app-assets/vendors/js/pickers/pickadate/legacy.js') }}"></script>
-    <script src="{{ asset('app-assets/vendors/js/pickers/dateTime/pick-a-datetime.js') }}"></script> --}}
-    {{-- <script src="{{ asset('/app-assets/js/scripts/datatables/datatable.min.js') }}"></script> --}}
-    {{-- <script src="https://cdn.datatables.net/responsive/2.2.5/js/dataTables.responsive.min.js"></script> --}}
     <script>
         $(document).ready( function () {
-            $('#myTable').DataTable({
-                responsive: true
+            // $('#myTable').DataTable({
+            //     responsive: true
+            // });
+            $(document).on('click', '#myTable tbody tr td a', function(e) {
+                var id = $(this).attr('data-value');
+                $.get( "/admin/master/user/" + id, function( data ) {
+                    console.log(JSON.parse(data));
+                    var d = JSON.parse(data);
+                    $('#myModalLabel33').text(d.nama + " | Detail");
+                    $('#nama-text').text(d.nama);
+                    $('#nidn-text').text(d.nidn);
+                    $('#id').val(d.id);
+                    $('.input-role').each(function() {
+                        $(this).removeAttr("checked")
+                    });
+                    for (var i = 0; i < d['roles'].length; i++) {
+                        if ($('#admin').val()==d['roles'][i].role_id) {
+                            $('#admin').attr( "checked","checked" );
+                        }
+                        if ($('#pimpinan').val()==d['roles'][i].role_id) {
+                            $('#pimpinan').attr( "checked","checked" );
+                        }
+                        if ($('#dosen').val()==d['roles'][i].role_id) {
+                            $('#dosen').attr( "checked","checked" );
+                        }
+                        if ($('#penelitian').val()==d['roles'][i].role_id) {
+                            $('#penelitian').attr( "checked","checked" );
+                        }
+                        if ($('#pengabdian').val()==d['roles'][i].role_id) {
+                            $('#pengabdian').attr( "checked","checked" );
+                        }
+                        if ($('#reviewer').val()==d['roles'][i].role_id) {
+                            $('#reviewer').attr( "checked","checked" );
+                        }
+                    }
+                });
+                console.log($(this).attr('data-value'));
             });
         } );
     </script>

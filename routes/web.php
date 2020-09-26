@@ -24,20 +24,22 @@ View::composer(['*'], function ($view) {
     }
 });
 
+Route::get('', 'HomeController@index');
+
 Route::view('profil', 'profil')->name('profil');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
-Route::name('admin.')->prefix('admin')->middleware('auth', 'role:admin')->group(function() {
-    Route::get('', 'Admin\HomeController@index')->name('index');
+Route::namespace('admin')->name('admin.')->prefix('admin')->middleware('auth', 'role:admin')->group(function() {
+    Route::get('', 'HomeController@index')->name('index');
     Route::namespace('master')->name('master.')->prefix('master')->group(function() {
         Route::view('dosen', 'master.dosen')->name('dosen');
         Route::view('prodi', 'master.prodi')->name('prodi');
         Route::view('rumpun-ilmu', 'master.rumpun-ilmu')->name('rumpun-ilmu');
         Route::view('skema', 'master.skema')->name('skema');
-        Route::view('user', 'master.user')->name('user');
+        Route::resource('user', 'UserController');
     });
     Route::namespace('review')->name('review.')->prefix('review')->group(function() {
         Route::view('pembagian-reviewer', 'review.pembagian-reviewer')->name('pembagian-reviewer');
