@@ -6,7 +6,7 @@
 @endsection
 
 @section('judul')
-    Data Master
+    Data Master Skema
 @endsection
 
 @section('content')
@@ -32,34 +32,35 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-                <table id="myTable" class="table zero-configuration" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th>Nama</th>
-                            <th>Jenis</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><a href="#modal" data-toggle="modal">Penelitian 1</a></td>
-                            <td>Penelitian</td>
-                        </tr>
-                        <tr>
-                            <td><a href="#modal" data-toggle="modal">Penelitian 2</a></td>
-                            <td>Penelitian</td>
-                        </tr>
-                        <tr>
-                            <td><a href="#modal" data-toggle="modal">Pengabdian 1</a></td>
-                            <td>Pengabdian</td>
-                        </tr>
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <th>Nama</th>
-                            <th>Jenis</th>
-                        </tr>
-                    </tfoot>
-                </table>
+                @if (count($data) > 0)
+                    <table id="myTable" class="table zero-configuration" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Nama</th>
+                                <th>Jenis</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($data as $item)
+                                <tr>
+                                    <td><a href="#ubahmodal" data-toggle="modal" data-value="{{ $data->id }}">{{ $data->nama }}</a></td>
+                                    <td>{{ $data->jenis }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Nama</th>
+                                <th>Jenis</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                @else
+                    <div class="text-center">
+                        <h1><i class="feather icon-alert-octagon"></i></h1>
+                        <h4 class="card-title">Tidak ada data</h4>
+                    </div>
+                @endif
             </div>
             <!-- /.card-body -->
           </div>
@@ -67,136 +68,193 @@
 
         </div>
         <!--/.col (left) -->
-      </div>
-      <!-- /.row -->
+    </div>
+    <!-- /.row -->
 
-        <!-- modal -->
-        <div class="modal fade text-left" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title" id="myModalLabel33">Tambah Skema</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <form action="#">
-                        <div class="modal-body">
-                            <div class="row">
-                                
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="firstName1">Nama</label>
-                                        <input type="text" class="form-control" id="firstName1">
-                                    </div>
-                                </div>
-
-                                <div class="col-md-12">
-                                    <label>Jenis</label>
-                                    <div class="form-group">
-                                        <select class="form-control" name="" id="">
-                                            <option value="" hidden>--Pilih Jenis Skema</option>
-                                            <option value="">Penelitian</option>
-                                            <option value="">Pengabdian</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" data-dismiss="modal">Tambah</button>
-                        </div>
-                    </form>
+    <!-- modal -->
+    <div class="modal fade text-left" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel33">Tambah Skema</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-            </div>
-        </div>
-
-        <!-- modal pengabdian -->
-        <div class="modal fade text-left" id="modalPengabdian" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title" id="myModalLabel33">Tambah Skema Pengabdian</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <form action="#">
-                        <div class="modal-body">
-                            <div class="row">
-
-                                <div class="col-md-6">
-                                    <label>Nama Skema</label>
-                                    <div class="form-group">
-                                        <select class="form-control" name="" id="">
-                                            <option value="">Pengabdian 1</option>
-                                            <option value="">Pengabdian 2</option>
-                                            <option value="">Pengabdian 3</option>
-                                        </select>
-                                    </div>
-                                </div>
-    
-                                <div class="col-md-6">
-                                    <label>Jumlah Pengabdi</label>
-                                    <div class="form-group">
-                                        <select class="form-control" name="" id="">
-                                            <option value="">1</option>
-                                            <option value="">2</option>
-                                            <option value="">3</option>
-                                            <option value="">4</option>
-                                            <option value="">5</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="firstName1">Tahun Skema</label>
-                                        <input type="number" class="form-control" id="firstName1">
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="firstName1">Tahun Pengabdian</label>
-                                        <input type="number" class="form-control" id="firstName1">
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <label>Jabatan Minimal</label>
-                                    <div class="form-group">
-                                        <select class="form-control" name="" id="">
-                                            <option value="">Tidak ada</option>
-                                            <option value="">Dosen</option>
-                                            <option value="">Guru Besar</option>
-                                            <option value="">Ketua</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <label>Jabatan Maksimal</label>
-                                    <div class="form-group">
-                                        <select class="form-control" name="" id="">
-                                            <option value="">Tidak ada</option>
-                                            <option value="">Dosen</option>
-                                            <option value="">Guru Besar</option>
-                                            <option value="">Ketua</option>
-                                        </select>
-                                    </div>
+                <form action="#" method="POST">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="row">
+                            
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="firstName1">Nama</label>
+                                    <input type="text" class="form-control">
                                 </div>
                             </div>
 
+                            <div class="col-md-12">
+                                <label>Jenis</label>
+                                <div class="form-group">
+                                    <select class="form-control" name="" id="">
+                                        <option value="" hidden>--Pilih Jenis Skema</option>
+                                        <option value="">Penelitian</option>
+                                        <option value="">Pengabdian</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" data-dismiss="modal">Tambah Skema</button>
-                        </div>
-                    </form>
-                </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Tambah</button>
+                    </div>
+                </form>
             </div>
         </div>
+    </div>
+
+    <!-- modal -->
+    <div class="modal fade text-left" id="ubahmodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel33">Ubah Skema</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="{{ route('admin.master.skema.update', 0) }}" method="POST">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="row">
+                            
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="firstName1">Nama</label>
+                                    <input type="text" class="form-control" id="nama">
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <label>Jenis</label>
+                                <div class="form-group">
+                                    <select class="form-control" name="" id="jenis">
+                                        <option value="" hidden>--Pilih Jenis Skema</option>
+                                        <option value="">Penelitian</option>
+                                        <option value="">Pengabdian</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Ubah</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {{-- <!-- modal pengabdian -->
+    <div class="modal fade text-left" id="modalPengabdian" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel33">Tambah Skema Pengabdian</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="#">
+                    <div class="modal-body">
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <label>Nama Skema</label>
+                                <div class="form-group">
+                                    <select class="form-control" name="" id="">
+                                        <option value="">Pengabdian 1</option>
+                                        <option value="">Pengabdian 2</option>
+                                        <option value="">Pengabdian 3</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label>Jumlah Pengabdi</label>
+                                <div class="form-group">
+                                    <select class="form-control" name="" id="">
+                                        <option value="">1</option>
+                                        <option value="">2</option>
+                                        <option value="">3</option>
+                                        <option value="">4</option>
+                                        <option value="">5</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="firstName1">Tahun Skema</label>
+                                    <input type="number" class="form-control" id="firstName1">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="firstName1">Tahun Pengabdian</label>
+                                    <input type="number" class="form-control" id="firstName1">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label>Jabatan Minimal</label>
+                                <div class="form-group">
+                                    <select class="form-control" name="" id="">
+                                        <option value="">Tidak ada</option>
+                                        <option value="">Dosen</option>
+                                        <option value="">Guru Besar</option>
+                                        <option value="">Ketua</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label>Jabatan Maksimal</label>
+                                <div class="form-group">
+                                    <select class="form-control" name="" id="">
+                                        <option value="">Tidak ada</option>
+                                        <option value="">Dosen</option>
+                                        <option value="">Guru Besar</option>
+                                        <option value="">Ketua</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Tambah Skema</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div> --}}
 @endsection
 
 @section('js')
+    <script>
+        $(document).ready( function () {
+            $(document).on('click', '#myTable tbody tr td a', function(e) {
+                var id = $(this).attr('data-value');
+                $.get( "/admin/master/skema/" + id, function( data ) {
+                    console.log(JSON.parse(data));
+                    var d = JSON.parse(data);
+                    $('#nama').val(d.nama);
+                    $('#jenis').val(d.jenis);
+                });
+                console.log($(this).attr('data-value'));
+            });
+        } );
+    </script>
 @endsection

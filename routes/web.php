@@ -38,7 +38,7 @@ Route::namespace('admin')->name('admin.')->prefix('admin')->middleware('auth', '
         Route::view('dosen', 'master.dosen')->name('dosen');
         Route::view('prodi', 'master.prodi')->name('prodi');
         Route::view('rumpun-ilmu', 'master.rumpun-ilmu')->name('rumpun-ilmu');
-        Route::view('skema', 'master.skema')->name('skema');
+        Route::resource('skema', 'SkemaController');
         Route::resource('user', 'UserController');
     });
     Route::namespace('review')->name('review.')->prefix('review')->group(function() {

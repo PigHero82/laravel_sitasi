@@ -7,7 +7,7 @@
                 <ul class="menu-content">
                     <li class="{{ (request()->is('admin/master/dosen*')) ? 'active' : '' }}"><a href="{{ route('admin.master.dosen') }}" title="Dosen"><i></i><span class="menu-item">Dosen</span></a></li>
                     <li class="{{ (request()->is('admin/master/user*')) ? 'active' : '' }}"><a href="{{ route('admin.master.user.index') }}" title="User"><i></i><span class="menu-item">User</span></a></li>
-                    <li class="{{ (request()->is('admin/master/skema*')) ? 'active' : '' }}"><a href="{{ route('admin.master.skema') }}" title="Skema"><i></i><span class="menu-item">Skema</span></a></li>
+                    <li class="{{ (request()->is('admin/master/skema*')) ? 'active' : '' }}"><a href="{{ route('admin.master.skema.index') }}" title="Skema"><i></i><span class="menu-item">Skema</span></a></li>
                     <li class="{{ (request()->is('admin/master/rumpun-ilmu*')) ? 'active' : '' }}"><a href="{{ route('admin.master.rumpun-ilmu') }}" title="Rumpun Ilmu"><i></i><span class="menu-item">Rumpun Ilmu</span></a></li>
                     <li class="{{ (request()->is('admin/master/prodi*')) ? 'active' : '' }}"><a href="{{ route('admin.master.prodi') }}" title="Program Studi"><i></i><span class="menu-item">Program Studi</span></a></li>
                     <li class="{{ (request()->is('admin/master/jabatan-akademik*')) ? 'active' : '' }}"><a href="#" title="Jabatan Akademik"><i></i><span class="menu-item">Jabatan Akademik</span></a></li>
