@@ -11,4 +11,21 @@ class ListRole extends Model
 
     protected $table = 'list_roles';
     protected $fillable = ['user_id', 'role_id'];
+
+    static function firstRole($id, $roleId)
+    {
+        return ListRole::select('list_roles.id', 'roles.description')
+                        ->leftJoin('roles', 'list_roles.id', 'roles.id')
+                        ->where('list_roles.user_id', $id)
+                        ->where('list_roles.role_id', $roleId)
+                        ->get();
+    }
+
+    static function getRole($id)
+    {
+        return ListRole::select('list_roles.id', 'roles.description')
+                        ->leftJoin('roles', 'list_roles.id', 'roles.id')
+                        ->where('list_roles.user_id', $id)
+                        ->get();
+    }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSkemasTable extends Migration
+class CreateSkemaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateSkemasTable extends Migration
      */
     public function up()
     {
-        Schema::create('skemas', function (Blueprint $table) {
+        Schema::create('skema', function (Blueprint $table) {
             $table->id();
             $table->text('nama');
             $table->string('jenis');

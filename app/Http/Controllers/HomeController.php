@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ListRole;
+use App\Models\RoleUser;
 use App\Models\User;
 use Auth;
 use Illuminate\Http\Request;
@@ -36,5 +38,17 @@ class HomeController extends Controller
 			}
 		}
 		return redirect('/login');
+	}
+
+	public function update($id)
+	{
+		$role = ListRole::firstRole(Auth::user()->id, $id);
+
+		if (isset($role)) {
+			RoleUser::updateRole(Auth::user()->id, $id);
+			return redirect('');
+		} else {
+			return redirect()->back();
+		}
 	}
 }

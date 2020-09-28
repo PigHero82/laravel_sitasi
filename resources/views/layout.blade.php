@@ -56,23 +56,33 @@
                     <ul class="nav navbar-nav float-right">
                         <li class="nav-item d-none d-lg-block"><a class="nav-link nav-link-expand"><i class="ficon feather icon-maximize"></i></a></li>
                         <li class="dropdown dropdown-user nav-item"><a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
-                                <div class="user-nav d-sm-flex d-none"><span class="user-name text-bold-600">{{ $user->nama }}</span><span class="user-status">
+                                <div class="user-nav d-sm-flex d-none"><span class="user-name text-bold-600">{{ $composerUser->nama }}</span><span class="user-status">
                                     @if (request()->is('admin*'))
                                         Admin
+                                    @elseif (request()->is('pimpinan*'))
+                                        Pimpinan
                                     @elseif (request()->is('dosen*'))
                                         Dosen
+                                    @elseif (request()->is('penelitian*'))
+                                        Penelitian
+                                    @elseif (request()->is('pengabdian*'))
+                                        Pengabdian
                                     @elseif (request()->is('reviewer*'))
                                         Reviewer
                                     @endif
                                 </span></div>
                                 <span>
-                                    <img class="round" src="{{ asset($user->profile_photo_path) }}" alt="avatar" height="40" width="40">
+                                    <img class="round" src="{{ asset($composerUser->profile_photo_path) }}" alt="avatar" height="40" width="40">
                                 </span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="{{ route('admin.index') }}">Admin</a>
-                                <a class="dropdown-item" href="{{ route('dosen.index') }}">Dosen</a>
-                                <a class="dropdown-item" href="{{ route('reviewer.index') }}">Reviewer</a>
+                                @foreach ($composerRole as $item)
+                                    <a class="dropdown-item" href="{{ route('role.update', $item->id) }}" onclick="event.preventDefault();
+                                    document.getElementById('role-{{ $item->id }}').submit();"><i class="feather icon-power"></i> {{ $item->description }}</a>
+                                    <form id="role-{{ $item->id }}" action="{{ route('role.update', $item->id) }}" method="post" style="display: none">
+                                        @csrf
+                                    </form>
+                                @endforeach
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="/profil"><i class="feather icon-user"></i> Profil</a>
                                 <div class="dropdown-divider"></div>
@@ -98,14 +108,14 @@
                 <li class="nav-item mr-auto"><a class="navbar-brand" href="
                     @if (request()->is('admin*'))
                         {{ route('admin.index') }}
+                    @elseif (request()->is('pimpinan*'))
+                        {{ route('pimpinan.index') }}
                     @elseif (request()->is('dosen*'))
                         {{ route('dosen.index') }}
-                    @elseif (request()->is('pimpinan*'))
-                        #
                     @elseif (request()->is('penelitian*'))
-                        #
+                        {{ route('penelitian.index') }}
                     @elseif (request()->is('pengabdian*'))
-                        #
+                        {{ route('pengabdian.index') }}
                     @elseif (request()->is('reviewer'))
                         {{ route('reviewer.index') }}
                     @endif

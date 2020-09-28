@@ -11,4 +11,10 @@ class Dosen extends Model
 
     protected $table = 'dosen';
     protected $fillable = ['nidn', 'nama', 'alamat', 'tempat_lahir', 'tanggal_lahir', 'ktp', 'telepon', 'hp', 'email', 'web', 'jabatan_id', 'prodi_id', 'sinta_id', 'google_scholar_id', 'status'];
+
+    static function firstDosen($id)
+    {
+        return Dosen::join('users', 'users.nidn', 'dosen.nidn')
+                    ->firstWhere('users.id', $id);
+    }
 }

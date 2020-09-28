@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Dosen;
+use App\Models\ListRole;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -18,14 +19,16 @@ use Illuminate\Support\Facades\Route;
 
 View::composer(['*'], function ($view) {
     if (Auth::user() !== NULL) {
-        $user = User::join('dosen', 'users.nidn', 'dosen.nidn')
-                    ->firstWhere('users.id', Auth::user()->id);
-        View::share('user', $user);
+        $role = ListRole::getRole(Auth::user()->id);
+        $user = Dosen::firstDosen(Auth::user()->id);
+
+        View::share('composerRole', $role);
+        View::share('composerUser', $user);
     }
 });
 
 Route::get('', 'HomeController@index');
-
+Route::post('role/{id}', 'HomeController@update')->name('role.update');
 Route::view('profil', 'profil')->name('profil');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
@@ -47,6 +50,10 @@ Route::namespace('admin')->name('admin.')->prefix('admin')->middleware('auth', '
     });
     Route::view('pimpinan', 'master.pimpinan')->name('pimpinan');
     Route::view('skema', 'skema')->name('skema');
+});
+
+Route::namespace('pimpinan')->name('pimpinan.')->prefix('pimpinan')->middleware('auth', 'role:pimpinan')->group(function() {
+    Route::view('', 'index.pimpinan')->name('index');
 });
 
 Route::name('dosen.')->prefix('dosen')->middleware('auth', 'role:dosen')->group(function() {
@@ -81,6 +88,14 @@ Route::name('dosen.')->prefix('dosen')->middleware('auth', 'role:dosen')->group(
         Route::view('create/8', 'usulan.8')->name('8');
         Route::view('riwayat', 'usulan.riwayat')->name('riwayat');
     });
+});
+
+Route::namespace('penelitian')->name('penelitian.')->prefix('penelitian')->middleware('auth', 'role:penelitian')->group(function() {
+    Route::view('', 'index.penelitian')->name('index');
+});
+
+Route::namespace('pengabdian')->name('pengabdian.')->prefix('pengabdian')->middleware('auth', 'role:pengabdian')->group(function() {
+    Route::view('', 'index.pengabdian')->name('index');
 });
 
 Route::name('reviewer.')->prefix('reviewer')->middleware('auth', 'role:reviewer')->group(function() {

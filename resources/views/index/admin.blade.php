@@ -158,7 +158,7 @@
                                 <dd class="col-sm-9">
                                     <div class="row">
                                         <div class="col-12">
-                                            <img src="{{ asset($user->profile_photo_path) }}" alt="Profile picture">
+                                            <img src="{{ asset($composerUser->profile_photo_path) }}" alt="Profile picture">
                                         </div>
                                         <div class="col-12">
                                             <form action="#" method="post">
@@ -179,21 +179,21 @@
                             </dl>
                             <dl class="row">
                                 <dt class="col-sm-3 text-right">Nama</dt>
-                                <dd class="col-sm-9">{{ $user->nama }}</dd>
+                                <dd class="col-sm-9">{{ $composerUser->nama }}</dd>
                             </dl>
                             <dl class="row">
                                 <dt class="col-sm-3 text-right">NIDN</dt>
-                                <dd class="col-sm-9">{{ $user->nidn }}</dd>
+                                <dd class="col-sm-9">{{ $composerUser->nidn }}</dd>
                             </dl>
                             <dl class="row">
                                 <dt class="col-sm-3 text-right">Email</dt>
-                                <dd class="col-sm-9">{{ $user->email }}</dd>
+                                <dd class="col-sm-9">{{ $composerUser->email }}</dd>
                             </dl>
                             <dl class="row">
                                 <dt class="col-sm-3 text-right">Link Google Scholar</dt>
                                 <dd class="col-sm-9">
-                                    @if ($user->email !== NULL)
-                                        <a href="https://scholar.google.com/citations?user={{ $user->google_scholar_id }}&hl=id">{{ $user->google_scholar_id }}</a>
+                                    @if ($composerUser->email !== NULL)
+                                        <a href="https://scholar.google.com/citations?user={{ $composerUser->google_scholar_id }}&hl=id">{{ $composerUser->google_scholar_id }}</a>
                                     @else
                                         <a href="#" class="text-danger">Ubah Biodata Untuk Setting Link Google Scholar</a>
                                     @endif
