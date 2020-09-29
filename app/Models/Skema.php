@@ -10,7 +10,7 @@ class Skema extends Model
     use HasFactory;
 
     protected $table = 'skema';
-    protected $fillable = ['nama', 'jenis'];
+    protected $fillable = ['kode', 'nama', 'jenis'];
 
     static function getSkema()
     {

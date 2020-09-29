@@ -15,8 +15,9 @@ class CreateSkemaTable extends Migration
     {
         Schema::create('skema', function (Blueprint $table) {
             $table->id();
-            $table->text('nama');
-            $table->string('jenis');
+            $table->string('kode', 50);
+            $table->string('nama');
+            $table->boolean('jenis');
             $table->timestamps();
         });
     }
