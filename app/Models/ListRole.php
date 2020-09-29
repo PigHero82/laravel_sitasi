@@ -23,8 +23,8 @@ class ListRole extends Model
 
     static function getRole($id)
     {
-        return ListRole::select('list_roles.id', 'roles.description')
-                        ->leftJoin('roles', 'list_roles.id', 'roles.id')
+        return ListRole::select('list_roles.role_id as id', 'roles.description')
+                        ->leftJoin('roles', 'list_roles.role_id', 'roles.id')
                         ->where('list_roles.user_id', $id)
                         ->get();
     }

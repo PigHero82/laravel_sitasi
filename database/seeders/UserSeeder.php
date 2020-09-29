@@ -30,7 +30,7 @@ class UserSeeder extends Seeder
             'profile_photo_path'    => 'images/dosen/0101.jpg'
         ])
             ->roles()
-            ->attach(Role::where('name', 'dosen')->first());
+            ->attach(Role::where('name', 'pimpinan')->first());
 
         User::create([
             'nidn'                  => '0102',
