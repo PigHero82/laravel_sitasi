@@ -78,7 +78,7 @@
                             <div class="dropdown-menu dropdown-menu-right">
                                 @foreach ($composerRole as $item)
                                     <a class="dropdown-item" href="{{ route('role.update', $item->id) }}" onclick="event.preventDefault();
-                                    document.getElementById('role-{{ $item->id }}').submit();"><i class="feather icon-power"></i> {{ $item->description }}</a>
+                                    document.getElementById('role-{{ $item->id }}').submit();">{{ $item->description }}</a>
                                     <form id="role-{{ $item->id }}" action="{{ route('role.update', $item->id) }}" method="post" style="display: none">
                                         @csrf
                                     </form>

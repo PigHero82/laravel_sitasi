@@ -42,13 +42,16 @@ class HomeController extends Controller
 
 	public function update($id)
 	{
-		$role = ListRole::firstRole(Auth::user()->id, $id);
-
-		if (isset($role)) {
-			RoleUser::updateRole(Auth::user()->id, $id);
-			return redirect('');
+		if (Auth::check()) {
+			$role = ListRole::firstRole(Auth::user()->id, $id);
+			if (isset($role)) {
+				RoleUser::updateRole(Auth::user()->id, $id);
+				return redirect('');
+			} else {
+				return redirect()->back();
+			}
 		} else {
-			return redirect()->back();
+			return redirect()->route('login');
 		}
 	}
 }
