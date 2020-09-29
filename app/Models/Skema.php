@@ -12,6 +12,11 @@ class Skema extends Model
     protected $table = 'skema';
     protected $fillable = ['kode', 'nama', 'jenis'];
 
+    static function destroySkema($id)
+    {
+        Skema::whereId($id)->delete();
+    }
+
     static function getSkema()
     {
         return Skema::all();
@@ -19,6 +24,24 @@ class Skema extends Model
 
     static function firstSkema($id)
     {
-        return Skema::whereId($id)->findOrFail();
+        return Skema::findOrFail($id);
+    }
+
+    static function storeSkema($request)
+    {
+        Skema::create([
+            'kode'  => $request->kode,
+            'nama'  => $request->nama,
+            'jenis' => $request->jenis
+        ]);
+    }
+
+    static function updateSkema($request)
+    {
+        Skema::whereId($request->id)->update([
+            'kode'  => $request->kode,
+            'nama'  => $request->nama,
+            'jenis' => $request->jenis
+        ]);
     }
 }

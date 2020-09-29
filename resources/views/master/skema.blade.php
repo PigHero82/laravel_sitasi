@@ -10,11 +10,39 @@
 @endsection
 
 @section('content')
-    @if(session()->get('success'))
-        <div class ="alert alert-success">
-            {{ session()->get('success') }}  
-        </div><br />
+    @if ($message = Session::get('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="feather icon-check mr-1 align-middle"></i>
+            <span>{{ $message }}</span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true"><i class="feather icon-x-circle"></i></span>
+            </button>
+        </div>
     @endif
+    
+    @if ($message = Session::get('danger'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <i class="feather icon-x mr-1 align-middle"></i>
+            <span>{{ $message }}</span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true"><i class="feather icon-x-circle"></i></span>
+            </button>
+        </div>
+    @endif
+    
+    @if ($errors->any())
+        <div class="alert alert-danger" role="alert">
+            <h4 class="alert-heading">Error</h4>
+            <p class="mb-0">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                      <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </p>
+        </div>
+    @endif
+
     <div class="row">
         <!-- left column -->
         <div class="col-md-12">
@@ -37,21 +65,41 @@
                         <thead>
                             <tr>
                                 <th>Nama</th>
+                                <th>Deskripsi</th>
                                 <th>Jenis</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($data as $item)
                                 <tr>
-                                    <td><a href="#ubahmodal" data-toggle="modal" data-value="{{ $data->id }}">{{ $data->nama }}</a></td>
-                                    <td>{{ $data->jenis }}</td>
+                                    <td><a href="#ubahmodal" data-toggle="modal" data-value="{{ $item->id }}">{{ $item->kode }}</a></td>
+                                    <td>{{ $item->nama }}</a></td>
+                                    <td>
+                                        @if ($item->jenis == 1)
+                                            Penelitian
+                                        @elseif ($item->jenis == 2)
+                                            Pengabdian
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <form action="{{ route('admin.master.skema.destroy', $item->id)}}" method="post">
+                                          @csrf
+                                          @method('DELETE')
+                                          <div class="fonticon-wrap">
+                                              <button style="padding: 0; border: none; background: none;" type="submit"><i class="feather icon-trash-2 text-danger"></i></button>
+                                          </div>
+                                        </form>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
                         <tfoot>
                             <tr>
                                 <th>Nama</th>
+                                <th>Deskripsi</th>
                                 <th>Jenis</th>
+                                <th></th>
                             </tr>
                         </tfoot>
                     </table>
@@ -81,32 +129,39 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="#" method="POST">
+                <form action="{{ route('admin.master.skema.store') }}" method="POST">
                     @csrf
                     <div class="modal-body">
                         <div class="row">
                             
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="firstName1">Nama</label>
-                                    <input type="text" class="form-control">
+                                    <label for="kode">Nama</label>
+                                    <input type="text" class="form-control" name="kode">
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="Nama">Deskripsi</label>
+                                    <input type="text" class="form-control" name="nama">
                                 </div>
                             </div>
 
                             <div class="col-md-12">
                                 <label>Jenis</label>
                                 <div class="form-group">
-                                    <select class="form-control" name="" id="">
+                                    <select class="form-control" name="jenis">
                                         <option value="" hidden>--Pilih Jenis Skema</option>
-                                        <option value="">Penelitian</option>
-                                        <option value="">Pengabdian</option>
+                                        <option value="1">Penelitian</option>
+                                        <option value="2">Pengabdian</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">Tambah</button>
+                        <button type="submit" class="btn btn-primary">Tambah</button>
                     </div>
                 </form>
             </div>
@@ -123,123 +178,46 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="{{ route('admin.master.skema.update', 0) }}" method="POST">
+                <form action="{{ route('admin.master.skema.update', Auth::user()->id) }}" method="POST">
                     @csrf
+                    @method('PATCH')
                     <div class="modal-body">
                         <div class="row">
                             
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="firstName1">Nama</label>
-                                    <input type="text" class="form-control" id="nama">
+                                    <label for="kode">Nama</label>
+                                    <input type="text" class="form-control" name="id" id="id" hidden>
+                                    <input type="text" class="form-control" name="kode" id="kode">
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="nama">Deskripsi</label>
+                                    <input type="text" class="form-control" name="nama" id="nama">
                                 </div>
                             </div>
 
                             <div class="col-md-12">
                                 <label>Jenis</label>
                                 <div class="form-group">
-                                    <select class="form-control" name="" id="jenis">
-                                        <option value="" hidden>--Pilih Jenis Skema</option>
-                                        <option value="">Penelitian</option>
-                                        <option value="">Pengabdian</option>
+                                    <select class="form-control" name="jenis" id="jenis">
+                                        <option value="" hidden></option>
+                                        <option value="1">Penelitian</option>
+                                        <option value="2">Pengabdian</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">Ubah</button>
+                        <button type="submit" class="btn btn-primary">Ubah</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-
-    {{-- <!-- modal pengabdian -->
-    <div class="modal fade text-left" id="modalPengabdian" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="myModalLabel33">Tambah Skema Pengabdian</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form action="#">
-                    <div class="modal-body">
-                        <div class="row">
-
-                            <div class="col-md-6">
-                                <label>Nama Skema</label>
-                                <div class="form-group">
-                                    <select class="form-control" name="" id="">
-                                        <option value="">Pengabdian 1</option>
-                                        <option value="">Pengabdian 2</option>
-                                        <option value="">Pengabdian 3</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <label>Jumlah Pengabdi</label>
-                                <div class="form-group">
-                                    <select class="form-control" name="" id="">
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
-                                        <option value="">4</option>
-                                        <option value="">5</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="firstName1">Tahun Skema</label>
-                                    <input type="number" class="form-control" id="firstName1">
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="firstName1">Tahun Pengabdian</label>
-                                    <input type="number" class="form-control" id="firstName1">
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <label>Jabatan Minimal</label>
-                                <div class="form-group">
-                                    <select class="form-control" name="" id="">
-                                        <option value="">Tidak ada</option>
-                                        <option value="">Dosen</option>
-                                        <option value="">Guru Besar</option>
-                                        <option value="">Ketua</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <label>Jabatan Maksimal</label>
-                                <div class="form-group">
-                                    <select class="form-control" name="" id="">
-                                        <option value="">Tidak ada</option>
-                                        <option value="">Dosen</option>
-                                        <option value="">Guru Besar</option>
-                                        <option value="">Ketua</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">Tambah Skema</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div> --}}
 @endsection
 
 @section('js')
@@ -250,6 +228,8 @@
                 $.get( "/admin/master/skema/" + id, function( data ) {
                     console.log(JSON.parse(data));
                     var d = JSON.parse(data);
+                    $('#id').val(d.id);
+                    $('#kode').val(d.kode);
                     $('#nama').val(d.nama);
                     $('#jenis').val(d.jenis);
                 });

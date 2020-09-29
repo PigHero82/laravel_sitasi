@@ -20,16 +20,6 @@ class SkemaController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -37,7 +27,15 @@ class SkemaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'kode' => 'required',
+            'nama' => 'required',
+            'jenis' => 'numeric|required'
+        ]);
+
+        Skema::storeSkema($request);
+
+        return redirect()->route('admin.master.skema.index')->with('success', 'Skema berhasil disimpan');
     }
 
     /**
@@ -52,17 +50,6 @@ class SkemaController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Skema  $skema
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Skema $skema)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -71,7 +58,16 @@ class SkemaController extends Controller
      */
     public function update(Request $request, Skema $skema)
     {
-        //
+        $request->validate([
+            'id'    => 'numeric|required',
+            'kode'  => 'required',
+            'nama'  => 'required',
+            'jenis' => 'numeric|required'
+        ]);
+
+        Skema::updateSkema($request);
+
+        return redirect()->route('admin.master.skema.index')->with('success', 'Skema berhasil diubah');
     }
 
     /**
@@ -82,6 +78,8 @@ class SkemaController extends Controller
      */
     public function destroy(Skema $skema)
     {
-        //
+        Skema::destroySkema($skema->id);
+
+        return redirect()->route('admin.master.skema.index')->with('success', 'Skema berhasil dihapus');
     }
 }
