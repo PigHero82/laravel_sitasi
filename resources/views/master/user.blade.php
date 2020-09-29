@@ -1,10 +1,5 @@
 @extends('layout')
 
-@section('css')
-    {{-- <link rel="stylesheet" type="text/css" href="{{ asset('/app-assets/vendors/css/tables/datatable/datatables.min.css') }}"> --}}
-    {{-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.5/css/responsive.dataTables.min.css"> --}}
-@endsection
-
 @section('judul')
     Data Master
 @endsection
@@ -15,27 +10,22 @@
             {{ session()->get('success') }}  
         </div><br />
     @endif
-    <div class="row">
+    <div class="row justify-content-center">
         <!-- left column -->
-        <div class="col-md-12">
+        <div class="col-md-10">
           <!-- general form elements -->
           <div class="card">
             <div class="card-header">
               <h3 class="card-title">User</h3>
 
-              <div class="card-tools">
-
-                
-                {{-- <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#inlineForm">
-                    Launch Modal
-                </button> --}}
+              <div class="card-tools">                
                 <a href="#createUser" data-toggle="modal" class="btn btn-outline-success"><i class="fas fa-plus"></i> Tambah</a>
               </div>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
                 <table id="myTable" class="table zero-configuration table-striped table-responsive" style="width:100%">
-                    <thead>
+                    <thead class="text-center">
                         <tr>
                             <th>NIDN</th>
                             <th>Nama</th>
@@ -43,6 +33,7 @@
                             <th>Aksi</th>
                         </tr>
                     </thead>
+
                     <tbody>
                         @foreach ($data as $item)
                             <tr>
@@ -63,7 +54,8 @@
                             </tr>
                         @endforeach
                     </tbody>
-                    <tfoot>
+
+                    <tfoot class="text-center">
                         <tr>
                             <th>NIDN</th>
                             <th>Nama</th>
@@ -106,7 +98,7 @@
                                         <input type="text" id="id" hidden>
                                         <fieldset>
                                             <div class="vs-checkbox-con vs-checkbox-primary">
-                                                <input class="input-role" id="admin" type="checkbox" checked value="false">
+                                                <input class="input-role" id="admin" type="checkbox" value="1">
                                                 <span class="vs-checkbox">
                                                     <span class="vs-checkbox--check">
                                                         <i class="vs-icon feather icon-check"></i>
@@ -117,7 +109,7 @@
                                         </fieldset>
                                         <fieldset>
                                             <div class="vs-checkbox-con vs-checkbox-primary">
-                                                <input class="input-role" id="pimpinan" type="checkbox" value="false">
+                                                <input class="input-role" id="pimpinan" type="checkbox" value="2">
                                                 <span class="vs-checkbox">
                                                     <span class="vs-checkbox--check">
                                                         <i class="vs-icon feather icon-check"></i>
@@ -128,7 +120,7 @@
                                         </fieldset>
                                         <fieldset>
                                             <div class="vs-checkbox-con vs-checkbox-primary">
-                                                <input class="input-role" id="dosen" type="checkbox" value="false">
+                                                <input class="input-role" id="dosen" type="checkbox" value="3">
                                                 <span class="vs-checkbox">
                                                     <span class="vs-checkbox--check">
                                                         <i class="vs-icon feather icon-check"></i>
@@ -139,7 +131,7 @@
                                         </fieldset>
                                         <fieldset>
                                             <div class="vs-checkbox-con vs-checkbox-primary">
-                                                <input class="input-role" id="penelitian" type="checkbox" value="false">
+                                                <input class="input-role" id="penelitian" type="checkbox" value="4">
                                                 <span class="vs-checkbox">
                                                     <span class="vs-checkbox--check">
                                                         <i class="vs-icon feather icon-check"></i>
@@ -150,7 +142,7 @@
                                         </fieldset>
                                         <fieldset>
                                             <div class="vs-checkbox-con vs-checkbox-primary">
-                                                <input class="input-role" id="pengabdian" type="checkbox" value="false">
+                                                <input class="input-role" id="pengabdian" type="checkbox" value="5">
                                                 <span class="vs-checkbox">
                                                     <span class="vs-checkbox--check">
                                                         <i class="vs-icon feather icon-check"></i>
@@ -161,7 +153,7 @@
                                         </fieldset>
                                         <fieldset>
                                             <div class="vs-checkbox-con vs-checkbox-primary">
-                                                <input class="input-role" id="reviewer" type="checkbox" value="false">
+                                                <input class="input-role" id="reviewer" type="checkbox" value="6">
                                                 <span class="vs-checkbox">
                                                     <span class="vs-checkbox--check">
                                                         <i class="vs-icon feather icon-check"></i>
@@ -245,22 +237,22 @@
                         $(this).removeAttr("checked")
                     });
                     for (var i = 0; i < d['roles'].length; i++) {
-                        if ($('#admin').val()==d['roles'][i].role_id) {
+                        if ($('#admin').val()==d['roles'][i].id) {
                             $('#admin').attr( "checked","checked" );
                         }
-                        if ($('#pimpinan').val()==d['roles'][i].role_id) {
+                        if ($('#pimpinan').val()==d['roles'][i].id) {
                             $('#pimpinan').attr( "checked","checked" );
                         }
-                        if ($('#dosen').val()==d['roles'][i].role_id) {
+                        if ($('#dosen').val()==d['roles'][i].id) {
                             $('#dosen').attr( "checked","checked" );
                         }
-                        if ($('#penelitian').val()==d['roles'][i].role_id) {
+                        if ($('#penelitian').val()==d['roles'][i].id) {
                             $('#penelitian').attr( "checked","checked" );
                         }
-                        if ($('#pengabdian').val()==d['roles'][i].role_id) {
+                        if ($('#pengabdian').val()==d['roles'][i].id) {
                             $('#pengabdian').attr( "checked","checked" );
                         }
-                        if ($('#reviewer').val()==d['roles'][i].role_id) {
+                        if ($('#reviewer').val()==d['roles'][i].id) {
                             $('#reviewer').attr( "checked","checked" );
                         }
                     }

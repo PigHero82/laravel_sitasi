@@ -5,11 +5,11 @@
             <li class="{{ (request()->is('admin')) ? 'active' : '' }} nav-item"><a href="{{ route('admin.index') }}" title="Dashboard"><i class="feather icon-home"></i><span class="menu-title">Dashboard</span></a></li>
             <li class="nav-item"><a href="#" title="Data Master"><i class="feather icon-codepen"></i><span class="menu-title">Data Master</span></a>
                 <ul class="menu-content">
-                    <li class="{{ (request()->is('admin/master/dosen*')) ? 'active' : '' }}"><a href="{{ route('admin.master.dosen') }}" title="Dosen"><i></i><span class="menu-item">Dosen</span></a></li>
+                    <li class="{{ (request()->is('admin/master/dosen*')) ? 'active' : '' }}"><a href="{{ route('admin.master.dosen.index') }}" title="Dosen"><i></i><span class="menu-item">Dosen</span></a></li>
                     <li class="{{ (request()->is('admin/master/user*')) ? 'active' : '' }}"><a href="{{ route('admin.master.user.index') }}" title="User"><i></i><span class="menu-item">User</span></a></li>
                     <li class="{{ (request()->is('admin/master/skema*')) ? 'active' : '' }}"><a href="{{ route('admin.master.skema.index') }}" title="Skema"><i></i><span class="menu-item">Skema</span></a></li>
                     <li class="{{ (request()->is('admin/master/rumpun-ilmu*')) ? 'active' : '' }}"><a href="{{ route('admin.master.rumpun-ilmu') }}" title="Rumpun Ilmu"><i></i><span class="menu-item">Rumpun Ilmu</span></a></li>
-                    <li class="{{ (request()->is('admin/master/prodi*')) ? 'active' : '' }}"><a href="{{ route('admin.master.prodi') }}" title="Program Studi"><i></i><span class="menu-item">Program Studi</span></a></li>
+                    <li class="{{ (request()->is('admin/master/prodi*')) ? 'active' : '' }}"><a href="{{ route('admin.master.prodi.index') }}" title="Program Studi"><i></i><span class="menu-item">Program Studi</span></a></li>
                     <li class="{{ (request()->is('admin/master/jabatan-akademik*')) ? 'active' : '' }}"><a href="#" title="Jabatan Akademik"><i></i><span class="menu-item">Jabatan Akademik</span></a></li>
                     {{-- <li class="{{ (request()->is('admin/master/*')) ? 'active' : '' }}"><a href="#" title=""><i></i><span class="menu-item"></span></a></li>
                     <li class="{{ (request()->is('admin/master/*')) ? 'active' : '' }}"><a href="#" title=""><i></i><span class="menu-item"></span></a></li>

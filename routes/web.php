@@ -38,8 +38,8 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 Route::namespace('admin')->name('admin.')->prefix('admin')->middleware('auth', 'role:admin')->group(function() {
     Route::get('', 'HomeController@index')->name('index');
     Route::namespace('master')->name('master.')->prefix('master')->group(function() {
-        Route::view('dosen', 'master.dosen')->name('dosen');
-        Route::view('prodi', 'master.prodi')->name('prodi');
+        Route::resource('dosen', 'DosenController');
+        Route::resource('prodi', 'ProdiController');
         Route::view('rumpun-ilmu', 'master.rumpun-ilmu')->name('rumpun-ilmu');
         Route::resource('skema', 'SkemaController');
         Route::resource('user', 'UserController');

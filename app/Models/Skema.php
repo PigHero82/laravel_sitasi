@@ -9,6 +9,7 @@ class Skema extends Model
 {
     use HasFactory;
 
+    protected $table = 'skema';
     protected $fillable = ['nama', 'jenis'];
 
     static function getSkema()

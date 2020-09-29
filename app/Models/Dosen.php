@@ -17,4 +17,18 @@ class Dosen extends Model
         return Dosen::join('users', 'users.nidn', 'dosen.nidn')
                     ->firstWhere('users.id', $id);
     }
+
+    static function getDosenNIDNNama()
+    {
+        return Dosen::select('id', 'nidn', 'nama')
+                    ->get();
+    }
+    
+    static function firstDosenDetail($id)
+    {
+        return Dosen::select('dosen.*', 'jabatan.nama as jabatan_fungsional_nama')
+                    ->join('jabatan', 'dosen.jabatan_id', 'jabatan.id')
+                    ->where('dosen.id', $id)
+                    ->first();
+    }
 }
