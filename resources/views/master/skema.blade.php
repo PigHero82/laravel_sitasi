@@ -48,6 +48,7 @@
         <div class="col-md-12">
 
           <!-- general form elements -->
+        @if (count($data) > 0)
           <div class="card">
             <div class="card-header">
               <h3 class="card-title">Skema</h3>
@@ -60,7 +61,6 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-                @if (count($data) > 0)
                     <table id="myTable" class="table zero-configuration" style="width:100%">
                         <thead>
                             <tr>
@@ -103,16 +103,33 @@
                             </tr>
                         </tfoot>
                     </table>
-                @else
-                    <div class="text-center">
-                        <h1><i class="feather icon-alert-octagon"></i></h1>
-                        <h4 class="card-title">Tidak ada data</h4>
-                    </div>
-                @endif
+                </div>
+                <!-- /.card-body -->
             </div>
-            <!-- /.card-body -->
-          </div>
-          <!-- /.card -->
+            <!-- /.card -->
+        @else
+            <!-- general form elements -->
+            <div class="card bg-danger text-white">
+                <div class="card-header">
+                    <h3 class="card-title text-white">Skema</h3>
+
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal">
+                            <i class="fas fa-plus"></i> Tambah
+                        </button>
+                    </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-content">
+                    <div class="card-body text-center">
+                        <h1 class="text-white"><i class="feather icon-alert-octagon"></i></h1>
+                        <h4 class="card-title text-white">Tidak ada data</h4>
+                    </div>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        @endif
 
         </div>
         <!--/.col (left) -->
@@ -137,21 +154,21 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="kode">Nama</label>
-                                    <input type="text" class="form-control" name="kode">
+                                    <input type="text" class="form-control" name="kode" required>
                                 </div>
                             </div>
                             
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="Nama">Deskripsi</label>
-                                    <input type="text" class="form-control" name="nama">
+                                    <input type="text" class="form-control" name="nama" required>
                                 </div>
                             </div>
 
                             <div class="col-md-12">
                                 <label>Jenis</label>
                                 <div class="form-group">
-                                    <select class="form-control" name="jenis">
+                                    <select class="form-control" name="jenis" required>
                                         <option value="" hidden>--Pilih Jenis Skema</option>
                                         <option value="1">Penelitian</option>
                                         <option value="2">Pengabdian</option>
@@ -187,22 +204,22 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="kode">Nama</label>
-                                    <input type="text" class="form-control" name="id" id="id" hidden>
-                                    <input type="text" class="form-control" name="kode" id="kode">
+                                    <input type="text" class="form-control" name="id" id="id" hidden required>
+                                    <input type="text" class="form-control" name="kode" id="kode" required>
                                 </div>
                             </div>
                             
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="nama">Deskripsi</label>
-                                    <input type="text" class="form-control" name="nama" id="nama">
+                                    <input type="text" class="form-control" name="nama" id="nama" required>
                                 </div>
                             </div>
 
                             <div class="col-md-12">
                                 <label>Jenis</label>
                                 <div class="form-group">
-                                    <select class="form-control" name="jenis" id="jenis">
+                                    <select class="form-control" name="jenis" id="jenis" required>
                                         <option value="" hidden></option>
                                         <option value="1">Penelitian</option>
                                         <option value="2">Pengabdian</option>
