@@ -169,7 +169,6 @@
     <!-- BEGIN: Custom JS-->
     <script src="{{ asset('/js/fontawesome5.js') }}"></script>
     <!-- END: Custom JS-->
-    {{-- <script src="{{ asset('/app-assets/js/scripts/datatables/datatable.min.js') }}"></script> --}}
 
     @yield('js')
 

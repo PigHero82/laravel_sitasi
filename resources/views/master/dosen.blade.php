@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('css')
-    {{-- <link rel="stylesheet" type="text/css" href="{{ asset('/app-assets/vendors/css/tables/datatable/datatables.min.css') }}"> --}}
+    <link rel="stylesheet" type="text/css" href="{{ asset('/app-assets/vendors/css/tables/datatable/datatables.min.css') }}">
     {{-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.5/css/responsive.dataTables.min.css"> --}}
 @endsection
 
@@ -29,28 +29,30 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-                <table id="myTable" class="table zero-configuration table-striped" style="width:100%">
-                    <thead class="text-center">
-                        <tr>
-                            <th>NIDN</th>
-                            <th>Name</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($data as $item)
+                <div class="table-responsive">
+                    <table id="myTable" class="table zero-configuration table-striped" style="width:100%">
+                        <thead class="text-center">
                             <tr>
-                                <td><a href="#inlineForm" data-toggle="modal" data-value="{{ $item->id }}">{{ $item->nidn }}</a></td>
-                                <td>{{ $item->nama }}</td>
+                                <th>NIDN</th>
+                                <th>Name</th>
                             </tr>
-                        @endforeach
-                    </tbody>
-                    <tfoot class="text-center">
-                        <tr>
-                            <th>NIDN</th>
-                            <th>Name</th>
-                        </tr>
-                    </tfoot>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach ($data as $item)
+                                <tr>
+                                    <td><a href="#inlineForm" data-toggle="modal" data-value="{{ $item->id }}">{{ $item->nidn }}</a></td>
+                                    <td>{{ $item->nama }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                        <tfoot class="text-center">
+                            <tr>
+                                <th>NIDN</th>
+                                <th>Name</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
             </div>
             <!-- /.card-body -->
           </div>
@@ -171,16 +173,12 @@
 @endsection
 
 @section('js')
-
-    {{-- <script src="{{ asset('app-assets/vendors/js/pickers/pickadate/picker.js') }}"></script>
-    <script src="{{ asset('app-assets/vendors/js/pickers/pickadate/picker.date.js') }}"></script>
-    <script src="{{ asset('app-assets/vendors/js/pickers/pickadate/picker.time.js') }}"></script>
-    <script src="{{ asset('app-assets/vendors/js/pickers/pickadate/legacy.js') }}"></script>
-    <script src="{{ asset('app-assets/vendors/js/pickers/dateTime/pick-a-datetime.js') }}"></script> --}}
-    {{-- <script src="{{ asset('/app-assets/js/scripts/datatables/datatable.min.js') }}"></script> --}}
-    {{-- <script src="https://cdn.datatables.net/responsive/2.2.5/js/dataTables.responsive.min.js"></script> --}}
+    <script src="{{ asset('app-assets/vendors/js/tables/datatable/datatables.min.js') }}"></script>
+    <script src="{{ asset('app-assets/vendors/js/tables/datatable/datatables.bootstrap4.min.js') }}"></script>
     <script>
         $(document).ready( function () {
+            $('.zero-configuration').DataTable();
+
             $(document).on('click', '#myTable tbody tr td a', function(e) {
                 var id = $(this).attr('data-value');
                 $.get( "/admin/master/dosen/" + id, function( data ) {
