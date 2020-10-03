@@ -18,6 +18,7 @@
     <div class="row justify-content-center">
         <!-- left column -->
         <div class="col-lg-8">
+        @if (count($data) > 0)
           <!-- general form elements -->
           <div class="card">
             <div class="card-header">
@@ -57,6 +58,27 @@
             <!-- /.card-body -->
           </div>
           <!-- /.card -->
+          @else
+                <!-- general form elements -->
+                <div class="card bg-danger text-white">
+                    <div class="card-header">
+                        <h3 class="card-title text-white">Dosen</h3>
+          
+                        <div class="card-tools">
+                          <a href="#" class="btn btn-success"><i class="fas fa-sync-alt"></i> Sinkronisasi Data Dosen</a>
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-content">
+                        <div class="card-body text-center">
+                            <h1 class="text-white"><i class="feather icon-alert-octagon"></i></h1>
+                            <h4 class="card-title text-white">Tidak ada data</h4>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            @endif
         </div>
         <!--/.col (left) -->
       </div>
@@ -64,108 +86,79 @@
 
         <!-- Modal -->
         <div class="modal fade text-left" id="inlineForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title" id="myModalLabel33"> | Detail Dosen</h4>
+                        <h4 class="modal-title" id="myModalLabel33">Detail Dosen</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
 
+                    
                     <div class="modal-body">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>NIDN</label>
-                                <div class="form-group">
-                                    <input type="number" class="form-control" id="nidn" disabled>
-                                </div>
-                            </div>
-                            
-                            <div class="col-md-6">
-                                <label>Nama</label>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" id="nama" disabled>
-                                </div>
-                            </div>
-                            
-                            <div class="col-md-6">
-                                <label>Alamat</label>
-                                <fieldset class="form-group">
-                                    <textarea class="form-control" rows="3" id="alamat" disabled></textarea>
-                                </fieldset>
-                            </div>
-                            
-                            <div class="col-md-6">
-                                <label>Tempat Lahir</label>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" id="tempat_lahir" disabled>
-                                </div>
-                            </div>
-                            
-                            <div class="col-md-6">
-                                <label>Tanggal Lahir</label>
-                                <div class="form-group">
-                                    <input type="date" class="form-control" id="tanggal_lahir" disabled>
-                                </div>
-                            </div>
-                            
-                            <div class="col-md-6">
-                                <label>Jabatan Fungsional</label>
-                                <fieldset class="form-group">
-                                    <input type="text" class="form-control" id="jabatan_fungsional" disabled>
-                                </fieldset>
-                            </div>
-                            
-                            <div class="col-md-6">
-                                <label>No. KTP</label>
-                                <div class="form-group">
-                                    <input type="number" class="form-control" id="ktp" disabled>
-                                </div>
-                            </div>
-                            
-                            <div class="col-md-6">
-                                <label>No. Telepon</label>
-                                <div class="form-group">
-                                    <input type="number" class="form-control" id="telepon" disabled>
-                                </div>
-                            </div>
-                            
-                            <div class="col-md-6">
-                                <label>No. HP</label>
-                                <div class="form-group">
-                                    <input type="number" class="form-control" id="hp" disabled>
-                                </div>
-                            </div>
-                            
-                            <div class="col-md-6">
-                                <label>Alamat Email</label>
-                                <div class="form-group">
-                                    <input type="email" class="form-control" id="email" disabled>
-                                </div>
-                            </div>
-                            
-                            <div class="col-md-6">
-                                <label>Situs Web</label>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" id="web" disabled>
-                                </div>
-                            </div>
-                            
-                            <div class="col-md-6">
-                                <label>ID Sinta</label>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" id="sinta_id" disabled>
-                                </div>
-                            </div>
-                            
-                            <div class="col-md-6">
-                                <label>ID Google Scholar</label>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" id="google_scholar_id" disabled>
-                                </div>
-                            </div>
+                        <div class="card-text">
+                            <dl class="row">
+                                <dt class="col-sm-4 text-md-right">NIDN</dt>
+                                <dd class="col-sm-8" id="nidn"></dd>
+                            </dl>
+                            <dl class="row">
+                                <dt class="col-sm-4 text-md-right">Nama</dt>
+                                <dd class="col-sm-8" id="nama"></dd>
+                            </dl>
+                            <dl class="row">
+                                <dt class="col-sm-4 text-md-right">Alamat</dt>
+                                <dd class="col-sm-8" id="alamat"></dd>
+                            </dl>
+                            <dl class="row">
+                                <dt class="col-sm-4 text-md-right">Tempat Lahir</dt>
+                                <dd class="col-sm-8" id="tempat_lahir"></dd>
+                            </dl>
+                            <dl class="row">
+                                <dt class="col-sm-4 text-md-right">Tanggal Lahir</dt>
+                                <dd class="col-sm-8" id="tanggal_lahir"></dd>
+                            </dl>
+                            <dl class="row">
+                                <dt class="col-sm-4 text-md-right">Jabatan Fungsional</dt>
+                                <dd class="col-sm-8" id="jabatan_fungsional"></dd>
+                            </dl>
+                            <dl class="row">
+                                <dt class="col-sm-4 text-md-right">No. KTP</dt>
+                                <dd class="col-sm-8" id="ktp"></dd>
+                            </dl>
+                            <dl class="row">
+                                <dt class="col-sm-4 text-md-right">No. Telepon</dt>
+                                <dd class="col-sm-8" id="telepon"></dd>
+                            </dl>
+                            <dl class="row">
+                                <dt class="col-sm-4 text-md-right">No. HP</dt>
+                                <dd class="col-sm-8" id="hp"></dd>
+                            </dl>
+                            <dl class="row">
+                                <dt class="col-sm-4 text-md-right">Alamat Email</dt>
+                                <dd class="col-sm-8" id="email"></dd>
+                            </dl>
+                            <dl class="row">
+                                <dt class="col-sm-4 text-md-right">Situs Web</dt>
+                                <dd class="col-sm-8" id="web"></dd>
+                            </dl>
+                            <dl class="row">
+                                <dt class="col-sm-4 text-md-right">ID Sinta</dt>
+                                <dd class="col-sm-8" id="sinta_id"></dd>
+                            </dl>
+                            <dl class="row">
+                                <dt class="col-sm-4 text-md-right">ID Google Scholar</dt>
+                                <dd class="col-sm-8" id="google_scholar_id"></dd>
+                            </dl>
                         </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <form action="#" method="POST">
+                            @csrf
+                            <input type="text" name="nidn" id="nidn-field" hidden required>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Perbarui</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -184,20 +177,21 @@
                 $.get( "/admin/master/dosen/" + id, function( data ) {
                     console.log(JSON.parse(data));
                     var d = JSON.parse(data);
-                    $('#myModalLabel33').val(d.nama + " | Detail Dosen");
-                    $('#nidn').val(d.nidn);
-                    $('#nama').val(d.nama);
+                    $('#myModalLabel33').text(d.nama + " | Detail Dosen");
+                    $('#nidn-field').val(d.nidn);
+                    $('#nidn').text(d.nidn);
+                    $('#nama').text(d.nama);
                     $('#alamat').text(d.alamat);
-                    $('#tempat_lahir').val(d.tempat_lahir);
-                    $('#tanggal_lahir').val(d.tanggal_lahir);
-                    $('#jabatan_fungsional').val(d.jabatan_fungsional_nama);
-                    $('#ktp').val(d.ktp);
-                    $('#telepon').val(d.telepon);
-                    $('#hp').val(d.hp);
-                    $('#email').val(d.email);
-                    $('#web').val(d.web);
-                    $('#sinta_id').val(d.sinta_id);
-                    $('#google_scholar_id').val(d.google_scholar_id);
+                    $('#tempat_lahir').text(d.tempat_lahir);
+                    $('#tanggal_lahir').text(d.tanggal_lahir);
+                    $('#jabatan_fungsional').text(d.jabatan_fungsional_nama);
+                    $('#ktp').text(d.ktp);
+                    $('#telepon').text(d.telepon);
+                    $('#hp').text(d.hp);
+                    $('#email').text(d.email);
+                    $('#web').text(d.web);
+                    $('#sinta_id').text(d.sinta_id);
+                    $('#google_scholar_id').html('<a href="https://scholar.google.com/citations?user=' + d.google_scholar_id + '&hl=id" target="_blank" rel="noopener noreferrer">' + d.google_scholar_id + '</a>');
                 });
                 console.log($(this).attr('data-value'));
             });
