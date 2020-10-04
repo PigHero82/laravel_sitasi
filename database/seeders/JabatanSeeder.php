@@ -15,27 +15,33 @@ class JabatanSeeder extends Seeder
     public function run()
     {
         Jabatan::create([
-            'nama'      => 'Asisten Ahli'
+            'nama'  => 'Asisten Ahli',
+            'level' => 1
         ]);
 
         Jabatan::create([
-            'nama'      => 'Lektor'
+            'nama'  => 'Lektor',
+            'level' => 2
         ]);
 
         Jabatan::create([
-            'nama'      => 'Lektor Kepala'
+            'nama'  => 'Lektor Kepala',
+            'level' => 3
         ]);
 
         Jabatan::create([
-            'nama'      => 'Pegawai'
+            'nama'  => 'Pegawai',
+            'level' => 4
         ]);
 
         Jabatan::create([
-            'nama'      => 'Profesor'
+            'nama'  => 'Profesor',
+            'level' => 5
         ]);
 
         Jabatan::create([
-            'nama'      => 'Tenaga Pengajar'
+            'nama'  => 'Tenaga Pengajar',
+            'level' => 6
         ]);
     }
 }

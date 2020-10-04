@@ -12,8 +12,7 @@
 @section('content')
     @if ($message = Session::get('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <i class="feather icon-check mr-1 align-middle"></i>
-            <span>{{ $message }}</span>
+            <i class="feather icon-check mr-1 align-middle"></i><span>{{ $message }}</span>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true"><i class="feather icon-x-circle"></i></span>
             </button>
@@ -22,8 +21,7 @@
     
     @if ($message = Session::get('danger'))
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <i class="feather icon-x mr-1 align-middle"></i>
-            <span>{{ $message }}</span>
+            <i class="feather icon-x mr-1 align-middle"></i><span>{{ $message }}</span>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true"><i class="feather icon-x-circle"></i></span>
             </button>

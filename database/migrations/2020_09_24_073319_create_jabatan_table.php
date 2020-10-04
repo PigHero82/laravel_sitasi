@@ -16,6 +16,7 @@ class CreateJabatanTable extends Migration
         Schema::create('jabatan', function (Blueprint $table) {
             $table->id();
             $table->string('nama', 30);
+            $table->tinyInteger('level');
             $table->boolean('status')->default(1);
             $table->timestamps();
         });

@@ -10,12 +10,7 @@
                     <li class="{{ (request()->is('admin/master/skema*')) ? 'active' : '' }}"><a href="{{ route('admin.master.skema.index') }}" title="Skema"><i></i><span class="menu-item">Skema</span></a></li>
                     <li class="{{ (request()->is('admin/master/rumpun-ilmu*')) ? 'active' : '' }}"><a href="{{ route('admin.master.rumpun-ilmu') }}" title="Rumpun Ilmu"><i></i><span class="menu-item">Rumpun Ilmu</span></a></li>
                     <li class="{{ (request()->is('admin/master/prodi*')) ? 'active' : '' }}"><a href="{{ route('admin.master.prodi.index') }}" title="Program Studi"><i></i><span class="menu-item">Program Studi</span></a></li>
-                    <li class="{{ (request()->is('admin/master/jabatan-akademik*')) ? 'active' : '' }}"><a href="#" title="Jabatan Akademik"><i></i><span class="menu-item">Jabatan Akademik</span></a></li>
-                    {{-- <li class="{{ (request()->is('admin/master/*')) ? 'active' : '' }}"><a href="#" title=""><i></i><span class="menu-item"></span></a></li>
-                    <li class="{{ (request()->is('admin/master/*')) ? 'active' : '' }}"><a href="#" title=""><i></i><span class="menu-item"></span></a></li>
-                    <li class="{{ (request()->is('admin/master/*')) ? 'active' : '' }}"><a href="#" title=""><i></i><span class="menu-item"></span></a></li>
-                    <li class="{{ (request()->is('admin/master/*')) ? 'active' : '' }}"><a href="#" title=""><i></i><span class="menu-item"></span></a></li>
-                    <li class="{{ (request()->is('admin/master/*')) ? 'active' : '' }}"><a href="#" title=""><i></i><span class="menu-item"></span></a></li> --}}
+                    <li class="{{ (request()->is('admin/master/jabatan*')) ? 'active' : '' }}"><a href="{{ route('admin.master.jabatan.index') }}" title="Jabatan Akademik"><i></i><span class="menu-item">Jabatan Akademik</span></a></li>
                 </ul>
             </li>
             <li class="nav-item"><a href="#" title="Review"><i class="feather icon-book"></i><span class="menu-title">Review</span></a>

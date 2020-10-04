@@ -39,6 +39,7 @@ Route::namespace('admin')->name('admin.')->prefix('admin')->middleware('auth', '
     Route::get('', 'HomeController@index')->name('index');
     Route::namespace('master')->name('master.')->prefix('master')->group(function() {
         Route::resource('dosen', 'DosenController');
+        Route::resource('jabatan', 'JabatanController');
         Route::resource('prodi', 'ProdiController');
         Route::view('rumpun-ilmu', 'master.rumpun-ilmu')->name('rumpun-ilmu');
         Route::resource('skema', 'SkemaController');
