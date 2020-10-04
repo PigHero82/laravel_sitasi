@@ -4,6 +4,12 @@
     Data Master
 @endsection
 
+@section('css')
+    <link rel="stylesheet" type="text/css" href="{{ asset('/app-assets/vendors/css/tables/datatable/datatables.min.css') }}">
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('/app-assets/css/plugins/forms/validation/form-validation.css') }}">
+@endsection
+
 @section('content')
     @if(session()->get('success'))
         <div class ="alert alert-success">
@@ -24,46 +30,48 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-                <table id="myTable" class="table zero-configuration table-striped table-responsive" style="width:100%">
-                    <thead class="text-center">
-                        <tr>
-                            <th>NIDN</th>
-                            <th>Nama</th>
-                            <th>Role</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        @foreach ($data as $item)
+                <div class="table-responsive">
+                    <table id="myTable" class="table zero-configuration table-striped" style="width:100%">
+                        <thead class="text-center">
                             <tr>
-                                <td><a href="#inlineForm" data-toggle="modal" data-value="{{ $item->id }}">{{ $item->nidn }}</a></td>
-                                <td>{{ $item->nama }}</td>
-                                <td>
-                                    @if(count($item['roles']) > 0)
-                                        <ul>
-                                            @foreach ($item['roles'] as $role)
-                                                <li>{{ $role->description }}</li>
-                                            @endforeach
-                                        </ul>
-                                    @else
-                                        -
-                                    @endif
-                                </td>
-                                <td><button class="btn btn-primary"><i class="fas fa-key"></i> Reset Password</button></td>
+                                <th>NIDN</th>
+                                <th>Nama</th>
+                                <th>Role</th>
+                                <th>Aksi</th>
                             </tr>
-                        @endforeach
-                    </tbody>
-
-                    <tfoot class="text-center">
-                        <tr>
-                            <th>NIDN</th>
-                            <th>Nama</th>
-                            <th>Role</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </tfoot>
-                </table>
+                        </thead>
+    
+                        <tbody>
+                            @foreach ($data as $item)
+                                <tr>
+                                    <td><a href="#inlineForm" data-toggle="modal" data-value="{{ $item->id }}">{{ $item->nidn }}</a></td>
+                                    <td>{{ $item->nama }}</td>
+                                    <td>
+                                        @if(count($item['roles']) > 0)
+                                            <ul>
+                                                @foreach ($item['roles'] as $role)
+                                                    <li>{{ $role->description }}</li>
+                                                @endforeach
+                                            </ul>
+                                        @else
+                                            -
+                                        @endif
+                                    </td>
+                                    <td><button class="btn btn-primary"><i class="fas fa-key"></i> Reset Password</button></td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+    
+                        <tfoot class="text-center">
+                            <tr>
+                                <th>NIDN</th>
+                                <th>Nama</th>
+                                <th>Role</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
             </div>
             <!-- /.card-body -->
           </div>
@@ -184,33 +192,33 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form action="#">
+                    <form action="#" novalidate>
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col-md-12">
                                     <label>NIDN</label>
                                     <div class="form-group">
-                                        <input type="number" placeholder="NIDN" class="form-control">
+                                        <input type="number" placeholder="NIDN" class="form-control" data-validation-required-message="NIDN tidak boleh kosong">
                                     </div>
                                 </div>
                                 
                                 <div class="col-md-12">
                                     <label>Nama</label>
                                     <div class="form-group">
-                                        <input type="text" placeholder="Nama" class="form-control">
+                                        <input type="text" placeholder="Nama" class="form-control" data-validation-required-message="Nama tidak boleh kosong">
                                     </div>
                                 </div>
                                 
                                 <div class="col-md-12">
                                     <label>Kata Sandi</label>
                                     <div class="form-group">
-                                        <input type="password" placeholder="Kata Sandi" class="form-control">
+                                        <input type="password" placeholder="Kata Sandi" class="form-control" data-validation-required-message="Kata Sandi minimal berisi 8 karakter" minlength="8">
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" data-dismiss="modal">Tambah</button>
+                            <button type="submit" class="btn btn-primary">Tambah</button>
                         </div>
                     </form>
                 </div>
@@ -219,11 +227,18 @@
 @endsection
 
 @section('js')
+    <script src="{{ asset('app-assets/vendors/js/tables/datatable/datatables.min.js') }}"></script>
+    <script src="{{ asset('app-assets/vendors/js/tables/datatable/datatables.bootstrap4.min.js') }}"></script>
+
+    <script src="{{ asset('app-assets/vendors/js/forms/validation/jqBootstrapValidation.js') }}"></script>
+    <script src="{{ asset('app-assets/js/scripts/forms/validation/form-validation.js') }}"></script>
+
     <script>
         $(document).ready( function () {
-            // $('#myTable').DataTable({
-            //     responsive: true
-            // });
+            $('#myTable').DataTable({
+                responsive: true
+            });
+
             $(document).on('click', '#myTable tbody tr td a', function(e) {
                 var id = $(this).attr('data-value');
                 $.get( "/admin/master/user/" + id, function( data ) {

@@ -2,7 +2,8 @@
 
 @section('css')
     <link rel="stylesheet" type="text/css" href="{{ asset('/app-assets/vendors/css/forms/select/select2.min.css') }}">
-    {{-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.5/css/responsive.dataTables.min.css"> --}}
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('/app-assets/css/plugins/forms/validation/form-validation.css') }}">
 @endsection
 
 @section('judul')
@@ -110,14 +111,14 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="{{ route('admin.master.prodi.update', 0) }}" method="POST">
+                <form action="{{ route('admin.master.prodi.update', 0) }}" method="POST" novalidate>
                     @csrf
                     <input type="text" name="id" id="id" hidden>
                     
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="firstName1">Nama</label>
-                            <input type="text" class="form-control" id="nama" required>
+                            <input type="text" class="form-control" id="nama" required data-validation-required-message="You must agree to the terms and conditions">
                         </div>
 
                         <div class="form-group">
@@ -146,6 +147,10 @@
 
 @section('js')
     <script src="{{ asset('app-assets/vendors/js/forms/select/select2.full.min.js') }}"></script>
+
+    <script src="{{ asset('app-assets/vendors/js/forms/validation/jqBootstrapValidation.js') }}"></script>
+    <script src="{{ asset('app-assets/js/scripts/forms/validation/form-validation.js') }}"></script>
+
     <script>
         $(document).ready( function () {
             $(".select2").select2({
