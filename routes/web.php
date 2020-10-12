@@ -41,7 +41,11 @@ Route::namespace('admin')->name('admin.')->prefix('admin')->middleware('auth', '
         Route::resource('dosen', 'DosenController');
         Route::resource('jabatan', 'JabatanController');
         Route::resource('prodi', 'ProdiController');
-        Route::view('rumpun-ilmu', 'master.rumpun-ilmu')->name('rumpun-ilmu');
+        Route::name('rumpun-ilmu.')->prefix('rumpun-ilmu')->group(function() {
+        //     Route::resource('', 'RumpunIlmuController')->except(['edit', 'show']);
+            Route::get('{id}', 'RumpunIlmuController@show')->name('show');
+            Route::get('{id}/{id2}', 'RumpunIlmuController@more')->name('more');
+        });
         Route::resource('skema', 'SkemaController');
         Route::resource('user', 'UserController');
     });
@@ -50,7 +54,10 @@ Route::namespace('admin')->name('admin.')->prefix('admin')->middleware('auth', '
         Route::view('penilaian', 'review.penilaian')->name('penilaian');
     });
     Route::view('pimpinan', 'master.pimpinan')->name('pimpinan');
-    Route::view('skema', 'skema')->name('skema');
+    Route::name('skema.')->prefix('skema')->group(function() {
+        Route::resource('', 'SkemaUsulanController')->except(['show']);
+        Route::get('{id}', 'SkemaUsulanController@show')->name('show');
+    });
 });
 
 Route::namespace('pimpinan')->name('pimpinan.')->prefix('pimpinan')->middleware('auth', 'role:pimpinan')->group(function() {

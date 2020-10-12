@@ -25,8 +25,8 @@ class CreateDosenTable extends Migration
             $table->string('hp', 20);
             $table->string('email', 100);
             $table->string('web', 100)->nullable();
-            $table->tinyInteger('jabatan_id');
-            $table->tinyInteger('prodi_id');
+            $table->tinyInteger('jabatan_id')->unsigned();
+            $table->tinyInteger('prodi_id')->unsigned();
             $table->string('sinta_id', 50)->nullable();
             $table->string('google_scholar_id', 50)->nullable();
             $table->boolean('status')->default(1);
