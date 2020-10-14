@@ -37,8 +37,8 @@
                     <div class="col-md-2 col-4 text-right">
                         <span>Kata Kunci :</span>
                     </div>
-                    <div class="col-md-5 col-8">
-                        <input type="text" name="jenis-publikasi" class="form-control" placeholder="Add Tag">
+                    <div class="col-md-9 col-8">
+                        <input type="text" name="jenis-publikasi" class="form-control" placeholder="Pisahkan dengan tanda koma">
                     </div>
                 </div>
                 <div class="form-group row">
