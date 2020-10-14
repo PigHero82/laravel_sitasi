@@ -15,6 +15,7 @@ class CreateUsulanTable extends Migration
     {
         Schema::create('usulan', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('dosen_id')->unsigned();
             $table->integer('skema_usulan_id')->unsigned();
             $table->boolean('jenis');
             $table->string('judul', 250)->nullable();
