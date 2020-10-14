@@ -42,7 +42,7 @@ Route::namespace('admin')->name('admin.')->prefix('admin')->middleware('auth', '
         Route::resource('jabatan', 'JabatanController');
         Route::resource('prodi', 'ProdiController');
         Route::name('rumpun-ilmu.')->prefix('rumpun-ilmu')->group(function() {
-        //     Route::resource('', 'RumpunIlmuController')->except(['edit', 'show']);
+            Route::resource('', 'RumpunIlmuController')->except(['edit', 'show']);
             Route::get('{id}', 'RumpunIlmuController@show')->name('show');
             Route::get('{id}/{id2}', 'RumpunIlmuController@more')->name('more');
         });
@@ -64,8 +64,9 @@ Route::namespace('pimpinan')->name('pimpinan.')->prefix('pimpinan')->middleware(
     Route::view('', 'index.pimpinan')->name('index');
 });
 
-Route::name('dosen.')->prefix('dosen')->middleware('auth', 'role:dosen')->group(function() {
-    Route::view('', 'index.dosen')->name('index');
+Route::namespace('dosen')->name('dosen.')->prefix('dosen')->middleware('auth', 'role:dosen')->group(function() {
+    Route::get('', 'HomeController@index')->name('index');
+    // Route::view('', 'index.dosen')->name('index');
     Route::view('persetujuan-personil', 'persetujuan-personil')->name('persetujuan-personil');
     Route::view('tanggungan', 'tanggungan')->name('tanggungan');
     Route::namespace('publikasi')->name('publikasi.')->prefix('publikasi')->group(function() {
@@ -84,7 +85,8 @@ Route::name('dosen.')->prefix('dosen')->middleware('auth', 'role:dosen')->group(
         Route::view('', 'buku.index')->name('index');
         Route::view('create', 'buku.create')->name('create');
     });
-    Route::namespace('usulan')->name('usulan.')->prefix('usulan')->group(function() {
+    Route::name('usulan.')->prefix('usulan')->group(function() {
+        // Route::resource('', 'UsulanController');
         Route::view('', 'usulan.index')->name('index');
         Route::view('create/1', 'usulan.1')->name('1');
         Route::view('create/2', 'usulan.2')->name('2');

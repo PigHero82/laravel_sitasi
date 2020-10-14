@@ -21,7 +21,7 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-                <table id="myTable" class="table zero-configuration table-striped" style="width:100%">
+                <table id="usulan" class="table zero-configuration table-striped" style="width:100%">
                     <thead>
                         <tr>
                             <th>Kode</th>
@@ -30,56 +30,21 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>PDP</td>
-                            <td>Penelitian Dosen Pemula</td>
-                            <td>Penelitian</td>
-                        </tr>
-                        <tr>
-                            <td>PPDS Batch 1</td>
-                            <td>Penelitian Pengembangan Dosen STIKI</td>
-                            <td>Penelitian</td>
-                        </tr>
-                        <tr>
-                            <td>PKM STIKI Peduli (Tahunan) Batch 1</td>
-                            <td>Pengabdian Kepada Masyarakat</td>
-                            <td>Pengabdian</td>
-                        </tr>
-                        <tr>
-                            <td>PKM STIKI Peduli (Insidental) Batch 1</td>
-                            <td>Pengabdian Kepada Masyarakat</td>
-                            <td>Pengabdian</td>
-                        </tr>
-                        <tr>
-                            <td>PPDS Batch 2</td>
-                            <td>Penelitian Pengembangan Dosen STIKI Batch 2</td>
-                            <td>Penelitian</td>
-                        </tr>
-                        <tr>
-                            <td>PKM STIKI Peduli (Tahunan) Batch 2</td>
-                            <td>Pengabdian Kepada Masyarakat STIKI Peduli (Tahunan) Batch 2</td>
-                            <td>Pengabdian</td>
-                        </tr>
-                        <tr>
-                            <td>PKM STIKI Peduli (Insidental) Batch 2</td>
-                            <td>Pengabdian Kepada Masyarakat STIKI Peduli (Insidental) Batch 2</td>
-                            <td>Pengabdian</td>
-                        </tr>
-                        <tr>
-                            <td>PPDS</td>
-                            <td>Penelitian Pengembangan Dosen STIKI</td>
-                            <td>Penelitian</td>
-                        </tr>
-                        <tr>
-                            <td>PDM</td>
-                            <td>Penelitian Dosen Mahasiswa</td>
-                            <td>Penelitian</td>
-                        </tr>
-                        <tr>
-                            <td>SSE</td>
-                            <td>STIKI Social Engagement</td>
-                            <td>Pengabdian</td>
-                        </tr>
+                        @foreach ($skema as $item)
+                            <tr>
+                                <td>{{ $item->tahun_skema . ' - ' . $item->kode }}</td>
+                                <td>{{ $item->nama }}</td>
+                                <td>
+                                    @isset($item->jenis)
+                                        @if ($item->jenis == 1)
+                                            Penelitian
+                                        @elseif ($item->jenis == 2)
+                                            Pengabdian
+                                        @endif
+                                    @endisset
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -110,7 +75,7 @@
                                 <dd class="col-sm-9">
                                     <div class="row">
                                         <div class="col-12">
-                                            <img src="{{ asset('app-assets/images/portrait/small/avatar-s-11.jpg') }}" alt="Profile picture">
+                                            <img src="{{ asset($dosen->profile_photo_path) }}" alt="Profile picture">
                                         </div>
                                         <div class="col-12">
                                             <form action="#" method="post">
@@ -131,19 +96,25 @@
                             </dl>
                             <dl class="row">
                                 <dt class="col-sm-3 text-right">Nama</dt>
-                                <dd class="col-sm-9">John Doe</dd>
+                                <dd class="col-sm-9">{{ $dosen->nama }}</dd>
                             </dl>
                             <dl class="row">
                                 <dt class="col-sm-3 text-right">NIDN</dt>
-                                <dd class="col-sm-9">0843098017</dd>
+                                <dd class="col-sm-9">{{ $dosen->nidn }}</dd>
                             </dl>
                             <dl class="row">
                                 <dt class="col-sm-3 text-right">Email</dt>
-                                <dd class="col-sm-9">john@example.com</dd>
+                                <dd class="col-sm-9">{{ $dosen->email }}</dd>
                             </dl>
                             <dl class="row">
                                 <dt class="col-sm-3 text-right">Link Google Scholar</dt>
-                                <dd class="col-sm-9"><a href="#" class="text-danger">Ubah Biodata Untuk Setting Link Google Scholar</a></dd>
+                                <dd class="col-sm-9">
+                                    @isset($dosen->google_scholar_id)
+                                        <a href="https://scholar.google.com/citations?user={{ $dosen->google_scholar_id }}&hl=id">{{ $dosen->google_scholar_id }}</a>
+                                    @else
+                                        <a href="#" class="text-danger">Ubah Biodata Untuk Setting Link Google Scholar</a>
+                                    @endisset
+                                </dd>
                             </dl>
                         </div>
                     </div>
@@ -248,7 +219,7 @@
               <!-- /.card-header -->
               <div class="card-content collapse show">
                   <div class="card-body">
-                    <table id="myTable" class="table zero-configuration table-striped table-responsive" style="width:100%">
+                    <table id="penelitian" class="table zero-configuration table-striped table-responsive" style="width:100%">
                         <thead>
                             <tr>
                                 <th style="width: 60%">Judul</th>
@@ -302,7 +273,7 @@
               <!-- /.card-header -->
               <div class="card-content collapse show">
                   <div class="card-body">
-                    <table id="myTable" class="table zero-configuration table-striped table-responsive" style="width:100%">
+                    <table id="pengabdian" class="table zero-configuration table-striped table-responsive" style="width:100%">
                         <thead>
                             <tr>
                                 <th style="width: 60%">Judul</th>
@@ -527,4 +498,14 @@
     <!-- BEGIN: Page JS-->
     <script src="{{ asset('app-assets/js/scripts/cards/card-statistics.js') }}"></script>
     <!-- END: Page JS-->
+
+    <script src="{{ asset('app-assets/vendors/js/tables/datatable/datatables.min.js') }}"></script>
+    <script src="{{ asset('app-assets/vendors/js/tables/datatable/datatables.bootstrap4.min.js') }}"></script>
+    <script>
+        $(document).ready( function () {
+            $('#skema').DataTable();
+            $('#penelitian').DataTable();
+            $('#pengabdian').DataTable();
+        });
+    </script>
 @endsection

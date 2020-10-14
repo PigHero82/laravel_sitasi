@@ -32,8 +32,9 @@
             <div class="card-body">
                 <div class="table-responsive">
                     <table id="myTable" class="table zero-configuration table-striped" style="width:100%">
-                        <thead class="text-center">
+                        <thead>
                             <tr>
+                                <th style="width: 30px"></th>
                                 <th>NIDN</th>
                                 <th>Name</th>
                             </tr>
@@ -41,13 +42,23 @@
                         <tbody>
                             @foreach ($data as $item)
                                 <tr>
+                                    <td>
+                                        <div class="avatar text-center">
+                                            @isset($item->profile_photo_path)
+                                                <img src="{{ asset($item->profile_photo_path) }}" alt="{{ $item->nama }}" height="32" width="32">
+                                            @else
+                                                <span class="avatar-content">{{ $item->nama[0] }}</span>
+                                            @endisset
+                                        </div>
+                                    </td>
                                     <td><a href="#inlineForm" data-toggle="modal" data-value="{{ $item->id }}">{{ $item->nidn }}</a></td>
                                     <td>{{ $item->nama }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
-                        <tfoot class="text-center">
+                        <tfoot>
                             <tr>
+                                <th></th>
                                 <th>NIDN</th>
                                 <th>Name</th>
                             </tr>
@@ -170,7 +181,12 @@
     <script src="{{ asset('app-assets/vendors/js/tables/datatable/datatables.bootstrap4.min.js') }}"></script>
     <script>
         $(document).ready( function () {
-            $('.zero-configuration').DataTable();
+            $('.zero-configuration').DataTable({
+                "order": [[ 1, "asc" ]],
+                "columnDefs": [
+                    { "orderable": false, "targets": 0 }
+                ]
+            });
 
             $(document).on('click', '#myTable tbody tr td a', function(e) {
                 var id = $(this).attr('data-value');
