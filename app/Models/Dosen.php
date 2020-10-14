@@ -20,7 +20,8 @@ class Dosen extends Model
 
     static function getDosenNIDNNama()
     {
-        return Dosen::select('id', 'nidn', 'nama')
+        return Dosen::select('dosen.id', 'dosen.nidn', 'dosen.nama', 'users.profile_photo_path')
+                    ->join('users', 'users.nidn', 'dosen.nidn')
                     ->get();
     }
     

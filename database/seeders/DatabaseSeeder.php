@@ -21,5 +21,13 @@ class DatabaseSeeder extends Seeder
         $this->call(RumpunIlmuSeeder::class);
         $this->call(SkemaSeeder::class);
         $this->call(UserSeeder::class);
+        
+        $this->call(LuaranKelompokSeeder::class);
+        $this->call(LuaranLuaranSeeder::class);
+        $this->call(LuaranTargetSeeder::class);
+        $this->call(PeranSeeder::class);
+        $this->call(RabJenisSeeder::class);
+        $this->call(SatuanWaktuSeeder::class);
+        $this->call(SkemaUsulanSeeder::class);
     }
 }
