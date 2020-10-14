@@ -222,27 +222,29 @@
                     <table id="penelitian" class="table zero-configuration table-striped table-responsive" style="width:100%">
                         <thead>
                             <tr>
-                                <th style="width: 60%">Judul</th>
-                                <th>Skema Usulan</th>
-                                <th>Tahun Pelaksanaan</th>
+                                @isset($penelitian)
+                                    <th style="width: 60%">Judul</th>
+                                    <th>Skema Usulan</th>
+                                    <th>Tahun Pelaksanaan</th>
+                                @else
+                                    <th>Judul</th>
+                                    <th>Skema Usulan</th>
+                                    <th>Tahun Pelaksanaan</th>
+                                @endisset
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td><a href="#modalPenelitian" data-toggle="modal">Implementasi Komik Interaktif Cerita Rakyat Cupak Grantang dengan Bahasa Isyarat berbasis Mobile</a></td>
-                                <td>2020 - Penelitian 1</td>
-                                <td>2020</td>
-                            </tr>
-                            <tr>
-                                <td><a href="#modalPenelitian" data-toggle="modal">Penerapan Extreme Programming pada Sistem Pengarsipan Lembaga Penelitian dan Pengabdian Masyarakat STMIK STIKOM Indonesia</a></td>
-                                <td>2020 - Penelitian 1</td>
-                                <td>2020</td>
-                            </tr>
-                            <tr>
-                                <td><a href="#modalPenelitian" data-toggle="modal">Analisa Prosodi Lirik Pupuh Pucung pada Software Speech Synthesis Mbrola</a></td>
-                                <td>2020 - Penelitian 1</td>
-                                <td>2020</td>
-                            </tr>
+                            @isset($penelitian)
+                                @foreach ($penelitian as $item)
+                                    <tr>
+                                        <td><a href="#modalPenelitian" data-toggle="modal">{{ $item->judul }}</a></td>
+                                        <td>{{ $item->tahun_skema . ' - ' . $item->kode }}</td>
+                                        <td>{{ $item->tahun_penelitian . ' - ' . $item->kode }}</td>
+                                    </tr>
+                                @endforeach
+                            @else
+                                    Tidak ada data
+                            @endisset
                         </tbody>
                         <tfoot>
                             <tr>
@@ -276,27 +278,29 @@
                     <table id="pengabdian" class="table zero-configuration table-striped table-responsive" style="width:100%">
                         <thead>
                             <tr>
-                                <th style="width: 60%">Judul</th>
-                                <th>Skema Usulan</th>
-                                <th>Tahun Pelaksanaan</th>
+                                @isset($penelitian)
+                                    <th style="width: 60%">Judul</th>
+                                    <th>Skema Usulan</th>
+                                    <th>Tahun Pelaksanaan</th>
+                                @else
+                                    <th>Judul</th>
+                                    <th>Skema Usulan</th>
+                                    <th>Tahun Pelaksanaan</th>
+                                @endisset
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td><a href="#modalPengabdian" data-toggle="modal">Pelatihan Teknologi Komputer Dasar DI Taman Belajar Anak Br Pedahan Kaja Desa Tianyar Tengah, Kecamatan Kubu, Karangasem</a></td>
-                                <td>2020 - Pengabdian 1</td>
-                                <td>2020</td>
-                            </tr>
-                            <tr>
-                                <td><a href="#modalPengabdian" data-toggle="modal">Implementasi dan Pengelolaan Mobile Based E-complaint System Bagi Masyarakat Desa Kukuh Kecamatan Kerambitan Kabupaten Tabanan</a></td>
-                                <td>2020 - Pengabdian 1</td>
-                                <td>2020</td>
-                            </tr>
-                            <tr>
-                                <td><a href="#modalPengabdian" data-toggle="modal">Pelatihan Media Pembelajaran Guru SD 1 Pesaban berbasis daring</a></td>
-                                <td>2020 - Pengabdian 1</td>
-                                <td>2020</td>
-                            </tr>
+                            @isset($pengabdian)
+                                @foreach ($pengabdian as $item)
+                                    <tr>
+                                        <td><a href="#modalPengabdian" data-toggle="modal">{{ $item->judul }}</a></td>
+                                        <td>{{ $item->tahun_skema . ' - ' . $item->kode }}</td>
+                                        <td>{{ $item->tahun_penelitian . ' - ' . $item->kode }}</td>
+                                    </tr>
+                                @endforeach
+                            @else
+                                    Tidak ada data
+                            @endisset
                         </tbody>
                         <tfoot>
                             <tr>
