@@ -14,7 +14,7 @@ class HomeController extends Controller
     public function index()
     {
         $dosen = Dosen::firstDosen(Auth::user()->id);
-        $skema = SkemaUsulan::getSkema();
+        $skema = SkemaUsulan::getSkemaByJabatan(Auth::user()->id);
         $penelitian = Usulan::getUsulanPenelitianByNIDN(Auth::user()->id);
         $pengabdian = Usulan::getUsulanPengabdianByNIDN(Auth::user()->id);
         return view('index.dosen', compact('dosen', 'skema', 'penelitian', 'pengabdian'));

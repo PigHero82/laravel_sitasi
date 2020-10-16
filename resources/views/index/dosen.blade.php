@@ -14,42 +14,58 @@
     <div class="row">
         <!-- left column -->
         <div class="col-md-6">
-          <!-- general form elements -->
-          <div class="card">
-            <div class="card-header">
-              <h3 class="card-title">Usulan yang Dapat Diajukan</h3>
-            </div>
-            <!-- /.card-header -->
-            <div class="card-body">
-                <table id="usulan" class="table zero-configuration table-striped" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th>Kode</th>
-                            <th>Skema</th>
-                            <th>Jenis Usulan</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($skema as $item)
-                            <tr>
-                                <td>{{ $item->tahun_skema . ' - ' . $item->kode }}</td>
-                                <td>{{ $item->nama }}</td>
-                                <td>
-                                    @isset($item->jenis)
-                                        @if ($item->jenis == 1)
-                                            Penelitian
-                                        @elseif ($item->jenis == 2)
-                                            Pengabdian
-                                        @endif
-                                    @endisset
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-            <!-- /.card-body -->
-          </div>
+            <!-- general form elements -->
+            @if(count($skema))
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Usulan yang Dapat Diajukan</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table id="usulan" class="table zero-configuration table-striped" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>Kode</th>
+                                    <th>Skema</th>
+                                    <th>Jenis Usulan</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($skema as $item)
+                                    <tr>
+                                        <td>{{ $item->tahun_skema . ' - ' . $item->kode }}</td>
+                                        <td>{{ $item->nama }}</td>
+                                        <td>
+                                            @isset($item->jenis)
+                                                @if ($item->jenis == 1)
+                                                    Penelitian
+                                                @elseif ($item->jenis == 2)
+                                                    Pengabdian
+                                                @endif
+                                            @endisset
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+            @else
+                <div class="card bg-danger text-white">
+                    <div class="card-header">
+                        <h3 class="card-title text-white">Usulan yang Dapat Diajukan</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-content">
+                        <div class="card-body text-center">
+                            <h1 class="text-white"><i class="feather icon-alert-octagon"></i></h1>
+                            <h4 class="card-title text-white">Tidak ada data</h4>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+            @endif
           <!-- /.card -->
         </div>
         <!--/.col (left) -->
@@ -206,114 +222,138 @@
 
             <!-- skema penelitian -->
             <!-- general form elements -->
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">Daftar Penelitian</h3>
+            @if(count($penelitian))
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Daftar Penelitian</h3>
 
-                <div class="card-tools">
-                    <a href="#" class="btn btn-outline-success">
-                        Lihat Semua
-                    </a>
-                </div>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-content collapse show">
-                  <div class="card-body">
-                    <table id="penelitian" class="table zero-configuration table-striped table-responsive" style="width:100%">
-                        <thead>
-                            <tr>
-                                @isset($penelitian)
-                                    <th style="width: 60%">Judul</th>
-                                    <th>Skema Usulan</th>
-                                    <th>Tahun Pelaksanaan</th>
-                                @else
-                                    <th>Judul</th>
-                                    <th>Skema Usulan</th>
-                                    <th>Tahun Pelaksanaan</th>
-                                @endisset
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @isset($penelitian)
-                                @foreach ($penelitian as $item)
+                        <div class="card-tools">
+                            <a href="#" class="btn btn-outline-success">
+                                Lihat Semua
+                            </a>
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-content collapse show">
+                        <div class="card-body">
+                            <table id="penelitian" class="table zero-configuration table-striped table-responsive" style="width:100%">
+                                <thead>
                                     <tr>
-                                        <td><a href="#modalPenelitian" data-toggle="modal">{{ $item->judul }}</a></td>
-                                        <td>{{ $item->tahun_skema . ' - ' . $item->kode }}</td>
-                                        <td>{{ $item->tahun_penelitian . ' - ' . $item->kode }}</td>
+                                        @isset($penelitian)
+                                            <th style="width: 60%">Judul</th>
+                                            <th>Skema Usulan</th>
+                                            <th>Tahun Pelaksanaan</th>
+                                        @else
+                                            <th>Judul</th>
+                                            <th>Skema Usulan</th>
+                                            <th>Tahun Pelaksanaan</th>
+                                        @endisset
                                     </tr>
-                                @endforeach
-                            @else
-                                    Tidak ada data
-                            @endisset
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <th>Judul</th>
-                                <th>Skema Usulan</th>
-                                <th>Tahun Pelaksanaan</th>
-                            </tr>
-                        </tfoot>
-                    </table>
-                  </div>
-              </div>
-              <!-- /.card-body -->
-            </div>
+                                </thead>
+                                <tbody>
+                                    @isset($penelitian)
+                                        @foreach ($penelitian as $item)
+                                            <tr>
+                                                <td><a href="#modalPenelitian" data-toggle="modal">{{ $item->judul }}</a></td>
+                                                <td>{{ $item->tahun_skema . ' - ' . $item->kode }}</td>
+                                                <td>{{ $item->tahun_penelitian . ' - ' . $item->kode }}</td>
+                                            </tr>
+                                        @endforeach
+                                    @else
+                                            Tidak ada data
+                                    @endisset
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>Judul</th>
+                                        <th>Skema Usulan</th>
+                                        <th>Tahun Pelaksanaan</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+            @else
+                <div class="card bg-danger text-white">
+                    <div class="card-header">
+                        <h3 class="card-title text-white">Daftar Penelitian</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-content collapse show">
+                        <div class="card-body text-center">
+                            <h1 class="text-white"><i class="feather icon-alert-octagon"></i></h1>
+                            <h4 class="card-title text-white">Tidak ada data</h4>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            @endif
             <!-- /.card -->
   
             <!-- skema pengabdian -->
             <!-- general form elements -->
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">Daftar Pengabdian</h3>
+            @if (count($pengabdian))
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Daftar Pengabdian</h3>
 
-                <div class="card-tools">
-                    <a href="#" class="btn btn-outline-success">
-                        Lihat Semua
-                    </a>
-                </div>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-content collapse show">
-                  <div class="card-body">
-                    <table id="pengabdian" class="table zero-configuration table-striped table-responsive" style="width:100%">
-                        <thead>
-                            <tr>
-                                @isset($penelitian)
-                                    <th style="width: 60%">Judul</th>
-                                    <th>Skema Usulan</th>
-                                    <th>Tahun Pelaksanaan</th>
-                                @else
-                                    <th>Judul</th>
-                                    <th>Skema Usulan</th>
-                                    <th>Tahun Pelaksanaan</th>
-                                @endisset
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @isset($pengabdian)
-                                @foreach ($pengabdian as $item)
+                        <div class="card-tools">
+                            <a href="#" class="btn btn-outline-success">
+                                Lihat Semua
+                            </a>
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-content collapse show">
+                        <div class="card-body">
+                            <table id="pengabdian" class="table zero-configuration table-striped table-responsive" style="width:100%">
+                                <thead>
                                     <tr>
-                                        <td><a href="#modalPengabdian" data-toggle="modal">{{ $item->judul }}</a></td>
-                                        <td>{{ $item->tahun_skema . ' - ' . $item->kode }}</td>
-                                        <td>{{ $item->tahun_penelitian . ' - ' . $item->kode }}</td>
+                                        <th style="width: 60%">Judul</th>
+                                        <th>Skema Usulan</th>
+                                        <th>Tahun Pelaksanaan</th>
                                     </tr>
-                                @endforeach
-                            @else
-                                    Tidak ada data
-                            @endisset
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <th>Judul</th>
-                                <th>Skema Usulan</th>
-                                <th>Tahun Pelaksanaan</th>
-                            </tr>
-                        </tfoot>
-                    </table>
-                  </div>
-              </div>
-              <!-- /.card-body -->
-            </div>
+                                </thead>
+                                <tbody>
+                                    @foreach ($pengabdian as $item)
+                                        <tr>
+                                            <td><a href="#modalPengabdian" data-toggle="modal">{{ $item->judul }}</a></td>
+                                            <td>{{ $item->tahun_skema . ' - ' . $item->kode }}</td>
+                                            <td>{{ $item->tahun_penelitian . ' - ' . $item->kode }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>Judul</th>
+                                        <th>Skema Usulan</th>
+                                        <th>Tahun Pelaksanaan</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+            @else
+                <div class="card bg-danger text-white">
+                    <div class="card-header">
+                        <h3 class="card-title text-white">Daftar Pengabdian</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-content collapse show">
+                        <div class="card-body text-center">
+                            <h1 class="text-white"><i class="feather icon-alert-octagon"></i></h1>
+                            <h4 class="card-title text-white">Tidak ada data</h4>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            @endif
             <!-- /.card -->
           </div>
           <!--/.col (left) -->
