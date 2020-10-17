@@ -1,89 +1,114 @@
 @extends('layout')
-@section('tambahactive')
-    active
-@endsection
+
 @section('judul')
-    Usulan | [Nama Skema]
+    Usulan | {{ $usulan->tahun_skema }} - {{ $usulan->kode }}
 @endsection
+
 @section('content')
-    @if(session()->get('success'))
-        <div class ="alert alert-success">
-            {{ session()->get('success') }}  
-        </div><br />
+    @if ($message = Session::get('success'))
+        <div class="alert alert-success alert-block">
+            <button type="button" class="close" data-dismiss="alert"><i class="fas fa-times"></i></button>
+            {{ $message }}
+        </div>
     @endif
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Step 3 - Atribut Usulan</h3>
-            </div>
-            <!-- /.card-header -->
-            
-            <div class="card-body">
-                    <p>Unggah file berdasarkan template dibawah</p>
-                    <button type="button" class="btn btn-success">Unduh Template</button>
-                    <hr>
-                    <form action="#">
-                        <div class="form-group row mt-2">
-                            <div class="col-md-2 text-md-right">
-                                <span>Unggah File :</span>
-                            </div>
-                            <div class="col-md-7">
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="inputGroupFile01">
-                                    <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <button type="submit" class="btn btn-block btn-primary">Unggah</button>
-                            </div>
-                        </div>
-                    </form>
-                    <hr>
-                    <form action="#">
-                    <div class="form-group row">
-                        <div class="col-md-2 text-md-right">
-                            <span>Latar Belakang :</span>
-                        </div>
-                        <div class="col-md-9">
-                            <textarea name="latar_belakang" cols="50" rows="10" class="form-control"></textarea>
+
+    @if ($message = Session::get('danger'))
+        <div class="alert alert-danger alert-block">
+            <button type="button" class="close" data-dismiss="alert"><i class="fas fa-times"></i></button>
+            {{ $message }}
+        </div>
+    @endif
+
+    @if ($errors->any())
+        <div class="alert alert-danger alert-block">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Step 3 - Atribut Usulan</h3>
+        </div>
+        <!-- /.card-header -->
+        
+        <div class="card-body">
+            <p>Unggah file berdasarkan template dibawah</p>
+            <button type="button" class="btn btn-success">Unduh Template</button>
+            <hr>
+            <form action="#">
+                <div class="form-group row mt-2">
+                    <div class="col-md-2 text-md-right">
+                        <span>Unggah File :</span>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="inputGroupFile01">
+                            <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <div class="col-md-2 text-md-right">
-                            <span>Tinjauan Pustaka :</span>
-                        </div>
-                        <div class="col-md-9">
-                            <textarea name="tinjauan_pustaka" cols="50" rows="10" class="form-control"></textarea>
-                        </div>
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-block btn-primary">Unggah</button>
                     </div>
-                    <div class="form-group row">
-                        <div class="col-md-2 text-md-right">
-                            <span>Metode :</span>
-                        </div>
-                        <div class="col-md-9">
-                            <textarea name="metode" cols="50" rows="10" class="form-control"></textarea>
-                        </div>
+                </div>
+            </form>
+            <hr>
+            <form action="{{ route('dosen.usulan.update', $usulan->id) }}" method="POST">
+                @csrf
+                @method('PATCH')
+                <div class="form-group row">
+                    <div class="col-md-2 text-md-right">
+                        <span>Latar Belakang :</span>
                     </div>
-                    <div class="form-group row">
-                        <div class="col-md-2 text-md-right">
-                            <span>Daftar Pustaka :</span>
-                        </div>
-                        <div class="col-md-9">
-                            <textarea name="daftar_pustaka" cols="50" rows="10" class="form-control"></textarea>
-                        </div>
+                    <div class="col-md-9">
+                        <textarea name="latar_belakang" cols="50" rows="10" class="form-control" autofocus></textarea>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-2 text-md-right">
+                        <span>Tinjauan Pustaka :</span>
+                    </div>
+                    <div class="col-md-9">
+                        <textarea name="tinjauan_pustaka" cols="50" rows="10" class="form-control"></textarea>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-2 text-md-right">
+                        <span>Metode :</span>
+                    </div>
+                    <div class="col-md-9">
+                        <textarea name="metode" cols="50" rows="10" class="form-control"></textarea>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-2 text-md-right">
+                        <span>Daftar Pustaka :</span>
+                    </div>
+                    <div class="col-md-9">
+                        <textarea name="daftar_pustaka" cols="50" rows="10" class="form-control"></textarea>
                     </div>
                 </div>
                 <!-- /.card-body -->
-                <div class="card-footer">
-                    <a href="{{ route('dosen.usulan.2') }}" class="btn btn-warning px-1">Kembali</a>
-                    <div class="float-right">
-                        <a href="{{ route('dosen.usulan.4') }}" class="btn btn-success px-1">Lanjut</a>
+                <div class="card-footer row">
+                    <div class="col-6">
+                        <form action="{{ route('dosen.usulan.backward') }}" method="post">
+                            @csrf
+                            <button type="submit" class="btn btn-warning px-1">Kembali</button>
+                        </form>
+                    </div>
+                    <div class="col-6 text-right">
+                        <input type="hidden" name="step" value="4">
+                        <button type="submit" class="btn btn-success px-1">Lanjut</a>
                     </div>
                 </div>
                 <!-- /.card-footer -->
             </form>
         </div>
-        <!-- /.card -->
-    <!-- general form elements -->
+    </div>
+    <!-- /.card -->
 @endsection
 
 @section('js')

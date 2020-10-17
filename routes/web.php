@@ -87,6 +87,7 @@ Route::namespace('dosen')->name('dosen.')->prefix('dosen')->middleware('auth', '
     });
     Route::name('usulan.')->prefix('usulan')->group(function() {
         Route::resource('', 'UsulanController')->except(['update']);
+        Route::post('/anggota', 'UsulanController@anggota')->name('anggota');
         Route::post('/backward', 'UsulanController@backward')->name('backward');
         Route::patch('{id}', 'UsulanController@update')->name('update');
         Route::view('create/1', 'usulan.1')->name('1');
