@@ -15,6 +15,7 @@ class CreateUsulanKegiatanTable extends Migration
     {
         Schema::create('usulan_kegiatan', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('usulan_id')->unsigned();
             $table->string('nama', 255);
             $table->tinyInteger('urutan_tahun')->unsigned();
             $table->date('tanggal_mulai');

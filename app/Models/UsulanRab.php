@@ -11,4 +11,9 @@ class UsulanRab extends Model
 
     protected $table = 'usulan_rab';
     protected $fillable = ['urutan_tahun', 'rab_jenis_id', 'penggunaan', 'nama', 'item1', 'satuan1', 'item2', 'satuan2', 'item3', 'satuan3', 'harga'];
+
+    static function getRab($usulanId)
+    {
+        return UsulanRab::where('usulan_id', $usulanId)->get();
+    }
 }

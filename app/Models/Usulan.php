@@ -21,12 +21,25 @@ class Usulan extends Model
 
     static function firstUsulanByDosenIdSkemaId($dosenId, $skemaId)
     {
-        return Usulan::select(DB::raw('usulan.*, skema.kode, skema_usulan.tahun_skema'))
-                        ->join('skema_usulan', 'usulan.skema_usulan_id', 'skema_usulan.id')
-                        ->join('skema', 'skema_usulan.skema_id', 'skema.id')
-                        ->where('dosen_id', $dosenId)
+        $usulan = Usulan::where('dosen_id', $dosenId)
                         ->where('skema_usulan_id', $skemaId)
                         ->first();
+
+        if (isset($usulan)) {
+            $data = Usulan::select(DB::raw('usulan.*, skema.kode, skema_usulan.tahun_skema'))
+                            ->join('skema_usulan', 'usulan.skema_usulan_id', 'skema_usulan.id')
+                            ->join('skema', 'skema_usulan.skema_id', 'skema.id')
+                            ->where('dosen_id', $dosenId)
+                            ->where('skema_usulan_id', $skemaId)
+                            ->first();
+
+            $data['anggota'] = UsulanAnggota::getAnggota($data->id);
+            $data['kegiatan'] = UsulanKegiatan::getKegiatan($data->id);
+            $data['luaran'] = UsulanLuaran::firstLuaran($data->id);
+            $data['rab'] = UsulanRab::getRab($data->id);
+
+            return $data;
+        }
     }
 
     static function getUsulan()

@@ -4,12 +4,16 @@ namespace App\Http\Controllers\Dosen;
 
 use App\Http\Controllers\Controller;
 use App\Models\Dosen;
+use App\Models\LuaranKelompok;
 use App\Models\Peran;
 use App\Models\RumpunIlmu;
 use App\Models\SkemaUsulan;
 use App\Models\SatuanWaktu;
 use App\Models\Usulan;
 use App\Models\UsulanAnggota;
+use App\Models\UsulanKegiatan;
+use App\Models\UsulanLuaran;
+use App\Models\UsulanRab;
 use Auth;
 use Illuminate\Http\Request;
 
@@ -36,13 +40,17 @@ class UsulanController extends Controller
     {
         $data = RumpunIlmu::getRumpunIlmuLevel1();
         $dosen = Dosen::getDosenNIDNNama();
+        $kelompok = LuaranKelompok::getKelompok();
         $peran = Peran::getPeran();
         $satuan = SatuanWaktu::getSatuan();
         $skema = SkemaUsulan::firstSkema($request->cookie('skema_usulan_id'));
         $usulan = Usulan::firstUsulanByDosenIdSkemaId(Auth::user()->id, $request->cookie('skema_usulan_id'));
         $usulanAnggota = UsulanAnggota::getAnggota($usulan->id);
+        $usulanKegiatan = UsulanKegiatan::getKegiatan($usulan->id);
+        $usulanLuaran = UsulanLuaran::firstLuaran($usulan->id);
+        $usulanRab = UsulanRab::getRab($usulan->id);
 
-        return view('usulan.create', compact('data', 'dosen', 'peran', 'satuan', 'skema', 'usulan', 'usulanAnggota'));
+        return view('usulan.create', compact('data', 'dosen', 'kelompok', 'peran', 'satuan', 'skema', 'usulan', 'usulanAnggota'));
     }
 
     /**
@@ -110,7 +118,6 @@ class UsulanController extends Controller
                                 ->withCookie(cookie('skema_usulan_id', $request->cookie('skema_usulan_id'), 1000))
                                 ->withCookie(cookie('step', $request->step, 1000));
         }
-        
     }
 
     /**

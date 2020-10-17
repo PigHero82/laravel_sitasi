@@ -11,4 +11,9 @@ class UsulanLuaran extends Model
 
     protected $table = 'usulan_luaran';
     protected $fillable = ['usulan_id', 'tahun', 'luaran_kelompok_id', 'luaran_luaran_id', 'luaran_target_id', 'jumlah', 'keterangan'];
+
+    static function firstLuaran($usulanId)
+    {
+        return UsulanLuaran::firstWhere('usulan_id', $usulanId);
+    }
 }
