@@ -1,16 +1,34 @@
 @extends('layout')
-@section('tambahactive')
-    active
-@endsection
+
 @section('judul')
     Usulan
 @endsection
+
 @section('content')
-    @if(session()->get('success'))
-        <div class ="alert alert-success">
-            {{ session()->get('success') }}  
-        </div><br />
+    @if ($message = Session::get('success'))
+        <div class="alert alert-success alert-block">
+            <button type="button" class="close" data-dismiss="alert"><i class="fas fa-times"></i></button>
+            {{ $message }}
+        </div>
     @endif
+
+    @if ($message = Session::get('danger'))
+        <div class="alert alert-danger alert-block">
+            <button type="button" class="close" data-dismiss="alert"><i class="fas fa-times"></i></button>
+            {{ $message }}
+        </div>
+    @endif
+
+    @if ($errors->any())
+        <div class="alert alert-danger alert-block">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <div class="row">
         <div class="col-md-6">
             <div class="card">
@@ -20,22 +38,28 @@
                 <!-- /.card-header -->
                 <div class="container">
                     <div class="card-body">
-                        <h5>Rencana Waktu</h3><hr>
-                        <div class="form-group">
-                            <label for="tahun-usulan">Tahun Usulan</label>
-                            <select name="tahun-usulan" class="form-control" readonly>
-                                <option value="">2020</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="tahun-usulan">Tahun Pelaksanaan</label>
-                            <select name="tahun-usulan" class="form-control">
-                                <option value="">2021</option>
-                            </select>
-                        </div>
-                        <a href="{{ route('dosen.usulan.1') }}">
-                            <button type="button" class="btn btn-primary btn-block mb-3">Daftar</button>
-                        </a>
+                        <form action="{{ route('dosen.usulan.store') }}" method="post">
+                            @csrf
+                            <h5>Rencana Waktu</h3><hr>
+                            <div class="form-group">
+                                <label for="tahun-usulan">Tahun Usulan</label>
+                                <select name="skema_usulan_id" class="form-control">
+                                    <option value="" hidden>--Pilih skema</option>
+                                    @foreach ($skema as $item)
+                                        @if ($item->jenis == 1)
+                                            <option value="{{ $item->id }}">{{ $item->tahun_skema }} - {{ $item->kode }}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="tahun-usulan">Tahun Pelaksanaan</label>
+                                <input type="hidden" name="jenis" value="1">
+                                <input type="hidden" name="step" value="1">
+                                <input type="text" name="tahun_pelaksanaan" class="form-control" value="2020" readonly>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block mb-3">Daftar</button>
+                        </form>
                         <h3>Informasi Ketersediaan Skema</h3>
                         <div class="card collapse-icon accordion-icon-rotate">
                             <div class="accordion" id="accordionExample3" data-toggle-hover="true">
@@ -115,15 +139,20 @@
                         <h5>Rencana Waktu</h3><hr>
                         <div class="form-group">
                             <label for="tahun-usulan">Tahun Usulan</label>
-                            <select name="tahun-usulan" class="form-control" readonly>
-                                <option value="">2020</option>
+                            <select name="skema_usulan_id" class="form-control">
+                                <option value="" hidden>--Pilih skema</option>
+                                @foreach ($skema as $item)
+                                    @if ($item->jenis == 2)
+                                        <option value="{{ $item->id }}">{{ $item->tahun_skema }} - {{ $item->kode }}</option>
+                                    @endif
+                                @endforeach
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="tahun-usulan">Tahun Pelaksanaan</label>
-                            <select name="tahun-usulan" class="form-control">
-                                <option value="">2021</option>
-                            </select>
+                            <input type="hidden" name="jenis" value="2">
+                            <input type="hidden" name="step" value="1">
+                            <input type="text" name="tahun_pelaksanaan" class="form-control" value="2020" readonly>
                         </div>
                         <a href="{{ route('dosen.usulan.1') }}">
                             <button type="button" class="btn btn-primary btn-block mb-3">Daftar</button>

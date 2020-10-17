@@ -2266,7 +2266,7 @@ class RumpunIlmuSeeder extends Seeder
 
         RumpunIlmu::create([
             'kode'      => '751',
-            'rumpun'    => 'Bidang Pendidikan Bahasa (dan Satra) Lain Yang Belum Tercantum',
+            'rumpun'    => 'Bidang Pendidikan Bahasa (dan Sastra) Lain Yang Belum Tercantum',
             'sub'       => '740'
         ]);
 

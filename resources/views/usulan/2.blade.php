@@ -78,7 +78,10 @@
             </div>
             <!-- /.card-body -->
             <div class="card-footer">
-                <a href="{{ route('dosen.usulan.1') }}" class="btn btn-warning px-1">Kembali</a>
+                <form action="{{ route('dosen.usulan.backward') }}" method="post">
+                    @csrf
+                    <button type="submit" class="btn btn-warning px-1">Kembali</button>
+                </form>
                 <div class="float-right">
                     <a href="{{ route('dosen.usulan.3') }}" class="btn btn-success px-1">Lanjut</a>
                 </div>

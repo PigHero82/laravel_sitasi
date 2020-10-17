@@ -66,8 +66,8 @@ Route::namespace('pimpinan')->name('pimpinan.')->prefix('pimpinan')->middleware(
 
 Route::namespace('dosen')->name('dosen.')->prefix('dosen')->middleware('auth', 'role:dosen')->group(function() {
     Route::get('', 'HomeController@index')->name('index');
-    // Route::view('', 'index.dosen')->name('index');
     Route::view('persetujuan-personil', 'persetujuan-personil')->name('persetujuan-personil');
+    Route::resource('rumpun-ilmu', 'RumpunIlmuController')->only(['index', 'show']);
     Route::view('tanggungan', 'tanggungan')->name('tanggungan');
     Route::namespace('publikasi')->name('publikasi.')->prefix('publikasi')->group(function() {
         Route::view('', 'publikasi.index')->name('index');
@@ -86,8 +86,9 @@ Route::namespace('dosen')->name('dosen.')->prefix('dosen')->middleware('auth', '
         Route::view('create', 'buku.create')->name('create');
     });
     Route::name('usulan.')->prefix('usulan')->group(function() {
-        // Route::resource('', 'UsulanController');
-        Route::view('', 'usulan.index')->name('index');
+        Route::resource('', 'UsulanController')->except(['update']);
+        Route::post('/backward', 'UsulanController@backward')->name('backward');
+        Route::patch('{id}', 'UsulanController@update')->name('update');
         Route::view('create/1', 'usulan.1')->name('1');
         Route::view('create/2', 'usulan.2')->name('2');
         Route::view('create/3', 'usulan.3')->name('3');

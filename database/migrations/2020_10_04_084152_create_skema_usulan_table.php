@@ -19,7 +19,7 @@ class CreateSkemaUsulanTable extends Migration
             $table->boolean('jenis');
             $table->tinyInteger('jumlah')->unsigned()->default(1);
             $table->year('tahun_skema');
-            $table->year('tahun_penelitian');
+            $table->year('tahun_pelaksanaan');
             $table->date('tanggal_usulan');
             $table->date('tanggal_review');
             $table->date('tanggal_laporan_kemajuan');

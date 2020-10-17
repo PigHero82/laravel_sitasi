@@ -12,11 +12,11 @@ class SkemaUsulan extends Model
     use HasFactory;
 
     protected $table = 'skema_usulan';
-    protected $fillable = ['skema_id', 'jenis', 'jumlah', 'tahun_skema', 'tahun_penelitian', 'tanggal_usulan', 'tanggal_review', 'tanggal_laporan_kemajuan', 'tanggal_laporan_akhir', 'tanggal_publikasi', 'dana_maksimal', 'jabatan_minimal', 'jabatan_maksimal', 'status'];
+    protected $fillable = ['skema_id', 'jenis', 'jumlah', 'tahun_skema', 'tahun_pelaksanaan', 'tanggal_usulan', 'tanggal_review', 'tanggal_laporan_kemajuan', 'tanggal_laporan_akhir', 'tanggal_publikasi', 'dana_maksimal', 'jabatan_minimal', 'jabatan_maksimal', 'status'];
 
     static function firstSkema($id)
     {
-        return SkemaUsulan::select('skema_usulan.id', 'skema_usulan.skema_id', 'skema.kode', 'skema.nama', 'skema_usulan.jenis', 'skema_usulan.jumlah', 'skema_usulan.tahun_skema', 'skema_usulan.tahun_penelitian', 'skema_usulan.tanggal_usulan', 'skema_usulan.tanggal_review', 'skema_usulan.tanggal_laporan_kemajuan', 'skema_usulan.tanggal_laporan_akhir', 'skema_usulan.tanggal_publikasi', 'skema_usulan.dana_maksimal', 'skema_usulan.jabatan_minimal', 'skema_usulan.jabatan_maksimal', 'skema_usulan.status', 'skema_usulan.created_at', 'skema_usulan.updated_at')
+        return SkemaUsulan::select('skema_usulan.id', 'skema_usulan.skema_id', 'skema.kode', 'skema.nama', 'skema_usulan.jenis', 'skema_usulan.jumlah', 'skema_usulan.tahun_skema', 'skema_usulan.tahun_pelaksanaan', 'skema_usulan.tanggal_usulan', 'skema_usulan.tanggal_review', 'skema_usulan.tanggal_laporan_kemajuan', 'skema_usulan.tanggal_laporan_akhir', 'skema_usulan.tanggal_publikasi', 'skema_usulan.dana_maksimal', 'skema_usulan.jabatan_minimal', 'skema_usulan.jabatan_maksimal', 'skema_usulan.status', 'skema_usulan.created_at', 'skema_usulan.updated_at')
                             ->join('skema', 'skema_usulan.skema_id', 'skema.id')
                             ->whereId($id)
                             ->first();
@@ -24,7 +24,7 @@ class SkemaUsulan extends Model
 
     static function getSkema()
     {
-        return SkemaUsulan::select('skema_usulan.id', 'skema_usulan.skema_id', 'skema.kode', 'skema.nama', 'skema_usulan.jenis', 'skema_usulan.jumlah', 'skema_usulan.tahun_skema', 'skema_usulan.tahun_penelitian', 'skema_usulan.tanggal_usulan', 'skema_usulan.tanggal_review', 'skema_usulan.tanggal_laporan_kemajuan', 'skema_usulan.tanggal_laporan_akhir', 'skema_usulan.tanggal_publikasi', 'skema_usulan.dana_maksimal', 'skema_usulan.jabatan_minimal', 'skema_usulan.jabatan_maksimal', 'skema_usulan.status', 'skema_usulan.created_at', 'skema_usulan.updated_at')
+        return SkemaUsulan::select('skema_usulan.id', 'skema_usulan.skema_id', 'skema.kode', 'skema.nama', 'skema_usulan.jenis', 'skema_usulan.jumlah', 'skema_usulan.tahun_skema', 'skema_usulan.tahun_pelaksanaan', 'skema_usulan.tanggal_usulan', 'skema_usulan.tanggal_review', 'skema_usulan.tanggal_laporan_kemajuan', 'skema_usulan.tanggal_laporan_akhir', 'skema_usulan.tanggal_publikasi', 'skema_usulan.dana_maksimal', 'skema_usulan.jabatan_minimal', 'skema_usulan.jabatan_maksimal', 'skema_usulan.status', 'skema_usulan.created_at', 'skema_usulan.updated_at')
                             ->join('skema', 'skema_usulan.skema_id', 'skema.id')
                             ->get();
     }
@@ -33,7 +33,7 @@ class SkemaUsulan extends Model
     {
         $dosen = Dosen::firstDosen($id);
 
-        return SkemaUsulan::select('skema_usulan.id', 'skema_usulan.skema_id', 'skema.kode', 'skema.nama', 'skema_usulan.jenis', 'skema_usulan.jumlah', 'skema_usulan.tahun_skema', 'skema_usulan.tahun_penelitian', 'skema_usulan.tanggal_usulan', 'skema_usulan.tanggal_review', 'skema_usulan.tanggal_laporan_kemajuan', 'skema_usulan.tanggal_laporan_akhir', 'skema_usulan.tanggal_publikasi', 'skema_usulan.dana_maksimal', 'skema_usulan.jabatan_minimal', 'skema_usulan.jabatan_maksimal', 'skema_usulan.status', 'skema_usulan.created_at', 'skema_usulan.updated_at')
+        return SkemaUsulan::select('skema_usulan.id', 'skema_usulan.skema_id', 'skema.kode', 'skema.nama', 'skema_usulan.jenis', 'skema_usulan.jumlah', 'skema_usulan.tahun_skema', 'skema_usulan.tahun_pelaksanaan', 'skema_usulan.tanggal_usulan', 'skema_usulan.tanggal_review', 'skema_usulan.tanggal_laporan_kemajuan', 'skema_usulan.tanggal_laporan_akhir', 'skema_usulan.tanggal_publikasi', 'skema_usulan.dana_maksimal', 'skema_usulan.jabatan_minimal', 'skema_usulan.jabatan_maksimal', 'skema_usulan.status', 'skema_usulan.created_at', 'skema_usulan.updated_at')
                             ->join('skema', 'skema_usulan.skema_id', 'skema.id')
                             ->where('skema_usulan.jabatan_minimal', '<=', $dosen->jabatan_id)
                             ->where('skema_usulan.jabatan_maksimal', '>=', $dosen->jabatan_id)
@@ -43,7 +43,7 @@ class SkemaUsulan extends Model
 
     static function getSkemaPenelitian()
     {
-        return SkemaUsulan::select('skema_usulan.id', 'skema_usulan.skema_id', 'skema.kode', 'skema.nama', 'skema_usulan.jenis', 'skema_usulan.jumlah', 'skema_usulan.tahun_skema', 'skema_usulan.tahun_penelitian', 'skema_usulan.tanggal_usulan', 'skema_usulan.tanggal_review', 'skema_usulan.tanggal_laporan_kemajuan', 'skema_usulan.tanggal_laporan_akhir', 'skema_usulan.tanggal_publikasi', 'skema_usulan.dana_maksimal', 'skema_usulan.jabatan_minimal', 'skema_usulan.jabatan_maksimal', 'skema_usulan.status', 'skema_usulan.created_at', 'skema_usulan.updated_at')
+        return SkemaUsulan::select('skema_usulan.id', 'skema_usulan.skema_id', 'skema.kode', 'skema.nama', 'skema_usulan.jenis', 'skema_usulan.jumlah', 'skema_usulan.tahun_skema', 'skema_usulan.tahun_pelaksanaan', 'skema_usulan.tanggal_usulan', 'skema_usulan.tanggal_review', 'skema_usulan.tanggal_laporan_kemajuan', 'skema_usulan.tanggal_laporan_akhir', 'skema_usulan.tanggal_publikasi', 'skema_usulan.dana_maksimal', 'skema_usulan.jabatan_minimal', 'skema_usulan.jabatan_maksimal', 'skema_usulan.status', 'skema_usulan.created_at', 'skema_usulan.updated_at')
                             ->join('skema', 'skema_usulan.skema_id', 'skema.id')
                             ->where('skema_usulan.jenis', 1)
                             ->get();
@@ -51,7 +51,7 @@ class SkemaUsulan extends Model
 
     static function getSkemaPengabdian()
     {
-        return SkemaUsulan::select('skema_usulan.id', 'skema_usulan.skema_id', 'skema.kode', 'skema.nama', 'skema_usulan.jenis', 'skema_usulan.jumlah', 'skema_usulan.tahun_skema', 'skema_usulan.tahun_penelitian', 'skema_usulan.tanggal_usulan', 'skema_usulan.tanggal_review', 'skema_usulan.tanggal_laporan_kemajuan', 'skema_usulan.tanggal_laporan_akhir', 'skema_usulan.tanggal_publikasi', 'skema_usulan.dana_maksimal', 'skema_usulan.jabatan_minimal', 'skema_usulan.jabatan_maksimal', 'skema_usulan.created_at', 'skema_usulan.updated_at')
+        return SkemaUsulan::select('skema_usulan.id', 'skema_usulan.skema_id', 'skema.kode', 'skema.nama', 'skema_usulan.jenis', 'skema_usulan.jumlah', 'skema_usulan.tahun_skema', 'skema_usulan.tahun_pelaksanaan', 'skema_usulan.tanggal_usulan', 'skema_usulan.tanggal_review', 'skema_usulan.tanggal_laporan_kemajuan', 'skema_usulan.tanggal_laporan_akhir', 'skema_usulan.tanggal_publikasi', 'skema_usulan.dana_maksimal', 'skema_usulan.jabatan_minimal', 'skema_usulan.jabatan_maksimal', 'skema_usulan.created_at', 'skema_usulan.updated_at')
                             ->join('skema', 'skema_usulan.skema_id', 'skema.id')
                             ->where('skema_usulan.jenis', 2)
                             ->get();
@@ -64,7 +64,7 @@ class SkemaUsulan extends Model
             'jenis'                     => $request->jenis,
             'jumlah'                    => $request->jumlah,
             'tahun_skema'               => $request->tahun_skema,
-            'tahun_penelitian'          => $request->tahun_penelitian,
+            'tahun_pelaksanaan'         => $request->tahun_pelaksanaan,
             'tanggal_usulan'            => $request->tanggal_usulan,
             'tanggal_review'            => $request->tanggal_review,
             'tanggal_laporan_kemajuan'  => $request->tanggal_laporan_kemajuan,
