@@ -35,7 +35,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
-Route::namespace('admin')->name('admin.')->prefix('admin')->middleware('auth', 'role:admin')->group(function() {
+Route::namespace('Admin')->name('admin.')->prefix('admin')->middleware('auth', 'role:admin')->group(function() {
     Route::get('', 'HomeController@index')->name('index');
     Route::namespace('master')->name('master.')->prefix('master')->group(function() {
         Route::resource('dosen', 'DosenController');
@@ -60,7 +60,7 @@ Route::namespace('admin')->name('admin.')->prefix('admin')->middleware('auth', '
     });
 });
 
-Route::namespace('pimpinan')->name('pimpinan.')->prefix('pimpinan')->middleware('auth', 'role:pimpinan')->group(function() {
+Route::namespace('Pimpinan')->name('pimpinan.')->prefix('pimpinan')->middleware('auth', 'role:pimpinan')->group(function() {
     Route::view('', 'index.pimpinan')->name('index');
 });
 
@@ -102,11 +102,11 @@ Route::namespace('Dosen')->name('dosen.')->prefix('dosen')->middleware('auth', '
     });
 });
 
-Route::namespace('penelitian')->name('penelitian.')->prefix('penelitian')->middleware('auth', 'role:penelitian')->group(function() {
+Route::namespace('Penelitian')->name('penelitian.')->prefix('penelitian')->middleware('auth', 'role:penelitian')->group(function() {
     Route::view('', 'index.penelitian')->name('index');
 });
 
-Route::namespace('pengabdian')->name('pengabdian.')->prefix('pengabdian')->middleware('auth', 'role:pengabdian')->group(function() {
+Route::namespace('Pengabdian')->name('pengabdian.')->prefix('pengabdian')->middleware('auth', 'role:pengabdian')->group(function() {
     Route::view('', 'index.pengabdian')->name('index');
 });
 
