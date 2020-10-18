@@ -64,7 +64,7 @@ Route::namespace('pimpinan')->name('pimpinan.')->prefix('pimpinan')->middleware(
     Route::view('', 'index.pimpinan')->name('index');
 });
 
-Route::namespace('dosen')->name('dosen.')->prefix('Dosen')->middleware('auth', 'role:dosen')->group(function() {
+Route::namespace('Dosen')->name('dosen.')->prefix('Dosen')->middleware('auth', 'role:dosen')->group(function() {
     Route::get('', 'HomeController@index')->name('index');
     Route::view('persetujuan-personil', 'persetujuan-personil')->name('persetujuan-personil');
     Route::resource('rumpun-ilmu', 'RumpunIlmuController')->only(['index', 'show']);
