@@ -35,6 +35,7 @@ class CreateUsulanTable extends Migration
             $table->boolean('satuan_waktu_id')->nullable();
             $table->string('bidang_unggulan_pt', 100)->nullable();
             $table->string('topik_unggulan_pt', 100)->nullable();
+            $table->boolean('step')->default(1);
             $table->timestamps();
         });
     }
