@@ -28,6 +28,8 @@ View::composer(['*'], function ($view) {
 });
 
 Route::get('', 'HomeController@index');
+Route::get('waw', 'MigrationController@waw');
+Route::get('waw-detail', 'MigrationController@wawdetail');
 Route::post('role/{id}', 'HomeController@update')->name('role.update');
 Route::view('profil', 'profil')->name('profil');
 
