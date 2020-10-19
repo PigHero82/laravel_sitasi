@@ -11,4 +11,9 @@ class LuaranKelompok extends Model
 
     protected $table = 'luaran_kelompok';
     protected $fillable = ['nama', 'status'];
+
+    static function getKelompok()
+    {
+        return LuaranKelompok::where('status', 1)->get();
+    }
 }

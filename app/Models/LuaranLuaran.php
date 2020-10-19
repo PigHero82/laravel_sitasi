@@ -11,4 +11,9 @@ class LuaranLuaran extends Model
 
     protected $table = 'luaran_luaran';
     protected $fillable = ['nama', 'status'];
+
+    static function getLuaran()
+    {
+        return LuaranLuaran::where('status', 1)->get();
+    }
 }

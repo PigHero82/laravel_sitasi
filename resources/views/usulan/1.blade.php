@@ -88,7 +88,7 @@
                         <span>Rumpun Ilmu :</span>
                     </div>
                     <div class="col-md-4">
-                        <select name="rumpun_ilmu_1" class="form-control rumpun_ilmu_1" required>
+                        <select name="rumpun_ilmu_1" class="form-control rumpun_ilmu_1">
                             <option value="" hidden>--Pilih rumpun ilmu</option>
                             @foreach ($data as $item)
                                 <option value="{{ $item->kode }}">{{ $item->rumpun }}</option>
@@ -148,7 +148,7 @@
                             <option value="" hidden>--Pilih satuan waktu</option>
                             @foreach ($satuan as $item)
                                 <option value="{{ $item->id }}"
-                                    @if ($usulan->satuan_waktu_id == $item)
+                                    @if ($usulan->satuan_waktu_id == $item->id)
                                         selected
                                     @endif    
                                 >{{ $item->nama }}</option>
@@ -184,11 +184,6 @@
                                 @endif
                             >Tingkat SD</option>
                         </select>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-md-10 offset-md-2">
-                        <button class="btn btn-primary px-1">Renstra Penelitian</button>
                     </div>
                 </div>
             </div>

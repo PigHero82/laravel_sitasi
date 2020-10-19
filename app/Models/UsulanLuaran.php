@@ -16,4 +16,27 @@ class UsulanLuaran extends Model
     {
         return UsulanLuaran::firstWhere('usulan_id', $usulanId);
     }
+
+    static function updateLuaran($request)
+    {
+        $request->validate([
+            'usulan_id'             => 'numeric|required',
+            'tahun'                 => 'numeric|required',
+            'luaran_kelompok_id'    => 'numeric|required',
+            'luaran_luaran_id'      => 'numeric|required',
+            'luaran_target_id'      => 'numeric|required',
+            'jumlah'                => 'numeric|required',
+            'keterangan'            => 'required'
+        ]);
+        
+        UsulanLuaran::updateOrCreate(['usulan_id' => $request->usulan_id], [
+            'usulan_id'             => $request->usulan_id,
+            'tahun'                 => $request->tahun,
+            'luaran_kelompok_id'    => $request->luaran_kelompok_id,
+            'luaran_luaran_id'      => $request->luaran_luaran_id,
+            'luaran_target_id'      => $request->luaran_target_id,
+            'jumlah'                => $request->jumlah,
+            'keterangan'            => $request->keterangan
+        ]);
+    }
 }

@@ -12,17 +12,17 @@ class Usulan extends Model
     use HasFactory;
 
     protected $table = 'usulan';
-    protected $fillable = ['dosen_id', 'skema_usulan_id', 'tahun_pelaksanaan', 'jenis', 'judul', 'ringkasan', 'kata_kunci', 'latar_belakang', 'tinjauan_pustaka', 'metode', 'daftar_pustaka', 'rumpun_ilmu_1', 'rumpun_ilmu_2', 'rumpun_ilmu_3', 'program', 'kategori_sbk', 'waktu', 'satuan_waktu_id', 'bidang_unggulan_pt', 'topik_unggulan_pt'];
+    protected $fillable = ['dosen_id', 'skema_usulan_id', 'tahun_pelaksanaan', 'jenis', 'judul', 'ringkasan', 'kata_kunci', 'latar_belakang', 'tinjauan_pustaka', 'metode', 'daftar_pustaka', 'rumpun_ilmu_1', 'rumpun_ilmu_2', 'rumpun_ilmu_3', 'program', 'kategori_sbk', 'waktu', 'satuan_waktu_id', 'bidang_unggulan_pt', 'topik_unggulan_pt', 'step'];
 
     static function firstUsulan($id)
     {
         return Usulan::findOrFail($id);
     }
 
-    static function firstUsulanByDosenIdSkemaId($dosenId, $skemaId)
+    static function firstUsulanByDosenIdSkemaId($dosenId, $skemaUsulanId)
     {
         $usulan = Usulan::where('dosen_id', $dosenId)
-                        ->where('skema_usulan_id', $skemaId)
+                        ->where('skema_usulan_id', $skemaUsulanId)
                         ->first();
 
         if (isset($usulan)) {
@@ -30,7 +30,7 @@ class Usulan extends Model
                             ->join('skema_usulan', 'usulan.skema_usulan_id', 'skema_usulan.id')
                             ->join('skema', 'skema_usulan.skema_id', 'skema.id')
                             ->where('dosen_id', $dosenId)
-                            ->where('skema_usulan_id', $skemaId)
+                            ->where('skema_usulan_id', $skemaUsulanId)
                             ->first();
 
             $data['anggota'] = UsulanAnggota::getAnggota($data->id);
@@ -90,21 +90,30 @@ class Usulan extends Model
         ]);
     }
 
+    static function updateStep($step, $skemaUsulanId)
+    {
+        $data = Usulan::firstUsulanByDosenIdSkemaId(Auth::user()->id, $skemaUsulanId);
+
+        if ($data->step < $step) {
+            Usulan::where('dosen_id', Auth::user()->id)
+                    ->where('skema_usulan_id', $skemaUsulanId)
+                    ->update(['step' => $step]);
+        }
+    }
+
     static function updateUsulan1($request, $skemaUsulanId)
     {
         $request->validate([
             'judul'                 => 'required',
             'ringkasan'             => 'required',
             'kata_kunci'            => 'required',
-            'rumpun_ilmu_1'         => 'numeric|required',
-            'rumpun_ilmu_2'         => 'numeric|required',
-            'rumpun_ilmu_3'         => 'numeric|required',
             'program'               => 'required',
             'kategori_sbk'          => 'required',
             'waktu'                 => 'numeric|required',
             'satuan_waktu_id'       => 'numeric|required',
             'bidang_unggulan_pt'    => 'required',
-            'topik_unggulan_pt'     => 'required'
+            'topik_unggulan_pt'     => 'required',
+            'step'                  => 'required'
         ]);
 
         Usulan::updateOrCreate([
@@ -114,9 +123,6 @@ class Usulan extends Model
             'judul'                 => $request->judul,
             'ringkasan'             => $request->ringkasan,
             'kata_kunci'            => $request->kata_kunci,
-            'rumpun_ilmu_1'         => $request->rumpun_ilmu_1,
-            'rumpun_ilmu_2'         => $request->rumpun_ilmu_2,
-            'rumpun_ilmu_3'         => $request->rumpun_ilmu_3,
             'program'               => $request->program,
             'kategori_sbk'          => $request->kategori_sbk,
             'waktu'                 => $request->waktu,
@@ -124,6 +130,39 @@ class Usulan extends Model
             'bidang_unggulan_pt'    => $request->bidang_unggulan_pt,
             'topik_unggulan_pt'     => $request->topik_unggulan_pt
         ]);
+
+        if ($request->rumpun_ilmu_1) {
+            $request->validate(['rumpun_ilmu_1' => 'numeric']);
+            
+            Usulan::where('dosen_id', Auth::user()->id)
+                    ->where('skema_usulan_id', $skemaUsulanId)
+                    ->update(['rumpun_ilmu_1' => $request->rumpun_ilmu_1]);
+        }
+
+        if ($request->rumpun_ilmu_2) {
+            $request->validate(['rumpun_ilmu_2' => 'numeric']);
+
+            Usulan::where('dosen_id', Auth::user()->id)
+                    ->where('skema_usulan_id', $skemaUsulanId)
+                    ->update(['rumpun_ilmu_2' => $request->rumpun_ilmu_2]);
+        }
+
+        if ($request->rumpun_ilmu_3) {
+            $request->validate(['rumpun_ilmu_3' => 'numeric']);
+
+            Usulan::where('dosen_id', Auth::user()->id)
+                    ->where('skema_usulan_id', $skemaUsulanId)
+                    ->update(['rumpun_ilmu_3' => $request->rumpun_ilmu_3]);
+        }
+
+        Usulan::updateStep($request->step, $skemaUsulanId);
+    }
+
+    static function updateUsulan2($request, $skemaUsulanId)
+    {
+        $request->validate(['step' => 'required']);
+
+        Usulan::updateStep($request->step, $skemaUsulanId);
     }
 
     static function updateUsulan3($request, $skemaUsulanId)
@@ -133,6 +172,7 @@ class Usulan extends Model
             'tinjauan_pustaka'  => 'required',
             'metode'            => 'required',
             'daftar_pustaka'    => 'required',
+            'step'              => 'required'
         ]);
 
         Usulan::updateOrCreate([
@@ -144,5 +184,14 @@ class Usulan extends Model
             'metode'            => $request->metode,
             'daftar_pustaka'    => $request->daftar_pustaka,
         ]);
+
+        Usulan::updateStep($request->step, $skemaUsulanId);
+    }
+
+    static function updateUsulan4($request, $skemaUsulanId)
+    {
+        $request->validate(['step' => 'required']);
+
+        Usulan::updateStep($request->step, $skemaUsulanId);
     }
 }
