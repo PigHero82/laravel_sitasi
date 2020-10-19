@@ -30,6 +30,35 @@
             <li class="{{ (request()->is('admin/*')) ? 'active' : '' }} nav-item"><a href="#" title=""><i class="feather icon-user"></i><span class="menu-item"></span></a></li>
             <li class="{{ (request()->is('admin/*')) ? 'active' : '' }} nav-item"><a href="#" title=""><i class="feather icon-user"></i><span class="menu-item"></span></a></li> --}}
         
+        @elseif (request()->is('pimpinan*'))
+            <li class="{{ (request()->is('pimpinan')) ? 'active' : '' }} nav-item"><a href="{{ route('pimpinan.index') }}" title="Dashboard"><i class="feather icon-home"></i><span class="menu-title">Dashboard</span></a></li>
+            <li class="nav-item"><a href="#" title="Data Master"><i class="feather icon-codepen"></i><span class="menu-title">Data Master</span></a>
+                <ul class="menu-content">
+                    <li class="{{ (request()->is('pimpinan/master/dosen*')) ? 'active' : '' }}"><a href="{{ route('pimpinan.master.dosen.index') }}" title="Dosen"><i></i><span class="menu-item">Dosen</span></a></li>
+                    <li class="{{ (request()->is('pimpinan/master/user*')) ? 'active' : '' }}"><a href="{{ route('pimpinan.master.user.index') }}" title="User"><i></i><span class="menu-item">User</span></a></li>
+                    <li class="{{ (request()->is('pimpinan/master/skema*')) ? 'active' : '' }}"><a href="{{ route('pimpinan.master.skema.index') }}" title="Skema"><i></i><span class="menu-item">Skema</span></a></li>
+                    <li class="{{ (request()->is('pimpinan/master/rumpun-ilmu*')) ? 'active' : '' }}"><a href="{{ route('pimpinan.master.rumpun-ilmu.index') }}" title="Rumpun Ilmu"><i></i><span class="menu-item">Rumpun Ilmu</span></a></li>
+                    <li class="{{ (request()->is('pimpinan/master/prodi*')) ? 'active' : '' }}"><a href="{{ route('pimpinan.master.prodi.index') }}" title="Program Studi"><i></i><span class="menu-item">Program Studi</span></a></li>
+                    <li class="{{ (request()->is('pimpinan/master/jabatan*')) ? 'active' : '' }}"><a href="{{ route('pimpinan.master.jabatan.index') }}" title="Jabatan Akademik"><i></i><span class="menu-item">Jabatan Akademik</span></a></li>
+                </ul>
+            </li>
+            <li class="nav-item"><a href="#" title="Review"><i class="feather icon-book"></i><span class="menu-title">Review</span></a>
+                <ul class="menu-content">
+                    <li class="{{ (request()->is('pimpinan/review/pembagian-reviewer*')) ? 'active' : '' }}"><a href="{{ route('pimpinan.review.pembagian-reviewer') }}" title="Dosen"><i></i><span class="menu-item">Pembagian Reviewer</span></a></li>
+                    <li class="{{ (request()->is('pimpinan/review/penilaian*')) ? 'active' : '' }}"><a href="{{ route('pimpinan.review.penilaian') }}" title="User"><i></i><span class="menu-item">Penilaian</span></a></li>
+                </ul>
+            </li>
+            <li class="{{ (request()->is('pimpinan/skema')) ? 'active' : '' }} nav-item"><a href="{{ route('pimpinan.skema.index') }}" title="Skema Usulan"><i class="feather icon-paperclip"></i><span class="menu-title">Skema Usulan</span></a></li>
+            <li class="{{ (request()->is('pimpinan/pimpinan*')) ? 'active' : '' }} nav-item"><a href="{{ route('pimpinan.pimpinan') }}" title="Pimpinan & Koordinator"><i class="feather icon-user"></i><span class="menu-item">Pimpinan & Koordinator</span></a></li>
+            <li class="{{ (request()->is('pimpinan/pengumuman*')) ? 'active' : '' }} nav-item"><a href="#" title="Pengumuman"><i class="feather icon-user"></i><span class="menu-item">Pengumuman</span></a></li>
+            {{-- <li class="{{ (request()->is('admin/*')) ? 'active' : '' }} nav-item"><a href="#" title=""><i class="feather icon-user"></i><span class="menu-item"></span></a></li>
+            <li class="{{ (request()->is('admin/*')) ? 'active' : '' }} nav-item"><a href="#" title=""><i class="feather icon-user"></i><span class="menu-item"></span></a></li>
+            <li class="{{ (request()->is('admin/*')) ? 'active' : '' }} nav-item"><a href="#" title=""><i class="feather icon-user"></i><span class="menu-item"></span></a></li>
+            <li class="{{ (request()->is('admin/*')) ? 'active' : '' }} nav-item"><a href="#" title=""><i class="feather icon-user"></i><span class="menu-item"></span></a></li>
+            <li class="{{ (request()->is('admin/*')) ? 'active' : '' }} nav-item"><a href="#" title=""><i class="feather icon-user"></i><span class="menu-item"></span></a></li>
+            <li class="{{ (request()->is('admin/*')) ? 'active' : '' }} nav-item"><a href="#" title=""><i class="feather icon-user"></i><span class="menu-item"></span></a></li>
+            <li class="{{ (request()->is('admin/*')) ? 'active' : '' }} nav-item"><a href="#" title=""><i class="feather icon-user"></i><span class="menu-item"></span></a></li> --}}
+        
         @elseif (request()->is('dosen*'))
             <li class="{{ (request()->is('dosen')) ? 'active' : '' }} nav-item"><a href="{{ route('dosen.index') }}"><i class="feather icon-home"></i><span class="menu-title">Dashboard</span></a></li>
             <li class="nav-item"><a href="#"><i class="feather icon-book"></i><span class="menu-title">Usulan</span></a>

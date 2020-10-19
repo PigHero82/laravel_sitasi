@@ -27,7 +27,9 @@ View::composer(['*'], function ($view) {
     }
 });
 
+// Route::view('', 'front.index');
 Route::get('', 'HomeController@index');
+Route::view('author', 'front.author');
 Route::post('role/{id}', 'HomeController@update')->name('role.update');
 Route::view('profil', 'profil')->name('profil');
 
@@ -60,8 +62,29 @@ Route::namespace('Admin')->name('admin.')->prefix('admin')->middleware('auth', '
     });
 });
 
-Route::namespace('Pimpinan')->name('pimpinan.')->prefix('pimpinan')->middleware('auth', 'role:pimpinan')->group(function() {
-    Route::view('', 'index.pimpinan')->name('index');
+Route::namespace('Admin')->name('pimpinan.')->prefix('pimpinan')->middleware('auth', 'role:pimpinan')->group(function() {
+    Route::get('', 'HomeController@index')->name('index');
+    Route::namespace('master')->name('master.')->prefix('master')->group(function() {
+        Route::resource('dosen', 'DosenController');
+        Route::resource('jabatan', 'JabatanController');
+        Route::resource('prodi', 'ProdiController');
+        Route::name('rumpun-ilmu.')->prefix('rumpun-ilmu')->group(function() {
+            Route::resource('', 'RumpunIlmuController')->except(['edit', 'show']);
+            Route::get('{id}', 'RumpunIlmuController@show')->name('show');
+            Route::get('{id}/{id2}', 'RumpunIlmuController@more')->name('more');
+        });
+        Route::resource('skema', 'SkemaController');
+        Route::resource('user', 'UserController');
+    });
+    Route::namespace('review')->name('review.')->prefix('review')->group(function() {
+        Route::view('pembagian-reviewer', 'review.pembagian-reviewer')->name('pembagian-reviewer');
+        Route::view('penilaian', 'review.penilaian')->name('penilaian');
+    });
+    Route::view('pimpinan', 'master.pimpinan')->name('pimpinan');
+    Route::name('skema.')->prefix('skema')->group(function() {
+        Route::resource('', 'SkemaUsulanController')->except(['show']);
+        Route::get('{id}', 'SkemaUsulanController@show')->name('show');
+    });
 });
 
 Route::namespace('Dosen')->name('dosen.')->prefix('dosen')->middleware('auth', 'role:dosen')->group(function() {
