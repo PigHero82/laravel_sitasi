@@ -1,1 +1,1 @@
-@include('usulan.' . Cookie::get('step'))
+@include('usulan.' . Cookie::get('page'))

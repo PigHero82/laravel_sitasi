@@ -48,7 +48,7 @@
                 @if (count($usulanAnggota)+1 >= $skema->jumlah)
                     text-danger
                 @endif
-            ">{{ count($usulanAnggota)+1 }} dari {{ $skema->jumlah }} anggota</p>
+            ">{{ count($usulanAnggota) }} dari {{ $skema->jumlah-1 }} anggota</p>
             <a href="#modalPenelitian" data-toggle="modal"></a>
             {{-- <div class="row">
                 <div class="col-sm-3 col-6">

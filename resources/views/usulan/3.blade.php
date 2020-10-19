@@ -94,10 +94,8 @@
                 <!-- /.card-body -->
                 <div class="card-footer row">
                     <div class="col-6">
-                        <form action="{{ route('dosen.usulan.backward') }}" method="post">
-                            @csrf
-                            <button type="submit" class="btn btn-warning px-1">Kembali</button>
-                        </form>
+                        <a class="btn btn-warning px-1" href="{{ route('dosen.usulan.backward') }}" onclick="event.preventDefault();
+                        document.getElementById('backward-form').submit();">Kembali</a>
                     </div>
                     <div class="col-6 text-right">
                         <input type="hidden" name="step" value="4">
@@ -105,6 +103,10 @@
                     </div>
                 </div>
                 <!-- /.card-footer -->
+            </form>
+            
+            <form id="backward-form" action="{{ route('dosen.usulan.backward') }}" method="POST" style="display: none;">
+                @csrf
             </form>
         </div>
     </div>

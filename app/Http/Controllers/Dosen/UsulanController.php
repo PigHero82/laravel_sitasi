@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Dosen;
 use App\Http\Controllers\Controller;
 use App\Models\Dosen;
 use App\Models\LuaranKelompok;
+use App\Models\LuaranLuaran;
+use App\Models\LuaranTarget;
 use App\Models\Peran;
 use App\Models\RumpunIlmu;
 use App\Models\SkemaUsulan;
@@ -15,6 +17,7 @@ use App\Models\UsulanKegiatan;
 use App\Models\UsulanLuaran;
 use App\Models\UsulanRab;
 use Auth;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class UsulanController extends Controller
@@ -40,17 +43,27 @@ class UsulanController extends Controller
     {
         $data = RumpunIlmu::getRumpunIlmuLevel1();
         $dosen = Dosen::getDosenNIDNNama();
+        $jumlah = [1, 2, 3, 4, 5];
         $kelompok = LuaranKelompok::getKelompok();
+        $luaran = LuaranLuaran::getLuaran();
         $peran = Peran::getPeran();
         $satuan = SatuanWaktu::getSatuan();
         $skema = SkemaUsulan::firstSkema($request->cookie('skema_usulan_id'));
+        $target = LuaranTarget::getTarget();
+        $tahun = [
+            Carbon::now()->format('Y') + 0,
+            Carbon::now()->format('Y') + 1,
+            Carbon::now()->format('Y') + 2,
+            Carbon::now()->format('Y') + 3,
+            Carbon::now()->format('Y') + 4
+        ];
         $usulan = Usulan::firstUsulanByDosenIdSkemaId(Auth::user()->id, $request->cookie('skema_usulan_id'));
         $usulanAnggota = UsulanAnggota::getAnggota($usulan->id);
         $usulanKegiatan = UsulanKegiatan::getKegiatan($usulan->id);
         $usulanLuaran = UsulanLuaran::firstLuaran($usulan->id);
         $usulanRab = UsulanRab::getRab($usulan->id);
 
-        return view('usulan.create', compact('data', 'dosen', 'kelompok', 'peran', 'satuan', 'skema', 'usulan', 'usulanAnggota'));
+        return view('usulan.create', compact('data', 'dosen', 'jumlah', 'kelompok', 'luaran', 'peran', 'satuan', 'skema', 'target', 'tahun', 'usulan', 'usulanAnggota', 'usulanKegiatan', 'usulanLuaran', 'usulanRab'));
     }
 
     /**
@@ -66,7 +79,7 @@ class UsulanController extends Controller
         return redirect()->route('dosen.usulan.create')
                             ->withCookie(cookie('jenis', $request->jenis, 1000))
                             ->withCookie(cookie('skema_usulan_id', $request->skema_usulan_id, 1000))
-                            ->withCookie(cookie('step', $request->step, 1000));
+                            ->withCookie(cookie('page', $request->step, 1000));
     }
 
     /**
@@ -100,23 +113,41 @@ class UsulanController extends Controller
      */
     public function update(Request $request, SkemaUsulan $skemaUsulan)
     {
-        if ($request->cookie('step') == 1) {
+        // Step 1
+        if ($request->cookie('page') == 1) {
             Usulan::updateUsulan1($request, $request->cookie('skema_usulan_id'));
             return redirect()->route('dosen.usulan.create')
                                 ->withCookie(cookie('jenis', $request->cookie('jenis'), 1000))
                                 ->withCookie(cookie('skema_usulan_id', $request->cookie('skema_usulan_id'), 1000))
-                                ->withCookie(cookie('step', $request->step, 1000));
-        } else if ($request->cookie('step') == 2) {
+                                ->withCookie(cookie('page', $request->step, 1000));
+        } 
+        
+        // Step 2
+        else if ($request->cookie('page') == 2) {
+            Usulan::updateUsulan2($request, $request->cookie('skema_usulan_id'));
             return redirect()->route('dosen.usulan.create')
                                 ->withCookie(cookie('jenis', $request->cookie('jenis'), 1000))
                                 ->withCookie(cookie('skema_usulan_id', $request->cookie('skema_usulan_id'), 1000))
-                                ->withCookie(cookie('step', $request->step, 1000));
-        } else if ($request->cookie('step') == 3) {
+                                ->withCookie(cookie('page', $request->step, 1000));
+        } 
+        
+        // Step 3
+        else if ($request->cookie('page') == 3) {
             Usulan::updateUsulan3($request, $request->cookie('skema_usulan_id'));
             return redirect()->route('dosen.usulan.create')
                                 ->withCookie(cookie('jenis', $request->cookie('jenis'), 1000))
                                 ->withCookie(cookie('skema_usulan_id', $request->cookie('skema_usulan_id'), 1000))
-                                ->withCookie(cookie('step', $request->step, 1000));
+                                ->withCookie(cookie('page', $request->step, 1000));
+        } 
+        
+        // Step 4
+        else if ($request->cookie('page') == 4) {
+            UsulanLuaran::updateLuaran($request);
+            Usulan::updateUsulan4($request, $request->cookie('skema_usulan_id'));
+            return redirect()->route('dosen.usulan.create')
+                                ->withCookie(cookie('jenis', $request->cookie('jenis'), 1000))
+                                ->withCookie(cookie('skema_usulan_id', $request->cookie('skema_usulan_id'), 1000))
+                                ->withCookie(cookie('page', $request->step, 1000));
         }
     }
 
@@ -143,7 +174,7 @@ class UsulanController extends Controller
 
     public function backward(Request $request)
     {
-        $step = $request->cookie('step');
-        return redirect()->route('dosen.usulan.create')->withCookie(cookie('step', --$step, 1000));
+        $page = $request->cookie('page');
+        return redirect()->route('dosen.usulan.create')->withCookie(cookie('page', --$page, 1000));
     }
 }

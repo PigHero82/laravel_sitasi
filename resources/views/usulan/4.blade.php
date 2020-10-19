@@ -1,21 +1,42 @@
 @extends('layout')
-@section('tambahactive')
-    active
-@endsection
+
 @section('judul')
-    Usulan | [Nama Skema]
+    Usulan | {{ $usulan->tahun_skema }} - {{ $usulan->kode }}
 @endsection
+
 @section('content')
-    @if(session()->get('success'))
-        <div class ="alert alert-success">
-            {{ session()->get('success') }}  
-        </div><br />
+    @if ($message = Session::get('success'))
+        <div class="alert alert-success alert-block">
+            <button type="button" class="close" data-dismiss="alert"><i class="fas fa-times"></i></button>
+            {{ $message }}
+        </div>
     @endif
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Step 4 - Luaran & Target</h3>
-            </div>
-            <!-- /.card-header -->
+
+    @if ($message = Session::get('danger'))
+        <div class="alert alert-danger alert-block">
+            <button type="button" class="close" data-dismiss="alert"><i class="fas fa-times"></i></button>
+            {{ $message }}
+        </div>
+    @endif
+
+    @if ($errors->any())
+        <div class="alert alert-danger alert-block">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Step 4 - Luaran & Target</h3>
+        </div>
+        <!-- /.card-header -->
+        <form action="{{ route('dosen.usulan.update', $usulan->id) }}" method="POST">
+            @csrf
+            @method('PATCH')
             <div class="card-body">
                 <div class="row">
                     <div class=" d-flex justify-content-center">
@@ -45,8 +66,15 @@
                                 <span>Tahun :</span>
                             </div>
                             <div class="col-md-9 col-8">
-                                <select name="program" class="form-control">
-                                    <option value="">Pilih Tahun</option>
+                                <select class="form-control" name="tahun" required autofocus>
+                                    <option value="" hidden>--Pilih tahun</option>
+                                    @foreach ($tahun as $item)
+                                        <option value="{{ $item }}"
+                                        @if ($usulanLuaran->tahun == $item)
+                                            selected
+                                        @endif
+                                    >{{ $item }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -57,8 +85,15 @@
                                 <span>Kelompok :</span>
                             </div>
                             <div class="col-md-9 col-8">
-                                <select name="program" class="form-control">
-                                    <option value="">Pilih Kelompok</option>
+                                <select name="luaran_kelompok_id" class="form-control" required>
+                                    <option value="" hidden>--Pilih kelompok</option>
+                                    @foreach ($kelompok as $item)
+                                        <option value="{{ $item->id }}"
+                                            @if ($usulanLuaran->luaran_kelompok_id == $item->id)
+                                                selected
+                                            @endif
+                                        >{{ $item->nama }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -69,8 +104,15 @@
                                 <span>Luaran :</span>
                             </div>
                             <div class="col-md-9 col-8">
-                                <select name="program" class="form-control">
-                                    <option value="">Pilih Luaran</option>
+                                <select name="luaran_luaran_id" class="form-control">
+                                    <option value="" hidden>--Pilih luaran</option>
+                                    @foreach ($luaran as $item)
+                                        <option value="{{ $item->id }}"
+                                            @if ($usulanLuaran->luaran_luaran_id == $item->id)
+                                                selected
+                                            @endif
+                                        >{{ $item->nama }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -81,8 +123,15 @@
                                 <span>Target :</span>
                             </div>
                             <div class="col-md-9 col-8">
-                                <select name="program" class="form-control">
-                                    <option value="">Pilih Target</option>
+                                <select name="luaran_target_id" class="form-control">
+                                    <option value="" hidden>--Pilih target</option>
+                                    @foreach ($target as $item)
+                                        <option value="{{ $item->id }}"
+                                            @if ($usulanLuaran->luaran_target_id == $item->id)
+                                                selected
+                                            @endif
+                                        >{{ $item->nama }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -93,8 +142,15 @@
                                 <span>Jumlah :</span>
                             </div>
                             <div class="col-md-9 col-8">
-                                <select name="program" class="form-control">
-                                    <option value="">Pilih Jumlah</option>
+                                <select name="jumlah" class="form-control">
+                                    <option value="" hidden>--Pilih jumlah</option>
+                                    @foreach ($jumlah as $item)
+                                        <option value="{{ $item }}"
+                                        @if ($usulanLuaran->jumlah == $item)
+                                            selected
+                                        @endif
+                                    >{{ $item }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -105,22 +161,32 @@
                                 <span>Keterangan :</span>
                             </div>
                             <div class="col-md-9 col-8">
-                                <input type="text" name="jenis-publikasi" class="form-control" placeholder="Pilih Keterangan">
+                                <input type="text" name="keterangan" class="form-control" placeholder="Keterangan" value="{{ $usulanLuaran->keterangan }}" required>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <!-- /.card-body -->
-            <div class="card-footer">
-                <a href="{{ route('dosen.usulan.3') }}" class="btn btn-warning px-1">Kembali</a>
-                <div class="float-right">
-                    <a href="{{ route('dosen.usulan.5') }}" class="btn btn-success px-1">Lanjut</a>
+            <div class="card-footer row">
+                <div class="col-6">
+                    <a class="btn btn-warning px-1" href="{{ route('dosen.usulan.backward') }}" onclick="event.preventDefault();
+                    document.getElementById('backward-form').submit();">Kembali</a>
+                </div>
+                <div class="col-6 text-right">
+                    <input type="hidden" name="step" value="5">
+                    <input type="hidden" name="usulan_id" value="{{ $usulan->id }}">
+                    <button type="submit" class="btn btn-success px-1">Lanjut</a>
                 </div>
             </div>
             <!-- /.card-footer -->
-        </div>
-        <!-- /.card -->
-    <!-- general form elements -->
+        </form>
+    </div>
+        
+    <form id="backward-form" action="{{ route('dosen.usulan.backward') }}" method="POST" style="display: none;">
+        @csrf
+    </form>
+    <!-- /.card -->
+<!-- general form elements -->
 
 @endsection
