@@ -34,7 +34,7 @@
             </ul>
         </div>
     @endif
-    
+
     <div class="row justify-content-center">
         <!-- left column -->
         <div class="col-md-10">
@@ -67,7 +67,11 @@
                                     <td>
                                         <div class="avatar text-center">
                                             @isset($item->profile_photo_path)
-                                                <img src="{{ asset($item->profile_photo_path) }}" alt="{{ $item->nama }}" height="32" width="32">
+                                                @if (file_exists(asset($item->profile_photo_path)))
+                                                    <img src="{{ asset($item->profile_photo_path) }}" alt="{{ $item->nama }}" height="32" width="32">
+                                                @else
+                                                    <span class="avatar-content">{{ strtoupper($item->nama[0]) }}</span>
+                                                @endif
                                             @else
                                                 <span class="avatar-content">{{ strtoupper($item->nama[0]) }}</span>
                                             @endisset
