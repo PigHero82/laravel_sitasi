@@ -71,6 +71,7 @@ class Usulan extends Model
 
     static function getUsulanPenelitian()
     {
+        $data = [];
         $usulan = Usulan::where('jenis', 1)
                         ->orderByDesc('created_at')
                         ->get();

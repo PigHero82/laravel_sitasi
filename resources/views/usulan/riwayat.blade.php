@@ -303,7 +303,7 @@
         });
 
         $(document).ready( function () {
-            $(document).on('click', '#myTable tbody tr td a', function(e) {
+            $(document).on('click', '#table-penelitian tbody tr td a', function(e) {
                 var id = $(this).attr('data-value');
                 $.get( "/usulan/" + id, function( data ) {
                     console.log(JSON.parse(data));
@@ -329,7 +329,7 @@
 
             $(document).on('click', '#table-pengabdian tbody tr td a', function(e) {
                 var id = $(this).attr('data-value');
-                $.get( "/admin/master/dosen/" + id, function( data ) {
+                $.get( "/usulan/" + id, function( data ) {
                     console.log(JSON.parse(data));
                     var d = JSON.parse(data);
                     $('#myModalLabel33').text(d.nama + " | Detail Dosen");
