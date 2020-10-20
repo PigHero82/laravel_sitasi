@@ -131,23 +131,20 @@
                     <div class="card-text">
                         <dl class="row">
                             <dt class="col-sm-4 text-md-right">Judul</dt>
-                            <dd class="col-sm-8">Implementasi Komik Interaktif Cerita Rakyat Cupak Grantang dengan Bahasa Isyarat berbasis Mobile</dd>
+                            <dd class="col-sm-8" id="judul-penelitian">Implementasi Komik Interaktif Cerita Rakyat Cupak Grantang dengan Bahasa Isyarat berbasis Mobile</dd>
                         </dl>
                         <dl class="row">
                             <dt class="col-sm-4 text-md-right">Tim Peneliti</dt>
                             <dd class="col-sm-8">
                                 <dl class="row">
                                     <dt class="col-sm-3 text-md-right">Ketua</dt>
-                                    <dd class="col-sm-9">Airi Satou</dd>
+                                    <dd class="col-sm-9" id="ketua-penelitian"></dd>
                                 </dl>
                                 <dl class="row mb-0">
                                     <dt class="col-sm-3 mb-0 text-md-right">Anggota</dt>
                                     <dd class="col-sm-9 mb-0">
-                                        <ul class="list-unstyled">
-                                            <li>Ashton Cox</li>
-                                            <li class="mt-1">Cedric Kelly</li>
-                                            <li class="mt-1">Garrett Winters</li>
-                                            <li class="mt-1">Tiger Nixon</li>
+                                        <ul class="list-unstyled" id="anggota-penelitian">
+                                      
                                         </ul>
                                     </dd>
                                 </dl>
@@ -155,15 +152,15 @@
                         </dl>
                         <dl class="row">
                             <dt class="col-sm-4 text-md-right">Skema</dt>
-                            <dd class="col-sm-8">PPDS Batch 1</dd>
+                            <dd class="col-sm-8" id="skema-penelitian">PPDS Batch 1</dd>
                         </dl>
                         <dl class="row">
                             <dt class="col-sm-4 text-md-right">Tahun Usulan</dt>
-                            <dd class="col-sm-8">2020</dd>
+                            <dd class="col-sm-8" id="tahun-usulan-penelitian">2020</dd>
                         </dl>
                         <dl class="row">
                             <dt class="col-sm-4 text-md-right">Tahun Penelitian</dt>
-                            <dd class="col-sm-8">2020</dd>
+                            <dd class="col-sm-8" id="tahun-pelaksanaan-penelitian">2020</dd>
                         </dl>
                         <dl class="row">
                             <dt class="col-sm-4 text-md-right">Jenis Usulan</dt>
@@ -217,7 +214,7 @@
                     <div class="card-text">
                         <dl class="row">
                             <dt class="col-sm-4 text-md-right">Judul</dt>
-                            <dd class="col-sm-8">Pelatihan Teknologi Komputer Dasar DI Taman Belajar Anak Br Pedahan Kaja Desa Tianyar Tengah, Kecamatan Kubu, Karangasem</dd>
+                            <dd class="col-sm-8" >Pelatihan Teknologi Komputer Dasar DI Taman Belajar Anak Br Pedahan Kaja Desa Tianyar Tengah, Kecamatan Kubu, Karangasem</dd>
                         </dl>
                         <dl class="row">
                             <dt class="col-sm-4 text-md-right">Tim Peneliti</dt>
@@ -307,24 +304,17 @@
                 var id = $(this).attr('data-value');
                 $.get( "/usulan/" + id, function( data ) {
                     console.log(JSON.parse(data));
-                    var d = JSON.parse(data);
-                    $('#myModalLabel33').text(d.nama + " | Detail Dosen");
-                    $('#nidn-field').val(d.nidn);
-                    $('#nidn').text(d.nidn);
-                    $('#nama').text(d.nama);
-                    $('#alamat').text(d.alamat);
-                    $('#tempat_lahir').text(d.tempat_lahir);
-                    $('#tanggal_lahir').text(d.tanggal_lahir);
-                    $('#jabatan_fungsional').text(d.jabatan_fungsional_nama);
-                    $('#ktp').text(d.ktp);
-                    $('#telepon').text(d.telepon);
-                    $('#hp').text(d.hp);
-                    $('#email').text(d.email);
-                    $('#web').text(d.web);
-                    $('#sinta_id').text(d.sinta_id);
-                    $('#google_scholar_id').html('<a href="https://scholar.google.com/citations?user=' + d.google_scholar_id + '&hl=id" target="_blank" rel="noopener noreferrer">' + d.google_scholar_id + '</a>');
+                    var d = JSON.parse(data);  
+                    $('#judul-penelitian').html(d.judul);
+                    $('#ketua-penelitian').html(d.ketua.nama);
+                    for (var i = 0; i < d.anggota.length; i++) {
+                        $('#anggota-penelitian').html('<li>'+d.anggota[i].dosen_nama+'</li>');
+                    }
+                    $('#skema-penelitian').html(d.skema_usulan.nama);
+                    $('#tahun-usulan-penelitian').html(d.skema_usulan.tahun_skema);
+                    $('#tahun-pelaksanaan-penelitian').html(d.skema_usulan.tahun_pelaksanaan);
+                    
                 });
-                console.log($(this).attr('data-value'));
             });
 
             $(document).on('click', '#table-pengabdian tbody tr td a', function(e) {
