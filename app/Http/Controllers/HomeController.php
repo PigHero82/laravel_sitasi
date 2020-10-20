@@ -38,7 +38,8 @@ class HomeController extends Controller
 				return redirect('/reviewer');
 			}
 		}
-		return redirect('/login');
+		//return redirect('/login');
+		return view('front.index');
 	}
 
 	public function update($id)
