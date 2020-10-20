@@ -11,4 +11,9 @@ class UsulanBelanja extends Model
 
     protected $table = 'usulan_belanja';
     protected $fillable = ['usulan_id', 'rab_jenis_id', 'uraian', 'jumlah'];
+
+    static function getBelanja($id)
+    {
+        return UsulanBelanja::where('usulan_id', $id)->get();
+    }
 }

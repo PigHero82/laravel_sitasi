@@ -16,7 +16,15 @@ class Usulan extends Model
 
     static function firstUsulan($id)
     {
-        return Usulan::findOrFail($id);
+        $data = Usulan::findOrFail($id);
+        $data['anggota'] = UsulanAnggota::getAnggota($data->id);
+        $data['belanja'] = UsulanBelanja::getBelanja($data->id);
+        $data['kegiatan'] = UsulanKegiatan::getKegiatan($data->id);
+        $data['luaran'] = UsulanLuaran::firstLuaran($data->id);
+        $data['rab'] = UsulanRab::getRab($data->id);
+        $data['skema_usulan'] = SkemaUsulan::firstSkema($data->skema_usulan_id);
+
+        return $data;
     }
 
     static function firstUsulanByDosenIdSkemaId($dosenId, $skemaUsulanId)
@@ -32,7 +40,7 @@ class Usulan extends Model
                             ->where('dosen_id', $dosenId)
                             ->where('skema_usulan_id', $skemaUsulanId)
                             ->first();
-
+            $data[$key]['skema_usulan'] = SkemaUsulan::firstSkema($data->skema_usulan_id);
             $data['anggota'] = UsulanAnggota::getAnggota($data->id);
             $data['kegiatan'] = UsulanKegiatan::getKegiatan($data->id);
             $data['luaran'] = UsulanLuaran::firstLuaran($data->id);
@@ -44,41 +52,68 @@ class Usulan extends Model
 
     static function getUsulan()
     {
-        $usulan = Usulan::all();
+        $usulan = Usulan::orderByDesc('created_at')->get();
 
         if (isset($usulan)) {
             foreach ($usulan as $key => $value) {
-                $data[$key] = Usulan::select(DB::raw('usulan.*, skema.kode, skema_usulan.tahun_skema'))
-                                ->join('skema_usulan', 'usulan.skema_usulan_id', 'skema_usulan.id')
-                                ->join('skema', 'skema_usulan.skema_id', 'skema.id')
-                                ->where('dosen_id', $dosenId)
-                                ->where('skema_usulan_id', $skemaUsulanId)
-                                ->first();
-                                
-                $data[$key]['anggota'] = UsulanAnggota::getAnggota($data[$key]->id);
-                $data[$key]['kegiatan'] = UsulanKegiatan::getKegiatan($data[$key]->id);
-                $data[$key]['luaran'] = UsulanLuaran::firstLuaran($data[$key]->id);
-                $data[$key]['rab'] = UsulanRab::getRab($data[$key]->id);
-                
-                return $data;
+                $data[$key] = Usulan::firstUsulan($value->id);
+                $data[$key]['anggota'] = UsulanAnggota::getAnggota($value->id);
+                $data[$key]['belanja'] = UsulanBelanja::getBelanja($value->id);
+                $data[$key]['kegiatan'] = UsulanKegiatan::getKegiatan($value->id);
+                $data[$key]['luaran'] = UsulanLuaran::firstLuaran($value->id);
+                $data[$key]['rab'] = UsulanRab::getRab($value->id);
+                $data[$key]['skema_usulan'] = SkemaUsulan::firstSkema($value->skema_usulan_id);
             }
+
+            return $data;
         }
     }
 
     static function getUsulanPenelitian()
     {
-        return Usulan::where('jenis', 1)->get();
+        $usulan = Usulan::where('jenis', 1)
+                        ->orderByDesc('created_at')
+                        ->get();
+
+        if (isset($usulan)) {
+            foreach ($usulan as $key => $value) {
+                $data[$key] = Usulan::firstUsulan($value->id);
+                $data[$key]['skema_usulan'] = SkemaUsulan::firstSkema($value->skema_usulan_id);
+                $data[$key]['anggota'] = UsulanAnggota::getAnggota($value->id);
+                $data[$key]['kegiatan'] = UsulanKegiatan::getKegiatan($value->id);
+                $data[$key]['luaran'] = UsulanLuaran::firstLuaran($value->id);
+                $data[$key]['rab'] = UsulanRab::getRab($value->id);
+            }
+
+            return $data;
+        }
     }
 
     static function getUsulanPengabdian()
     {
-        return Usulan::where('jenis', 2)->get();
+        $usulan = Usulan::where('jenis', 2)
+                        ->orderByDesc('created_at')
+                        ->get();
+
+        if (isset($usulan)) {
+            foreach ($usulan as $key => $value) {
+                $data[$key] = Usulan::firstUsulan($value->id);
+                $data[$key]['skema_usulan'] = SkemaUsulan::firstSkema($value->skema_usulan_id);
+                $data[$key]['anggota'] = UsulanAnggota::getAnggota($value->id);
+                $data[$key]['kegiatan'] = UsulanKegiatan::getKegiatan($value->id);
+                $data[$key]['luaran'] = UsulanLuaran::firstLuaran($value->id);
+                $data[$key]['rab'] = UsulanRab::getRab($value->id);
+            }
+
+            return $data;
+        }
     }
 
     static function getUsulanPenelitianByDosenId($id)
     {
         $usulan = Usulan::where('jenis', 1)
                         ->where('dosen_id', $id)
+                        ->sortByDesc('created_at')
                         ->get();
 
         if (isset($usulan)) {
@@ -90,14 +125,16 @@ class Usulan extends Model
                 $data[$key]['luaran'] = UsulanLuaran::firstLuaran($value->id);
                 $data[$key]['rab'] = UsulanRab::getRab($value->id);
             }
+
+            return $data;
         }
-        return $data;
     }
 
     static function getUsulanPengabdianByDosenId($id)
     {
         $usulan = Usulan::where('jenis', 2)
                         ->where('dosen_id', $id)
+                        ->sortByDesc('created_at')
                         ->get();
 
         if (isset($usulan)) {
@@ -109,8 +146,9 @@ class Usulan extends Model
                 $data[$key]['luaran'] = UsulanLuaran::firstLuaran($value->id);
                 $data[$key]['rab'] = UsulanRab::getRab($value->id);
             }
+
+            return $data;
         }
-        return $data;
     }
 
     static function storeUsulan($request)

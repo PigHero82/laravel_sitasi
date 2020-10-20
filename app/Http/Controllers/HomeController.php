@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ListRole;
 use App\Models\RoleUser;
 use App\Models\User;
+use App\Models\Usulan;
 use Auth;
 use Illuminate\Http\Request;
 
@@ -53,5 +54,10 @@ class HomeController extends Controller
 		} else {
 			return redirect()->route('login');
 		}
+	}
+
+	public function usulan($id)
+	{
+		return json_encode(Usulan::firstUsulan($id));
 	}
 }

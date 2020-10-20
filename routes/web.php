@@ -30,6 +30,7 @@ View::composer(['*'], function ($view) {
 Route::get('', 'HomeController@index');
 Route::post('role/{id}', 'HomeController@update')->name('role.update');
 Route::view('profil', 'profil')->name('profil');
+Route::get('usulan/{id}', 'HomeController@usulan');
 
 // Route::group(['prefix' => 'migration'], function () {
 //     Route::group(['prefix' => 'dosen'], function () {
@@ -46,6 +47,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 
 Route::namespace('Admin')->name('admin.')->prefix('admin')->middleware('auth', 'role:admin')->group(function() {
     Route::get('', 'HomeController@index')->name('index');
+    Route::get('usulan', 'HomeController@usulan')->name('usulan');
     Route::namespace('Master')->name('master.')->prefix('master')->group(function() {
         Route::resource('dosen', 'DosenController');
         Route::resource('jabatan', 'JabatanController');

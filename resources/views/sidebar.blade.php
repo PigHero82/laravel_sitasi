@@ -13,8 +13,9 @@
                     <li class="{{ (request()->is('admin/master/jabatan*')) ? 'active' : '' }}"><a href="{{ route('admin.master.jabatan.index') }}" title="Jabatan Akademik"><i></i><span class="menu-item">Jabatan Akademik</span></a></li>
                 </ul>
             </li>
-            <li class="nav-item"><a href="#" title="Review"><i class="feather icon-book"></i><span class="menu-title">Review</span></a>
+            <li class="nav-item"><a href="#" title="Review"><i class="feather icon-book"></i><span class="menu-title">Usulan</span></a>
                 <ul class="menu-content">
+                    <li class="{{ (request()->is('admin/usulan*')) ? 'active' : '' }}"><a href="{{ route('admin.usulan') }}" title="Dosen"><i></i><span class="menu-item">Pembagian Reviewer</span></a></li>
                     <li class="{{ (request()->is('admin/review/pembagian-reviewer*')) ? 'active' : '' }}"><a href="{{ route('admin.review.pembagian-reviewer') }}" title="Dosen"><i></i><span class="menu-item">Pembagian Reviewer</span></a></li>
                     <li class="{{ (request()->is('admin/review/penilaian*')) ? 'active' : '' }}"><a href="{{ route('admin.review.penilaian') }}" title="User"><i></i><span class="menu-item">Penilaian</span></a></li>
                 </ul>

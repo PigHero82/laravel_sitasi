@@ -18,66 +18,6 @@
                     <div class="card text-center">
                         <div class="card-content">
                             <div class="card-body">
-                                <div class="avatar bg-rgba-info p-50 m-0 mb-1">
-                                    <div class="avatar-content">
-                                        <i class="feather icon-bar-chart-2 text-info font-medium-5"></i>
-                                    </div>
-                                </div>
-                                <h2 class="text-bold-700">279</h2>
-                                <p class="mb-0 line-ellipsis">Total Penelitian Internal</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-6 col-md-4 col-sm-6">
-                    <div class="card text-center">
-                        <div class="card-content">
-                            <div class="card-body">
-                                <div class="avatar bg-rgba-warning p-50 m-0 mb-1">
-                                    <div class="avatar-content">
-                                        <i class="feather icon-pie-chart text-warning font-medium-5"></i>
-                                    </div>
-                                </div>
-                                <h2 class="text-bold-700">0</h2>
-                                <p class="mb-0 line-ellipsis">Total Penelitian Eksternal</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-6 col-md-4 col-sm-6">
-                    <div class="card text-center">
-                        <div class="card-content">
-                            <div class="card-body">
-                                <div class="avatar bg-rgba-danger p-50 m-0 mb-1">
-                                    <div class="avatar-content">
-                                        <i class="feather icon-globe text-danger font-medium-5"></i>
-                                    </div>
-                                </div>
-                                <h2 class="text-bold-700">90</h2>
-                                <p class="mb-0 line-ellipsis">Total Pengabdian Internal</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-6 col-md-4 col-sm-6">
-                    <div class="card text-center">
-                        <div class="card-content">
-                            <div class="card-body">
-                                <div class="avatar bg-rgba-primary p-50 m-0 mb-1">
-                                    <div class="avatar-content">
-                                        <i class="feather icon-users text-primary font-medium-5"></i>
-                                    </div>
-                                </div>
-                                <h2 class="text-bold-700">0</h2>
-                                <p class="mb-0 line-ellipsis">Total Pengabdian Eksternal</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-6 col-md-4 col-sm-6">
-                    <div class="card text-center">
-                        <div class="card-content">
-                            <div class="card-body">
                                 <div class="avatar bg-rgba-success p-50 m-0 mb-1">
                                     <div class="avatar-content">
                                         <i class="feather icon-bar-chart-2 text-success font-medium-5"></i>
@@ -93,9 +33,9 @@
                     <div class="card text-center">
                         <div class="card-content">
                             <div class="card-body">
-                                <div class="avatar bg-rgba-danger p-50 m-0 mb-1">
+                                <div class="avatar bg-rgba-warning p-50 m-0 mb-1">
                                     <div class="avatar-content">
-                                        <i class="feather icon-pie-chart text-danger font-medium-5"></i>
+                                        <i class="feather icon-users text-warning font-medium-5"></i>
                                     </div>
                                 </div>
                                 <h2 class="text-bold-700">90</h2>
@@ -108,9 +48,9 @@
                     <div class="card text-center">
                         <div class="card-content">
                             <div class="card-body">
-                                <div class="avatar bg-rgba-info p-50 m-0 mb-1">
+                                <div class="avatar bg-rgba-danger p-50 m-0 mb-1">
                                     <div class="avatar-content">
-                                        <i class="feather icon-globe text-info font-medium-5"></i>
+                                        <i class="feather icon-pie-chart text-danger font-medium-5"></i>
                                     </div>
                                 </div>
                                 <h2 class="text-bold-700">1,17</h2>
@@ -123,9 +63,9 @@
                     <div class="card text-center">
                         <div class="card-content">
                             <div class="card-body">
-                                <div class="avatar bg-rgba-success p-50 m-0 mb-1">
+                                <div class="avatar bg-rgba-primary p-50 m-0 mb-1">
                                     <div class="avatar-content">
-                                        <i class="feather icon-users text-success font-medium-5"></i>
+                                        <i class="feather icon-globe text-primary font-medium-5"></i>
                                     </div>
                                 </div>
                                 <h2 class="text-bold-700">0,43</h2>
@@ -231,7 +171,7 @@
                 <h3 class="card-title">Usulan Penelitian</h3>
 
                 <div class="card-tools">
-                    <a href="#" class="btn btn-outline-success">
+                    <a href="{{ route('admin.usulan') }}" class="btn btn-success">
                         Lihat Semua
                     </a>
                 </div>
@@ -249,30 +189,25 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td><a href="#modalPenelitian" data-toggle="modal">Implementasi Komik Interaktif Cerita Rakyat Cupak Grantang dengan Bahasa Isyarat berbasis Mobile</a></td>
-                                <td>2020 - Penelitian 1</td>
-                                <td>2020</td>
-                                <td>Airi Satou</td>
-                            </tr>
-                            <tr>
-                                <td><a href="#modalPenelitian" data-toggle="modal">Penerapan Extreme Programming pada Sistem Pengarsipan Lembaga Penelitian dan Pengabdian Masyarakat STMIK STIKOM Indonesia</a></td>
-                                <td>2020 - Penelitian 1</td>
-                                <td>2020</td>
-                                <td>-</td>
-                            </tr>
-                            <tr>
-                                <td><a href="#modalPenelitian" data-toggle="modal">Analisa Prosodi Lirik Pupuh Pucung pada Software Speech Synthesis Mbrola</a></td>
-                                <td>2020 - Penelitian 1</td>
-                                <td>2020</td>
-                                <td>-</td>
-                            </tr>
+                            @foreach ($penelitian as $item)
+                                <tr>
+                                    <td><a href="#modalPenelitian" data-toggle="modal">{{ $item->judul }}</a></td>
+                                    <td>{{ $item->skema_usulan->tahun_skema . ' - ' . $item->skema_usulan->kode }}</td>
+                                    <td>{{ $item->skema_usulan->tahun_pelaksanaan }}</td>
+                                    <td></td>
+                                </tr>
+
+                                @if ($loop->iteration == 3)
+                                    @break
+                                @endif
+                            @endforeach
                         </tbody>
                         <tfoot>
                             <tr>
                                 <th>Judul</th>
                                 <th>Skema Usulan</th>
                                 <th>Tahun Pelaksanaan</th>
+                                <th>Reviewer</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -289,7 +224,7 @@
                 <h3 class="card-title">Usulan Pengabdian</h3>
 
                 <div class="card-tools">
-                    <a href="#" class="btn btn-outline-success">
+                    <a href="{{ route('admin.usulan') }}" class="btn btn-success">
                         Lihat Semua
                     </a>
                 </div>
@@ -307,24 +242,18 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td><a href="#modalPengabdian" data-toggle="modal">Pelatihan Teknologi Komputer Dasar DI Taman Belajar Anak Br Pedahan Kaja Desa Tianyar Tengah, Kecamatan Kubu, Karangasem</a></td>
-                                <td>2020 - Pengabdian 1</td>
-                                <td>2020</td>
-                                <td>Garrett Winters</td>
-                            </tr>
-                            <tr>
-                                <td><a href="#modalPengabdian" data-toggle="modal">Implementasi dan Pengelolaan Mobile Based E-complaint System Bagi Masyarakat Desa Kukuh Kecamatan Kerambitan Kabupaten Tabanan</a></td>
-                                <td>2020 - Pengabdian 1</td>
-                                <td>2020</td>
-                                <td>-</td>
-                            </tr>
-                            <tr>
-                                <td><a href="#modalPengabdian" data-toggle="modal">Pelatihan Media Pembelajaran Guru SD 1 Pesaban berbasis daring</a></td>
-                                <td>2020 - Pengabdian 1</td>
-                                <td>2020</td>
-                                <td>-</td>
-                            </tr>
+                            @foreach ($pengabdian as $item)
+                                <tr>
+                                    <td><a href="#modalPengabdian" data-toggle="modal">{{ $item->judul }}</a></td>
+                                    <td>{{ $item->skema_usulan->tahun_skema . ' - ' . $item->skema_usulan->kode }}</td>
+                                    <td>{{ $item->skema_usulan->tahun_pelaksanaan }}</td>
+                                    <td></td>
+                                </tr>
+
+                                @if ($loop->iteration == 3)
+                                    @break
+                                @endif
+                            @endforeach
                         </tbody>
                         <tfoot>
                             <tr>
