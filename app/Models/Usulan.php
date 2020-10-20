@@ -91,6 +91,7 @@ class Usulan extends Model
 
     static function getUsulanPengabdian()
     {
+        $data = [];
         $usulan = Usulan::where('jenis', 2)
                         ->orderByDesc('created_at')
                         ->get();
