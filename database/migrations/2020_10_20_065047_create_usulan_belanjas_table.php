@@ -30,6 +30,6 @@ class CreateUsulanBelanjasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('usulan_belanjas');
+        Schema::dropIfExists('usulan_belanja');
     }
 }

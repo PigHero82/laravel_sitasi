@@ -46,7 +46,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 
 Route::namespace('Admin')->name('admin.')->prefix('admin')->middleware('auth', 'role:admin')->group(function() {
     Route::get('', 'HomeController@index')->name('index');
-    Route::namespace('master')->name('master.')->prefix('master')->group(function() {
+    Route::namespace('Master')->name('master.')->prefix('master')->group(function() {
         Route::resource('dosen', 'DosenController');
         Route::resource('jabatan', 'JabatanController');
         Route::resource('prodi', 'ProdiController');
@@ -58,7 +58,7 @@ Route::namespace('Admin')->name('admin.')->prefix('admin')->middleware('auth', '
         Route::resource('skema', 'SkemaController');
         Route::resource('user', 'UserController');
     });
-    Route::namespace('review')->name('review.')->prefix('review')->group(function() {
+    Route::namespace('Review')->name('review.')->prefix('review')->group(function() {
         Route::view('pembagian-reviewer', 'review.pembagian-reviewer')->name('pembagian-reviewer');
         Route::view('penilaian', 'review.penilaian')->name('penilaian');
     });
@@ -78,19 +78,19 @@ Route::namespace('Dosen')->name('dosen.')->prefix('dosen')->middleware('auth', '
     Route::view('persetujuan-personil', 'persetujuan-personil')->name('persetujuan-personil');
     Route::resource('rumpun-ilmu', 'RumpunIlmuController')->only(['index', 'show']);
     Route::view('tanggungan', 'tanggungan')->name('tanggungan');
-    Route::namespace('publikasi')->name('publikasi.')->prefix('publikasi')->group(function() {
+    Route::namespace('Publikasi')->name('publikasi.')->prefix('publikasi')->group(function() {
         Route::view('', 'publikasi.index')->name('index');
         Route::view('create', 'publikasi.create')->name('create');
     });
-    Route::namespace('hki')->name('hki.')->prefix('hki')->group(function() {
+    Route::namespace('Hki')->name('hki.')->prefix('hki')->group(function() {
         Route::view('', 'hki.index')->name('index');
         Route::view('create', 'hki.create')->name('create');
     });
-    Route::namespace('prosiding')->name('prosiding.')->prefix('prosiding')->group(function() {
+    Route::namespace('Prosiding')->name('prosiding.')->prefix('prosiding')->group(function() {
         Route::view('', 'prosiding.index')->name('index');
         Route::view('create', 'prosiding.create')->name('create');
     });
-    Route::namespace('buku')->name('buku.')->prefix('buku')->group(function() {
+    Route::namespace('Buku')->name('buku.')->prefix('buku')->group(function() {
         Route::view('', 'buku.index')->name('index');
         Route::view('create', 'buku.create')->name('create');
     });

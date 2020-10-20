@@ -41,6 +41,6 @@ class CreateUsulanTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('usulans');
+        Schema::dropIfExists('usulan');
     }
 }
