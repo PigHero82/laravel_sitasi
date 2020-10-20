@@ -46,7 +46,7 @@
                         <tbody>
                             @foreach ($penelitian as $item)
                                 <tr>
-                                    <td><a href="#modalPenelitian" data-toggle="modal">{{ $item->judul }}</a></td>
+                                    <td><a href="#modalPenelitian" data-toggle="modal" data-value="{{ $item->id }}">{{ $item->judul }}</a></td>
                                     <td>{{ $item->skema_usulan->tahun_skema . ' - ' . $item->skema_usulan->kode }}</td>
                                     <td>{{ $item->skema_usulan->tahun_pelaksanaan }}</td>
                                 </tr>
@@ -92,7 +92,7 @@
                         <tbody>
                             @foreach ($pengabdian as $item)
                                 <tr>
-                                    <td><a href="#modalPengabdian" data-toggle="modal">{{ $item->judul }}</a></td>
+                                    <td><a href="#modalPengabdian" data-toggle="modal" data-value="{{ $item->id }}">{{ $item->judul }}</a></td>
                                     <td>{{ $item->skema_usulan->tahun_skema . ' - ' . $item->skema_usulan->kode }}</td>
                                     <td>{{ $item->skema_usulan->tahun_pelaksanaan }}</td>
                                 </tr>
