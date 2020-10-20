@@ -44,7 +44,25 @@ class Usulan extends Model
 
     static function getUsulan()
     {
-        return Usulan::all();
+        $usulan = Usulan::all();
+
+        if (isset($usulan)) {
+            foreach ($usulan as $key => $value) {
+                $data[$key] = Usulan::select(DB::raw('usulan.*, skema.kode, skema_usulan.tahun_skema'))
+                                ->join('skema_usulan', 'usulan.skema_usulan_id', 'skema_usulan.id')
+                                ->join('skema', 'skema_usulan.skema_id', 'skema.id')
+                                ->where('dosen_id', $dosenId)
+                                ->where('skema_usulan_id', $skemaUsulanId)
+                                ->first();
+                                
+                $data[$key]['anggota'] = UsulanAnggota::getAnggota($data[$key]->id);
+                $data[$key]['kegiatan'] = UsulanKegiatan::getKegiatan($data[$key]->id);
+                $data[$key]['luaran'] = UsulanLuaran::firstLuaran($data[$key]->id);
+                $data[$key]['rab'] = UsulanRab::getRab($data[$key]->id);
+                
+                return $data;
+            }
+        }
     }
 
     static function getUsulanPenelitian()
@@ -57,18 +75,42 @@ class Usulan extends Model
         return Usulan::where('jenis', 2)->get();
     }
 
-    static function getUsulanPenelitianByNIDN($id)
+    static function getUsulanPenelitianByDosenId($id)
     {
-        return Usulan::where('jenis', 1)
+        $usulan = Usulan::where('jenis', 1)
                         ->where('dosen_id', $id)
                         ->get();
+
+        if (isset($usulan)) {
+            foreach ($usulan as $key => $value) {
+                $data[$key] = Usulan::firstUsulan($value->id);
+                $data[$key]['skema_usulan'] = SkemaUsulan::firstSkema($value->skema_usulan_id);
+                $data[$key]['anggota'] = UsulanAnggota::getAnggota($value->id);
+                $data[$key]['kegiatan'] = UsulanKegiatan::getKegiatan($value->id);
+                $data[$key]['luaran'] = UsulanLuaran::firstLuaran($value->id);
+                $data[$key]['rab'] = UsulanRab::getRab($value->id);
+            }
+        }
+        return $data;
     }
 
-    static function getUsulanPengabdianByNIDN($id)
+    static function getUsulanPengabdianByDosenId($id)
     {
-        return Usulan::where('jenis', 2)
+        $usulan = Usulan::where('jenis', 2)
                         ->where('dosen_id', $id)
                         ->get();
+
+        if (isset($usulan)) {
+            foreach ($usulan as $key => $value) {
+                $data[$key] = Usulan::firstUsulan($value->id);
+                $data[$key]['skema_usulan'] = SkemaUsulan::firstSkema($value->skema_usulan_id);
+                $data[$key]['anggota'] = UsulanAnggota::getAnggota($value->id);
+                $data[$key]['kegiatan'] = UsulanKegiatan::getKegiatan($value->id);
+                $data[$key]['luaran'] = UsulanLuaran::firstLuaran($value->id);
+                $data[$key]['rab'] = UsulanRab::getRab($value->id);
+            }
+        }
+        return $data;
     }
 
     static function storeUsulan($request)

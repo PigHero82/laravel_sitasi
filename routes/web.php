@@ -99,15 +99,7 @@ Route::namespace('Dosen')->name('dosen.')->prefix('dosen')->middleware('auth', '
         Route::post('/anggota', 'UsulanController@anggota')->name('anggota');
         Route::post('/backward', 'UsulanController@backward')->name('backward');
         Route::patch('{id}', 'UsulanController@update')->name('update');
-        Route::view('create/1', 'usulan.1')->name('1');
-        Route::view('create/2', 'usulan.2')->name('2');
-        Route::view('create/3', 'usulan.3')->name('3');
-        Route::view('create/4', 'usulan.4')->name('4');
-        Route::view('create/5', 'usulan.5')->name('5');
-        Route::view('create/6', 'usulan.6')->name('6');
-        Route::view('create/7', 'usulan.7')->name('7');
-        Route::view('create/8', 'usulan.8')->name('8');
-        Route::view('riwayat', 'usulan.riwayat')->name('riwayat');
+        Route::get('riwayat', 'UsulanController@riwayat')->name('riwayat');
     });
 });
 

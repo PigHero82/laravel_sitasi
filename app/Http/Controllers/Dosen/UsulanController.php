@@ -177,4 +177,12 @@ class UsulanController extends Controller
         $page = $request->cookie('page');
         return redirect()->route('dosen.usulan.create')->withCookie(cookie('page', --$page, 1000));
     }
+    
+    public function riwayat()
+    {
+        $penelitian = Usulan::getUsulanPenelitianByDosenId(Auth::user()->id);
+        $pengabdian = Usulan::getUsulanPengabdianByDosenId(Auth::user()->id);
+
+        return view('usulan.riwayat', compact('penelitian', 'pengabdian'));
+    }
 }

@@ -44,31 +44,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td><a href="#modalPenelitian" data-toggle="modal">Implementasi Komik Interaktif Cerita Rakyat Cupak Grantang dengan Bahasa Isyarat berbasis Mobile</a></td>
-                                <td>2020 - Penelitian 1</td>
-                                <td>2020</td>
-                            </tr>
-                            <tr>
-                                <td><a href="#modalPenelitian" data-toggle="modal">Penerapan Extreme Programming pada Sistem Pengarsipan Lembaga Penelitian dan Pengabdian Masyarakat STMIK STIKOM Indonesia</a></td>
-                                <td>2020 - Penelitian 1</td>
-                                <td>2020</td>
-                            </tr>
-                            <tr>
-                                <td><a href="#modalPenelitian" data-toggle="modal">Analisa Prosodi Lirik Pupuh Pucung pada Software Speech Synthesis Mbrola</a></td>
-                                <td>2020 - Penelitian 1</td>
-                                <td>2020</td>
-                            </tr>
-                            <tr>
-                                <td><a href="#modalPenelitian" data-toggle="modal">Implementasi Metode Certainty Factor Untuk Diagnosa Penyakit Mata Merah Visus Turun Pada Manusia</a></td>
-                                <td>2020 - Penelitian 1</td>
-                                <td>2020</td>
-                            </tr>
-                            <tr>
-                                <td><a href="#modalPenelitian" data-toggle="modal">Education Data Mining pada E-Learning STMIK STIKOM Indonesia Menggunakan Metode Fuzzy C-Means dan Algoritma Apriori</a></td>
-                                <td>2020 - Penelitian 1</td>
-                                <td>2020</td>
-                            </tr>
+                            @foreach ($penelitian as $item)
+                                <tr>
+                                    <td><a href="#modalPenelitian" data-toggle="modal">{{ $item->judul }}</a></td>
+                                    <td>{{ $item->skema_usulan->tahun_skema . ' - ' . $item->skema_usulan->kode }}</td>
+                                    <td>{{ $item->skema_usulan->tahun_pelaksanaan }}</td>
+                                </tr>
+                            @endforeach
                         </tbody>
                         <tfoot>
                             <tr>
@@ -99,7 +81,7 @@
               <!-- /.card-header -->
               <div class="card-content collapse show">
                   <div class="card-body">
-                    <table id="myTable" class="table zero-configuration table-striped table-responsive" style="width:100%">
+                    <table id="myTable" class="table zero-configuration table-striped" style="width:100%">
                         <thead>
                             <tr>
                                 <th style="width: 60%">Judul</th>
@@ -108,31 +90,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td><a href="#modalPengabdian" data-toggle="modal">Pelatihan Teknologi Komputer Dasar DI Taman Belajar Anak Br Pedahan Kaja Desa Tianyar Tengah, Kecamatan Kubu, Karangasem</a></td>
-                                <td>2020 - Pengabdian 1</td>
-                                <td>2020</td>
-                            </tr>
-                            <tr>
-                                <td><a href="#modalPengabdian" data-toggle="modal">Implementasi dan Pengelolaan Mobile Based E-complaint System Bagi Masyarakat Desa Kukuh Kecamatan Kerambitan Kabupaten Tabanan</a></td>
-                                <td>2020 - Pengabdian 1</td>
-                                <td>2020</td>
-                            </tr>
-                            <tr>
-                                <td><a href="#modalPengabdian" data-toggle="modal">Pelatihan Media Pembelajaran Guru SD 1 Pesaban berbasis daring</a></td>
-                                <td>2020 - Pengabdian 1</td>
-                                <td>2020</td>
-                            </tr>
-                            <tr>
-                                <td><a href="#modalPengabdian" data-toggle="modal">PKM Perbekel Desa Kukuh Kecamata Kerambitan Kabupaten Tabanan</a></td>
-                                <td>2020 - Pengabdian 1</td>
-                                <td>2020</td>
-                            </tr>
-                            <tr>
-                                <td><a href="#modalPengabdian" data-toggle="modal">PKM Penerapan Sistem Informasi Manajemen Dalam Peningkatan Kualitas Pengelolaan Data Penjualan BUMDes Kukuh Winangun</a></td>
-                                <td>2020 - Pengabdian 1</td>
-                                <td>2020</td>
-                            </tr>
+                            @foreach ($pengabdian as $item)
+                                <tr>
+                                    <td><a href="#modalPengabdian" data-toggle="modal">{{ $item->judul }}</a></td>
+                                    <td>{{ $item->skema_usulan->tahun_skema . ' - ' . $item->skema_usulan->kode }}</td>
+                                    <td>{{ $item->skema_usulan->tahun_pelaksanaan }}</td>
+                                </tr>
+                            @endforeach
                         </tbody>
                         <tfoot>
                             <tr>
@@ -327,4 +291,31 @@
 @endsection
 
 @section('js')
+    <script>
+        $(document).ready( function () {
+            $(document).on('click', '#myTable tbody tr td a', function(e) {
+                var id = $(this).attr('data-value');
+                $.get( "/admin/master/dosen/" + id, function( data ) {
+                    console.log(JSON.parse(data));
+                    var d = JSON.parse(data);
+                    $('#myModalLabel33').text(d.nama + " | Detail Dosen");
+                    $('#nidn-field').val(d.nidn);
+                    $('#nidn').text(d.nidn);
+                    $('#nama').text(d.nama);
+                    $('#alamat').text(d.alamat);
+                    $('#tempat_lahir').text(d.tempat_lahir);
+                    $('#tanggal_lahir').text(d.tanggal_lahir);
+                    $('#jabatan_fungsional').text(d.jabatan_fungsional_nama);
+                    $('#ktp').text(d.ktp);
+                    $('#telepon').text(d.telepon);
+                    $('#hp').text(d.hp);
+                    $('#email').text(d.email);
+                    $('#web').text(d.web);
+                    $('#sinta_id').text(d.sinta_id);
+                    $('#google_scholar_id').html('<a href="https://scholar.google.com/citations?user=' + d.google_scholar_id + '&hl=id" target="_blank" rel="noopener noreferrer">' + d.google_scholar_id + '</a>');
+                });
+                console.log($(this).attr('data-value'));
+            });
+        } );
+    </script>
 @endsection

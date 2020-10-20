@@ -228,7 +228,7 @@
                         <h3 class="card-title">Daftar Penelitian</h3>
 
                         <div class="card-tools">
-                            <a href="#" class="btn btn-outline-success">
+                            <a href="{{ route('dosen.usulan.riwayat') }}" class="btn btn-success">
                                 Lihat Semua
                             </a>
                         </div>
@@ -236,7 +236,7 @@
                     <!-- /.card-header -->
                     <div class="card-content collapse show">
                         <div class="card-body">
-                            <table id="penelitian" class="table zero-configuration table-striped table-responsive" style="width:100%">
+                            <table id="penelitian" class="table zero-configuration table-striped" style="width:100%">
                                 <thead>
                                     <tr>
                                         @isset($penelitian)
@@ -255,8 +255,8 @@
                                         @foreach ($penelitian as $item)
                                             <tr>
                                                 <td><a href="#modalPenelitian" data-toggle="modal">{{ $item->judul }}</a></td>
-                                                <td>{{ $item->tahun_skema . ' - ' . $item->kode }}</td>
-                                                <td>{{ $item->tahun_penelitian . ' - ' . $item->kode }}</td>
+                                                <td>{{ $item->skema_usulan->tahun_skema . ' - ' . $item->skema_usulan->kode }}</td>
+                                                <td>{{ $item->skema_usulan->tahun_pelaksanaan }}</td>
                                             </tr>
                                         @endforeach
                                     @else
@@ -301,7 +301,7 @@
                         <h3 class="card-title">Daftar Pengabdian</h3>
 
                         <div class="card-tools">
-                            <a href="#" class="btn btn-outline-success">
+                            <a href="{{ route('dosen.usulan.riwayat') }}" class="btn btn-success">
                                 Lihat Semua
                             </a>
                         </div>
@@ -309,7 +309,7 @@
                     <!-- /.card-header -->
                     <div class="card-content collapse show">
                         <div class="card-body">
-                            <table id="pengabdian" class="table zero-configuration table-striped table-responsive" style="width:100%">
+                            <table id="pengabdian" class="table zero-configuration table-striped" style="width:100%">
                                 <thead>
                                     <tr>
                                         <th style="width: 60%">Judul</th>
@@ -321,8 +321,8 @@
                                     @foreach ($pengabdian as $item)
                                         <tr>
                                             <td><a href="#modalPengabdian" data-toggle="modal">{{ $item->judul }}</a></td>
-                                            <td>{{ $item->tahun_skema . ' - ' . $item->kode }}</td>
-                                            <td>{{ $item->tahun_penelitian . ' - ' . $item->kode }}</td>
+                                            <td>{{ $item->skema_usulan->tahun_skema . ' - ' . $item->skema_usulan->kode }}</td>
+                                            <td>{{ $item->skema_usulan->tahun_pelaksanaan }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
