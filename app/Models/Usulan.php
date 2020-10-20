@@ -6,6 +6,7 @@ use Auth;
 use DB;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Dosen;
 
 class Usulan extends Model
 {
@@ -16,7 +17,10 @@ class Usulan extends Model
 
     static function firstUsulan($id)
     {
+
         $data = Usulan::findOrFail($id);
+        $dosen = Dosen::findOrFail($data->dosen_id);
+        $data['ketua'] = $dosen->nama;
         $data['anggota'] = UsulanAnggota::getAnggota($data->id);
         $data['belanja'] = UsulanBelanja::getBelanja($data->id);
         $data['kegiatan'] = UsulanKegiatan::getKegiatan($data->id);
@@ -75,6 +79,7 @@ class Usulan extends Model
 
     static function getUsulanPenelitian()
     {
+        $data = [];
         $usulan = Usulan::where('jenis', 1)
                         ->orderByDesc('created_at')
                         ->get();
@@ -120,6 +125,7 @@ class Usulan extends Model
 
     static function getUsulanPengabdian()
     {
+        $data = [];
         $usulan = Usulan::where('jenis', 2)
                         ->orderByDesc('created_at')
                         ->take($count)

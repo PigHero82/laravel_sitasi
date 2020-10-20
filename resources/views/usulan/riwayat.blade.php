@@ -46,7 +46,7 @@
                         <tbody>
                             @foreach ($penelitian as $item)
                                 <tr>
-                                    <td><a href="#modalPenelitian" data-toggle="modal">{{ $item->judul }}</a></td>
+                                    <td><a href="#modalPenelitian" data-toggle="modal" data-value="{{ $item->id }}">{{ $item->judul }}</a></td>
                                     <td>{{ $item->skema_usulan->tahun_skema . ' - ' . $item->skema_usulan->kode }}</td>
                                     <td>{{ $item->skema_usulan->tahun_pelaksanaan }}</td>
                                 </tr>
@@ -92,7 +92,7 @@
                         <tbody>
                             @foreach ($pengabdian as $item)
                                 <tr>
-                                    <td><a href="#modalPengabdian" data-toggle="modal">{{ $item->judul }}</a></td>
+                                    <td><a href="#modalPengabdian" data-toggle="modal" data-value="{{ $item->id }}">{{ $item->judul }}</a></td>
                                     <td>{{ $item->skema_usulan->tahun_skema . ' - ' . $item->skema_usulan->kode }}</td>
                                     <td>{{ $item->skema_usulan->tahun_pelaksanaan }}</td>
                                 </tr>
@@ -303,7 +303,7 @@
         });
 
         $(document).ready( function () {
-            $(document).on('click', '#myTable tbody tr td a', function(e) {
+            $(document).on('click', '#table-penelitian tbody tr td a', function(e) {
                 var id = $(this).attr('data-value');
                 $.get( "/usulan/" + id, function( data ) {
                     console.log(JSON.parse(data));
@@ -329,7 +329,7 @@
 
             $(document).on('click', '#table-pengabdian tbody tr td a', function(e) {
                 var id = $(this).attr('data-value');
-                $.get( "/admin/master/dosen/" + id, function( data ) {
+                $.get( "/usulan/" + id, function( data ) {
                     console.log(JSON.parse(data));
                     var d = JSON.parse(data);
                     $('#myModalLabel33').text(d.nama + " | Detail Dosen");
