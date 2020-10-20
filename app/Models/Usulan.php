@@ -33,7 +33,7 @@ class Usulan extends Model
                         ->where('skema_usulan_id', $skemaUsulanId)
                         ->first();
 
-        if (isset($usulan)) {
+        if ($usulan->isNotEmpty()) {
             $data = Usulan::select(DB::raw('usulan.*, skema.kode, skema_usulan.tahun_skema'))
                             ->join('skema_usulan', 'usulan.skema_usulan_id', 'skema_usulan.id')
                             ->join('skema', 'skema_usulan.skema_id', 'skema.id')
@@ -48,13 +48,15 @@ class Usulan extends Model
 
             return $data;
         }
+
+        return $usulan;
     }
 
     static function getUsulan()
     {
         $usulan = Usulan::orderByDesc('created_at')->get();
 
-        if (isset($usulan)) {
+        if ($usulan->isNotEmpty()) {
             foreach ($usulan as $key => $value) {
                 $data[$key] = Usulan::firstUsulan($value->id);
                 $data[$key]['anggota'] = UsulanAnggota::getAnggota($value->id);
@@ -67,6 +69,8 @@ class Usulan extends Model
 
             return $data;
         }
+
+        return $usulan;
     }
 
     static function getUsulanPenelitian()
@@ -75,7 +79,7 @@ class Usulan extends Model
                         ->orderByDesc('created_at')
                         ->get();
 
-        if (isset($usulan)) {
+        if ($usulan->isNotEmpty()) {
             foreach ($usulan as $key => $value) {
                 $data[$key] = Usulan::firstUsulan($value->id);
                 $data[$key]['skema_usulan'] = SkemaUsulan::firstSkema($value->skema_usulan_id);
@@ -87,15 +91,41 @@ class Usulan extends Model
 
             return $data;
         }
+
+        return $usulan;
+    }
+
+    static function getLimitedUsulanPenelitian($count)
+    {
+        $usulan = Usulan::where('jenis', 1)
+                        ->orderByDesc('created_at')
+                        ->take($count)
+                        ->get();
+
+        if ($usulan->isNotEmpty()) {
+            foreach ($usulan as $key => $value) {
+                $data[$key] = Usulan::firstUsulan($value->id);
+                $data[$key]['skema_usulan'] = SkemaUsulan::firstSkema($value->skema_usulan_id);
+                $data[$key]['anggota'] = UsulanAnggota::getAnggota($value->id);
+                $data[$key]['kegiatan'] = UsulanKegiatan::getKegiatan($value->id);
+                $data[$key]['luaran'] = UsulanLuaran::firstLuaran($value->id);
+                $data[$key]['rab'] = UsulanRab::getRab($value->id);
+            }
+
+            return $data;
+        }
+
+        return $usulan;
     }
 
     static function getUsulanPengabdian()
     {
         $usulan = Usulan::where('jenis', 2)
                         ->orderByDesc('created_at')
+                        ->take($count)
                         ->get();
 
-        if (isset($usulan)) {
+        if ($usulan->isNotEmpty()) {
             foreach ($usulan as $key => $value) {
                 $data[$key] = Usulan::firstUsulan($value->id);
                 $data[$key]['skema_usulan'] = SkemaUsulan::firstSkema($value->skema_usulan_id);
@@ -107,6 +137,30 @@ class Usulan extends Model
 
             return $data;
         }
+
+        return $usulan;
+    }
+
+    static function getLimitedUsulanPengabdian($count)
+    {
+        $usulan = Usulan::where('jenis', 2)
+                        ->orderByDesc('created_at')
+                        ->paginate($count);
+
+        if ($usulan->isNotEmpty()) {
+            foreach ($usulan as $key => $value) {
+                $data[$key] = Usulan::firstUsulan($value->id);
+                $data[$key]['skema_usulan'] = SkemaUsulan::firstSkema($value->skema_usulan_id);
+                $data[$key]['anggota'] = UsulanAnggota::getAnggota($value->id);
+                $data[$key]['kegiatan'] = UsulanKegiatan::getKegiatan($value->id);
+                $data[$key]['luaran'] = UsulanLuaran::firstLuaran($value->id);
+                $data[$key]['rab'] = UsulanRab::getRab($value->id);
+            }
+
+            return $data;
+        }
+
+        return $usulan;
     }
 
     static function getUsulanPenelitianByDosenId($id)
@@ -116,7 +170,7 @@ class Usulan extends Model
                         ->sortByDesc('created_at')
                         ->get();
 
-        if (isset($usulan)) {
+        if ($usulan->isNotEmpty()) {
             foreach ($usulan as $key => $value) {
                 $data[$key] = Usulan::firstUsulan($value->id);
                 $data[$key]['skema_usulan'] = SkemaUsulan::firstSkema($value->skema_usulan_id);
@@ -128,6 +182,8 @@ class Usulan extends Model
 
             return $data;
         }
+
+        return $usulan;
     }
 
     static function getUsulanPengabdianByDosenId($id)
@@ -137,7 +193,7 @@ class Usulan extends Model
                         ->sortByDesc('created_at')
                         ->get();
 
-        if (isset($usulan)) {
+        if ($usulan->isNotEmpty()) {
             foreach ($usulan as $key => $value) {
                 $data[$key] = Usulan::firstUsulan($value->id);
                 $data[$key]['skema_usulan'] = SkemaUsulan::firstSkema($value->skema_usulan_id);
@@ -149,6 +205,8 @@ class Usulan extends Model
 
             return $data;
         }
+
+        return $usulan;
     }
 
     static function storeUsulan($request)

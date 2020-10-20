@@ -166,108 +166,132 @@
 
             <!-- skema penelitian -->
             <!-- general form elements -->
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">Usulan Penelitian</h3>
+            @if(count($penelitian))
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Usulan Penelitian</h3>
 
-                <div class="card-tools">
-                    <a href="{{ route('admin.usulan') }}" class="btn btn-success">
-                        Lihat Semua
-                    </a>
+                        <div class="card-tools">
+                            <a href="{{ route('admin.usulan') }}" class="btn btn-success">
+                                Lihat Semua
+                            </a>
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-content collapse show">
+                        <div class="card-body">
+                            <table id="myTable" class="table zero-configuration table-striped table-responsive" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 60%">Judul</th>
+                                        <th>Skema Usulan</th>
+                                        <th>Tahun Pelaksanaan</th>
+                                        <th>Reviewer</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                        @foreach ($penelitian as $item)
+                                            <tr>
+                                                <td><a href="#modalPenelitian" data-toggle="modal" data-value="{{ $item->id }}">{{ $item->judul }}</a></td>
+                                                <td>{{ $item->skema_usulan->tahun_skema . ' - ' . $item->skema_usulan->kode }}</td>
+                                                <td>{{ $item->skema_usulan->tahun_pelaksanaan }}</td>
+                                                <td></td>
+                                            </tr>
+                                        @endforeach
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>Judul</th>
+                                        <th>Skema Usulan</th>
+                                        <th>Tahun Pelaksanaan</th>
+                                        <th>Reviewer</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
                 </div>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-content collapse show">
-                  <div class="card-body">
-                    <table id="myTable" class="table zero-configuration table-striped table-responsive" style="width:100%">
-                        <thead>
-                            <tr>
-                                <th style="width: 60%">Judul</th>
-                                <th>Skema Usulan</th>
-                                <th>Tahun Pelaksanaan</th>
-                                <th>Reviewer</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($penelitian as $item)
-                                <tr>
-                                    <td><a href="#modalPenelitian" data-toggle="modal">{{ $item->judul }}</a></td>
-                                    <td>{{ $item->skema_usulan->tahun_skema . ' - ' . $item->skema_usulan->kode }}</td>
-                                    <td>{{ $item->skema_usulan->tahun_pelaksanaan }}</td>
-                                    <td></td>
-                                </tr>
-
-                                @if ($loop->iteration == 3)
-                                    @break
-                                @endif
-                            @endforeach
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <th>Judul</th>
-                                <th>Skema Usulan</th>
-                                <th>Tahun Pelaksanaan</th>
-                                <th>Reviewer</th>
-                            </tr>
-                        </tfoot>
-                    </table>
-                  </div>
-              </div>
-              <!-- /.card-body -->
-            </div>
+            @else
+                <div class="card bg-danger text-white">
+                    <div class="card-header">
+                        <h3 class="card-title text-white">Usulan Penelitian</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-content">
+                        <div class="card-body text-center">
+                            <h1 class="text-white"><i class="feather icon-alert-octagon"></i></h1>
+                            <h4 class="card-title text-white">Tidak ada data</h4>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+            @endif
             <!-- /.card -->
   
             <!-- skema pengabdian -->
             <!-- general form elements -->
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">Usulan Pengabdian</h3>
+            @if(count($pengabdian))
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Usulan Pengabdian</h3>
 
-                <div class="card-tools">
-                    <a href="{{ route('admin.usulan') }}" class="btn btn-success">
-                        Lihat Semua
-                    </a>
+                        <div class="card-tools">
+                            <a href="{{ route('admin.usulan') }}" class="btn btn-success">
+                                Lihat Semua
+                            </a>
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-content collapse show">
+                        <div class="card-body">
+                            <table id="myTable2" class="table zero-configuration table-striped table-responsive" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 60%">Judul</th>
+                                        <th>Skema Usulan</th>
+                                        <th>Tahun Pelaksanaan</th>
+                                        <th>Reviewer</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($pengabdian as $item)
+                                        <tr>
+                                            <td><a href="#modalPenelitian" data-toggle="modal" data-value="{{ $item->id }}">{{ $item->judul }}</a></td>
+                                            <td>{{ $item->skema_usulan->tahun_skema . ' - ' . $item->skema_usulan->kode }}</td>
+                                            <td>{{ $item->skema_usulan->tahun_pelaksanaan }}</td>
+                                            <td></td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>Judul</th>
+                                        <th>Skema Usulan</th>
+                                        <th>Tahun Pelaksanaan</th>
+                                        <th>Reviewer</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
                 </div>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-content collapse show">
-                  <div class="card-body">
-                    <table id="myTable" class="table zero-configuration table-striped table-responsive" style="width:100%">
-                        <thead>
-                            <tr>
-                                <th style="width: 60%">Judul</th>
-                                <th>Skema Usulan</th>
-                                <th>Tahun Pelaksanaan</th>
-                                <th>Reviewer</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($pengabdian as $item)
-                                <tr>
-                                    <td><a href="#modalPengabdian" data-toggle="modal">{{ $item->judul }}</a></td>
-                                    <td>{{ $item->skema_usulan->tahun_skema . ' - ' . $item->skema_usulan->kode }}</td>
-                                    <td>{{ $item->skema_usulan->tahun_pelaksanaan }}</td>
-                                    <td></td>
-                                </tr>
-
-                                @if ($loop->iteration == 3)
-                                    @break
-                                @endif
-                            @endforeach
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <th>Judul</th>
-                                <th>Skema Usulan</th>
-                                <th>Tahun Pelaksanaan</th>
-                                <th>Reviewer</th>
-                            </tr>
-                        </tfoot>
-                    </table>
-                  </div>
-              </div>
-              <!-- /.card-body -->
-            </div>
+            @else
+                <div class="card bg-danger text-white">
+                    <div class="card-header">
+                        <h3 class="card-title text-white">Usulan Pengabdian</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-content">
+                        <div class="card-body text-center">
+                            <h1 class="text-white"><i class="feather icon-alert-octagon"></i></h1>
+                            <h4 class="card-title text-white">Tidak ada data</h4>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+            @endif
             <!-- /.card -->
           </div>
           <!--/.col (left) -->
@@ -289,125 +313,55 @@
                         <div class="card-text">
                             <dl class="row">
                                 <dt class="col-sm-4 text-md-right">Judul</dt>
-                                <dd class="col-sm-8">Implementasi Komik Interaktif Cerita Rakyat Cupak Grantang dengan Bahasa Isyarat berbasis Mobile</dd>
+                                <dd class="col-sm-8" id="penelitian-judul">Implementasi Komik Interaktif Cerita Rakyat Cupak Grantang dengan Bahasa Isyarat berbasis Mobile</dd>
                             </dl>
                             <dl class="row">
                                 <dt class="col-sm-4 text-md-right">Reviewer</dt>
-                                <dd class="col-sm-8">Airi Satou</dd>
+                                <dd class="col-sm-8" id="penelitian-reviewer">-</dd>
                             </dl>
                             <dl class="row">
                                 <dt class="col-sm-4 text-md-right">Skema</dt>
-                                <dd class="col-sm-8">PPDS Batch 1</dd>
+                                <dd class="col-sm-8" id="penelitian-skema">PPDS Batch 1</dd>
                             </dl>
                             <dl class="row">
                                 <dt class="col-sm-4 text-md-right">Tahun Usulan</dt>
-                                <dd class="col-sm-8">2020</dd>
+                                <dd class="col-sm-8" id="penelitian-usulan">2020</dd>
                             </dl>
                             <dl class="row">
                                 <dt class="col-sm-4 text-md-right">Tahun Penelitian</dt>
-                                <dd class="col-sm-8">2020</dd>
+                                <dd class="col-sm-8" id="penelitian-pelaksanaan">2020</dd>
                             </dl>
                             <dl class="row">
                                 <dt class="col-sm-4 text-md-right">Jenis Usulan</dt>
-                                <dd class="col-sm-8">Penelitian</dd>
+                                <dd class="col-sm-8" id="penelitian-jenis">Penelitian</dd>
                             </dl>
                             <dl class="row">
                                 <dt class="col-sm-4 text-md-right">Proposal</dt>
-                                <dd class="col-sm-8"><a href="#">Berkas Proposal</a></dd>
+                                <dd class="col-sm-8" id="penelitian-">-</dd>
                             </dl>
                             <dl class="row">
                                 <dt class="col-sm-4 text-md-right">Laporan Kemajuan</dt>
-                                <dd class="col-sm-8">-</dd>
+                                <dd class="col-sm-8" id="penelitian-">-</dd>
                             </dl>
                             <dl class="row">
                                 <dt class="col-sm-4 text-md-right">Laporan Akhir</dt>
-                                <dd class="col-sm-8">-</dd>
+                                <dd class="col-sm-8" id="penelitian-">-</dd>
                             </dl>
                             <dl class="row">
                                 <dt class="col-sm-4 text-md-right">Laporan Anggaran</dt>
-                                <dd class="col-sm-8">-</dd>
+                                <dd class="col-sm-8" id="penelitian-">-</dd>
                             </dl>
                             <dl class="row">
                                 <dt class="col-sm-4 text-md-right">Laporan Belanja</dt>
-                                <dd class="col-sm-8">-</dd>
+                                <dd class="col-sm-8" id="penelitian-">-</dd>
                             </dl>
                             <dl class="row">
                                 <dt class="col-sm-4 text-md-right">Laporan Publikasi</dt>
-                                <dd class="col-sm-8">-</dd>
+                                <dd class="col-sm-8" id="penelitian-">-</dd>
                             </dl>
                             <dl class="row">
                                 <dt class="col-sm-4 text-md-right">Link Publikasi/Google Scholar</dt>
-                                <dd class="col-sm-8">-</dd>
-                            </dl>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- modal pengabdian -->
-        <div class="modal fade text-left" id="modalPengabdian" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title" id="myModalLabel33">Detail Usulan Pengabdian</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="card-text">
-                            <dl class="row">
-                                <dt class="col-sm-4 text-md-right">Judul</dt>
-                                <dd class="col-sm-8">Pelatihan Teknologi Komputer Dasar DI Taman Belajar Anak Br Pedahan Kaja Desa Tianyar Tengah, Kecamatan Kubu, Karangasem</dd>
-                            </dl>
-                            <dl class="row">
-                                <dt class="col-sm-4 text-md-right">Reviewer</dt>
-                                <dd class="col-sm-8">Garrett Winters</dd>
-                            </dl>
-                            <dl class="row">
-                                <dt class="col-sm-4 text-md-right">Skema</dt>
-                                <dd class="col-sm-8">PKM STIKI Peduli (Tahunan) Batch 1</dd>
-                            </dl>
-                            <dl class="row">
-                                <dt class="col-sm-4 text-md-right">Tahun Usulan</dt>
-                                <dd class="col-sm-8">2020</dd>
-                            </dl>
-                            <dl class="row">
-                                <dt class="col-sm-4 text-md-right">Tahun Penelitian</dt>
-                                <dd class="col-sm-8">2020</dd>
-                            </dl>
-                            <dl class="row">
-                                <dt class="col-sm-4 text-md-right">Jenis Usulan</dt>
-                                <dd class="col-sm-8">Pengabdian</dd>
-                            </dl>
-                            <dl class="row">
-                                <dt class="col-sm-4 text-md-right">Proposal</dt>
-                                <dd class="col-sm-8"><a href="#">Berkas Proposal</a></dd>
-                            </dl>
-                            <dl class="row">
-                                <dt class="col-sm-4 text-md-right">Laporan Kemajuan</dt>
-                                <dd class="col-sm-8">-</dd>
-                            </dl>
-                            <dl class="row">
-                                <dt class="col-sm-4 text-md-right">Laporan Akhir</dt>
-                                <dd class="col-sm-8">-</dd>
-                            </dl>
-                            <dl class="row">
-                                <dt class="col-sm-4 text-md-right">Laporan Anggaran</dt>
-                                <dd class="col-sm-8">-</dd>
-                            </dl>
-                            <dl class="row">
-                                <dt class="col-sm-4 text-md-right">Laporan Belanja</dt>
-                                <dd class="col-sm-8">-</dd>
-                            </dl>
-                            <dl class="row">
-                                <dt class="col-sm-4 text-md-right">Laporan Publikasi</dt>
-                                <dd class="col-sm-8">-</dd>
-                            </dl>
-                            <dl class="row">
-                                <dt class="col-sm-4 text-md-right">Link Publikasi/Google Scholar</dt>
-                                <dd class="col-sm-8">-</dd>
+                                <dd class="col-sm-8" id="penelitian-">-</dd>
                             </dl>
                         </div>
                     </div>
@@ -417,11 +371,23 @@
 @endsection
 
 @section('js')
-    <!-- BEGIN: Page Vendor JS-->
-    <script src="{{ asset('app-assets/vendors/js/charts/apexcharts.min.js') }}"></script>
-    <!-- END: Page Vendor JS-->
-
-    <!-- BEGIN: Page JS-->
-    <script src="{{ asset('app-assets/js/scripts/cards/card-statistics.js') }}"></script>
-    <!-- END: Page JS-->
+    <script>
+        $(document).on('click', '#myTable tbody tr td a', function(e) {
+            var id = $(this).attr('data-value');
+            $.get( "/usulan/" + id, function( data ) {
+                console.log(JSON.parse(data));
+                var d = JSON.parse(data);
+                $('#penelitian-judul').text(d.judul);
+                $('#penelitian-skema').text(d['skema_usulan'].kode);
+                $('#penelitian-usulan').text(d['skema_usulan'].tahun_skema);
+                $('#penelitian-pelaksanaan').text(d['skema_usulan'].tahun_pelaksanaan);
+                $('#penelitian-jenis').text("XXX");
+                if (d.jenis == 1) {
+                    $('#myModalLabel33').text("Detail Penelitian");   
+                } else {
+                    $('#myModalLabel33').text("Detail Pengabdian");   
+                }
+            });
+        });
+    </script>
 @endsection

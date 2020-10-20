@@ -10,8 +10,8 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $penelitian = Usulan::getUsulanPenelitian();
-        $pengabdian = Usulan::getUsulanPengabdian();
+        $penelitian = Usulan::getLimitedUsulanPenelitian(5);
+        $pengabdian = Usulan::getLimitedUsulanPengabdian(5);
 
         return view('index.admin', compact('penelitian', 'pengabdian'));
     }
