@@ -18,7 +18,7 @@ class Usulan extends Model
     {
 
         $data = Usulan::findOrFail($id);
-        $dosen = Dosen::findOrFail($data->dosen_id);
+        $dosen = \Dosen::findOrFail($data->dosen_id);
         $data['ketua'] = $dosen->nama;
         $data['anggota'] = UsulanAnggota::getAnggota($data->id);
         $data['belanja'] = UsulanBelanja::getBelanja($data->id);
