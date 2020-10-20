@@ -6,6 +6,7 @@ use Auth;
 use DB;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Dosen;
 
 class Usulan extends Model
 {
@@ -18,7 +19,7 @@ class Usulan extends Model
     {
 
         $data = Usulan::findOrFail($id);
-        $dosen = \Dosen::findOrFail($data->dosen_id);
+        $dosen = Dosen::findOrFail($data->dosen_id);
         $data['ketua'] = $dosen->nama;
         $data['anggota'] = UsulanAnggota::getAnggota($data->id);
         $data['belanja'] = UsulanBelanja::getBelanja($data->id);
