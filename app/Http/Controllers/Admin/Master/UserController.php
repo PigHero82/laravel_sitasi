@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin\Master;
 
 use App\Http\Controllers\Controller;
+use App\Models\ListRole;
+use App\Models\RoleUser;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -69,9 +71,11 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request)
     {
-        //
+        ListRole::updateRole($request);
+        RoleUser::updateRole($request->dosen_id, $request->role[0]);
+        return redirect()->back()->with('success', 'Role berhasil diubah');
     }
 
     /**
