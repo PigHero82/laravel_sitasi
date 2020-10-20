@@ -11,7 +11,8 @@ class ListRole extends Model
 
     protected $table = 'list_roles';
     protected $fillable = ['user_id', 'role_id'];
-
+    public $timestamps = false;
+    
     static function firstRole($id, $roleId)
     {
         return ListRole::select('list_roles.id', 'roles.description')

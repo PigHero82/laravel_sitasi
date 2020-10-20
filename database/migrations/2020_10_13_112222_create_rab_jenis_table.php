@@ -16,6 +16,7 @@ class CreateRabJenisTable extends Migration
         Schema::create('rab_jenis', function (Blueprint $table) {
             $table->id();
             $table->string('nama', 100);
+            $table->string('deskripsi', 255);
             $table->boolean('status')->default(1);
             $table->timestamps();
         });

@@ -2,16 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Dosen;
 use App\Models\ListRole;
-use App\Models\Role;
 use App\Models\RoleUser;
 use App\Models\User;
 use Auth;
-use Carbon\Carbon;
-use DB;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 
 class HomeController extends Controller
 {

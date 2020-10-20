@@ -12,7 +12,7 @@ class Usulan extends Model
     use HasFactory;
 
     protected $table = 'usulan';
-    protected $fillable = ['dosen_id', 'skema_usulan_id', 'tahun_pelaksanaan', 'jenis', 'judul', 'ringkasan', 'kata_kunci', 'latar_belakang', 'tinjauan_pustaka', 'metode', 'daftar_pustaka', 'rumpun_ilmu_1', 'rumpun_ilmu_2', 'rumpun_ilmu_3', 'program', 'kategori_sbk', 'waktu', 'satuan_waktu_id', 'bidang_unggulan_pt', 'topik_unggulan_pt', 'step'];
+    protected $fillable = ['dosen_id', 'skema_usulan_id', 'jenis', 'judul', 'ringkasan', 'kata_kunci', 'latar_belakang', 'tinjauan_pustaka', 'metode', 'daftar_pustaka', 'rumpun_ilmu_1', 'rumpun_ilmu_2', 'rumpun_ilmu_3', 'nilai', 'step'];
 
     static function firstUsulan($id)
     {
@@ -75,7 +75,6 @@ class Usulan extends Model
     {
         $request->validate([
             'skema_usulan_id'   => 'numeric|required',
-            'tahun_pelaksanaan' => 'numeric|required',
             'jenis'             => 'numeric|required'
         ]);
 
@@ -85,7 +84,6 @@ class Usulan extends Model
         ], [
             'dosen_id'          => Auth::user()->id,
             'skema_usulan_id'   => $request->skema_usulan_id,
-            'tahun_pelaksanaan' => $request->tahun_pelaksanaan,
             'jenis'             => $request->jenis
         ]);
     }

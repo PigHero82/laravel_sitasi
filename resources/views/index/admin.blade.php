@@ -192,7 +192,7 @@
                             <dl class="row">
                                 <dt class="col-sm-3 text-right">Link Google Scholar</dt>
                                 <dd class="col-sm-9">
-                                    @isset ($composerUser->email)
+                                    @isset ($composerUser->google_scholar_id)
                                         <a href="https://scholar.google.com/citations?user={{ $composerUser->google_scholar_id }}&hl=id">{{ $composerUser->google_scholar_id }}</a>
                                     @else
                                         <a href="#" class="text-danger">Ubah Biodata Untuk Setting Link Google Scholar</a>

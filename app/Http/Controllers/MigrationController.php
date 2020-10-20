@@ -3,18 +3,28 @@
 namespace App\Http\Controllers;
 
 use App\Models\Dosen;
+use App\Models\ListRole;
 use App\Models\Role;
+use App\Models\Skema;
+use App\Models\SkemaUsulan;
 use App\Models\User;
+use App\Models\Usulan;
+use App\Models\UsulanAnggota;
+use App\Models\UsulanBelanja;
+use App\Models\UsulanBerkas;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class MigrationController extends Controller
 {
-	public function waw()
+	public function dosen()
 	{
 		$client = new \GuzzleHttp\Client();
-		$body = $client->get('http://localhost:8001/')->getBody(); 
+		$body = $client->get('http://localhost:8001/dosen')->getBody(); 
 		$obj = json_decode($body);
 
+        // DOSEN
 		foreach ($obj as $key => $value) {
 			if ($value->google_schoolar == NULL) {
 				$google1 = NULL;
@@ -23,7 +33,7 @@ class MigrationController extends Controller
 				$google1 = explode("&", $google)[0];
 			}
 			
-			Dosen::create([
+			Dosen::updateOrCreate(['nidn' => $value->nidn], [
 				'nidn'				=> $value->nidn,
 				'nama'				=> $value->nama,
 				'jabatan_id'		=> $value->id_jabatan,
@@ -43,13 +53,134 @@ class MigrationController extends Controller
 			]);
 			$user
 				->roles()
-				->attach(Role::where('name', 'dosen')->first());
+                ->attach(Role::where('name', 'dosen')->first());
+                
+            ListRole::create([
+                'role_id' => 3, 
+                'user_id' => $user->id
+            ]);
 		}
 
-        return 'sukses';
+        return 'Data dosen berhasil di migrasi';
+    }
+    
+	public function skemaUsulan()
+	{
+		$client = new \GuzzleHttp\Client();
+		$body = $client->get('http://localhost:8001/skema-usulan')->getBody(); 
+		$obj = json_decode($body);
+
+        // SKEMA USULAN
+		foreach ($obj as $key => $value) {
+            $skema = Skema::findOrFail($value->id_skim);
+			SkemaUsulan::create([
+				'skema_id'			=> $value->id_skim,
+				'jenis'     		=> $skema->jenis,
+				'jumlah'			=> 5,
+				'tahun_skema'		=> $value->tahun_usulan,
+				'tahun_pelaksanaan'	=> $value->tahun_pelaksanaan,
+				'tanggal_usulan'	=> Carbon::parse($value->batas_kumpul1)->subMonth()->toDateString(),
+				'tanggal_review'	=> Carbon::parse($value->batas_kumpul1)->toDateString(),
+				'tanggal_publikasi'	=> Carbon::parse($value->batas_kumpul2)->toDateString()
+			]);
+        }
+
+        return 'Data skema usulan berhasil di migrasi';
+	}
+    
+	public function usulan()
+	{
+		$client = new \GuzzleHttp\Client();
+		$body = $client->get('http://localhost:8001/usulan')->getBody(); 
+        $obj = json_decode($body);
+		foreach ($obj as $key => $value) {
+            $skema = SkemaUsulan::select('jenis')->whereId($value->data->id_periode)->first();
+            $dosen_id = ($value->dosen) ? $value->dosen->id_dosen : 999 ;
+            $nilai = ($value->nilai != NULL) ? $value->nilai->nilai : NULL ;
+            
+            // Usulan
+            $usulan = Usulan::create([
+				'dosen_id'			=> $dosen_id,
+				'skema_usulan_id'   => $value->data->id_periode,
+				'jenis'             => 1,
+				'judul'             => $value->data->judul,
+				'ringkasan'         => $value->data->abstrak,
+				'kata_kunci'        => $value->data->keyword,
+				'nilai'             => $nilai
+            ]);
+            
+            // Anggota
+            if (!empty($value->anggota)) {
+                foreach ($value->anggota as $key => $anggota) {
+                    UsulanAnggota::create([
+                        'usulan_id' => $usulan->id,
+                        'dosen_id'  => $anggota->id_dosen,
+                        'peran_id'  => 1,
+                    ]);
+                }
+            }
+
+            // Berkas proposal
+            if ($value->data->proposal != NULL) {
+                $proposal = explode('/', $value->data->proposal)[4];
+                UsulanBerkas::create([
+                    'usulan_id'			=> $usulan->id,
+                    'jenis_berkas_id'   => 1,
+                    'berkas'            => 'berkas/'.$usulan->id.'/'.$proposal,
+                    'keterangan'        => '<p> Peneliti : </p>'
+                ]);
+            }
+
+            // Berkas lainnya
+            if (!empty($value->berkas)) {
+                foreach ($value->berkas as $key => $berkas) {
+                    $file = explode('/', $berkas->file)[4];
+                    if ($berkas->jenis_file == 'Laporan Kemajuan') {
+                        $jenisBerkasId = 2;
+                    } else if ($berkas->jenis_file == 'Laporan Akhir') {
+                        $jenisBerkasId = 3;
+                    } else if ($berkas->jenis_file == 'Laporan Anggaran') {
+                        $jenisBerkasId = 4;
+                    }
+                    
+                    UsulanBerkas::create([
+                        'usulan_id'			=> $usulan->id,
+                        'jenis_berkas_id'   => $jenisBerkasId,
+                        'berkas'            => 'berkas/'.$usulan->id.'/'.$file,
+                        'keterangan'        => $berkas->keterangan
+                    ]);
+                }
+            }
+
+            // Belanja
+            if (!empty($value->belanja)) {
+                foreach ($value->belanja as $key => $belanja) {
+                    if ($belanja->jenis_uraian == 'Honorarium') {
+                        $rabJenisId = 1;
+                    } else if ($belanja->jenis_uraian == 'Bahan Habis Pakai') {
+                        $rabJenisId = 3;
+                    } else if ($belanja->jenis_uraian == 'Perjalanan') {
+                        $rabJenisId = 4;
+                    } else if ($belanja->jenis_uraian == 'Peralatan Penunjang') {
+                        $rabJenisId = 5;
+                    } else if ($belanja->jenis_uraian == 'Lain - Lain') {
+                        $rabJenisId = 6;
+                    }
+                    
+                    UsulanBelanja::create([
+                        'usulan_id'		=> $usulan->id,
+                        'rab_jenis_id'  => $rabJenisId,
+                        'uraian'        => $belanja->uraian,
+                        'jumlah'        => $belanja->jumlah
+                    ]);
+                }
+            }
+        }
+
+        return 'Data usulan berhasil di migrasi';
 	}
 
-	public function wawdetail()
+	public function dosenDetail()
 	{
 		$get = $this->getToken();
 		$data = [

@@ -22,8 +22,6 @@ class CreateSkemaUsulanTable extends Migration
             $table->year('tahun_pelaksanaan');
             $table->date('tanggal_usulan');
             $table->date('tanggal_review');
-            $table->date('tanggal_laporan_kemajuan');
-            $table->date('tanggal_laporan_akhir');
             $table->date('tanggal_publikasi');
             $table->integer('dana_maksimal')->unsigned()->nullable();
             $table->tinyInteger('jabatan_minimal')->unsigned()->default(0);

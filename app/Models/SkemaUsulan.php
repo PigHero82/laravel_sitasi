@@ -12,7 +12,7 @@ class SkemaUsulan extends Model
     use HasFactory;
 
     protected $table = 'skema_usulan';
-    protected $fillable = ['skema_id', 'jenis', 'jumlah', 'tahun_skema', 'tahun_pelaksanaan', 'tanggal_usulan', 'tanggal_review', 'tanggal_laporan_kemajuan', 'tanggal_laporan_akhir', 'tanggal_publikasi', 'dana_maksimal', 'jabatan_minimal', 'jabatan_maksimal', 'status'];
+    protected $fillable = ['skema_id', 'jenis', 'jumlah', 'tahun_skema', 'tahun_pelaksanaan', 'tanggal_usulan', 'tanggal_review', 'tanggal_publikasi', 'dana_maksimal', 'jabatan_minimal', 'jabatan_maksimal', 'status'];
 
     static function firstSkema($id)
     {

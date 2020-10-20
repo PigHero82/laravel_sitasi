@@ -28,10 +28,17 @@ View::composer(['*'], function ($view) {
 });
 
 Route::get('', 'HomeController@index');
-Route::get('waw', 'MigrationController@waw');
-Route::get('waw-detail', 'MigrationController@wawdetail');
 Route::post('role/{id}', 'HomeController@update')->name('role.update');
 Route::view('profil', 'profil')->name('profil');
+
+// Route::group(['prefix' => 'migration'], function () {
+//     Route::group(['prefix' => 'dosen'], function () {
+//         Route::get('', 'MigrationController@dosen');    
+//         Route::get('detail', 'MigrationController@dosenDetail');
+//     });
+//     Route::get('skema-usulan', 'MigrationController@skemaUsulan');
+//     Route::get('usulan', 'MigrationController@usulan');
+// });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');

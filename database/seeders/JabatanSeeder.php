@@ -15,22 +15,22 @@ class JabatanSeeder extends Seeder
     public function run()
     {
         Jabatan::create([
-            'nama'  => 'Asisten Ahli',
+            'nama'  => 'Tenaga Pengajar',
             'level' => 1
         ]);
 
         Jabatan::create([
-            'nama'  => 'Lektor',
+            'nama'  => 'Asisten Ahli',
             'level' => 2
         ]);
 
         Jabatan::create([
-            'nama'  => 'Lektor Kepala',
+            'nama'  => 'Lektor',
             'level' => 3
         ]);
 
         Jabatan::create([
-            'nama'  => 'Pegawai',
+            'nama'  => 'Lektor Kepala',
             'level' => 4
         ]);
 
@@ -40,7 +40,7 @@ class JabatanSeeder extends Seeder
         ]);
 
         Jabatan::create([
-            'nama'  => 'Tenaga Pengajar',
+            'nama'  => 'Pegawai',
             'level' => 6
         ]);
     }

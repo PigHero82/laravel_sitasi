@@ -10,7 +10,7 @@ class UsulanAnggota extends Model
     use HasFactory;
 
     protected $table = 'usulan_anggota';
-    protected $fillable = ['usulan_id', 'dosen_id', 'peran_id', 'waktu', 'status'];
+    protected $fillable = ['usulan_id', 'dosen_id', 'peran_id', 'status'];
 
     static function firstAnggota($usulanId, $dosenId)
     {
@@ -25,7 +25,7 @@ class UsulanAnggota extends Model
 
     static function getAnggota($usulanId)
     {
-        return UsulanAnggota::select('usulan_anggota.id', 'usulan_anggota.dosen_id', 'dosen.nidn', 'dosen.nama as dosen_nama', 'dosen.prodi_id', 'prodi.nama as prodi_nama', 'dosen.jabatan_id', 'jabatan.nama as jabatan_nama', 'usulan_anggota.peran_id', 'peran.nama as peran_nama', 'usulan_anggota.waktu', 'usulan_anggota.status')
+        return UsulanAnggota::select('usulan_anggota.id', 'usulan_anggota.dosen_id', 'dosen.nidn', 'dosen.nama as dosen_nama', 'dosen.prodi_id', 'prodi.nama as prodi_nama', 'dosen.jabatan_id', 'jabatan.nama as jabatan_nama', 'usulan_anggota.peran_id', 'peran.nama as peran_nama', 'usulan_anggota.status')
                             ->selectRaw('CASE WHEN usulan_anggota.status="1" THEN "Belum disetujui" WHEN usulan_anggota.status="2" THEN "Disetujui" WHEN usulan_anggota.status="3" THEN "Ditolak" ELSE "Error" END as status_nama')
                             ->join('dosen', 'usulan_anggota.dosen_id', 'dosen.id')
                             ->join('jabatan', 'dosen.jabatan_id', 'jabatan.id')
@@ -39,15 +39,13 @@ class UsulanAnggota extends Model
         $request->validate([
             'usulan_id' => 'numeric|required',
             'dosen_id'  => 'numeric|required',
-            'peran_id'  => 'numeric|required',
-            'waktu'     => 'numeric|required'
+            'peran_id'  => 'numeric|required'
         ]);
 
         UsulanAnggota::create([
             'usulan_id' => $request->usulan_id,
             'dosen_id'  => $request->dosen_id,
-            'peran_id'  => $request->peran_id,
-            'waktu'     => $request->waktu
+            'peran_id'  => $request->peran_id
         ]);
     }
 }

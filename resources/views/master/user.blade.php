@@ -50,7 +50,7 @@
                                             @isset($item->profile_photo_path)
                                                 <img src="{{ asset($item->profile_photo_path) }}" alt="{{ $item->nama }}" height="32" width="32">
                                             @else
-                                                <span class="avatar-content">{{ $item->nama[0] }}</span>
+                                                <span class="avatar-content">{{ strtoupper($item->nama[0]) }}</span>
                                             @endisset
                                         </div>
                                     </td>
@@ -248,7 +248,7 @@
         $(document).ready( function () {
             $('#myTable').DataTable({
                 responsive: true,
-                "order": [[ 1, "asc" ]],
+                "order": [[ 2, "asc" ]],
                 "columnDefs": [
                     { "orderable": false, "targets": 0 }
                 ]

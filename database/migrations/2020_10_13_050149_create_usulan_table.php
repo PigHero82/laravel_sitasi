@@ -17,7 +17,6 @@ class CreateUsulanTable extends Migration
             $table->id();
             $table->bigInteger('dosen_id')->unsigned();
             $table->integer('skema_usulan_id')->unsigned();
-            $table->year('tahun_pelaksanaan');
             $table->boolean('jenis');
             $table->string('judul', 250)->nullable();
             $table->text('ringkasan')->nullable();
@@ -29,12 +28,7 @@ class CreateUsulanTable extends Migration
             $table->integer('rumpun_ilmu_1')->unsigned()->nullable();
             $table->integer('rumpun_ilmu_2')->unsigned()->nullable();
             $table->integer('rumpun_ilmu_3')->unsigned()->nullable();
-            $table->string('program', 100)->nullable();
-            $table->string('kategori_sbk', 100)->nullable();
-            $table->tinyInteger('waktu')->nullable();
-            $table->boolean('satuan_waktu_id')->nullable();
-            $table->string('bidang_unggulan_pt', 100)->nullable();
-            $table->string('topik_unggulan_pt', 100)->nullable();
+            $table->mediumInteger('nilai')->unsigned()->nullable();
             $table->boolean('step')->default(1);
             $table->timestamps();
         });

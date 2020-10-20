@@ -242,20 +242,6 @@
 
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="tanggal_laporan_kemajuan">Tanggal Laporan Kemajuan</label>
-                                        <input type="date" class="form-control" name="tanggal_laporan_kemajuan" min="{{ Carbon\Carbon::now()->format('Y-m-d') }}" required>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="tanggal_laporan_akhir">Tanggal Laporan Akhir</label>
-                                        <input type="date" class="form-control" name="tanggal_laporan_akhir" min="{{ Carbon\Carbon::now()->format('Y-m-d') }}" required>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="form-group">
                                         <label for="tanggal_publikasi">Tanggal Publikasi</label>
                                         <input type="date" class="form-control" name="tanggal_publikasi" min="{{ Carbon\Carbon::now()->format('Y-m-d') }}" required>
                                     </div>

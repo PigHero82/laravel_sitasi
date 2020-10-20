@@ -34,9 +34,8 @@
             <h3 class="card-title">Step 4 - Luaran & Target</h3>
         </div>
         <!-- /.card-header -->
-        <form action="{{ route('dosen.usulan.update', $usulan->id) }}" method="POST">
-            @csrf
-            @method('PATCH')
+        <form action="{{ route('dosen.usulan.update', $usulan->id) }}" method="POST">        <form action="{{ route('dosen.usulan.update', $usulan->id) }}" method="POST">
+
             <div class="card-body">
                 <div class="row">
                     <div class=" d-flex justify-content-center">

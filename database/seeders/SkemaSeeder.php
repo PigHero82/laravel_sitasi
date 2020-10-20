@@ -73,5 +73,17 @@ class SkemaSeeder extends Seeder
             'nama'  => 'STIKI Social Engagement',
             'jenis' => 2
         ]);
+        
+        Skema::create([
+            'kode'  => 'Penelitian COVID-19',
+            'nama'  => 'Penelitian COVID-19 STIKI',
+            'jenis' => 1
+        ]);
+        
+        Skema::create([
+            'kode'  => 'SSE Batch 2',
+            'nama'  => 'STIKI Social Engagement Batch 2',
+            'jenis' => 2
+        ]);
     }
 }
