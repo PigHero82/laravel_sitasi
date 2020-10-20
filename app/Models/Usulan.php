@@ -16,7 +16,10 @@ class Usulan extends Model
 
     static function firstUsulan($id)
     {
+
         $data = Usulan::findOrFail($id);
+        $dosen = Dosen::findOrFail($data->dosen_id);
+        $data['ketua'] = $dosen->nama;
         $data['anggota'] = UsulanAnggota::getAnggota($data->id);
         $data['belanja'] = UsulanBelanja::getBelanja($data->id);
         $data['kegiatan'] = UsulanKegiatan::getKegiatan($data->id);
