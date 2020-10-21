@@ -4,6 +4,10 @@
     SITASI
 @endsection
 
+@section('css')
+<link rel="stylesheet" type="text/css" href="{{ asset('/app-assets/vendors/css/tables/datatable/datatables.min.css') }}">
+@endsection
+
 @section('content')
     <div class="container">
         <div class="row">
@@ -39,7 +43,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h3 class="card-title">Pengumuman</h3>
-                        <table class="table">
+                        <table class="table" id="table-pengumuman">
                             <thead>
                                 <tr>
                                     <th>
@@ -51,20 +55,23 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach($pengumuman as $peng)
                                 <tr>
-                                    <td>2020-10-19</td>
-                                    <td>Pengumuman 1</td>
+                                    <td>
+                                        {{ $peng->created_at->format('d-m-Y') }}
+                                    </td>
+                                    <td>
+                                        {{ $peng->judul }}
+                                    </td>
                                 </tr>
+
+                                @endforeach
                                 <tr>
-                                    <td>2020-10-19</td>
-                                    <td>Pengumuman 2</td>
-                                </tr>
-                                <tr>
-                                    <td>2020-10-19</td>
-                                    <td>Pengumuman 3</td>
+                                    <td colspan="2" style="text-align: center;">{{ $pengumuman->links() }}  </td>
                                 </tr>
                             </tbody>
-                        </table>    
+                        </table> 
+                         
                     </div>
                 </div>
             </div>
@@ -150,4 +157,11 @@
             </div>
         </div>
     </div>
+    <script src="{{ asset('app-assets/vendors/js/tables/datatable/datatables.min.js') }}"></script>
+    <script src="{{ asset('app-assets/vendors/js/tables/datatable/datatables.bootstrap4.min.js') }}"></script>
+    <script type="text/javascript">
+        $('#table-pengumuman').DataTable({
+            responsive: true
+        });
+    </script>
 @endsection
