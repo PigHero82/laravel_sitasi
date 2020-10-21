@@ -7,6 +7,7 @@ use App\Models\RoleUser;
 use App\Models\User;
 use App\Models\Usulan;
 use App\Models\Pengumuman;
+
 use Auth;
 use Illuminate\Http\Request;
 
@@ -41,7 +42,16 @@ class HomeController extends Controller
 		}
 		//return redirect('/login');
 		$pengumuman = Pengumuman::orderBy('created_at', 'desc')->paginate(4);
-		return view('front.index',compact('pengumuman'));
+		$penelitian = Usulan::getUsulanPenelitian();
+		$pengabdian = Usulan::getUsulanPengabdian();
+		$tahun_penelitian = Usulan::selectRaw('skema_usulan.tahun_pelaksanaan, count(skema_usulan.tahun_pelaksanaan) as jumlah')->leftjoin('skema_usulan','usulan.skema_usulan_id','skema_usulan.id')->where('usulan.jenis',1)->groupBy('skema_usulan.tahun_pelaksanaan')->get();
+		$tahun_pengabdian = Usulan::selectRaw('skema_usulan.tahun_pelaksanaan, count(skema_usulan.tahun_pelaksanaan) as jumlah')->leftjoin('skema_usulan','usulan.skema_usulan_id','skema_usulan.id')->where('usulan.jenis',2)->groupBy('skema_usulan.tahun_pelaksanaan')->get();
+		/*$jumlah_penelitian = []; 
+		foreach ($tahun_penelitian as $key => $value) {
+			$jumlah_penelitian[] = Usulan::select('skema_usulan.tahun_pelaksanaan')->leftjoin('skema_usulan','usulan.skema_usulan_id','skema_usulan.id')->where('usulan.jenis',1)->where('skema_usulan.tahun_pelaksanaan',$value->tahun_pelaksanaan)->count();
+		}*/
+		
+		return view('front.index',compact('pengumuman','penelitian','pengabdian','tahun_penelitian','tahun_pengabdian'));
 	}
 
 	public function update($id)
