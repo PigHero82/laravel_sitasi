@@ -67,9 +67,7 @@
                                 </tr>
 
                                 @endforeach
-                                <tr>
-                                    <td colspan="2" style="text-align: center;">{{ $pengumuman->links() }}  </td>
-                                </tr>
+                               
                             </tbody>
                         </table> 
                          
@@ -97,6 +95,10 @@
     <script src="{{ asset('app-assets/vendors/js/tables/datatable/datatables.bootstrap4.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw==" crossorigin="anonymous"></script>
     <script type="text/javascript">
+        $('#table-pengumuman').DataTable({
+            responsive: true,
+            pageLength: 5
+        });
         var label = [
         @foreach($tahun_penelitian as $tp)
             '{{ $tp->tahun_pelaksanaan }}',
@@ -151,7 +153,7 @@
             data:{
                 labels: label1,
                 datasets: [{
-                    label:'Perkembangan penelitian STIKI',
+                    label:'Perkembangan pengabdian STIKI',
                     data: data1,
                     backgroundColor: 'red',
                     borderColor: 'pink'

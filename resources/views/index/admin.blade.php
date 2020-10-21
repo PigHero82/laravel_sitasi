@@ -14,7 +14,7 @@
     <div class="row">
         <div class="col-md-6">
             <div class="row">
-                <div class="col-xl-6 col-md-4 col-sm-6">
+                <div class="col-xl-12 col-md-12 col-sm-12">
                     <div class="card text-center">
                         <div class="card-content">
                             <div class="card-body">
@@ -23,13 +23,13 @@
                                         <i class="feather icon-bar-chart-2 text-success font-medium-5"></i>
                                     </div>
                                 </div>
-                                <h2 class="text-bold-700">243</h2>
+                                <h2 class="text-bold-700">{{ $jum[0] }}</h2>
                                 <p class="mb-0 line-ellipsis">Total Penelitian</p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-6 col-md-4 col-sm-6">
+                <div class="col-xl-12 col-md-12 col-sm-12">
                     <div class="card text-center">
                         <div class="card-content">
                             <div class="card-body">
@@ -38,42 +38,13 @@
                                         <i class="feather icon-users text-warning font-medium-5"></i>
                                     </div>
                                 </div>
-                                <h2 class="text-bold-700">90</h2>
+                                <h2 class="text-bold-700">{{ $jum[1] }}</h2>
                                 <p class="mb-0 line-ellipsis">Total Pengabdian</p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-6 col-md-4 col-sm-6">
-                    <div class="card text-center">
-                        <div class="card-content">
-                            <div class="card-body">
-                                <div class="avatar bg-rgba-danger p-50 m-0 mb-1">
-                                    <div class="avatar-content">
-                                        <i class="feather icon-pie-chart text-danger font-medium-5"></i>
-                                    </div>
-                                </div>
-                                <h2 class="text-bold-700">1,17</h2>
-                                <p class="mb-0 line-ellipsis">Rasio Penelitian</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-6 col-md-4 col-sm-6">
-                    <div class="card text-center">
-                        <div class="card-content">
-                            <div class="card-body">
-                                <div class="avatar bg-rgba-primary p-50 m-0 mb-1">
-                                    <div class="avatar-content">
-                                        <i class="feather icon-globe text-primary font-medium-5"></i>
-                                    </div>
-                                </div>
-                                <h2 class="text-bold-700">0,43</h2>
-                                <p class="mb-0 line-ellipsis">Rasio Pengabdian</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
             </div>
         </div>
 
@@ -150,7 +121,19 @@
               <!-- /.row -->
         </div>
     </div>
-
+    <div class="row">
+        <div class="card col-md-12">
+            <div class="card-body row">
+                <div class="col-md-6">
+                <canvas  id="chart-penelitian"></canvas> 
+                </div>
+                <div class="col-md-6">
+                <canvas  id="chart-pengabdian"></canvas>
+                </div>
+            </div>
+        </div>
+        
+    </div>
     <div class="content-header row">
         <div class="content-header-left col-md-9 col-12 mb-2">
             <div class="row breadcrumbs-top">
@@ -160,6 +143,7 @@
             </div>
         </div>
     </div>
+    
     <div class="row">
         <!-- left column -->
         <div class="col-md-12">
@@ -371,7 +355,84 @@
 @endsection
 
 @section('js')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw==" crossorigin="anonymous"></script>
     <script>
+        var label = [
+        @foreach($tahun_penelitian as $tp)
+            '{{ $tp->tahun_pelaksanaan }}',
+        @endforeach
+        ];
+        var data = [
+        @foreach($tahun_penelitian as $tp)
+            '{{ $tp->jumlah }}',
+        @endforeach
+        ]
+        var ctx = document.getElementById('chart-penelitian').getContext('2d');
+        var chartPenelitian = new Chart(ctx, {
+            type:'line',
+            data:{
+                labels: label,
+                datasets: [{
+                    label:'Perkembangan penelitian STIKI',
+                    data: data,
+                    backgroundColor: 'blue',
+                    borderColor: 'lightblue'
+                }]
+            },
+            options: {
+                elements:{
+                    line:{
+                        fill:false,
+                        lineTension: 0
+                    }
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+        var label1 = [
+        @foreach($tahun_pengabdian as $tp)
+            '{{ $tp->tahun_pelaksanaan }}',
+        @endforeach
+        ];
+        var data1 = [
+        @foreach($tahun_pengabdian as $tp)
+            '{{ $tp->jumlah }}',
+        @endforeach
+        ]
+        var ctx1 = document.getElementById('chart-pengabdian').getContext('2d');
+        var chartPenelitian = new Chart(ctx1, {
+            type:'line',
+            data:{
+                labels: label1,
+                datasets: [{
+                    label:'Perkembangan pengabdian STIKI',
+                    data: data1,
+                    backgroundColor: 'red',
+                    borderColor: 'pink'
+                }]
+            },
+            options: {
+                elements:{
+                    line:{
+                        fill:false,
+                        lineTension: 0
+                    }
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
         $(document).on('click', '#myTable tbody tr td a', function(e) {
             var id = $(this).attr('data-value');
             $.get( "/usulan/" + id, function( data ) {
