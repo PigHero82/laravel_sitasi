@@ -73,4 +73,11 @@ class HomeController extends Controller
 	{
 		return json_encode(Usulan::firstUsulan($id));
 	}
+
+	public function pengumuman($id)
+	{
+		$data = Pengumuman::whereId($id)->first();
+
+		return view('front.pengumuman', compact('data'));
+	}
 }

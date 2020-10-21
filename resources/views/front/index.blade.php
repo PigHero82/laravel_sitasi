@@ -57,13 +57,8 @@
                             <tbody>
                                 @foreach($pengumuman as $peng)
                                 <tr>
-                                    <td><a href="">
-                                        {{ $peng->created_at->format('d-m-Y') }}
-                                        </a>
-                                    </td>
-                                    <td>
-                                        {{ $peng->judul }}
-                                    </td>
+                                    <td>{{ $peng->created_at->format('d-m-Y') }}</td>
+                                    <td><a href="{{ route('pengumuman', $peng->id) }}">{{ $peng->judul }}</a></td>
                                 </tr>
 
                                 @endforeach

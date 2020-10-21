@@ -30,6 +30,8 @@ View::composer(['*'], function ($view) {
 Route::get('', 'HomeController@index');
 Route::post('role/{id}', 'HomeController@update')->name('role.update');
 Route::view('profil', 'profil')->name('profil');
+Route::view('author', 'front.author')->name('author');
+Route::get('pengumuman/{id}', 'HomeController@pengumuman')->name('pengumuman');
 Route::get('usulan/{id}', 'HomeController@usulan');
 
 // Route::group(['prefix' => 'migration'], function () {

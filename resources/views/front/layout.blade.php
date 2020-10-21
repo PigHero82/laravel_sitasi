@@ -45,7 +45,7 @@
                     <div class="mr-auto float-left bookmark-wrapper d-flex align-items-center">
                         <ul class="nav navbar-nav">
                             <li class="nav-item mobile-menu d-md-none mr-auto"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ficon feather icon-menu"></i></a></li>
-                            <li class="nav-item d-block"><h3><a class="nav-link nav-menu-main menu-toggle hidden-xs text-primary" href="app-todo.html">SITASI</a></h3></li>
+                            <li class="nav-item d-block"><h3><a class="nav-link nav-menu-main menu-toggle hidden-xs text-primary" href="/">SITASI</a></h3></li>
                         </ul>
                     </div>
                     <ul class="nav navbar-nav float-right">

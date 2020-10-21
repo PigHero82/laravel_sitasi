@@ -11,5 +11,4 @@ class Pengumuman extends Model
 
     protected $table = 'content';
     protected $fillable = ['jenis', 'judul', 'katakunci','foto','content','flag_delete'];
-
 }
