@@ -170,7 +170,7 @@ class Usulan extends Model
     {
         $usulan = Usulan::where('jenis', 1)
                         ->where('dosen_id', $id)
-                        ->sortByDesc('created_at')
+                        ->orderByDesc('created_at')
                         ->get();
 
         if ($usulan->isNotEmpty()) {
@@ -193,7 +193,7 @@ class Usulan extends Model
     {
         $usulan = Usulan::where('jenis', 2)
                         ->where('dosen_id', $id)
-                        ->sortByDesc('created_at')
+                        ->orderByDesc('created_at')
                         ->get();
 
         if ($usulan->isNotEmpty()) {

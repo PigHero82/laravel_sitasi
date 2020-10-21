@@ -57,8 +57,9 @@
                             <tbody>
                                 @foreach($pengumuman as $peng)
                                 <tr>
-                                    <td>
+                                    <td><a href="">
                                         {{ $peng->created_at->format('d-m-Y') }}
+                                        </a>
                                     </td>
                                     <td>
                                         {{ $peng->judul }}
