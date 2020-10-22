@@ -28,6 +28,6 @@ class CreateLuaranKelompokTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('luaran_kelompoks');
+        Schema::dropIfExists('luaran_kelompok');
     }
 }

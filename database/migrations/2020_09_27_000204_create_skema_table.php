@@ -29,6 +29,6 @@ class CreateSkemaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('skemas');
+        Schema::dropIfExists('skema');
     }
 }

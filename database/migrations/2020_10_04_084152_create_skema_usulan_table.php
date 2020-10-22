@@ -38,6 +38,6 @@ class CreateSkemaUsulanTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('skema_usulans');
+        Schema::dropIfExists('skema_usulan');
     }
 }

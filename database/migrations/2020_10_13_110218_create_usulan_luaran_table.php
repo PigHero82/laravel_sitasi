@@ -33,6 +33,6 @@ class CreateUsulanLuaranTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('usulan_luarans');
+        Schema::dropIfExists('usulan_luaran');
     }
 }

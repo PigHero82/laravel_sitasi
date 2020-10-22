@@ -28,6 +28,6 @@ class CreateLuaranLuaranTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('luaran_luarans');
+        Schema::dropIfExists('luaran_luaran');
     }
 }

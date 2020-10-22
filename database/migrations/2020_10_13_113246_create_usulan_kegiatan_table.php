@@ -31,6 +31,6 @@ class CreateUsulanKegiatanTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('usulan_kegiatans');
+        Schema::dropIfExists('usulan_kegiatan');
     }
 }

@@ -28,6 +28,6 @@ class CreateLuaranTargetTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('luaran_targets');
+        Schema::dropIfExists('luaran_target');
     }
 }

@@ -29,6 +29,6 @@ class CreateRumpunIlmuTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rumpun_ilmus');
+        Schema::dropIfExists('rumpun_ilmu');
     }
 }

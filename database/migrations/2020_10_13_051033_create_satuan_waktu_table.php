@@ -28,6 +28,6 @@ class CreateSatuanWaktuTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('satuan_waktus');
+        Schema::dropIfExists('satuan_waktu');
     }
 }

@@ -38,6 +38,6 @@ class CreateUsulanRabTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('usulan_rabs');
+        Schema::dropIfExists('usulan_rab');
     }
 }
