@@ -43,19 +43,6 @@ class SkemaUsulanController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'skema_id'                  => 'numeric|required',
-            'jenis'                     => 'numeric|required',
-            'jumlah'                    => 'numeric|required',
-            'tahun_skema'               => 'numeric|required',
-            'tahun_penelitian'          => 'numeric|required',
-            'tanggal_usulan'            => 'date|required',
-            'tanggal_review'            => 'date|required',
-            'tanggal_laporan_kemajuan'  => 'date|required',
-            'tanggal_laporan_akhir'     => 'date|required',
-            'tanggal_publikasi'         => 'date|required'
-        ]);
-
         SkemaUsulan::storeSkema($request);
         return redirect()->route('admin.skema.index')->with('success', 'Skema usulan berhasil ditambahkan');
     }

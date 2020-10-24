@@ -215,7 +215,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="tahun_penelitian">Tahun Penelitian</label>
-                                        <select class="form-control" name="tahun_penelitian" required>
+                                        <select class="form-control" name="tahun_pelaksanaan" required>
                                             <option value="" hidden>--Pilih tahun penelitian</option>
                                             <option value="{{ Carbon\Carbon::now()->format('Y') }}">{{ Carbon\Carbon::now()->format('Y') }}</option>
                                             <option value="{{ Carbon\Carbon::now()->format('Y') + 1 }}">{{ Carbon\Carbon::now()->format('Y') + 1 }}</option>

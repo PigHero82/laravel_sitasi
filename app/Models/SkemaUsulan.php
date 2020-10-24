@@ -58,6 +58,17 @@ class SkemaUsulan extends Model
 
     static function storeSkema($request)
     {
+        $request->validate([
+            'skema_id'                  => 'numeric|required',
+            'jenis'                     => 'numeric|required',
+            'jumlah'                    => 'numeric|required',
+            'tahun_skema'               => 'numeric|required',
+            'tahun_pelaksanaan'         => 'numeric|required',
+            'tanggal_usulan'            => 'date|required',
+            'tanggal_review'            => 'date|required',
+            'tanggal_publikasi'         => 'date|required'
+        ]);
+
         SkemaUsulan::create([
             'skema_id'                  => $request->skema_id,
             'jenis'                     => $request->jenis,
@@ -66,8 +77,6 @@ class SkemaUsulan extends Model
             'tahun_pelaksanaan'         => $request->tahun_pelaksanaan,
             'tanggal_usulan'            => $request->tanggal_usulan,
             'tanggal_review'            => $request->tanggal_review,
-            'tanggal_laporan_kemajuan'  => $request->tanggal_laporan_kemajuan,
-            'tanggal_laporan_akhir'     => $request->tanggal_laporan_akhir,
             'tanggal_publikasi'         => $request->tanggal_publikasi,
             'dana_maksimal'             => $request->dana_maksimal,
             'jabatan_minimal'           => $request->jabatan_minimal,
