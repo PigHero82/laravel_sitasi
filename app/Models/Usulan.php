@@ -38,27 +38,19 @@ class Usulan extends Model
 
     static function firstUsulanByDosenIdSkemaId($dosenId, $skemaUsulanId)
     {
-        $usulan = Usulan::where('dosen_id', $dosenId)
+        $data = Usulan::select(DB::raw('usulan.*, skema.kode, skema_usulan.tahun_skema'))
+                        ->join('skema_usulan', 'usulan.skema_usulan_id', 'skema_usulan.id')
+                        ->join('skema', 'skema_usulan.skema_id', 'skema.id')
+                        ->where('dosen_id', $dosenId)
                         ->where('skema_usulan_id', $skemaUsulanId)
                         ->first();
+        $data['skema_usulan'] = SkemaUsulan::firstSkema($data->skema_usulan_id);
+        $data['anggota'] = UsulanAnggota::getAnggota($data->id);
+        $data['kegiatan'] = UsulanKegiatan::getKegiatan($data->id);
+        $data['luaran'] = UsulanLuaran::firstLuaran($data->id);
+        $data['rab'] = UsulanRab::getRab($data->id);
 
-        if ($usulan->isNotEmpty()) {
-            $data = Usulan::select(DB::raw('usulan.*, skema.kode, skema_usulan.tahun_skema'))
-                            ->join('skema_usulan', 'usulan.skema_usulan_id', 'skema_usulan.id')
-                            ->join('skema', 'skema_usulan.skema_id', 'skema.id')
-                            ->where('dosen_id', $dosenId)
-                            ->where('skema_usulan_id', $skemaUsulanId)
-                            ->first();
-            $data[$key]['skema_usulan'] = SkemaUsulan::firstSkema($data->skema_usulan_id);
-            $data['anggota'] = UsulanAnggota::getAnggota($data->id);
-            $data['kegiatan'] = UsulanKegiatan::getKegiatan($data->id);
-            $data['luaran'] = UsulanLuaran::firstLuaran($data->id);
-            $data['rab'] = UsulanRab::getRab($data->id);
-
-            return $data;
-        }
-
-        return $usulan;
+        return $data;
     }
 
     static function getUsulan()
@@ -262,12 +254,6 @@ class Usulan extends Model
             'judul'                 => 'required',
             'ringkasan'             => 'required',
             'kata_kunci'            => 'required',
-            'program'               => 'required',
-            'kategori_sbk'          => 'required',
-            'waktu'                 => 'numeric|required',
-            'satuan_waktu_id'       => 'numeric|required',
-            'bidang_unggulan_pt'    => 'required',
-            'topik_unggulan_pt'     => 'required',
             'step'                  => 'required'
         ]);
 
@@ -277,13 +263,7 @@ class Usulan extends Model
         ], [
             'judul'                 => $request->judul,
             'ringkasan'             => $request->ringkasan,
-            'kata_kunci'            => $request->kata_kunci,
-            'program'               => $request->program,
-            'kategori_sbk'          => $request->kategori_sbk,
-            'waktu'                 => $request->waktu,
-            'satuan_waktu_id'       => $request->satuan_waktu_id,
-            'bidang_unggulan_pt'    => $request->bidang_unggulan_pt,
-            'topik_unggulan_pt'     => $request->topik_unggulan_pt
+            'kata_kunci'            => $request->kata_kunci
         ]);
 
         if ($request->rumpun_ilmu_1) {
@@ -344,6 +324,13 @@ class Usulan extends Model
     }
 
     static function updateUsulan4($request, $skemaUsulanId)
+    {
+        $request->validate(['step' => 'required']);
+
+        Usulan::updateStep($request->step, $skemaUsulanId);
+    }
+
+    static function updateUsulan5($request, $skemaUsulanId)
     {
         $request->validate(['step' => 'required']);
 

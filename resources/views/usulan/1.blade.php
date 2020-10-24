@@ -20,12 +20,15 @@
     @endif
 
     @if ($errors->any())
-        <div class="alert alert-danger alert-block">
-            <ul>
-                @foreach ($errors->all() as $error)
+        <div class="alert alert-danger" role="alert">
+            <h4 class="alert-heading">Error</h4>
+            <p class="mb-0">
+                <ul>
+                    @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
-                @endforeach
-            </ul>
+                    @endforeach
+                </ul>
+            </p>
         </div>
     @endif
 
@@ -103,86 +106,6 @@
                     <div class="col-md-3">
                         <select name="rumpun_ilmu_3" id="rumpun_ilmu_3" class="form-control rumpun_ilmu_3">
                             <option value="" hidden>--Pilih sub rumpun ilmu</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-md-2 text-md-right">
-                        <span>Program :</span>
-                    </div>
-                    <div class="col-md-10">
-                        <select name="program" class="form-control" required>
-                            <option value="" hidden>--Pilih program</option>
-                            <option value="Penelitian - Desentralisasi"
-                                @if ($usulan->program == 'Penelitian - Desentralisasi')
-                                    selected
-                                @endif
-                            >Penelitian - Desentralisasi</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-md-2 text-md-right">
-                        <span>Kategori SBK :</span>
-                    </div>
-                    <div class="col-md-10">
-                        <select name="kategori_sbk" class="form-control" required>
-                            <option value="" hidden>--Pilih kategori SBK</option>
-                            <option value="SBK Riset Dasar"
-                                @if ($usulan->kategori_sbk == 'SBK Riset Dasar')
-                                    selected
-                                @endif
-                            >SBK Riset Dasar</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-md-2 text-md-right">
-                        <span>Lama Kegiatan :</span>
-                    </div>
-                    <div class="col-md-2">
-                        <input type="number" name="waktu" class="form-control" min="1" max="30" value="{{ $usulan->waktu }}" required>
-                    </div>
-                    <div class="col-md-8">
-                        <select name="satuan_waktu_id" class="form-control">
-                            <option value="" hidden>--Pilih satuan waktu</option>
-                            @foreach ($satuan as $item)
-                                <option value="{{ $item->id }}"
-                                    @if ($usulan->satuan_waktu_id == $item->id)
-                                        selected
-                                    @endif    
-                                >{{ $item->nama }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-md-2 text-md-right">
-                        <span>Bidang Unggulan PT :</span>
-                    </div>
-                    <div class="col-md-10">
-                        <select name="bidang_unggulan_pt" class="form-control" required>
-                            <option value="" hidden>--Pilih bidang unggulan PT</option>
-                            <option value="Pendidikan Karakter"
-                                @if ($usulan->bidang_unggulan_pt == 'Pendidikan Karakter')
-                                    selected
-                                @endif
-                            >Pendidikan Karakter</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-md-2 text-md-right">
-                        <span>Topik Unggulan PT :</span>
-                    </div>
-                    <div class="col-md-10">
-                        <select name="topik_unggulan_pt" class="form-control" required>
-                            <option value="" hidden>--Pilih topik unggulan PT</option>
-                            <option value="Tingkat SD"
-                                @if ($usulan->topik_unggulan_pt == 'Tingkat SD')
-                                    selected
-                                @endif
-                            >Tingkat SD</option>
                         </select>
                     </div>
                 </div>

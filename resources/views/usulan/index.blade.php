@@ -154,9 +154,10 @@
                             <input type="hidden" name="step" value="1">
                             <input type="text" name="tahun_pelaksanaan" class="form-control" value="2020" readonly>
                         </div>
-                        <a href="{{ route('dosen.usulan.1') }}">
+                        {{-- <a href="{{ route('dosen.usulan.1') }}"> --}}
                             <button type="button" class="btn btn-primary btn-block mb-3">Daftar</button>
-                        </a>                        <h3>Informasi Ketersediaan Skema</h3>
+                        {{-- </a> --}}
+                        <h3>Informasi Ketersediaan Skema</h3>
                         <div class="card collapse-icon accordion-icon-rotate">
                             <div class="accordion" id="accordionExample4" data-toggle-hover="true">
                                 <div class="collapse-bordered">

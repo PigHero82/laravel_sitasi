@@ -11,4 +11,10 @@ class RabJenis extends Model
 
     protected $table = 'rab_jenis';
     protected $fillable = ['nama', 'deskripsi', 'status'];
+
+    static function getJenis()
+    {
+        return RabJenis::where('status', 1)
+                        ->get();
+    }
 }

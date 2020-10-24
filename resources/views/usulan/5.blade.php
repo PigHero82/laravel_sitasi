@@ -34,31 +34,30 @@
             <h3 class="card-title">Step 5 - Rencana Anggaran</h3>
         </div>
         <!-- /.card-header -->
-        <form action="{{ route('dosen.usulan.update', $usulan->id) }}" method="POST">
-            @csrf
-            @method('PATCH')
-            <div class="card-body">
-                <h3>Tambah Item Anggaran Penelitian</h3>
-                <hr>
+        <div class="card-body">
+            <h3>Tambah Item Anggaran Penelitian</h3>
+            <hr>
+            <form action="{{ route('dosen.usulan.rab.store') }}" method="post">
                 <div class="row justify-content-end">
+                    @csrf
+                    <input type="hidden" name="usulan_id" value="{{ $usulan->id }}" required>
                     <div class="col-sm-8">
-                        <div class="form-group row">
-                            <div class="col-md-2 col-4 text-right">
-                                <span>Urutan Tahun :</span>
-                            </div>
-                            <div class="col-md-9 col-8">
-                                <select name="program" class="form-control">
-                                    <option value="">Tahun ke 2</option>
-                                </select>
-                            </div>
-                        </div>
                         <div class="form-group row">
                             <div class="col-md-2 col-4 text-right">
                                 <span>Jenis :</span>
                             </div>
                             <div class="col-md-9 col-8">
-                                <select name="program" class="form-control">
-                                    <option value=""></option>
+                                <select name="rab_jenis_id" class="form-control" required autofocus>
+                                    <option value="" hidden>--Pilih jenis</option>
+                                    @foreach ($rabJenis as $item)
+                                        <option value="{{ $item->id }}"
+                                        @isset($usulanLuaran)
+                                            @if ($usulanLuaran->id == $item->id)
+                                                selected
+                                            @endif
+                                        @endisset
+                                    >{{ $item->nama }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -67,7 +66,7 @@
                                 <span>Penggunaan :</span>
                             </div>
                             <div class="col-md-9 col-8">
-                                <input type="text" name="jenis-publikasi" class="form-control">
+                                <input type="text" name="penggunaan" class="form-control" required>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -75,7 +74,7 @@
                                 <span>Nama Item :</span>
                             </div>
                             <div class="col-md-9 col-8">
-                                <input type="text" name="jenis-publikasi" class="form-control">
+                                <input type="text" name="nama" class="form-control" required>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -83,46 +82,38 @@
                                 <span>Detail Item :</span>
                             </div>
                             <div class="col-md-5 col-4">
-                                <input type="text" name="jenis-publikasi" class="form-control">
+                                <input type="text" name="item1" class="form-control" required>
                             </div>
                             <div class="col-md-4 col-4">
-                                <input type="text" name="jenis-publikasi" class="form-control" placeholder="satuan">
+                                <input type="text" name="satuan1" class="form-control" placeholder="satuan"required>
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-md-2 col-4 text-right">
                             </div>
                             <div class="col-md-5 col-4">
-                                <input type="text" name="jenis-publikasi" class="form-control">
+                                <input type="text" name="item2" class="form-control">
                             </div>
                             <div class="col-md-4 col-4">
-                                <input type="text" name="jenis-publikasi" class="form-control" placeholder="satuan">
+                                <input type="text" name="satuan2" class="form-control" placeholder="satuan">
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-md-2 col-4 text-right">
                             </div>
                             <div class="col-md-5 col-4">
-                                <input type="text" name="jenis-publikasi" class="form-control">
+                                <input type="text" name="item3" class="form-control">
                             </div>
                             <div class="col-md-4 col-4">
-                                <input type="text" name="jenis-publikasi" class="form-control" placeholder="satuan">
+                                <input type="text" name="satuan3" class="form-control" placeholder="satuan">
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-md-2 col-4 text-right">
-                                <span>Penggunaan :</span>
+                                <span>Harga Satuan :</span>
                             </div>
                             <div class="col-md-9 col-8">
-                                <input type="text" name="jenis-publikasi" class="form-control" value="1">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-md-2 col-4 text-right">
-                                <span>Penggunaan :</span>
-                            </div>
-                            <div class="col-md-9 col-8">
-                                <input type="text" name="jenis-publikasi" class="form-control" value="1" readonly>
+                                <input type="text" name="harga" class="form-control" required>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -130,69 +121,87 @@
                                 
                             </div>
                             <div class="col-md-9 col-8">
-                                <button class="btn btn-primary btn-block px-1"><i class="feather icon-plus"></i> Tambah</button>
+                                <button type="submit" class="btn btn-primary btn-block px-1"><i class="feather icon-plus"></i> Tambah</button>
                             </div>
                         </div>
                     </div>
                 </div>
+            </form>
 
-                <h3>Daftar Item Anggaran Tahun ke 1</h3>
-                <hr>
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>
+            <h3>Daftar Item Anggaran</h3>
+            <hr>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th rowspan="2" class="text-center align-middle my-auto">Jenis Pembelanjaan</th>
+                            <th rowspan="2" class="text-center align-middle my-auto">Penggunaan</th>
+                            <th rowspan="2" class="text-center align-middle my-auto">Nama Item</th>
+                            <th colspan="3" class="text-center">Volume</th>
+                            <th rowspan="2" class="text-center align-middle my-auto">Harga Satuan</th>
+                            <th rowspan="2" class="text-center align-middle my-auto">Total</th>
+                            <th rowspan="2"></th>
+                        </tr>
+                        <tr>
+                            <th class="text-center">Jumlah</th>
+                            <th class="text-center">Jumlah</th>
+                            <th class="text-center">Jumlah</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($usulanRab as $item)
                             <tr>
-                                <th rowspan="2" class="text-center align-middle my-auto">Jenis Pembelanjaan</th>
-                                <th rowspan="2" class="text-center align-middle my-auto">Tahun</th>
-                                <th rowspan="2" class="text-center align-middle my-auto">Penggunaan</th>
-                                <th rowspan="2" class="text-center align-middle my-auto">Nama Item</th>
-                                <th colspan="6" class="text-center">Volume</th>
-                                <th rowspan="2" class="text-center align-middle my-auto">Total</th>
-                                <th rowspan="2"></th>
+                                <td>{{ $item->nama_jenis }}</td>
+                                <td>{{ $item->penggunaan }}</td>
+                                <td>{{ $item->nama }}</td>
+                                <td>{{ $item->item1 }} {{ $item->satuan1 }}</td>
+                                <td>
+                                    @isset($item->satuan2)
+                                        {{ $item->item2 }} {{ $item->satuan2 }}
+                                    @else
+                                        -
+                                    @endisset
+                                </td>
+                                <td>
+                                    @isset($item->satuan3)
+                                        {{ $item->item3 }} {{ $item->satuan3 }}
+                                    @else
+                                        -
+                                    @endisset
+                                </td>
+                                <td>Rp. {{ number_format($item->harga, 0, ',', '.') }}</td>
+                                <td>Rp. {{ number_format($item->total, 0, ',', '.') }}</td>
+                                <td class="text-danger text-weight-bold">
+                                    <form action="{{ route('dosen.usulan.rab.destroy', $item->id)}}" method="post">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger"><i class="feather icon-x"></i></button>
+                                    </form>
+                                </td>
                             </tr>
-                            <tr>
-                                <th class="text-center">Jumlah</th>
-                                <th class="text-center">Satuan</th>
-                                <th class="text-center">Jumlah</th>
-                                <th class="text-center">Satuan</th>
-                                <th class="text-center">Jumlah</th>
-                                <th class="text-center">Satuan</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="text-center">
-                                <td>BELANJA BARANG NON OPERASIONAL LAINNYA</td>
-                                <td>1</td>
-                                <td>Konsumsi</td>
-                                <td>Uang Makan</td>
-                                <td>80</td>
-                                <td>Orang</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>Rp. 20.000</td>
-                                <td>Rp. 1.000.000</td>
-                                <td class="text-danger text-weight-bold"><i class="feather icon-x"></i></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- /.card-body -->
+            <div class="card-footer row">
+                <div class="col-6">
+                    <a class="btn btn-warning px-1" href="{{ route('dosen.usulan.backward') }}" onclick="event.preventDefault();
+                    document.getElementById('backward-form').submit();">Kembali</a>
+                </div>
+                <div class="col-6 text-right">
+                    <form action="{{ route('dosen.usulan.update', $usulan->id) }}" method="POST">
+                        @csrf
+                        @method('PATCH')
+
+                        <input type="hidden" name="step" value="6">
+                        <input type="hidden" name="usulan_id" value="{{ $usulan->id }}">
+                        <button type="submit" class="btn btn-success px-1">Lanjut</button>
+                    </form>
                 </div>
             </div>
-            <!-- /.card-body -->
-                <div class="card-footer row">
-                    <div class="col-6">
-                        <a class="btn btn-warning px-1" href="{{ route('dosen.usulan.backward') }}" onclick="event.preventDefault();
-                        document.getElementById('backward-form').submit();">Kembali</a>
-                    </div>
-                    <div class="col-6 text-right">
-                        {{-- <input type="hidden" name="step" value="6">
-                        <input type="hidden" name="usulan_id" value="{{ $usulan->id }}"> --}}
-                        <button type="submit" class="btn btn-success px-1">Lanjut</a>
-                    </div>
-                </div>
-            <!-- /.card-footer -->
-        </form>
+        <!-- /.card-footer -->
     </div>
             
     <form id="backward-form" action="{{ route('dosen.usulan.backward') }}" method="POST" style="display: none;">

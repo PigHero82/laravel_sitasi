@@ -8,6 +8,7 @@ use App\Models\LuaranKelompok;
 use App\Models\LuaranLuaran;
 use App\Models\LuaranTarget;
 use App\Models\Peran;
+use App\Models\RabJenis;
 use App\Models\RumpunIlmu;
 use App\Models\SkemaUsulan;
 use App\Models\SatuanWaktu;
@@ -47,6 +48,7 @@ class UsulanController extends Controller
         $kelompok = LuaranKelompok::getKelompok();
         $luaran = LuaranLuaran::getLuaran();
         $peran = Peran::getPeran();
+        $rabJenis = RabJenis::getJenis();
         $satuan = SatuanWaktu::getSatuan();
         $skema = SkemaUsulan::firstSkema($request->cookie('skema_usulan_id'));
         $target = LuaranTarget::getTarget();
@@ -63,7 +65,7 @@ class UsulanController extends Controller
         $usulanLuaran = UsulanLuaran::firstLuaran($usulan->id);
         $usulanRab = UsulanRab::getRab($usulan->id);
 
-        return view('usulan.create', compact('data', 'dosen', 'jumlah', 'kelompok', 'luaran', 'peran', 'satuan', 'skema', 'target', 'tahun', 'usulan', 'usulanAnggota', 'usulanKegiatan', 'usulanLuaran', 'usulanRab'));
+        return view('usulan.create', compact('data', 'dosen', 'jumlah', 'kelompok', 'luaran', 'peran', 'rabJenis', 'satuan', 'skema', 'target', 'tahun', 'usulan', 'usulanAnggota', 'usulanKegiatan', 'usulanLuaran', 'usulanRab'));
     }
 
     /**
@@ -149,6 +151,15 @@ class UsulanController extends Controller
                                 ->withCookie(cookie('skema_usulan_id', $request->cookie('skema_usulan_id'), 1000))
                                 ->withCookie(cookie('page', $request->step, 1000));
         }
+        
+        // Step 5
+        else if ($request->cookie('page') == 5) {
+            Usulan::updateUsulan5($request, $request->cookie('skema_usulan_id'));
+            return redirect()->route('dosen.usulan.create')
+                                ->withCookie(cookie('jenis', $request->cookie('jenis'), 1000))
+                                ->withCookie(cookie('skema_usulan_id', $request->cookie('skema_usulan_id'), 1000))
+                                ->withCookie(cookie('page', $request->step, 1000));
+        }
     }
 
     /**
@@ -176,6 +187,18 @@ class UsulanController extends Controller
     {
         $page = $request->cookie('page');
         return redirect()->route('dosen.usulan.create')->withCookie(cookie('page', --$page, 1000));
+    }
+
+    public function rabStore(Request $request)
+    {
+        UsulanRab::storeRab($request);
+        return redirect()->back()->with('success', 'Anggaran penelitian berhasil ditambahkan');
+    }
+
+    public function rabDestroy($id)
+    {
+        UsulanRab::destroyRab($id);
+        return redirect()->back()->with('success', 'Anggaran penelitian berhasil dihapus');
     }
     
     public function riwayat()

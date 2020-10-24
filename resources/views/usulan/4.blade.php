@@ -34,8 +34,9 @@
             <h3 class="card-title">Step 4 - Luaran & Target</h3>
         </div>
         <!-- /.card-header -->
-        <form action="{{ route('dosen.usulan.update', $usulan->id) }}" method="POST">        <form action="{{ route('dosen.usulan.update', $usulan->id) }}" method="POST">
-
+        <form action="{{ route('dosen.usulan.update', $usulan->id) }}" method="POST">
+            @csrf
+            @method('PATCH')
             <div class="card-body">
                 <div class="row">
                     <div class=" d-flex justify-content-center">
@@ -69,9 +70,11 @@
                                     <option value="" hidden>--Pilih tahun</option>
                                     @foreach ($tahun as $item)
                                         <option value="{{ $item }}"
-                                        @if ($usulanLuaran->tahun == $item)
-                                            selected
-                                        @endif
+                                        @isset($usulanLuaran)
+                                            @if ($usulanLuaran->tahun == $item)
+                                                selected
+                                            @endif
+                                        @endisset
                                     >{{ $item }}</option>
                                     @endforeach
                                 </select>
@@ -88,9 +91,11 @@
                                     <option value="" hidden>--Pilih kelompok</option>
                                     @foreach ($kelompok as $item)
                                         <option value="{{ $item->id }}"
-                                            @if ($usulanLuaran->luaran_kelompok_id == $item->id)
-                                                selected
-                                            @endif
+                                            @isset($usulanLuaran)
+                                                @if ($usulanLuaran->luaran_kelompok_id == $item->id)
+                                                    selected
+                                                @endif
+                                            @endisset
                                         >{{ $item->nama }}</option>
                                     @endforeach
                                 </select>
@@ -107,9 +112,11 @@
                                     <option value="" hidden>--Pilih luaran</option>
                                     @foreach ($luaran as $item)
                                         <option value="{{ $item->id }}"
-                                            @if ($usulanLuaran->luaran_luaran_id == $item->id)
-                                                selected
-                                            @endif
+                                            @isset($usulanLuaran)
+                                                @if ($usulanLuaran->luaran_luaran_id == $item->id)
+                                                    selected
+                                                @endif
+                                            @endisset
                                         >{{ $item->nama }}</option>
                                     @endforeach
                                 </select>
@@ -126,9 +133,11 @@
                                     <option value="" hidden>--Pilih target</option>
                                     @foreach ($target as $item)
                                         <option value="{{ $item->id }}"
-                                            @if ($usulanLuaran->luaran_target_id == $item->id)
-                                                selected
-                                            @endif
+                                            @isset($usulanLuaran)
+                                                @if ($usulanLuaran->luaran_target_id == $item->id)
+                                                    selected
+                                                @endif
+                                            @endisset
                                         >{{ $item->nama }}</option>
                                     @endforeach
                                 </select>
@@ -145,9 +154,11 @@
                                     <option value="" hidden>--Pilih jumlah</option>
                                     @foreach ($jumlah as $item)
                                         <option value="{{ $item }}"
-                                        @if ($usulanLuaran->jumlah == $item)
-                                            selected
-                                        @endif
+                                        @isset($usulanLuaran)
+                                            @if ($usulanLuaran->jumlah == $item)
+                                                selected
+                                            @endif
+                                        @endisset
                                     >{{ $item }}</option>
                                     @endforeach
                                 </select>
@@ -160,7 +171,7 @@
                                 <span>Keterangan :</span>
                             </div>
                             <div class="col-md-9 col-8">
-                                <input type="text" name="keterangan" class="form-control" placeholder="Keterangan" value="{{ $usulanLuaran->keterangan }}" required>
+                                <input type="text" name="keterangan" class="form-control" placeholder="Keterangan" value="@isset($usulanLuaran){{ $usulanLuaran->keterangan }}@endisset" required>
                             </div>
                         </div>
                     </div>

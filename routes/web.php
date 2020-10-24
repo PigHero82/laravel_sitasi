@@ -100,10 +100,14 @@ Route::namespace('Dosen')->name('dosen.')->prefix('dosen')->middleware('auth', '
     });
     Route::name('usulan.')->prefix('usulan')->group(function() {
         Route::resource('', 'UsulanController')->except(['update']);
-        Route::post('/anggota', 'UsulanController@anggota')->name('anggota');
-        Route::post('/backward', 'UsulanController@backward')->name('backward');
+        Route::post('anggota', 'UsulanController@anggota')->name('anggota');
+        Route::post('backward', 'UsulanController@backward')->name('backward');
         Route::patch('{id}', 'UsulanController@update')->name('update');
         Route::get('riwayat', 'UsulanController@riwayat')->name('riwayat');
+        Route::name('rab.')->prefix('rab')->group(function() {
+            Route::delete('{id}', 'UsulanController@rabDestroy')->name('destroy');
+            Route::post('', 'UsulanController@rabStore')->name('store');
+        });
     });
 });
 

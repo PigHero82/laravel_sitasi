@@ -44,23 +44,17 @@
         <!-- /.card-header -->
         <div class="card-body mt-2">
             <h3>ANGGOTA DOSEN</h3>
-            <p class="text-secondary mb-2 
+            <p class="text-secondary 
                 @if (count($usulanAnggota)+1 >= $skema->jumlah)
-                    text-danger
+                    text-danger mb-0
+                @else
+                    mb-2
                 @endif
             ">{{ count($usulanAnggota) }} dari {{ $skema->jumlah-1 }} anggota</p>
+            @if (count($usulanAnggota)+1 >= $skema->jumlah)
+                <p class="text-secondary mb-2 text-danger">Tidak dapat menambahkan anggota baru</p>
+            @endif
             <a href="#modalPenelitian" data-toggle="modal"></a>
-            {{-- <div class="row">
-                <div class="col-sm-3 col-6">
-                    <fieldset class="form-label-group form-group position-relative input-divider-left">
-                        <input type="text" class="form-control" id="iconLeftDivider" placeholder="Cari NIDN">
-                        <label for="iconLeftDivider">Cari NIDN</label>
-                    </fieldset>
-                </div>
-                <div class="col-sm-3 col-6 pl-0">
-                    <button class="btn btn-success px-1"><i class="feather icon-search"></i> Cari</button>
-                </div>
-            </div> --}}
             <div class="table-responsive">
                 <table class="table">
                     <thead>

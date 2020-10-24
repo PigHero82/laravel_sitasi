@@ -129,14 +129,28 @@
                 </div>
             </div>
             <!-- /.card-body -->
-            <div class="card-footer">
-                <a href="{{ route('dosen.usulan.5') }}" class="btn btn-warning px-1">Kembali</a>
-                <div class="float-right">
-                    <a href="{{ route('dosen.usulan.7') }}" class="btn btn-success px-1">Lanjut</a>
+            <div class="card-footer row">
+                <div class="col-6">
+                    <a class="btn btn-warning px-1" href="{{ route('dosen.usulan.backward') }}" onclick="event.preventDefault();
+                    document.getElementById('backward-form').submit();">Kembali</a>
+                </div>
+                <div class="col-6 text-right">
+                    <form action="{{ route('dosen.usulan.update', $usulan->id) }}" method="POST">
+                        @csrf
+                        @method('PATCH')
+
+                        <input type="hidden" name="step" value="6">
+                        <input type="hidden" name="usulan_id" value="{{ $usulan->id }}">
+                        <button type="submit" class="btn btn-success px-1">Lanjut</button>
+                    </form>
                 </div>
             </div>
             <!-- /.card-footer -->
         </div>
+            
+        <form id="backward-form" action="{{ route('dosen.usulan.backward') }}" method="POST" style="display: none;">
+            @csrf
+        </form>
         <!-- /.card -->
     <!-- general form elements -->
 
