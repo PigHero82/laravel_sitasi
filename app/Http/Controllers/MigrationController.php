@@ -94,7 +94,11 @@ class MigrationController extends Controller
 		$body = $client->get('http://localhost:8001/usulan')->getBody(); 
         $obj = json_decode($body);
 		foreach ($obj as $key => $value) {
-            $skema = SkemaUsulan::select('jenis')->whereId($value->data->id_periode)->first();
+            // $skema = [
+            //     0 => 1,
+            //     1 => 2,
+            // ][$value->skema->is_pengabdian];
+            $skema = ($value->skema->is_pengabdian == 0) ? 1 : 2 ;
             $dosen_id = ($value->dosen) ? $value->dosen->id_dosen : 999 ;
             $nilai = ($value->nilai != NULL) ? $value->nilai->nilai : NULL ;
             
@@ -102,7 +106,7 @@ class MigrationController extends Controller
             $usulan = Usulan::create([
 				'dosen_id'			=> $dosen_id,
 				'skema_usulan_id'   => $value->data->id_periode,
-				'jenis'             => 1,
+				'jenis'             => $skema,
 				'judul'             => $value->data->judul,
 				'ringkasan'         => $value->data->abstrak,
 				'kata_kunci'        => $value->data->keyword,
