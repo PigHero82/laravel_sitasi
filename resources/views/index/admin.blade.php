@@ -69,7 +69,13 @@
                                 <dd class="col-sm-9">
                                     <div class="row">
                                         <div class="col-12">
-                                            <img src="{{ asset($composerUser->profile_photo_path) }}" alt="Profile picture">
+                                            @isset ($composerUser->profile_photo_path)
+                                                @if (file_exists(asset($composerUser->profile_photo_path)))
+                                                    <img src="{{ asset($composerUser->profile_photo_path) }}" alt="Profile picture" height="250">
+                                                @endif
+                                            @else
+                                                <img src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png" alt="Profile picture" height="250">
+                                            @endisset
                                         </div>
                                         <div class="col-12">
                                             <form action="#" method="post">
