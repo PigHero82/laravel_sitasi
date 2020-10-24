@@ -77,7 +77,13 @@
                                                     @csrf
 
                                                     <fieldset class="form-label-group form-group position-relative has-icon-left">
-                                                        <input type="number" class="form-control" id="user-name" placeholder="NIDN" name="nidn" :value="old('nidn')" required autofocus />
+                                                        <input type="number" class="form-control @error('nidn') is-invalid @enderror" id="nidn" placeholder="NIDN" name="nidn" value="{{ old('nidn') }}" required autocomplete="nidn" autofocus />
+
+                                                        @error('nidn')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                        @enderror
                                                         <div class="form-control-position">
                                                             <i class="feather icon-user"></i>
                                                         </div>
@@ -85,7 +91,13 @@
                                                     </fieldset>
 
                                                     <fieldset class="form-label-group position-relative has-icon-left">
-                                                        <input type="password" class="form-control" id="user-password" placeholder="Password" name="password" required autocomplete="current-password" />
+                                                        <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" placeholder="Password" name="password" required autocomplete="current-password" />
+
+                                                        @error('password')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                        @enderror
                                                         <div class="form-control-position">
                                                             <i class="feather icon-lock"></i>
                                                         </div>
@@ -95,7 +107,7 @@
                                                         <div class="text-left">
                                                             <fieldset class="checkbox">
                                                                 <div class="vs-checkbox-con vs-checkbox-primary">
-                                                                    <input type="checkbox" name="remember">
+                                                                    <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}>
                                                                     <span class="vs-checkbox">
                                                                         <span class="vs-checkbox--check">
                                                                             <i class="vs-icon feather icon-check"></i>
