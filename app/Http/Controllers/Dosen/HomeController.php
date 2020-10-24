@@ -17,6 +17,9 @@ class HomeController extends Controller
         $skema = SkemaUsulan::getSkemaByJabatan(Auth::user()->id);
         $penelitian = Usulan::getUsulanPenelitianByDosenId(Auth::user()->id);
         $pengabdian = Usulan::getUsulanPengabdianByDosenId(Auth::user()->id);
-        return view('index.dosen', compact('dosen', 'skema', 'penelitian', 'pengabdian'));
+        $countPenelitian = Usulan::countUsulanByDosenId(Auth::user()->id, 1);
+        $countPengabdian = Usulan::countUsulanByDosenId(Auth::user()->id, 2);
+        
+        return view('index.dosen', compact('countPenelitian', 'countPengabdian', 'dosen', 'skema', 'penelitian', 'pengabdian'));
     }
 }

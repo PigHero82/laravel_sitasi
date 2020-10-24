@@ -5,15 +5,32 @@
 @endsection
 
 @section('content')
-    @if(session()->get('success'))
-        <div class ="alert alert-success">
-            {{ session()->get('success') }}  
-        </div><br />
+    @if ($message = Session::get('success'))
+        <div class="alert alert-success alert-block">
+            <button type="button" class="close" data-dismiss="alert"><i class="fas fa-times"></i></button>
+            {{ $message }}
+        </div>
+    @endif
+
+    @if ($message = Session::get('danger'))
+        <div class="alert alert-danger alert-block">
+            <button type="button" class="close" data-dismiss="alert"><i class="fas fa-times"></i></button>
+            {{ $message }}
+        </div>
+    @endif
+
+    @if ($errors->any())
+        <div class="alert alert-danger alert-block">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
     @endif
 
     <div class="row">
-        <!-- left column -->
-        <div class="col-md-6">
+        <div class="col-md-6 order-2 order-lg-1">
             <!-- general form elements -->
             @if(count($skema))
                 <div class="card">
@@ -66,11 +83,43 @@
                     <!-- /.card-body -->
                 </div>
             @endif
-          <!-- /.card -->
-        </div>
-        <!--/.col (left) -->
+            <!-- /.card -->
 
-        <div class="col-md-6">
+            <div class="row">
+                <div class="col-6">
+                    <div class="card text-center">
+                        <div class="card-content">
+                            <div class="card-body">
+                                <div class="avatar bg-rgba-info p-50 m-0 mb-1">
+                                    <div class="avatar-content">
+                                        <i class="feather icon-bar-chart-2 text-info font-medium-5"></i>
+                                    </div>
+                                </div>
+                                <h2 class="text-bold-700">{{ $countPenelitian }}</h2>
+                                <p class="mb-0 line-ellipsis">Total Penelitian</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="card text-center">
+                        <div class="card-content">
+                            <div class="card-body">
+                                <div class="avatar bg-rgba-warning p-50 m-0 mb-1">
+                                    <div class="avatar-content">
+                                        <i class="feather icon-pie-chart text-warning font-medium-5"></i>
+                                    </div>
+                                </div>
+                                <h2 class="text-bold-700">{{ $countPengabdian }}</h2>
+                                <p class="mb-0 line-ellipsis">Total Pengabdian</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 order-1 order-lg-2">
             <div class="row">
                 <!-- left column -->
                 <div class="col-md-12">
@@ -126,7 +175,7 @@
                             </dl>
                             <dl class="row">
                                 <dt class="col-sm-3 text-right">Email</dt>
-                                <dd class="col-sm-9">{{ $dosen->email }}</dd>
+                                <dd class="col-sm-9"><a href="mailto:{{ $dosen->email }}">{{ $dosen->email }}</a></dd>
                             </dl>
                             <dl class="row">
                                 <dt class="col-sm-3 text-right">Link Google Scholar</dt>
@@ -134,7 +183,7 @@
                                     @isset($dosen->google_scholar_id)
                                         <a href="https://scholar.google.com/citations?user={{ $dosen->google_scholar_id }}&hl=id">{{ $dosen->google_scholar_id }}</a>
                                     @else
-                                        <a href="#" class="text-danger">Ubah Biodata Untuk Setting Link Google Scholar</a>
+                                        <a href="#" class="text-danger">Ubah Profil Untuk Setting Link Google Scholar</a>
                                     @endisset
                                 </dd>
                             </dl>
@@ -150,69 +199,6 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-xl-3 col-md-4 col-sm-6">
-            <div class="card text-center">
-                <div class="card-content">
-                    <div class="card-body">
-                        <div class="avatar bg-rgba-info p-50 m-0 mb-1">
-                            <div class="avatar-content">
-                                <i class="feather icon-bar-chart-2 text-info font-medium-5"></i>
-                            </div>
-                        </div>
-                        <h2 class="text-bold-700">279</h2>
-                        <p class="mb-0 line-ellipsis">Total Penelitian Internal</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-3 col-md-4 col-sm-6">
-            <div class="card text-center">
-                <div class="card-content">
-                    <div class="card-body">
-                        <div class="avatar bg-rgba-warning p-50 m-0 mb-1">
-                            <div class="avatar-content">
-                                <i class="feather icon-pie-chart text-warning font-medium-5"></i>
-                            </div>
-                        </div>
-                        <h2 class="text-bold-700">0</h2>
-                        <p class="mb-0 line-ellipsis">Total Penelitian Eksternal</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-3 col-md-4 col-sm-6">
-            <div class="card text-center">
-                <div class="card-content">
-                    <div class="card-body">
-                        <div class="avatar bg-rgba-danger p-50 m-0 mb-1">
-                            <div class="avatar-content">
-                                <i class="feather icon-globe text-danger font-medium-5"></i>
-                            </div>
-                        </div>
-                        <h2 class="text-bold-700">90</h2>
-                        <p class="mb-0 line-ellipsis">Total Pengabdian Internal</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-3 col-md-4 col-sm-6">
-            <div class="card text-center">
-                <div class="card-content">
-                    <div class="card-body">
-                        <div class="avatar bg-rgba-primary p-50 m-0 mb-1">
-                            <div class="avatar-content">
-                                <i class="feather icon-users text-primary font-medium-5"></i>
-                            </div>
-                        </div>
-                        <h2 class="text-bold-700">0</h2>
-                        <p class="mb-0 line-ellipsis">Total Pengabdian Eksternal</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
     <div class="content-header row">
         <div class="content-header-left col-md-9 col-12 mb-2">
             <div class="row breadcrumbs-top">

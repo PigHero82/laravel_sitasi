@@ -14,6 +14,13 @@ class Usulan extends Model
     protected $table = 'usulan';
     protected $fillable = ['dosen_id', 'skema_usulan_id', 'jenis', 'judul', 'ringkasan', 'kata_kunci', 'latar_belakang', 'tinjauan_pustaka', 'metode', 'daftar_pustaka', 'rumpun_ilmu_1', 'rumpun_ilmu_2', 'rumpun_ilmu_3', 'nilai', 'step'];
 
+    static function countUsulanByDosenId($id, $jenis)
+    {
+        return Usulan::where('jenis', $jenis)
+                        ->where('dosen_id', $id)
+                        ->count();
+    }
+
     static function firstUsulan($id)
     {
 
