@@ -11,4 +11,11 @@ class Pengumuman extends Model
 
     protected $table = 'content';
     protected $fillable = ['jenis', 'judul', 'katakunci','foto','content','flag_delete'];
+
+    static function getPengumuman()
+    {
+        return Pengumuman::where('jenis', 4)
+                            ->orderByDesc('created_at')
+                            ->get();
+    }
 }

@@ -212,6 +212,15 @@ class Usulan extends Model
         return $usulan;
     }
 
+    static function getUsulanPerYear($jenis)
+    {
+        return Usulan::selectRaw('skema_usulan.tahun_pelaksanaan, count(skema_usulan.tahun_pelaksanaan) as jumlah')
+                        ->leftjoin('skema_usulan', 'usulan.skema_usulan_id', 'skema_usulan.id')
+                        ->where('usulan.jenis', $jenis)
+                        ->groupBy('skema_usulan.tahun_pelaksanaan')
+                        ->get();
+    }
+
     static function storeUsulan($request)
     {
         $request->validate([
