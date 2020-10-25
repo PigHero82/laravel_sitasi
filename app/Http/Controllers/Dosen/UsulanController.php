@@ -189,6 +189,18 @@ class UsulanController extends Controller
         return redirect()->route('dosen.usulan.create')->withCookie(cookie('page', --$page, 1000));
     }
 
+    public function kegiatanStore(Request $request)
+    {
+        UsulanKegiatan::storeKegiatan($request);
+        return redirect()->back()->with('success', 'Kegiatan berhasil ditambahkan');
+    }
+
+    public function kegiatanDestroy($id)
+    {
+        UsulanKegiatan::destroyKegiatan($id);
+        return redirect()->back()->with('success', 'Kegiatan berhasil dihapus');
+    }
+
     public function rabStore(Request $request)
     {
         UsulanRab::storeRab($request);

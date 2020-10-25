@@ -108,6 +108,10 @@ Route::namespace('Dosen')->name('dosen.')->prefix('dosen')->middleware('auth', '
             Route::delete('{id}', 'UsulanController@rabDestroy')->name('destroy');
             Route::post('', 'UsulanController@rabStore')->name('store');
         });
+        Route::name('kegiatan.')->prefix('kegiatan')->group(function() {
+            Route::delete('{id}', 'UsulanController@kegiatanDestroy')->name('destroy');
+            Route::post('', 'UsulanController@kegiatanStore')->name('store');
+        });
     });
 });
 

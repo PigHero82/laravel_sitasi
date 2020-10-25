@@ -17,7 +17,6 @@ class CreateUsulanKegiatanTable extends Migration
             $table->id();
             $table->bigInteger('usulan_id')->unsigned();
             $table->string('nama', 255);
-            $table->tinyInteger('urutan_tahun')->unsigned();
             $table->date('tanggal_mulai');
             $table->date('tanggal_selesai');
             $table->timestamps();
