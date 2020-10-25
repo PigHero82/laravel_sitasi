@@ -64,7 +64,7 @@
                         <span>Latar Belakang :</span>
                     </div>
                     <div class="col-md-9">
-                        <textarea name="latar_belakang" cols="50" rows="10" class="form-control" autofocus></textarea>
+                        <textarea name="latar_belakang" cols="50" rows="10" class="form-control" autofocus>{{ $usulan->latar_belakang }}</textarea>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -72,7 +72,7 @@
                         <span>Tinjauan Pustaka :</span>
                     </div>
                     <div class="col-md-9">
-                        <textarea name="tinjauan_pustaka" cols="50" rows="10" class="form-control"></textarea>
+                        <textarea name="tinjauan_pustaka" cols="50" rows="10" class="form-control">{{ $usulan->tinjauan_pustaka }}</textarea>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -80,7 +80,7 @@
                         <span>Metode :</span>
                     </div>
                     <div class="col-md-9">
-                        <textarea name="metode" cols="50" rows="10" class="form-control"></textarea>
+                        <textarea name="metode" cols="50" rows="10" class="form-control">{{ $usulan->metode }}</textarea>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -88,7 +88,7 @@
                         <span>Daftar Pustaka :</span>
                     </div>
                     <div class="col-md-9">
-                        <textarea name="daftar_pustaka" cols="50" rows="10" class="form-control"></textarea>
+                        <textarea name="daftar_pustaka" cols="50" rows="10" class="form-control">{{ $usulan->daftar_pustaka }}</textarea>
                     </div>
                 </div>
                 <!-- /.card-body -->
