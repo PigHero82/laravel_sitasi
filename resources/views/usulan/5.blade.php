@@ -175,7 +175,7 @@
                                     <form action="{{ route('dosen.usulan.rab.destroy', $item->id)}}" method="post">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger"><i class="feather icon-x"></i></button>
+                                        <button type="submit" style="padding: 0; border: none; background: none;" class="action-edit text-danger"><i class="feather icon-trash"></i></button>
                                     </form>
                                 </td>
                             </tr>
