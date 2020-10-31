@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kabkota;
+use App\Models\Kecamatan;
 use App\Models\ListRole;
+use App\Models\Provinsi;
 use App\Models\RoleUser;
 use App\Models\User;
 use App\Models\Usulan;
 use App\Models\Pengumuman;
-
 use Auth;
 use Illuminate\Http\Request;
 
@@ -76,4 +78,29 @@ class HomeController extends Controller
 
 		return view('front.pengumuman', compact('data'));
 	}
+
+    public function kabkota($id)
+    {
+        return json_encode(Kabkota::getKabkota($id));
+    }
+
+    public function kecamatan($id)
+    {
+        return json_encode(Kecamatan::getKecamatan($id));
+    }
+
+    public function allKabkota()
+    {
+        return json_encode(Kabkota::allKabkota());
+    }
+
+    public function allKecamatan()
+    {
+        return json_encode(Kecamatan::allKecamatan());
+    }
+
+    public function provinsi()
+    {
+        return json_encode(Provinsi::getProvinsi());
+    }
 }
