@@ -190,6 +190,16 @@ class UsulanController extends Controller
                                 ->withCookie(cookie('skema_usulan_id', $request->cookie('skema_usulan_id'), 1000))
                                 ->withCookie(cookie('page', $request->step, 1000));
         }
+        
+        // Step 8
+        else if ($request->cookie('page') == 8) {
+            Usulan::updateUsulan8($request, $request->cookie('skema_usulan_id'));
+            return redirect()->route('dosen.usulan.riwayat')
+                                ->withCookie(cookie('jenis', $request->cookie('jenis'), 1000))
+                                ->withCookie(cookie('skema_usulan_id', $request->cookie('skema_usulan_id'), 1000))
+                                ->withCookie(cookie('page', $request->step, 1000))
+                                ->with('success', 'Usulan berhasil ditambahkan');
+        }
     }
 
     /**

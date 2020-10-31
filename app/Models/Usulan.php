@@ -394,4 +394,11 @@ class Usulan extends Model
 
         Usulan::updateStep($request->step, $skemaUsulanId);
     }
+
+    static function updateUsulan8($request, $skemaUsulanId)
+    {
+        $request->validate(['step' => 'required']);
+
+        Usulan::updateStep($request->step, $skemaUsulanId);
+    }
 }
