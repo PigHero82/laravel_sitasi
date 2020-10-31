@@ -12,8 +12,13 @@ class LuaranTarget extends Model
     protected $table = 'luaran_target';
     protected $fillable = ['nama', 'status'];
 
-    static function getTarget()
+    static function getActiveTarget()
     {
         return LuaranTarget::where('status', 1)->get();
+    }
+
+    static function getTarget()
+    {
+        return LuaranTarget::all();
     }
 }

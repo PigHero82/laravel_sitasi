@@ -4,18 +4,24 @@ namespace App\Http\Controllers\Dosen;
 
 use App\Http\Controllers\Controller;
 use App\Models\Dosen;
+use App\Models\Kabkota;
+use App\Models\Kecamatan;
 use App\Models\LuaranKelompok;
 use App\Models\LuaranLuaran;
 use App\Models\LuaranTarget;
+use App\Models\MitraJenis;
 use App\Models\Peran;
+use App\Models\Provinsi;
 use App\Models\RabJenis;
 use App\Models\RumpunIlmu;
 use App\Models\SkemaUsulan;
 use App\Models\SatuanWaktu;
 use App\Models\Usulan;
 use App\Models\UsulanAnggota;
+use App\Models\UsulanBerkas;
 use App\Models\UsulanKegiatan;
 use App\Models\UsulanLuaran;
+use App\Models\UsulanMitra;
 use App\Models\UsulanRab;
 use Auth;
 use Carbon\Carbon;
@@ -46,12 +52,16 @@ class UsulanController extends Controller
         $dosen = Dosen::getDosenNIDNNama();
         $jumlah = [1, 2, 3, 4, 5];
         $kelompok = LuaranKelompok::getKelompok();
-        $luaran = LuaranLuaran::getLuaran();
-        $peran = Peran::getPeran();
-        $rabJenis = RabJenis::getJenis();
-        $satuan = SatuanWaktu::getSatuan();
+        $luaran = LuaranLuaran::getActiveLuaran();
+        $mitraJenis = MitraJenis::getActiveJenis();
+        $peran = Peran::getActivePeran();
+        $kabkota = Kabkota::allKabkota();
+        $kecamatan = Kecamatan::allKecamatan();
+        $provinsi = Provinsi::getProvinsi();
+        $rabJenis = RabJenis::getActiveJenis();
+        $satuan = SatuanWaktu::getActiveSatuan();
         $skema = SkemaUsulan::firstSkema($request->cookie('skema_usulan_id'));
-        $target = LuaranTarget::getTarget();
+        $target = LuaranTarget::getActiveTarget();
         $tahun = [
             Carbon::now()->format('Y') + 0,
             Carbon::now()->format('Y') + 1,
@@ -61,11 +71,13 @@ class UsulanController extends Controller
         ];
         $usulan = Usulan::firstUsulanByDosenIdSkemaId(Auth::user()->id, $request->cookie('skema_usulan_id'));
         $usulanAnggota = UsulanAnggota::getAnggota($usulan->id);
+        $usulanBerkas = UsulanBerkas::getBerkas($usulan->id);
         $usulanKegiatan = UsulanKegiatan::getKegiatan($usulan->id);
+        $usulanMitra = UsulanMitra::getMitra($usulan->id);
         $usulanLuaran = UsulanLuaran::firstLuaran($usulan->id);
         $usulanRab = UsulanRab::getRab($usulan->id);
 
-        return view('usulan.create', compact('data', 'dosen', 'jumlah', 'kelompok', 'luaran', 'peran', 'rabJenis', 'satuan', 'skema', 'target', 'tahun', 'usulan', 'usulanAnggota', 'usulanKegiatan', 'usulanLuaran', 'usulanRab'));
+        return view('usulan.create', compact('data', 'dosen', 'jumlah', 'kabkota', 'kecamatan', 'kelompok', 'luaran', 'mitraJenis', 'peran', 'provinsi', 'rabJenis', 'satuan', 'skema', 'target', 'tahun', 'usulan', 'usulanAnggota', 'usulanBerkas', 'usulanKegiatan', 'usulanLuaran', 'usulanMitra', 'usulanRab'));
     }
 
     /**
@@ -160,6 +172,24 @@ class UsulanController extends Controller
                                 ->withCookie(cookie('skema_usulan_id', $request->cookie('skema_usulan_id'), 1000))
                                 ->withCookie(cookie('page', $request->step, 1000));
         }
+        
+        // Step 6
+        else if ($request->cookie('page') == 6) {
+            Usulan::updateUsulan6($request, $request->cookie('skema_usulan_id'));
+            return redirect()->route('dosen.usulan.create')
+                                ->withCookie(cookie('jenis', $request->cookie('jenis'), 1000))
+                                ->withCookie(cookie('skema_usulan_id', $request->cookie('skema_usulan_id'), 1000))
+                                ->withCookie(cookie('page', $request->step, 1000));
+        }
+        
+        // Step 7
+        else if ($request->cookie('page') == 7) {
+            Usulan::updateUsulan7($request, $request->cookie('skema_usulan_id'));
+            return redirect()->route('dosen.usulan.create')
+                                ->withCookie(cookie('jenis', $request->cookie('jenis'), 1000))
+                                ->withCookie(cookie('skema_usulan_id', $request->cookie('skema_usulan_id'), 1000))
+                                ->withCookie(cookie('page', $request->step, 1000));
+        }
     }
 
     /**
@@ -201,6 +231,23 @@ class UsulanController extends Controller
         return redirect()->back()->with('success', 'Kegiatan berhasil dihapus');
     }
 
+    public function mitraDestroy($id)
+    {
+        UsulanMitra::destroyMitra($id);
+        return redirect()->back()->with('success', 'Mitra berhasil dihapus');
+    }
+
+    public function mitraShow($id)
+    {
+        return json_encode(UsulanMitra::firstMitra($id));
+    }
+
+    public function mitraStore(Request $request)
+    {
+        UsulanMitra::storeMitra($request);
+        return redirect()->back()->with('success', 'Mitra berhasil ditambahkan');
+    }
+
     public function rabStore(Request $request)
     {
         UsulanRab::storeRab($request);
@@ -219,5 +266,11 @@ class UsulanController extends Controller
         $pengabdian = Usulan::getUsulanPengabdianByDosenId(Auth::user()->id);
 
         return view('usulan.riwayat', compact('penelitian', 'pengabdian'));
+    }
+
+    public function usulanDanaUpdate(Request $request)
+    {
+        Usulan::updateUsulanDana($request);
+        return redirect()->back()->with('success', 'Usulan dana berhasil diperbarui');
     }
 }

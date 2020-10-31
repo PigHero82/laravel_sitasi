@@ -126,8 +126,12 @@
 @endsection
 
 @section('js')
-    <script>
+    <script>    
         $(function($){
+            $('form').submit(function() {
+                $(this).find("button[type='submit']").prop('disabled', true);
+            });
+            
             $( "select.rumpun_ilmu_1" ).change(function() {
                 var id = $(this).children("option:selected").val();
                 $.get( "/dosen/rumpun-ilmu/" + id, function( data ) {

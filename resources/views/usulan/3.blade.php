@@ -122,5 +122,11 @@
             toolbar_mode: 'floating',
             toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright | outdent indent | wordcount'
         });
+
+        $(document).ready( function () {
+            $('form').submit(function() {
+                $(this).find("button[type='submit']").prop('disabled', true);
+            });
+        });
     </script>
 @endsection

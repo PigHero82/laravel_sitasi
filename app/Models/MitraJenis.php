@@ -5,20 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class RabJenis extends Model
+class MitraJenis extends Model
 {
     use HasFactory;
 
-    protected $table = 'rab_jenis';
-    protected $fillable = ['nama', 'deskripsi', 'status'];
+    protected $table = 'mitra_jenis';
+    protected $fillable = ['nama', 'status'];
 
     static function getActiveJenis()
     {
-        return RabJenis::where('status', 1)->get();
+        return MitraJenis::where('status', 1)->get();
     }
 
     static function getJenis()
     {
-        return RabJenis::all();
+        return MitraJenis::all();
     }
 }

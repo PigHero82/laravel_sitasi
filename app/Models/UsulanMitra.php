@@ -13,6 +13,11 @@ class UsulanMitra extends Model
     protected $table = 'usulan_mitra';
     protected $fillable = ['usulan_id', 'nama', 'pimpinan', 'mitra_jenis_id', 'institusi', 'alamat', 'kecamatan_id', 'kabkota_id', 'provinsi_id', 'tlp', 'hp', 'fax', 'email', 'dana'];
 
+    static function destroyMitra($id)
+    {
+        UsulanMitra::findOrFail($id)->delete();
+    }
+
     static function firstMitra($id)
     {
         $mitra = UsulanMitra::whereId($id)->first();

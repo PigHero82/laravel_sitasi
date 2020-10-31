@@ -131,15 +131,15 @@
             <h3>Daftar Item Anggaran</h3>
             <hr>
             <div class="table-responsive">
-                <table class="table">
+                <table class="table text-center">
                     <thead>
                         <tr>
                             <th rowspan="2" class="text-center align-middle my-auto">Jenis Pembelanjaan</th>
                             <th rowspan="2" class="text-center align-middle my-auto">Penggunaan</th>
                             <th rowspan="2" class="text-center align-middle my-auto">Nama Item</th>
                             <th colspan="3" class="text-center">Volume</th>
-                            <th rowspan="2" class="text-center align-middle my-auto">Harga Satuan</th>
-                            <th rowspan="2" class="text-center align-middle my-auto">Total</th>
+                            <th rowspan="2" class="text-center align-middle my-auto">Harga Satuan (Rp)</th>
+                            <th rowspan="2" class="text-center align-middle my-auto">Total (Rp)</th>
                             <th rowspan="2"></th>
                         </tr>
                         <tr>
@@ -169,8 +169,8 @@
                                         -
                                     @endisset
                                 </td>
-                                <td>Rp. {{ number_format($item->harga, 0, ',', '.') }}</td>
-                                <td>Rp. {{ number_format($item->total, 0, ',', '.') }}</td>
+                                <td>{{ number_format($item->harga, 0, ',', '.') }}</td>
+                                <td>{{ number_format($item->total, 0, ',', '.') }}</td>
                                 <td class="text-danger text-weight-bold">
                                     <form action="{{ route('dosen.usulan.rab.destroy', $item->id)}}" method="post">
                                         @csrf
@@ -208,6 +208,14 @@
         @csrf
     </form>
     <!-- /.card -->
-<!-- general form elements -->
+@endsection
 
+@section('js')
+    <script>
+        $(document).ready( function () {
+            $('form').submit(function() {
+                $(this).find("button[type='submit']").prop('disabled', true);
+            });
+        });
+    </script>
 @endsection

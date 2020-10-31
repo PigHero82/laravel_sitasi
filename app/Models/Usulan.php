@@ -24,8 +24,11 @@ class Usulan extends Model
 
     static function firstUsulan($id)
     {
-        $data = Usulan::find($id);
-        $data['ketua'] = Dosen::select('nama')->where('id',$data->dosen_id)->first();
+        $data = Usulan::select(DB::raw('usulan.*, skema.kode, skema_usulan.tahun_skema, dosen.nama as ketua'))
+                        ->join('dosen', 'usulan.dosen_id', 'dosen.id')
+                        ->join('skema_usulan', 'usulan.skema_usulan_id', 'skema_usulan.id')
+                        ->join('skema', 'skema_usulan.skema_id', 'skema.id')
+                        ->firstWhere('usulan.id', $id);
         $data['anggota'] = UsulanAnggota::getAnggota($data->id);
         $data['belanja'] = UsulanBelanja::getBelanja($data->id);
         $data['kegiatan'] = UsulanKegiatan::getKegiatan($data->id);
@@ -39,17 +42,20 @@ class Usulan extends Model
 
     static function firstUsulanByDosenIdSkemaId($dosenId, $skemaUsulanId)
     {
-        $data = Usulan::select(DB::raw('usulan.*, skema.kode, skema_usulan.tahun_skema'))
+        $data = Usulan::select(DB::raw('usulan.*, skema.kode, skema_usulan.tahun_skema, dosen.nama as ketua'))
+                        ->join('dosen', 'usulan.dosen_id', 'dosen.id')
                         ->join('skema_usulan', 'usulan.skema_usulan_id', 'skema_usulan.id')
                         ->join('skema', 'skema_usulan.skema_id', 'skema.id')
                         ->where('dosen_id', $dosenId)
                         ->where('skema_usulan_id', $skemaUsulanId)
                         ->first();
-        $data['skema_usulan'] = SkemaUsulan::firstSkema($data->skema_usulan_id);
         $data['anggota'] = UsulanAnggota::getAnggota($data->id);
+        $data['belanja'] = UsulanBelanja::getBelanja($data->id);
         $data['kegiatan'] = UsulanKegiatan::getKegiatan($data->id);
         $data['luaran'] = UsulanLuaran::firstLuaran($data->id);
+        $data['mitra'] = UsulanMitra::firstMitra($data->id);
         $data['rab'] = UsulanRab::getRab($data->id);
+        $data['skema_usulan'] = SkemaUsulan::firstSkema($data->skema_usulan_id);
 
         return $data;
     }
@@ -65,9 +71,9 @@ class Usulan extends Model
                 $data[$key]['belanja'] = UsulanBelanja::getBelanja($value->id);
                 $data[$key]['kegiatan'] = UsulanKegiatan::getKegiatan($value->id);
                 $data[$key]['luaran'] = UsulanLuaran::firstLuaran($value->id);
+                $data[$key]['mitra'] = UsulanMitra::firstMitra($value->id);
                 $data[$key]['rab'] = UsulanRab::getRab($value->id);
                 $data[$key]['skema_usulan'] = SkemaUsulan::firstSkema($value->skema_usulan_id);
-                $data[$key]['mitra'] = UsulanMitra::firstMitra($value->id);
             }
 
             return $data;
@@ -177,11 +183,13 @@ class Usulan extends Model
         if ($usulan->isNotEmpty()) {
             foreach ($usulan as $key => $value) {
                 $data[$key] = Usulan::firstUsulan($value->id);
-                // $data[$key]['skema_usulan'] = SkemaUsulan::firstSkema($value->skema_usulan_id);
-                // $data[$key]['anggota'] = UsulanAnggota::getAnggota($value->id);
-                // $data[$key]['kegiatan'] = UsulanKegiatan::getKegiatan($value->id);
-                // $data[$key]['luaran'] = UsulanLuaran::firstLuaran($value->id);
-                // $data[$key]['rab'] = UsulanRab::getRab($value->id);
+                $data[$key]['anggota'] = UsulanAnggota::getAnggota($value->id);
+                $data[$key]['belanja'] = UsulanBelanja::getBelanja($value->id);
+                $data[$key]['kegiatan'] = UsulanKegiatan::getKegiatan($value->id);
+                $data[$key]['luaran'] = UsulanLuaran::firstLuaran($value->id);
+                $data[$key]['mitra'] = UsulanMitra::firstMitra($value->id);
+                $data[$key]['rab'] = UsulanRab::getRab($value->id);
+                $data[$key]['skema_usulan'] = SkemaUsulan::firstSkema($value->skema_usulan_id);
             }
 
             return $data;
@@ -374,6 +382,13 @@ class Usulan extends Model
     }
 
     static function updateUsulan6($request, $skemaUsulanId)
+    {
+        $request->validate(['step' => 'required']);
+
+        Usulan::updateStep($request->step, $skemaUsulanId);
+    }
+
+    static function updateUsulan7($request, $skemaUsulanId)
     {
         $request->validate(['step' => 'required']);
 

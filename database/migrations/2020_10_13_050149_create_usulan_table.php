@@ -28,6 +28,7 @@ class CreateUsulanTable extends Migration
             $table->integer('rumpun_ilmu_1')->unsigned()->nullable();
             $table->integer('rumpun_ilmu_2')->unsigned()->nullable();
             $table->integer('rumpun_ilmu_3')->unsigned()->nullable();
+            $table->integer('usulan_dana')->unsigned()->nullable();
             $table->mediumInteger('nilai')->unsigned()->nullable();
             $table->boolean('step')->default(1);
             $table->timestamps();

@@ -28,6 +28,8 @@ View::composer(['*'], function ($view) {
 });
 
 Route::get('', 'HomeController@index');
+// Route::get('kabkota/{id}', 'HomeController@kabkota')->name('kabkota');
+// Route::get('kecamatan/{id}', 'HomeController@kecamatan')->name('kecamatan');
 Route::post('role/{id}', 'HomeController@update')->name('role.update');
 Route::view('profil', 'profil')->name('profil');
 Route::view('author', 'front.author')->name('author');
@@ -100,17 +102,24 @@ Route::namespace('Dosen')->name('dosen.')->prefix('dosen')->middleware('auth', '
     });
     Route::name('usulan.')->prefix('usulan')->group(function() {
         Route::resource('', 'UsulanController')->except(['update']);
+        Route::patch('{id}', 'UsulanController@update')->name('update');
         Route::post('anggota', 'UsulanController@anggota')->name('anggota');
         Route::post('backward', 'UsulanController@backward')->name('backward');
-        Route::patch('{id}', 'UsulanController@update')->name('update');
+        Route::post('dana', 'UsulanController@usulanDanaUpdate')->name('dana');
+        Route::name('kegiatan.')->prefix('kegiatan')->group(function() {
+            Route::delete('{id}', 'UsulanController@kegiatanDestroy')->name('destroy');
+            Route::post('', 'UsulanController@kegiatanStore')->name('store');
+        });
+        Route::name('mitra.')->prefix('mitra')->group(function() {
+            Route::delete('{id}', 'UsulanController@mitraDestroy')->name('destroy');
+            Route::patch('{id}', 'UsulanController@mitraUpdate')->name('update');
+            Route::post('', 'UsulanController@mitraStore')->name('store');
+            Route::get('{id}', 'UsulanController@mitraShow')->name('show');
+        });
         Route::get('riwayat', 'UsulanController@riwayat')->name('riwayat');
         Route::name('rab.')->prefix('rab')->group(function() {
             Route::delete('{id}', 'UsulanController@rabDestroy')->name('destroy');
             Route::post('', 'UsulanController@rabStore')->name('store');
-        });
-        Route::name('kegiatan.')->prefix('kegiatan')->group(function() {
-            Route::delete('{id}', 'UsulanController@kegiatanDestroy')->name('destroy');
-            Route::post('', 'UsulanController@kegiatanStore')->name('store');
         });
     });
 });

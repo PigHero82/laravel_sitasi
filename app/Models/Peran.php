@@ -12,6 +12,11 @@ class Peran extends Model
     protected $table = 'peran';
     protected $fillable = ['nama', 'status'];
 
+    static function getActivePeran()
+    {
+        return Peran::where('status', 1)->get();
+    }
+
     static function getPeran()
     {
         return Peran::all();

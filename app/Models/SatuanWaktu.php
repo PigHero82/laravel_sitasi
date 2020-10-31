@@ -12,8 +12,13 @@ class SatuanWaktu extends Model
     protected $table = 'satuan_waktu';
     protected $fillable = ['nama', 'status'];
 
-    static function getSatuan()
+    static function getActiveSatuan()
     {
         return SatuanWaktu::where('status', 1)->get();
+    }
+
+    static function getSatuan()
+    {
+        return SatuanWaktu::all();
     }
 }

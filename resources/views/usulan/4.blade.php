@@ -197,6 +197,14 @@
         @csrf
     </form>
     <!-- /.card -->
-<!-- general form elements -->
+@endsection
 
+@section('js')
+    <script>
+        $(document).ready( function () {
+            $('form').submit(function() {
+                $(this).find("button[type='submit']").prop('disabled', true);
+            });
+        });
+    </script>
 @endsection

@@ -170,4 +170,12 @@
     <!-- BEGIN: Page JS-->
     <script src="../../../app-assets/js/scripts/forms/select/form-select2.js"></script>
     <!-- END: Page JS-->
+
+    <script>
+        $(document).ready( function () {
+            $('form').submit(function() {
+                $(this).find("button[type='submit']").prop('disabled', true);
+            });
+        });
+    </script>
 @endsection

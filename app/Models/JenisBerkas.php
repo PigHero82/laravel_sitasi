@@ -11,4 +11,9 @@ class JenisBerkas extends Model
 
     protected $table = 'jenis_berkas';
     protected $fillable = ['nama', 'status'];
+
+    static function firstBerkas($id)
+    {
+        return JenisBerkas::findOrFail($id);
+    }
 }
