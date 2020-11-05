@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Auth;
 use DB;
-use App\Models\UsulanMitra;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -24,19 +24,23 @@ class Usulan extends Model
 
     static function firstUsulan($id)
     {
-        $data = Usulan::select(DB::raw('usulan.*, skema.kode, skema_usulan.tahun_skema, dosen.nama as ketua'))
-                        ->join('dosen', 'usulan.dosen_id', 'dosen.id')
-                        ->join('skema_usulan', 'usulan.skema_usulan_id', 'skema_usulan.id')
-                        ->join('skema', 'skema_usulan.skema_id', 'skema.id')
-                        ->firstWhere('usulan.id', $id);
-        $data['anggota'] = UsulanAnggota::getAnggota($data->id);
-        $data['belanja'] = UsulanBelanja::getBelanja($data->id);
-        $data['kegiatan'] = UsulanKegiatan::getKegiatan($data->id);
-        $data['luaran'] = UsulanLuaran::firstLuaran($data->id);
-        $data['rab'] = UsulanRab::getRab($data->id);
-        $data['skema_usulan'] = SkemaUsulan::firstSkema($data->skema_usulan_id);
-        $data['mitra'] = UsulanMitra::firstMitra($data->id);
+        $data = [];
+        $x = Usulan::select(DB::raw('usulan.*, skema.kode, skema_usulan.tahun_skema, dosen.nama as ketua'))->join('dosen', 'usulan.dosen_id', 'dosen.id')
+                    ->join('skema_usulan', 'usulan.skema_usulan_id', 'skema_usulan.id')
+                    ->join('skema', 'skema_usulan.skema_id', 'skema.id')
+                    ->firstWhere('usulan.id', $id);
 
+        if (!empty($x)){
+
+        
+        $data['anggota'] = UsulanAnggota::getAnggota($id);
+        $data['belanja'] = UsulanBelanja::getBelanja($id);
+        $data['kegiatan'] = UsulanKegiatan::getKegiatan($id);
+        $data['luaran'] = UsulanLuaran::firstLuaran($id);
+        $data['rab'] = UsulanRab::getRab($id);
+        $data['skema_usulan'] = SkemaUsulan::firstSkema($x->skema_usulan_id);
+        $data['mitra'] = UsulanMitra::firstMitra($id);
+    }
         return $data;
     }
 
@@ -88,7 +92,6 @@ class Usulan extends Model
         $usulan = Usulan::where('jenis', 1)
                         ->orderByDesc('skema_usulan_id')
                         ->get();
-
         if ($usulan->isNotEmpty()) {
             foreach ($usulan as $key => $value) {
                 $data[$key] = Usulan::firstUsulan($value->id);
