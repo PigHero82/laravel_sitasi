@@ -24,24 +24,26 @@ class Usulan extends Model
 
     static function firstUsulan($id)
     {
-        $data = [];
-        $x = Usulan::select(DB::raw('usulan.*, skema.kode, skema_usulan.tahun_skema, dosen.nama as ketua'))->join('dosen', 'usulan.dosen_id', 'dosen.id')
-                    ->join('skema_usulan', 'usulan.skema_usulan_id', 'skema_usulan.id')
-                    ->join('skema', 'skema_usulan.skema_id', 'skema.id')
-                    ->firstWhere('usulan.id', $id);
+        $x = Usulan::findOrFail($id);
 
-        if (!empty($x)){
+        if (isset($x)) {   
+            $data = [];     
+            $data = Usulan::select(DB::raw('usulan.*, skema.kode, skema_usulan.tahun_skema, dosen.nama as ketua'))->join('dosen', 'usulan.dosen_id', 'dosen.id')
+                        ->join('skema_usulan', 'usulan.skema_usulan_id', 'skema_usulan.id')
+                        ->join('skema', 'skema_usulan.skema_id', 'skema.id')
+                        ->firstWhere('usulan.id', $id);
+            $data['anggota'] = UsulanAnggota::getAnggota($id);
+            $data['belanja'] = UsulanBelanja::getBelanja($id);
+            $data['kegiatan'] = UsulanKegiatan::getKegiatan($id);
+            $data['luaran'] = UsulanLuaran::firstLuaran($id);
+            $data['rab'] = UsulanRab::getRab($id);
+            $data['skema_usulan'] = SkemaUsulan::firstSkema($x->skema_usulan_id);
+            $data['mitra'] = UsulanMitra::firstMitra($id);
 
-        
-        $data['anggota'] = UsulanAnggota::getAnggota($id);
-        $data['belanja'] = UsulanBelanja::getBelanja($id);
-        $data['kegiatan'] = UsulanKegiatan::getKegiatan($id);
-        $data['luaran'] = UsulanLuaran::firstLuaran($id);
-        $data['rab'] = UsulanRab::getRab($id);
-        $data['skema_usulan'] = SkemaUsulan::firstSkema($x->skema_usulan_id);
-        $data['mitra'] = UsulanMitra::firstMitra($id);
-    }
-        return $data;
+            return $data;
+        }
+
+        return $x;
     }
 
     static function firstUsulanByDosenIdSkemaId($dosenId, $skemaUsulanId)
