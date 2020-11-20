@@ -34,6 +34,7 @@ class Usulan extends Model
                         ->firstWhere('usulan.id', $id);
             $data['anggota'] = UsulanAnggota::getAnggota($id);
             $data['belanja'] = UsulanBelanja::getBelanja($id);
+            $data['berkas'] = UsulanBerkas::getBerkas($id);
             $data['kegiatan'] = UsulanKegiatan::getKegiatan($id);
             $data['luaran'] = UsulanLuaran::firstLuaran($id);
             $data['rab'] = UsulanRab::getRab($id);
@@ -91,9 +92,15 @@ class Usulan extends Model
     static function getUsulanPenelitian()
     {
         $data = [];
-        $usulan = Usulan::where('jenis', 1)
+        $usulan = Usulan::select()
+                        ->where('jenis', 1)
                         ->orderByDesc('skema_usulan_id')
                         ->get();
+
+                        SkemaUsulan::select('skema_usulan.id', 'skema_usulan.skema_id', 'skema.kode', 'skema.nama', 'skema_usulan.jenis', 'skema_usulan.jumlah', 'skema_usulan.tahun_skema', 'skema_usulan.tahun_pelaksanaan', 'skema_usulan.tanggal_usulan', 'skema_usulan.tanggal_review', 'skema_usulan.tanggal_publikasi', 'skema_usulan.dana_maksimal', 'skema_usulan.jabatan_minimal', 'skema_usulan.jabatan_maksimal', 'skema_usulan.status', 'skema_usulan.created_at', 'skema_usulan.updated_at')
+                            ->join('skema', 'skema_usulan.skema_id', 'skema.id')
+                            ->firstWhere('skema_usulan.id', $id);
+
         if ($usulan->isNotEmpty()) {
             foreach ($usulan as $key => $value) {
                 $data[$key] = Usulan::firstUsulan($value->id);
