@@ -31,6 +31,7 @@ class CreateUsulanTable extends Migration
             $table->integer('usulan_dana')->unsigned()->nullable();
             $table->mediumInteger('nilai')->unsigned()->nullable();
             $table->boolean('step')->default(1);
+            $table->string('reviewer', 15)->nullable();
             $table->timestamps();
         });
     }

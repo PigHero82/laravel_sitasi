@@ -24,9 +24,12 @@ class Usulan extends Model
 
     static function firstUsulan($id)
     {
-        $x = Usulan::findOrFail($id);
+        $usulan = Usulan::select('id', 'skema_usulan_id')
+                        ->whereId($id)
+                        ->orderByDesc('created_at')
+                        ->first();
 
-        if (isset($x)) {   
+        if (isset($usulan)) {   
             $data = [];     
             $data = Usulan::select(DB::raw('usulan.*, skema.kode, skema_usulan.tahun_skema, dosen.nama as ketua'))->join('dosen', 'usulan.dosen_id', 'dosen.id')
                         ->join('skema_usulan', 'usulan.skema_usulan_id', 'skema_usulan.id')
@@ -38,13 +41,13 @@ class Usulan extends Model
             $data['kegiatan'] = UsulanKegiatan::getKegiatan($id);
             $data['luaran'] = UsulanLuaran::firstLuaran($id);
             $data['rab'] = UsulanRab::getRab($id);
-            $data['skema_usulan'] = SkemaUsulan::firstSkema($x->skema_usulan_id);
+            $data['skema_usulan'] = SkemaUsulan::firstSkema($usulan->skema_usulan_id);
             $data['mitra'] = UsulanMitra::firstMitra($id);
 
             return $data;
         }
 
-        return $x;
+        return $usulan;
     }
 
     static function firstUsulanByDosenIdSkemaId($dosenId, $skemaUsulanId)
@@ -67,19 +70,41 @@ class Usulan extends Model
         return $data;
     }
 
-    static function getUsulan()
+    static function getUsulanId($jenis)
     {
-        $usulan = Usulan::orderByDesc('created_at')->get();
+        $usulan = Usulan::select('id', 'skema_usulan_id', 'reviewer')
+                        ->where('jenis', $jenis)
+                        ->orderByDesc('created_at')
+                        ->get();
 
         if ($usulan->isNotEmpty()) {
             foreach ($usulan as $key => $value) {
-                $data[$key] = Usulan::firstUsulan($value->id);
+                $data[$key] = Usulan::findOrFail($value->id);
+            }
+
+            return $data;
+        }
+
+        return $usulan;
+    }
+
+    static function getUsulan($jenis)
+    {
+        $usulan = Usulan::select('id', 'skema_usulan_id', 'reviewer')
+                        ->where('jenis', $jenis)
+                        ->orderByDesc('created_at')
+                        ->get();
+
+        if ($usulan->isNotEmpty()) {
+            foreach ($usulan as $key => $value) {
+                $data[$key] = Usulan::findOrFail($value->id);
                 $data[$key]['anggota'] = UsulanAnggota::getAnggota($value->id);
                 $data[$key]['belanja'] = UsulanBelanja::getBelanja($value->id);
                 $data[$key]['kegiatan'] = UsulanKegiatan::getKegiatan($value->id);
                 $data[$key]['luaran'] = UsulanLuaran::firstLuaran($value->id);
                 $data[$key]['mitra'] = UsulanMitra::firstMitra($value->id);
                 $data[$key]['rab'] = UsulanRab::getRab($value->id);
+                $data[$key]['reviewer'] = ($value->reviewer != NULL) ? Dosen::firstDosenByNidn($value->reviewer) : NULL ;
                 $data[$key]['skema_usulan'] = SkemaUsulan::firstSkema($value->skema_usulan_id);
             }
 
@@ -96,10 +121,6 @@ class Usulan extends Model
                         ->where('jenis', 1)
                         ->orderByDesc('skema_usulan_id')
                         ->get();
-
-                        SkemaUsulan::select('skema_usulan.id', 'skema_usulan.skema_id', 'skema.kode', 'skema.nama', 'skema_usulan.jenis', 'skema_usulan.jumlah', 'skema_usulan.tahun_skema', 'skema_usulan.tahun_pelaksanaan', 'skema_usulan.tanggal_usulan', 'skema_usulan.tanggal_review', 'skema_usulan.tanggal_publikasi', 'skema_usulan.dana_maksimal', 'skema_usulan.jabatan_minimal', 'skema_usulan.jabatan_maksimal', 'skema_usulan.status', 'skema_usulan.created_at', 'skema_usulan.updated_at')
-                            ->join('skema', 'skema_usulan.skema_id', 'skema.id')
-                            ->firstWhere('skema_usulan.id', $id);
 
         if ($usulan->isNotEmpty()) {
             foreach ($usulan as $key => $value) {
@@ -283,14 +304,9 @@ class Usulan extends Model
         ]);
     }
 
-    static function updateUsulanDana($request)
+    static function updateReviewer($dosenId, $id)
     {
-        $request->validate([
-            'usulan_id'         => 'numeric|required',
-            'usulan_dana'       => 'numeric|required'
-        ]);
-
-        Usulan::whereId($request->usulan_id)->update(['usulan_dana' => $request->usulan_dana]);
+        Usulan::whereId($id)->update(['reviewer' => $dosenId]);
     }
 
     static function updateStep($step, $skemaUsulanId)
@@ -412,5 +428,15 @@ class Usulan extends Model
         $request->validate(['step' => 'required']);
 
         Usulan::updateStep($request->step, $skemaUsulanId);
+    }
+
+    static function updateUsulanDana($request)
+    {
+        $request->validate([
+            'usulan_id'         => 'numeric|required',
+            'usulan_dana'       => 'numeric|required'
+        ]);
+
+        Usulan::whereId($request->usulan_id)->update(['usulan_dana' => $request->usulan_dana]);
     }
 }

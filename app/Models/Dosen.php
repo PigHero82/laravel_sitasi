@@ -18,10 +18,25 @@ class Dosen extends Model
                     ->firstWhere('users.id', $id);
     }
 
+    static function firstDosenByNidn($nidn)
+    {
+        return Dosen::firstWhere('nidn', $nidn);
+    }
+
     static function getDosenNIDNNama()
     {
         return Dosen::select('dosen.id', 'dosen.nidn', 'dosen.nama', 'users.profile_photo_path')
                     ->join('users', 'users.nidn', 'dosen.nidn')
+                    ->get();
+    }
+
+    static function getDosenReviewer()
+    {
+        return Dosen::select('dosen.id', 'dosen.nidn', 'dosen.nama', 'roles.name as role')
+                    ->join('users', 'users.nidn', 'dosen.nidn')
+                    ->join('list_roles', 'list_roles.user_id', 'users.id')
+                    ->join('roles', 'roles.id', 'list_roles.role_id')
+                    ->where('roles.name', 'reviewer')
                     ->get();
     }
     

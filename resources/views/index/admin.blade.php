@@ -405,7 +405,7 @@
                     enabled: true
                 },
                 grid: {
-                    show: false,
+                    show: true,
                     padding: {
                         left: 0,
                         right: 0
@@ -430,24 +430,20 @@
                 }
             },
             series: [{
-                name: [
-                    @foreach($tahun_penelitian as $tp)
-                        '{{ $tp->tahun_pelaksanaan }}',
-                    @endforeach
-                ],
+                name: 'Penelitian',
                 data: [
                     @foreach($tahun_penelitian as $tp)
-                        '{{ $tp->jumlah }}',
+                        [{{ $tp->tahun_pelaksanaan }},{{ $tp->jumlah }}],
                     @endforeach
                 ]
             }],
 
             xaxis: {
                 labels: {
-                show: false,
+                    show: false,
                 },
                 axisBorder: {
-                show: false,
+                    show: true,
                 }
             },
             yaxis: [{
@@ -457,7 +453,7 @@
                 padding: { left: 0, right: 0 },
             }],
             tooltip: {
-                x: { show: false }
+                x: { show: true }
             },
         }
 
@@ -510,7 +506,7 @@
                 name: 'Pengabdian',
                 data: [
                     @foreach($tahun_pengabdian as $tp)
-                        '{{ $tp->jumlah }}',
+                        [{{ $tp->tahun_pelaksanaan }},{{ $tp->jumlah }}],
                     @endforeach
                 ]
             }],
@@ -530,7 +526,7 @@
                 padding: { left: 0, right: 0 },
             }],
             tooltip: {
-                x: { show: false }
+                x: { show: true }
             },
         }
 

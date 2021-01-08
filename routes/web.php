@@ -64,8 +64,10 @@ Route::namespace('Admin')->name('admin.')->prefix('admin')->middleware('auth', '
         Route::resource('skema', 'SkemaController');
         Route::resource('user', 'UserController');
     });
-    Route::namespace('Review')->name('review.')->prefix('review')->group(function() {
-        Route::view('pembagian-reviewer', 'review.pembagian-reviewer')->name('pembagian-reviewer');
+    Route::name('review.')->prefix('review')->group(function() {
+        Route::get('pembagian-reviewer', 'ReviewController@pembagian')->name('pembagian-reviewer');
+        Route::patch('store/{id}', 'ReviewController@storeReviewer')->name('store');
+        Route::get('random/{id}', 'ReviewController@randomReviewer')->name('random-reviewer');
         Route::view('penilaian', 'review.penilaian')->name('penilaian');
     });
     Route::view('pimpinan', 'master.pimpinan')->name('pimpinan');

@@ -106,6 +106,15 @@ class User extends Authenticatable
         return $data;
     }
 
+    static function firstUserReviewer()
+    {
+        return User::select('users.id', 'users.nidn')
+                    ->join('list_roles', 'users.id', 'list_roles.user_id')
+                    ->where('list_roles.role_id', 6)
+                    ->inRandomOrder()
+                    ->first();
+    }
+
     static function getUser()
     {
         $user = User::all();
