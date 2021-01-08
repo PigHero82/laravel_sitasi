@@ -22,6 +22,25 @@ class Usulan extends Model
                         ->count();
     }
 
+    static function countReviewedUsulan($reviewer)
+    {
+        return Usulan::selectRaw('count(id) as reviewed')
+                        ->where('reviewer', $reviewer)
+                        ->where('nilai', '>', 0)
+                        ->pluck('reviewed')
+                        ->first();
+    }
+
+    static function countUnreviewedUsulan($reviewer)
+    {
+        return Usulan::selectRaw('count(id) as unreviewed')
+                        ->where('reviewer', $reviewer)
+                        ->where('nilai', 0)
+                        ->orWhereNull('nilai')
+                        ->pluck('unreviewed')
+                        ->first();
+    }
+
     static function firstUsulan($id)
     {
         $usulan = Usulan::select('id', 'skema_usulan_id')
@@ -287,6 +306,62 @@ class Usulan extends Model
                         ->get();
     }
 
+    static function getUsulanByReviewer($reviewer, $jenis)
+    {
+        $usulan = Usulan::select('id', 'skema_usulan_id', 'reviewer')
+                        ->where('reviewer', $reviewer)
+                        ->where('jenis', $jenis)
+                        ->orderByDesc('created_at')
+                        ->get();
+
+        if ($usulan->isNotEmpty()) {
+            foreach ($usulan as $key => $value) {
+                $data[$key] = Usulan::findOrFail($value->id);
+                $data[$key]['anggota'] = UsulanAnggota::getAnggota($value->id);
+                $data[$key]['belanja'] = UsulanBelanja::getBelanja($value->id);
+                $data[$key]['kegiatan'] = UsulanKegiatan::getKegiatan($value->id);
+                $data[$key]['luaran'] = UsulanLuaran::firstLuaran($value->id);
+                $data[$key]['mitra'] = UsulanMitra::firstMitra($value->id);
+                $data[$key]['rab'] = UsulanRab::getRab($value->id);
+                $data[$key]['reviewer'] = ($value->reviewer != NULL) ? Dosen::firstDosenByNidn($value->reviewer) : NULL ;
+                $data[$key]['skema_usulan'] = SkemaUsulan::firstSkema($value->skema_usulan_id);
+            }
+
+            return $data;
+        }
+
+        return $usulan;
+    }
+
+    static function getUsulanByReviewerLimited($reviewer, $jenis, $count)
+    {
+        $usulan = Usulan::select('id', 'skema_usulan_id', 'reviewer')
+                        ->where('reviewer', $reviewer)
+                        ->where('jenis', $jenis)
+                        ->where('nilai', 0)
+                        ->orWhereNull('nilai')
+                        ->orderByDesc('created_at')
+                        ->paginate($count);
+
+        if ($usulan->isNotEmpty()) {
+            foreach ($usulan as $key => $value) {
+                $data[$key] = Usulan::findOrFail($value->id);
+                $data[$key]['anggota'] = UsulanAnggota::getAnggota($value->id);
+                $data[$key]['belanja'] = UsulanBelanja::getBelanja($value->id);
+                $data[$key]['kegiatan'] = UsulanKegiatan::getKegiatan($value->id);
+                $data[$key]['luaran'] = UsulanLuaran::firstLuaran($value->id);
+                $data[$key]['mitra'] = UsulanMitra::firstMitra($value->id);
+                $data[$key]['rab'] = UsulanRab::getRab($value->id);
+                $data[$key]['reviewer'] = ($value->reviewer != NULL) ? Dosen::firstDosenByNidn($value->reviewer) : NULL ;
+                $data[$key]['skema_usulan'] = SkemaUsulan::firstSkema($value->skema_usulan_id);
+            }
+
+            return $data;
+        }
+
+        return $usulan;
+    }
+
     static function storeUsulan($request)
     {
         $request->validate([
@@ -301,6 +376,14 @@ class Usulan extends Model
             'dosen_id'          => Auth::user()->id,
             'skema_usulan_id'   => $request->skema_usulan_id,
             'jenis'             => $request->jenis
+        ]);
+    }
+
+    static function updateNilai($request, $id)
+    {
+        Usulan::whereId($id)->update([
+            'nilai'     => $request->nilai,
+            'komentar'  => $request->komentar
         ]);
     }
 

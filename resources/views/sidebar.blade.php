@@ -44,7 +44,7 @@
         
         @elseif (request()->is('reviewer*'))
             <li class="{{ (request()->is('reviewer')) ? 'active' : '' }} nav-item"><a href="{{ route('reviewer.index') }}"><i class="feather icon-home"></i><span class="menu-title">Dashboard</span></a></li>
-            <li class="{{ (request()->is('reviewer/review*')) ? 'active' : '' }} nav-item"><a href="{{ route('reviewer.review') }}"><i class="feather icon-book"></i><span class="menu-title">Review</span></a></li>
+            <li class="{{ (request()->is('reviewer/review*')) ? 'active' : '' }} nav-item"><a href="{{ route('reviewer.review.index') }}"><i class="feather icon-book"></i><span class="menu-title">Review</span></a></li>
         @endif
     </ul>
 </div>

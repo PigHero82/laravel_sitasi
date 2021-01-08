@@ -134,7 +134,10 @@ Route::namespace('Pengabdian')->name('pengabdian.')->prefix('pengabdian')->middl
     Route::view('', 'index.pengabdian')->name('index');
 });
 
-Route::name('reviewer.')->prefix('reviewer')->middleware('auth', 'role:reviewer')->group(function() {
-    Route::view('', 'index.reviewer')->name('index');
-    Route::view('review', 'review')->name('review');
+Route::namespace('Reviewer')->name('reviewer.')->prefix('reviewer')->middleware('auth', 'role:reviewer')->group(function() {
+    Route::get('', 'HomeController@index')->name('index');
+    Route::name('review.')->prefix('review')->group(function() {
+        Route::get('', 'HomeController@review')->name('index');
+        Route::patch('{id}', 'HomeController@storeNilai')->name('store');
+    });
 });

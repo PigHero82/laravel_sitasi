@@ -255,7 +255,7 @@
                             </dl>
 
                             <div class="modal-footer justify-content-between">
-                                <button type="button" class="btn btn-success" data-dismiss="modal">Pilih Acak</button>
+                                {{-- <button type="button" class="btn btn-success" data-dismiss="modal">Pilih Acak</button> --}}
                                 <button type="submit" class="btn btn-primary">Ubah</button>
                             </div>
                         </form>
