@@ -68,7 +68,11 @@ Route::namespace('Admin')->name('admin.')->prefix('admin')->middleware('auth', '
         Route::get('pembagian-reviewer', 'ReviewController@pembagian')->name('pembagian-reviewer');
         Route::patch('store/{id}', 'ReviewController@storeReviewer')->name('store');
         Route::get('random/{id}', 'ReviewController@randomReviewer')->name('random-reviewer');
-        Route::view('penilaian', 'review.penilaian')->name('penilaian');
+        Route::name('penilaian.')->prefix('penilaian')->group(function() {
+            // Route::view('penilaian', 'review.penilaian')->name('penilaian');
+            Route::get('', 'PenilaianController@index')->name('index');
+            Route::patch('{id}', 'PenilaianController@update')->name('update');
+        });
     });
     Route::view('pimpinan', 'master.pimpinan')->name('pimpinan');
     Route::name('skema.')->prefix('skema')->group(function() {

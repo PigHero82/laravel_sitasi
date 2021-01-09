@@ -4,6 +4,10 @@
     Usulan | {{ $usulan->tahun_skema }} - {{ $usulan->kode }}
 @endsection
 
+@section('css')
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/forms/select/select2.min.css') }}">
+@endsection
+
 @section('content')
     @if ($message = Session::get('success'))
         <div class="alert alert-success alert-block">
@@ -64,8 +68,7 @@
                             <th>Program Studi</th>
                             <th>Jabatan Fungsional</th>
                             <th>Peran Personil</th>
-                            <th>Alokasi Waktu<br><span class="text-secondary">(jam/minggu)</span></th>
-                            <th>Konfirmasi Status</th>
+                            <th>Status Konfirmasi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -76,7 +79,6 @@
                                 <td>{{ $item->prodi_nama }}</td>
                                 <td>{{ $item->jabatan_nama }}</td>
                                 <td>{{ $item->peran_nama }}</td>
-                                <td>{{ $item->waktu }} jam/minggu</td>
                                 @if ($item->status == 1)
                                     <td class="badge badge-pill badge-warning mt-1"><i class="feather icon-clock"></i> {{ $item->status_nama }}</td>
                                 @elseif ($item->status == 2)
@@ -108,7 +110,7 @@
     <!-- /.card -->
 
     <!-- Modal -->
-    <div class="modal fade text-left" id="inlineForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
+    <div class="modal fade text-left" id="inlineForm" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -122,7 +124,7 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label>Dosen</label>
-                            <select name="dosen_id" class="form-control select2" required>
+                            <select name="dosen_id" class="select2 form-control" required>
                                 <option value="" hidden>-- Pilih dosen</option>
                                 @foreach ($dosen as $item)
                                     @if ($item->nidn != Auth::user()->nidn)
@@ -141,11 +143,6 @@
                                 @endforeach
                             </select>
                         </div>
-                        
-                        <div class="form-group">
-                            <label for="firstName1">Alokasi Waktu <span class="text-secondary">(jam/minggu)</span></label>
-                            <input type="number" class="form-control" name="waktu" required>
-                        </div>
                     </div>
                     <div class="modal-footer">
                         <input type="hidden" name="usulan_id" value="{{ $usulan->id }}">
@@ -160,15 +157,15 @@
 
 @section('js')
     <!-- BEGIN: Vendor JS-->
-    <script src="../../../app-assets/vendors/js/vendors.min.js"></script>
+    <script src="{{ asset('app-assets/vendors/js/vendors.min.js') }}"></script>
     <!-- BEGIN Vendor JS-->
 
     <!-- BEGIN: Page Vendor JS-->
-    <script src="../../../app-assets/vendors/js/forms/select/select2.full.min.js"></script>
+    <script src="{{ asset('app-assets/vendors/js/forms/select/select2.full.min.js') }}"></script>
     <!-- END: Page Vendor JS-->
 
     <!-- BEGIN: Page JS-->
-    <script src="../../../app-assets/js/scripts/forms/select/form-select2.js"></script>
+    <script src="{{ asset('app-assets/js/scripts/forms/select/form-select2.js') }}"></script>
     <!-- END: Page JS-->
 
     <script>

@@ -133,6 +133,35 @@ class Usulan extends Model
         return $usulan;
     }
 
+    static function getUsulanPenilaian($jenis)
+    {
+        $usulan = Usulan::select('id', 'skema_usulan_id', 'reviewer')
+                        ->where('jenis', $jenis)
+                        ->where('step', '>', 8)
+                        ->where('nilai', '>', 0)
+                        ->orderBy('step')
+                        ->orderByDesc('created_at')
+                        ->get();
+
+        if ($usulan->isNotEmpty()) {
+            foreach ($usulan as $key => $value) {
+                $data[$key] = Usulan::findOrFail($value->id);
+                $data[$key]['anggota'] = UsulanAnggota::getAnggota($value->id);
+                $data[$key]['belanja'] = UsulanBelanja::getBelanja($value->id);
+                $data[$key]['kegiatan'] = UsulanKegiatan::getKegiatan($value->id);
+                $data[$key]['luaran'] = UsulanLuaran::firstLuaran($value->id);
+                $data[$key]['mitra'] = UsulanMitra::firstMitra($value->id);
+                $data[$key]['rab'] = UsulanRab::getRab($value->id);
+                $data[$key]['reviewer'] = ($value->reviewer != NULL) ? Dosen::firstDosenByNidn($value->reviewer) : NULL ;
+                $data[$key]['skema_usulan'] = SkemaUsulan::firstSkema($value->skema_usulan_id);
+            }
+
+            return $data;
+        }
+
+        return $usulan;
+    }
+
     static function getUsulanPenelitian()
     {
         $data = [];
@@ -362,7 +391,12 @@ class Usulan extends Model
         return $usulan;
     }
 
-    static function storeUsulan($request, $skema_usulan_id)
+    static function persetujuanUsulan($status, $id)
+    {
+        Usulan::whereId($id)->update(['step' => $status]);
+    }
+
+    static function storeUsulan($request)
     {
         $request->validate([
             'skema_usulan_id'   => 'numeric|required',

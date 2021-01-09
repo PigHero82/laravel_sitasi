@@ -36,7 +36,8 @@
                             <tr>
                                 <th style="width: 30px"></th>
                                 <th>NIDN</th>
-                                <th>Name</th>
+                                <th>Nama</th>
+                                <th>Jabatan</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -53,6 +54,7 @@
                                     </td>
                                     <td><a href="#inlineForm" data-toggle="modal" data-value="{{ $item->id }}">{{ $item->nidn }}</a></td>
                                     <td>{{ $item->nama }}</td>
+                                    <td>{{ $item->jabatan }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
