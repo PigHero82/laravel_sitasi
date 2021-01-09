@@ -88,13 +88,18 @@ class UsulanController extends Controller
      */
     public function store(Request $request)
     {
-        $skema_usulan_id = explode("/",$request->skema_usulan_id)[0];
+        $request->validate([
+            'skema_usulan_id'   => 'required',
+            'jenis'             => 'numeric|required'
+        ]);
 
-        Usulan::storeUsulan($request, $skema_usulan_id);
+        $skemaUsulanId = explode("/",$request->skema_usulan_id)[0];
+
+        Usulan::storeUsulan($request, $skemaUsulanId);
    
         return redirect()->route('dosen.usulan.create')
                             ->withCookie(cookie('jenis', $request->jenis, 1000))
-                            ->withCookie(cookie('skema_usulan_id', $skema_usulan_id, 1000))
+                            ->withCookie(cookie('skema_usulan_id', $skemaUsulanId, 1000))
                             ->withCookie(cookie('page', $request->step, 1000));
     }
 
@@ -258,6 +263,18 @@ class UsulanController extends Controller
     {
         UsulanMitra::storeMitra($request);
         return redirect()->back()->with('success', 'Mitra berhasil ditambahkan');
+    }
+
+    public function proposal(Request $request, $id)
+    {
+        $request->validate([
+            'usulan_id'     => 'numeric|required',
+            'surat_path'    => 'max:5000|mimes:pdf|required'
+        ]);
+
+        UsulanBerkas::storeBerkas($request, 1);
+
+        return back()->with('success', 'Proposal berhasil diunggah');
     }
 
     public function rabStore(Request $request)

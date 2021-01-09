@@ -103,7 +103,7 @@ Route::namespace('Dosen')->name('dosen.')->prefix('dosen')->middleware('auth', '
         Route::view('create', 'prosiding.create')->name('create');
     });
     Route::namespace('Buku')->name('buku.')->prefix('buku')->group(function() {
-        Route::view('', 'buku.index')->name('index');
+        Route::view('', 'buku.index ')->name('index');
         Route::view('create', 'buku.create')->name('create');
     });
     Route::name('usulan.')->prefix('usulan')->group(function() {
@@ -122,6 +122,7 @@ Route::namespace('Dosen')->name('dosen.')->prefix('dosen')->middleware('auth', '
             Route::post('', 'UsulanController@mitraStore')->name('store');
             Route::get('{id}', 'UsulanController@mitraShow')->name('show');
         });
+        Route::patch('proposal/{id}', 'UsulanController@proposal')->name('proposal');
         Route::get('riwayat', 'UsulanController@riwayat')->name('riwayat');
         Route::name('rab.')->prefix('rab')->group(function() {
             Route::delete('{id}', 'UsulanController@rabDestroy')->name('destroy');

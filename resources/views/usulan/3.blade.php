@@ -39,19 +39,30 @@
             <p>Unggah file berdasarkan template dibawah</p>
             <button type="button" class="btn btn-success">Unduh Template</button>
             <hr>
-            <form action="#">
+            <form action="{{ route('dosen.usulan.proposal', $usulan->id) }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                @method('PATCH')
                 <div class="form-group row mt-2">
                     <div class="col-md-2 text-md-right">
                         <span>Unggah File :</span>
                     </div>
-                    <div class="col-md-7">
-                        <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="inputGroupFile01">
-                            <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                    <div class="col-md-9">
+                        @if (count($usulan->berkas))
+                            <iframe src="{{ asset($usulan->berkas[0]->berkas) }}" width="100%" height="500px">
+                            </iframe>
+                        @endif
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="custom-file">
+                                    <input type="hidden" name="usulan_id" value="{{ $usulan->id }}" required>
+                                    <input type="file" class="custom-file-input" id="inputGroupFile01" name="surat_path" required>
+                                    <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <button type="submit" class="btn btn-block btn-primary">Unggah</button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-2">
-                        <button type="submit" class="btn btn-block btn-primary">Unggah</button>
                     </div>
                 </div>
             </form>

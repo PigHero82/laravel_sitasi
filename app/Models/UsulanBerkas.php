@@ -28,7 +28,9 @@ class UsulanBerkas extends Model
     {
         $jenis = JenisBerkas::firstBerkas($jenisBerkasId);
 
-        UsulanBerkas::create([
+        UsulanBerkas::updateOrCreate([
+            'berkas'            => $request->file('surat_path')->storeAs('berkas/' . $request->usulan_id, (Str::of($jenis->nama)->replace(' ', '-') . "." . $request->file('surat_path')->getClientOriginalExtension()))
+        ], [
             'usulan_id'         => $request->usulan_id,
             'jenis_berkas_id'   => $jenisBerkasId,
             'berkas'            => $request->file('surat_path')->storeAs('berkas/' . $request->usulan_id, (Str::of($jenis->nama)->replace(' ', '-') . "." . $request->file('surat_path')->getClientOriginalExtension()))
@@ -39,7 +41,9 @@ class UsulanBerkas extends Model
     {
         $jenis = JenisBerkas::firstBerkas($jenisBerkasId);
 
-        UsulanBerkas::create([
+        UsulanBerkas::updateOrCreate([
+            'berkas'            => $request->file('surat_path')->storeAs('berkas/' . $request->usulan_id . '/' . $mitraId, (Str::of($jenis->nama)->replace(' ', '-') . "." . $request->file('surat_path')->getClientOriginalExtension()))
+        ], [
             'usulan_id'         => $request->usulan_id,
             'jenis_berkas_id'   => $jenisBerkasId,
             'berkas'            => $request->file('surat_path')->storeAs('berkas/' . $request->usulan_id . '/' . $mitraId, (Str::of($jenis->nama)->replace(' ', '-') . "." . $request->file('surat_path')->getClientOriginalExtension()))

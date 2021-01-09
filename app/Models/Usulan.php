@@ -80,6 +80,7 @@ class Usulan extends Model
                         ->first();
         $data['anggota'] = UsulanAnggota::getAnggota($data->id);
         $data['belanja'] = UsulanBelanja::getBelanja($data->id);
+        $data['berkas'] = UsulanBerkas::getBerkas($data->id);
         $data['kegiatan'] = UsulanKegiatan::getKegiatan($data->id);
         $data['luaran'] = UsulanLuaran::firstLuaran($data->id);
         $data['mitra'] = UsulanMitra::firstMitra($data->id);
@@ -396,19 +397,14 @@ class Usulan extends Model
         Usulan::whereId($id)->update(['step' => $status]);
     }
 
-    static function storeUsulan($request)
+    static function storeUsulan($request, $skemaUsulanId)
     {
-        $request->validate([
-            'skema_usulan_id'   => 'numeric|required',
-            'jenis'             => 'numeric|required'
-        ]);
-
         Usulan::updateOrCreate([
             'dosen_id'          => Auth::user()->id,
-            'skema_usulan_id'   => $skema_usulan_id
+            'skema_usulan_id'   => $skemaUsulanId
         ], [
             'dosen_id'          => Auth::user()->id,
-            'skema_usulan_id'   => $skema_usulan_id,
+            'skema_usulan_id'   => $skemaUsulanId,
             'jenis'             => $request->jenis
         ]);
     }
