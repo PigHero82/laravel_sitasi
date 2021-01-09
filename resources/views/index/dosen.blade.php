@@ -36,11 +36,14 @@
     <div class="row">
         <div class="col-md-6 order-2 order-lg-1">
             <!-- general form elements -->
-            {!! count($skema) !!}
             @if(count($skema))
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Usulan yang Dapat Diajukan</h3>
+        
+                        <div class="card-tools">
+                          <a href="{{ route('dosen.usulan.index') }}" class="btn btn-success">Ubah Profil</a>
+                        </div>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
