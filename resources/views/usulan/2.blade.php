@@ -4,6 +4,10 @@
     Usulan | {{ $usulan->tahun_skema }} - {{ $usulan->kode }}
 @endsection
 
+@section('css')
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/forms/select/select2.min.css') }}">
+@endsection
+
 @section('content')
     @if ($message = Session::get('success'))
         <div class="alert alert-success alert-block">
@@ -108,7 +112,7 @@
     <!-- /.card -->
 
     <!-- Modal -->
-    <div class="modal fade text-left" id="inlineForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
+    <div class="modal fade text-left" id="inlineForm" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -122,7 +126,7 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label>Dosen</label>
-                            <select name="dosen_id" class="form-control select2" required>
+                            <select name="dosen_id" class="select2 form-control" required>
                                 <option value="" hidden>-- Pilih dosen</option>
                                 @foreach ($dosen as $item)
                                     @if ($item->nidn != Auth::user()->nidn)
@@ -160,15 +164,15 @@
 
 @section('js')
     <!-- BEGIN: Vendor JS-->
-    <script src="../../../app-assets/vendors/js/vendors.min.js"></script>
+    <script src="{{ asset('app-assets/vendors/js/vendors.min.js') }}"></script>
     <!-- BEGIN Vendor JS-->
 
     <!-- BEGIN: Page Vendor JS-->
-    <script src="../../../app-assets/vendors/js/forms/select/select2.full.min.js"></script>
+    <script src="{{ asset('app-assets/vendors/js/forms/select/select2.full.min.js') }}"></script>
     <!-- END: Page Vendor JS-->
 
     <!-- BEGIN: Page JS-->
-    <script src="../../../app-assets/js/scripts/forms/select/form-select2.js"></script>
+    <script src="{{ asset('app-assets/js/scripts/forms/select/form-select2.js') }}"></script>
     <!-- END: Page JS-->
 
     <script>
