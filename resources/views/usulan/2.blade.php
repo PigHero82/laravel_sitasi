@@ -68,8 +68,7 @@
                             <th>Program Studi</th>
                             <th>Jabatan Fungsional</th>
                             <th>Peran Personil</th>
-                            <th>Alokasi Waktu<br><span class="text-secondary">(jam/minggu)</span></th>
-                            <th>Konfirmasi Status</th>
+                            <th>Status Konfirmasi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -80,7 +79,6 @@
                                 <td>{{ $item->prodi_nama }}</td>
                                 <td>{{ $item->jabatan_nama }}</td>
                                 <td>{{ $item->peran_nama }}</td>
-                                <td>{{ $item->waktu }} jam/minggu</td>
                                 @if ($item->status == 1)
                                     <td class="badge badge-pill badge-warning mt-1"><i class="feather icon-clock"></i> {{ $item->status_nama }}</td>
                                 @elseif ($item->status == 2)
