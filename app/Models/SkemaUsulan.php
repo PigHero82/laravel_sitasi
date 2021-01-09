@@ -36,7 +36,7 @@ class SkemaUsulan extends Model
                             ->join('skema', 'skema_usulan.skema_id', 'skema.id')
                             ->where('skema_usulan.jabatan_minimal', '<=', $dosen->jabatan_id)
                             ->where('skema_usulan.jabatan_maksimal', '>=', $dosen->jabatan_id)
-                            ->whereDate('skema_usulan.tanggal_review', '>', Carbon::now())
+                            ->whereDate('skema_usulan.tanggal_review', '>=', Carbon::now())
                             ->get();
     }
 
