@@ -55,6 +55,7 @@
                                 <th></th>
                                 <th>NIDN</th>
                                 <th>Nama</th>
+                                <th>Jabatan</th>
                                 <th>Role</th>
                                 <th>Aksi</th>
                             </tr>
@@ -78,6 +79,7 @@
                                     </td>
                                     <td><a href="#inlineForm" data-toggle="modal" data-value="{{ $item->id }}">{{ $item->nidn }}</a></td>
                                     <td>{{ $item->nama }}</td>
+                                    <td>{{ $item->jabatan }}</td>
                                     <td>
                                         @if(count($item['roles']) > 0)
                                             <ul>

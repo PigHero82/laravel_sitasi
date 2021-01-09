@@ -120,8 +120,9 @@ class User extends Authenticatable
         $user = User::all();
         if ($user->isNotEmpty()) {
             foreach ($user as $key => $value) {
-                $data[$key] = User::select('users.id', 'users.nidn', 'users.profile_photo_path', 'dosen.nama')
+                $data[$key] = User::select('users.id', 'users.nidn', 'users.profile_photo_path', 'dosen.nama', 'jabatan.nama as jabatan')
                                     ->join('dosen', 'users.nidn', 'dosen.nidn')
+                                    ->join('jabatan', 'jabatan.id', 'dosen.jabatan_id')
                                     ->findOrFail($value->id);
                 $data[$key]['roles'] = ListRole::where('user_id', $value->id)
                                                 ->select('roles.id', 'roles.description')
