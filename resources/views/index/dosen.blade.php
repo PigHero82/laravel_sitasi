@@ -32,6 +32,7 @@
     <div class="row">
         <div class="col-md-6 order-2 order-lg-1">
             <!-- general form elements -->
+            {!! count($skema) !!}
             @if(count($skema))
                 <div class="card">
                     <div class="card-header">
