@@ -42,7 +42,7 @@
                         <h3 class="card-title">Usulan yang Dapat Diajukan</h3>
         
                         <div class="card-tools">
-                          <a href="{{ route('dosen.usulan.index') }}" class="btn btn-success">Ubah Profil</a>
+                          <a href="{{ route('dosen.usulan.index') }}" class="btn btn-success">Ajukan Usulan</a>
                         </div>
                     </div>
                     <!-- /.card-header -->
