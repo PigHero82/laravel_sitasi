@@ -362,7 +362,7 @@ class Usulan extends Model
         return $usulan;
     }
 
-    static function storeUsulan($request)
+    static function storeUsulan($request, $skema_usulan_id)
     {
         $request->validate([
             'skema_usulan_id'   => 'numeric|required',
@@ -371,10 +371,10 @@ class Usulan extends Model
 
         Usulan::updateOrCreate([
             'dosen_id'          => Auth::user()->id,
-            'skema_usulan_id'   => $request->skema_usulan_id
+            'skema_usulan_id'   => $skema_usulan_id
         ], [
             'dosen_id'          => Auth::user()->id,
-            'skema_usulan_id'   => $request->skema_usulan_id,
+            'skema_usulan_id'   => $skema_usulan_id,
             'jenis'             => $request->jenis
         ]);
     }

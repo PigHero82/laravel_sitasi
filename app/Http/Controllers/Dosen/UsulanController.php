@@ -88,11 +88,13 @@ class UsulanController extends Controller
      */
     public function store(Request $request)
     {
-        Usulan::storeUsulan($request);
+        $skema_usulan_id = explode("/",$request->skema_usulan_id)[0];
+
+        Usulan::storeUsulan($request, $skema_usulan_id);
    
         return redirect()->route('dosen.usulan.create')
                             ->withCookie(cookie('jenis', $request->jenis, 1000))
-                            ->withCookie(cookie('skema_usulan_id', $request->skema_usulan_id, 1000))
+                            ->withCookie(cookie('skema_usulan_id', $skema_usulan_id, 1000))
                             ->withCookie(cookie('page', $request->step, 1000));
     }
 

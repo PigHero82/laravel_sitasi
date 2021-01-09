@@ -43,11 +43,11 @@
                             <h5>Rencana Waktu</h3><hr>
                             <div class="form-group">
                                 <label for="tahun-usulan">Tahun Usulan</label>
-                                <select name="skema_usulan_id" class="form-control">
+                                <select name="skema_usulan_id" class="form-control select" data-value="1">
                                     <option value="" hidden>--Pilih skema</option>
                                     @foreach ($skema as $item)
                                         @if ($item->jenis == 1)
-                                            <option value="{{ $item->id }}">{{ $item->tahun_skema }} - {{ $item->kode }}</option>
+                                            <option value="{{ $item->id }}/{{ $item->tahun_skema }}">{{ $item->tahun_skema }} - {{ $item->kode }}</option>
                                         @endif
                                     @endforeach
                                 </select>
@@ -56,7 +56,7 @@
                                 <label for="tahun-usulan">Tahun Pelaksanaan</label>
                                 <input type="hidden" name="jenis" value="1">
                                 <input type="hidden" name="step" value="1">
-                                <input type="text" name="tahun_pelaksanaan" class="form-control" value="2020" readonly>
+                                <input type="text" id="tahun-1" name="tahun_pelaksanaan" class="form-control" readonly>
                             </div>
                             <button type="submit" class="btn btn-primary btn-block mb-3">Daftar</button>
                         </form>
@@ -139,11 +139,11 @@
                         <h5>Rencana Waktu</h3><hr>
                         <div class="form-group">
                             <label for="tahun-usulan">Tahun Usulan</label>
-                            <select name="skema_usulan_id" class="form-control">
+                            <select name="skema_usulan_id" class="form-control select" data-value="2">
                                 <option value="" hidden>--Pilih skema</option>
                                 @foreach ($skema as $item)
                                     @if ($item->jenis == 2)
-                                        <option value="{{ $item->id }}">{{ $item->tahun_skema }} - {{ $item->kode }}</option>
+                                        <option value="{{ $item->id }}/{{ $item->tahun_skema }}">{{ $item->tahun_skema }} - {{ $item->kode }}</option>
                                     @endif
                                 @endforeach
                             </select>
@@ -152,7 +152,7 @@
                             <label for="tahun-usulan">Tahun Pelaksanaan</label>
                             <input type="hidden" name="jenis" value="2">
                             <input type="hidden" name="step" value="1">
-                            <input type="text" name="tahun_pelaksanaan" class="form-control" value="2020" readonly>
+                            <input type="text" id="tahun-2" name="tahun_pelaksanaan" class="form-control" readonly>
                         </div>
                         {{-- <a href="{{ route('dosen.usulan.1') }}"> --}}
                             <button type="button" class="btn btn-primary btn-block mb-3">Daftar</button>
@@ -227,5 +227,18 @@
         </div>
     </div>
     <!-- general form elements -->
+@endsection
 
+@section('js')
+    <script>
+        $(document).ready( function () {
+            $('.select').on('change', function() {
+                var tahun = $(this).val();
+                var data = tahun.split("/");
+                var id = $(this).attr('data-value');
+
+                $('#tahun-' + id).val(data[1]);
+            })
+        });
+    </script>
 @endsection
