@@ -58,7 +58,7 @@
               </div>
 
               <div class="card-tools mr-3">
-                  <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#modal-create-penelitian">
+                  <button type="button" class="btn btn-outline-success" id="tambahPenelitian" data-toggle="modal" data-target="#tambahModal">
                       <i class="fas fa-plus"></i> Tambah
                   </button>
               </div>
@@ -111,7 +111,7 @@
               </div>
 
               <div class="card-tools mr-3">
-                  <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#modal-create-pengabdian">
+                  <button type="button" class="btn btn-outline-success" id="tambahPengabdian" data-toggle="modal" data-target="#tambahModal">
                       <i class="fas fa-plus"></i> Tambah
                   </button>
               </div>
@@ -155,12 +155,12 @@
       </div>
       <!-- /.row -->
 
-        <!-- modal create penelitian -->
-        <div class="modal fade text-left" id="modal-create-penelitian" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
+        <!-- modal create -->
+        <div class="modal fade text-left" id="tambahModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title" id="myModalLabel33">Tambah Skema Penelitian</h4>
+                        <h4 class="modal-title" id="tambahLabel">Tambah Skema</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -172,7 +172,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Nama Skema</label>
-                                        <input type="number" name="jenis" value="1" hidden>
+                                        <input type="number" name="jenis" id="tambahJenis" hidden>
                                         <select class="form-control" name="skema_id" required>
                                             <option value="" hidden>--Pilih skema</option>
                                             @foreach ($skema as $item)
@@ -186,9 +186,9 @@
     
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Jumlah Peneliti</label>
+                                        <label id="tambahJumlahPeneliti">Jumlah Peneliti</label>
                                         <select class="form-control" name="jumlah" required>
-                                            <option value="" hidden>--Pilih jumlah peneliti</option>
+                                            <option value="" hidden>--Pilih jumlah</option>
                                             <option value="1">1</option>
                                             <option value="2">2</option>
                                             <option value="3">3</option>
@@ -214,7 +214,7 @@
     
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="tahun_penelitian">Tahun Penelitian</label>
+                                        <label for="tahun_penelitian" id="tambahTahunPenelitian">Tahun Penelitian</label>
                                         <select class="form-control" name="tahun_pelaksanaan" required>
                                             <option value="" hidden>--Pilih tahun penelitian</option>
                                             <option value="{{ Carbon\Carbon::now()->format('Y') }}">{{ Carbon\Carbon::now()->format('Y') }}</option>
@@ -729,6 +729,20 @@
 @section('js')
     <script>
         $(document).ready( function () {
+            $(document).on('click', '#tambahPenelitian', function(e) {
+                $('#tambahJenis').attr('value', 1);
+                $('#tambahLabel').text('Tambah Skema Penelitian');
+                $('#tambahJumlahPeneliti').text('Jumlah Peneliti');
+                $('#tambahTahunPenelitian').text('Tahun Penelitian');
+            });
+            
+            $(document).on('click', '#tambahPengabdian', function(e) {
+                $('#tambahJenis').attr('value', 2);
+                $('#tambahLabel').text('Tambah Skema Pengabdian');
+                $('#tambahJumlahPeneliti').text('Jumlah Pengabdi');
+                $('#tambahTahunPenelitian').text('Tahun Pengabdian');
+            });
+
             $(document).on('click', '#myTable tbody tr td a', function(e) {
                 var id = $(this).attr('data-value');
                 $.get( "/admin/skema/" + id, function( data ) {
