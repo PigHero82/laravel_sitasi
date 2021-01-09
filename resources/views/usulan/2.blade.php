@@ -143,11 +143,6 @@
                                 @endforeach
                             </select>
                         </div>
-                        
-                        <div class="form-group">
-                            <label for="firstName1">Alokasi Waktu <span class="text-secondary">(jam/minggu)</span></label>
-                            <input type="number" class="form-control" name="waktu" required>
-                        </div>
                     </div>
                     <div class="modal-footer">
                         <input type="hidden" name="usulan_id" value="{{ $usulan->id }}">
