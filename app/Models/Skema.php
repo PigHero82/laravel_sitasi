@@ -22,6 +22,11 @@ class Skema extends Model
         return Skema::all();
     }
 
+    static function getSkemaJenis($id)
+    {
+        return Skema::where('jenis', $id)->get();
+    }
+
     static function firstSkema($id)
     {
         return Skema::findOrFail($id);
