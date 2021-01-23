@@ -28,14 +28,16 @@ View::composer(['*'], function ($view) {
 });
 
 Route::get('', 'HomeController@index');
-// Route::get('kabkota/{id}', 'HomeController@kabkota')->name('kabkota');
-// Route::get('kecamatan/{id}', 'HomeController@kecamatan')->name('kecamatan');
-Route::post('role/{id}', 'HomeController@update')->name('role.update');
-Route::view('profil', 'profil')->name('profil');
 Route::view('author', 'front.author')->name('author');
 Route::get('pengumuman/{id}', 'HomeController@pengumuman')->name('pengumuman');
+Route::view('profil', 'profil')->name('profil');
+Route::post('role/{id}', 'HomeController@update')->name('role.update');
+Route::get('skema/{id}', 'Admin\SkemaUsulanController@usulan');
+Route::get('skema-usulan/{id}', 'Admin\SkemaUsulanController@skema');
 Route::get('usulan/{id}', 'HomeController@usulan');
 
+// Route::get('kabkota/{id}', 'HomeController@kabkota')->name('kabkota');
+// Route::get('kecamatan/{id}', 'HomeController@kecamatan')->name('kecamatan');
 // Route::group(['prefix' => 'migration'], function () {
 //     Route::group(['prefix' => 'dosen'], function () {
 //         Route::get('', 'MigrationController@dosen');    
@@ -76,7 +78,8 @@ Route::namespace('Admin')->name('admin.')->prefix('admin')->middleware('auth', '
     });
     Route::view('pimpinan', 'master.pimpinan')->name('pimpinan');
     Route::name('skema.')->prefix('skema')->group(function() {
-        Route::resource('', 'SkemaUsulanController')->except(['show']);
+        Route::patch('{id}', 'SkemaUsulanController@update')->name('update');
+        Route::resource('', 'SkemaUsulanController')->except(['show', 'update']);
         Route::get('{id}', 'SkemaUsulanController@show')->name('show');
     });
 });
@@ -122,6 +125,7 @@ Route::namespace('Dosen')->name('dosen.')->prefix('dosen')->middleware('auth', '
             Route::post('', 'UsulanController@mitraStore')->name('store');
             Route::get('{id}', 'UsulanController@mitraShow')->name('show');
         });
+        Route::patch('proposal/{id}', 'UsulanController@proposal')->name('proposal');
         Route::get('riwayat', 'UsulanController@riwayat')->name('riwayat');
         Route::name('rab.')->prefix('rab')->group(function() {
             Route::delete('{id}', 'UsulanController@rabDestroy')->name('destroy');
