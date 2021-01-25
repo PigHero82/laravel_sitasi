@@ -55,7 +55,6 @@ class SkemaUsulanController extends Controller
      */
     public function show($id)
     {
-        // return $skemaUsulan;
         return SkemaUsulan::firstSkema($id);
     }
 
@@ -77,9 +76,11 @@ class SkemaUsulanController extends Controller
      * @param  \App\Models\SkemaUsulan  $skemaUsulan
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, SkemaUsulan $skemaUsulan)
+    public function update(Request $request, $skemaUsulan)
     {
-        //
+        SkemaUsulan::updateSkema($request, $skemaUsulan);
+
+        return redirect()->route('admin.skema.index')->with('success', 'Skema usulan berhasil diubah');
     }
 
     /**
@@ -91,5 +92,15 @@ class SkemaUsulanController extends Controller
     public function destroy(SkemaUsulan $skemaUsulan)
     {
         //
+    }
+
+    public function skema($id)
+    {
+        return json_encode(Skema::getSkemaJenis($id));
+    }
+
+    public function usulan($id)
+    {
+        return json_encode(SkemaUsulan::firstSkema($id));
     }
 }

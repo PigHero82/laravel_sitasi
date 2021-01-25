@@ -16,7 +16,7 @@ class SkemaUsulan extends Model
 
     static function firstSkema($id)
     {
-        return SkemaUsulan::select('skema_usulan.id', 'skema_usulan.skema_id', 'skema.kode', 'skema.nama', 'skema_usulan.jenis', 'skema_usulan.jumlah', 'skema_usulan.tahun_skema', 'skema_usulan.tahun_pelaksanaan', 'skema_usulan.tanggal_usulan', 'skema_usulan.tanggal_review', 'skema_usulan.tanggal_publikasi', 'skema_usulan.dana_maksimal', 'skema_usulan.jabatan_minimal', 'skema_usulan.jabatan_maksimal', 'skema_usulan.status', 'skema_usulan.created_at', 'skema_usulan.updated_at')
+        return SkemaUsulan::select('skema_usulan.id', 'skema_usulan.skema_id', 'skema.id as skemaKode_id', 'skema.kode', 'skema.nama', 'skema_usulan.jenis', 'skema_usulan.jumlah', 'skema_usulan.tahun_skema', 'skema_usulan.tahun_pelaksanaan', 'skema_usulan.tanggal_usulan', 'skema_usulan.tanggal_review', 'skema_usulan.tanggal_publikasi', 'skema_usulan.dana_maksimal', 'skema_usulan.jabatan_minimal', 'skema_usulan.jabatan_maksimal', 'skema_usulan.status', 'skema_usulan.created_at', 'skema_usulan.updated_at')
                             ->join('skema', 'skema_usulan.skema_id', 'skema.id')
                             ->firstWhere('skema_usulan.id', $id);
     }
@@ -56,6 +56,14 @@ class SkemaUsulan extends Model
                             ->get();
     }
 
+    static function getSkemaKode($id)
+    {
+        return SkemaUsulan::select('skema_usulan.id', 'skema.kode')
+                            ->join('skema', 'skema_usulan.skema_id', 'skema.id')
+                            ->where('skema_usulan.jenis', $id)
+                            ->get();
+    }
+
     static function storeSkema($request)
     {
         $request->validate([
@@ -75,6 +83,23 @@ class SkemaUsulan extends Model
             'jumlah'                    => $request->jumlah,
             'tahun_skema'               => $request->tahun_skema,
             'tahun_pelaksanaan'         => $request->tahun_pelaksanaan,
+            'tanggal_usulan'            => $request->tanggal_usulan,
+            'tanggal_review'            => $request->tanggal_review,
+            'tanggal_publikasi'         => $request->tanggal_publikasi,
+            'dana_maksimal'             => $request->dana_maksimal,
+            'jabatan_minimal'           => $request->jabatan_minimal,
+            'jabatan_maksimal'          => $request->jabatan_maksimal,
+        ]);
+    }
+
+    static function updateSkema($request, $id)
+    {
+        SkemaUsulan::whereId($id)->update([
+            'skema_id'                  => $request->skema_id,
+            'jenis'                     => $request->jenis,
+            'jumlah'                    => $request->jumlah,
+            'tahun_skema'               => $request->tahun_skema,
+            'tahun_pelaksanaan'         => $request->tahun_penelitian,
             'tanggal_usulan'            => $request->tanggal_usulan,
             'tanggal_review'            => $request->tanggal_review,
             'tanggal_publikasi'         => $request->tanggal_publikasi,
