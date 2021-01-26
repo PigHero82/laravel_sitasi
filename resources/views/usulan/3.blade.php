@@ -70,39 +70,7 @@
             <form action="{{ route('dosen.usulan.update', $usulan->id) }}" method="POST">
                 @csrf
                 @method('PATCH')
-                <div class="form-group row">
-                    <div class="col-md-2 text-md-right">
-                        <span>Latar Belakang :</span>
-                    </div>
-                    <div class="col-md-9">
-                        <textarea name="latar_belakang" cols="50" rows="10" class="form-control" autofocus>{{ $usulan->latar_belakang }}</textarea>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-md-2 text-md-right">
-                        <span>Tinjauan Pustaka :</span>
-                    </div>
-                    <div class="col-md-9">
-                        <textarea name="tinjauan_pustaka" cols="50" rows="10" class="form-control">{{ $usulan->tinjauan_pustaka }}</textarea>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-md-2 text-md-right">
-                        <span>Metode :</span>
-                    </div>
-                    <div class="col-md-9">
-                        <textarea name="metode" cols="50" rows="10" class="form-control">{{ $usulan->metode }}</textarea>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-md-2 text-md-right">
-                        <span>Daftar Pustaka :</span>
-                    </div>
-                    <div class="col-md-9">
-                        <textarea name="daftar_pustaka" cols="50" rows="10" class="form-control">{{ $usulan->daftar_pustaka }}</textarea>
-                    </div>
-                </div>
-                <!-- /.card-body -->
+                <!-- .card-footer -->
                 <div class="card-footer row">
                     <div class="col-6">
                         <a class="btn btn-warning px-1" href="{{ route('dosen.usulan.backward') }}" onclick="event.preventDefault();

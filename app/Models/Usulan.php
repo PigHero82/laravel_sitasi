@@ -487,23 +487,7 @@ class Usulan extends Model
 
     static function updateUsulan3($request, $skemaUsulanId)
     {
-        $request->validate([
-            'latar_belakang'    => 'required',
-            'tinjauan_pustaka'  => 'required',
-            'metode'            => 'required',
-            'daftar_pustaka'    => 'required',
-            'step'              => 'required'
-        ]);
-
-        Usulan::updateOrCreate([
-            'dosen_id'          => Auth::user()->id,
-            'skema_usulan_id'   => $skemaUsulanId
-        ], [
-            'latar_belakang'    => $request->latar_belakang,
-            'tinjauan_pustaka'  => $request->tinjauan_pustaka,
-            'metode'            => $request->metode,
-            'daftar_pustaka'    => $request->daftar_pustaka,
-        ]);
+        $request->validate(['step' => 'required']);
 
         Usulan::updateStep($request->step, $skemaUsulanId);
     }
