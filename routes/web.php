@@ -37,8 +37,8 @@ Route::get('skema-usulan/{id}', 'Admin\SkemaUsulanController@skema');
 Route::get('usulan/{id}', 'HomeController@usulan');
 Route::get('luaran-target/{id}', 'HomeController@luaranTarget');
 
-// Route::get('kabkota/{id}', 'HomeController@kabkota')->name('kabkota');
-// Route::get('kecamatan/{id}', 'HomeController@kecamatan')->name('kecamatan');
+Route::get('kabkota/{id}', 'HomeController@kabkota')->name('kabkota');
+Route::get('kecamatan/{id}', 'HomeController@kecamatan')->name('kecamatan');
 // Route::group(['prefix' => 'migration'], function () {
 //     Route::group(['prefix' => 'dosen'], function () {
 //         Route::get('', 'MigrationController@dosen');    

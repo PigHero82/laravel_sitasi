@@ -299,7 +299,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Nama Skema</label>
-                                        <input type="number" name="jenis" value="1" hidden>
+                                        <input type="number" name="jenis" value="1" id="ubahJenis" hidden>
                                         <select class="form-control" name="skema_id" id="ubahSkema" required></select>
                                     </div>
                                 </div>
@@ -452,6 +452,7 @@
                 $.get( "/skema/" + id, function( data ) {
                     var d = JSON.parse(data);
                     $('#ubahSkema').val(d.skemaKode_id);
+                    $('#ubahJenis').val(d.jenis);
                     $("#ubahJumlahPeneliti").val(d.jumlah);
                     $("#ubahTahunSkema").val(d.tahun_skema);
                     $("#ubahTahunPenelitian").val(d.tahun_pelaksanaan);

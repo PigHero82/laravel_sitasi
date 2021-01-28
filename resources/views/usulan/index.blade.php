@@ -136,7 +136,9 @@
                 <!-- /.card-header -->
                 <div class="container">
                     <div class="card-body">
-                        <h5>Rencana Waktu</h3><hr>
+                        <form action="{{ route('dosen.usulan.store') }}" method="post">
+                            @csrf
+                        <h5>Rencana Waktu</h5><hr>
                         <div class="form-group">
                             <label for="tahun-usulan">Tahun Usulan</label>
                             <select name="skema_usulan_id" class="form-control select" data-value="2">
@@ -155,7 +157,8 @@
                             <input type="text" id="tahun-2" name="tahun_pelaksanaan" class="form-control" readonly>
                         </div>
                         {{-- <a href="{{ route('dosen.usulan.1') }}"> --}}
-                            <button type="button" class="btn btn-primary btn-block mb-3">Daftar</button>
+                            <button type="submit" class="btn btn-primary btn-block mb-3">Daftar</button>
+                        </form>
                         {{-- </a> --}}
                         <h3>Informasi Ketersediaan Skema</h3>
                         <div class="card collapse-icon accordion-icon-rotate">
