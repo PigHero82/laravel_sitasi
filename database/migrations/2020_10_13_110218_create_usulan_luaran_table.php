@@ -16,12 +16,11 @@ class CreateUsulanLuaranTable extends Migration
         Schema::create('usulan_luaran', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('usulan_id')->unsigned();
-            $table->year('tahun');
-            $table->integer('luaran_kelompok_id')->unsigned();
+            $table->boolean('tahun');
             $table->integer('luaran_luaran_id')->unsigned();
             $table->integer('luaran_target_id')->unsigned();
             $table->tinyInteger('jumlah')->unsigned();
-            $table->string('keterangan', 255);
+            $table->string('keterangan', 255)->nullable();
             $table->timestamps();
         });
     }

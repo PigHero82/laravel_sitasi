@@ -15,7 +15,7 @@ class CreateLuaranLuaranTable extends Migration
     {
         Schema::create('luaran_luaran', function (Blueprint $table) {
             $table->id();
-            $table->string('nama', 20);
+            $table->string('nama', 100);
             $table->boolean('status')->default(1);
             $table->timestamps();
         });

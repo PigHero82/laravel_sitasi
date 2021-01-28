@@ -62,13 +62,7 @@ class UsulanController extends Controller
         $satuan = SatuanWaktu::getActiveSatuan();
         $skema = SkemaUsulan::firstSkema($request->cookie('skema_usulan_id'));
         $target = LuaranTarget::getActiveTarget();
-        $tahun = [
-            Carbon::now()->format('Y') + 0,
-            Carbon::now()->format('Y') + 1,
-            Carbon::now()->format('Y') + 2,
-            Carbon::now()->format('Y') + 3,
-            Carbon::now()->format('Y') + 4
-        ];
+        $tahun = [1, 2, 3, 4, 5];
         $usulan = Usulan::firstUsulanByDosenIdSkemaId(Auth::user()->id, $request->cookie('skema_usulan_id'));
         $usulanAnggota = UsulanAnggota::getAnggota($usulan->id);
         $usulanBerkas = UsulanBerkas::getBerkas($usulan->id);

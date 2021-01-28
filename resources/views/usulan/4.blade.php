@@ -75,28 +75,7 @@
                                                 selected
                                             @endif
                                         @endisset
-                                    >{{ $item }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group row">
-                            <div class="col-md-3 col-4 text-right">
-                                <span>Kelompok :</span>
-                            </div>
-                            <div class="col-md-9 col-8">
-                                <select name="luaran_kelompok_id" class="form-control" required>
-                                    <option value="" hidden>--Pilih kelompok</option>
-                                    @foreach ($kelompok as $item)
-                                        <option value="{{ $item->id }}"
-                                            @isset($usulanLuaran)
-                                                @if ($usulanLuaran->luaran_kelompok_id == $item->id)
-                                                    selected
-                                                @endif
-                                            @endisset
-                                        >{{ $item->nama }}</option>
+                                    >Ke-{{ $item }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -108,7 +87,7 @@
                                 <span>Luaran :</span>
                             </div>
                             <div class="col-md-9 col-8">
-                                <select name="luaran_luaran_id" class="form-control">
+                                <select name="luaran_luaran_id" class="form-control" id="luaranLuaranId" required>
                                     <option value="" hidden>--Pilih luaran</option>
                                     @foreach ($luaran as $item)
                                         <option value="{{ $item->id }}"
@@ -129,17 +108,15 @@
                                 <span>Target :</span>
                             </div>
                             <div class="col-md-9 col-8">
-                                <select name="luaran_target_id" class="form-control">
+                                <select name="luaran_target_id" class="form-control" id="luaranTargetId" required>
                                     <option value="" hidden>--Pilih target</option>
-                                    @foreach ($target as $item)
-                                        <option value="{{ $item->id }}"
-                                            @isset($usulanLuaran)
-                                                @if ($usulanLuaran->luaran_target_id == $item->id)
-                                                    selected
-                                                @endif
-                                            @endisset
-                                        >{{ $item->nama }}</option>
-                                    @endforeach
+                                    @isset($usulanLuaran)
+                                        @foreach ($target as $item)
+                                            @if ($usulanLuaran->luaran_target_id == $item->id)
+                                                <option value="{{ $item->id }}" selected>{{ $item->nama }}</option>
+                                            @endif
+                                        @endforeach
+                                    @endisset
                                 </select>
                             </div>
                         </div>
@@ -150,7 +127,7 @@
                                 <span>Jumlah :</span>
                             </div>
                             <div class="col-md-9 col-8">
-                                <select name="jumlah" class="form-control">
+                                <select name="jumlah" class="form-control" required>
                                     <option value="" hidden>--Pilih jumlah</option>
                                     @foreach ($jumlah as $item)
                                         <option value="{{ $item }}"
@@ -171,7 +148,7 @@
                                 <span>Keterangan :</span>
                             </div>
                             <div class="col-md-9 col-8">
-                                <input type="text" name="keterangan" class="form-control" placeholder="Keterangan" value="@isset($usulanLuaran){{ $usulanLuaran->keterangan }}@endisset" required>
+                                <input type="text" name="keterangan" class="form-control" placeholder="Keterangan" value="@isset($usulanLuaran){{ $usulanLuaran->keterangan }}@endisset">
                             </div>
                         </div>
                     </div>
@@ -204,7 +181,20 @@
         $(document).ready( function () {
             $('form').submit(function() {
                 $(this).find("button[type='submit']").prop('disabled', true);
-            });
+            })
+
+            $('#luaranLuaranId').change(function () {
+                let luaranLuaranId = $('#luaranLuaranId option:selected').val()
+                $.get("/luaran-target/" + luaranLuaranId, function( data ) {
+                    var d = JSON.parse(data);
+                    console.log(d)
+                    $('#luaranTargetId').empty()
+                    $('#luaranTargetId').append('<option value="" hidden>--Pilih target</option>')
+                    for (let index = 0; index < d.length; index++) {
+                        $('#luaranTargetId').append('<option value="' + d[index].id + '">' + d[index].nama + '</option>')
+                    }
+                });
+            })
         });
     </script>
 @endsection

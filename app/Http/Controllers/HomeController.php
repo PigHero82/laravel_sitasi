@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Kabkota;
 use App\Models\Kecamatan;
 use App\Models\ListRole;
+use App\Models\LuaranTarget;
 use App\Models\Provinsi;
 use App\Models\RoleUser;
 use App\Models\User;
@@ -102,5 +103,10 @@ class HomeController extends Controller
     public function provinsi()
     {
         return json_encode(Provinsi::getProvinsi());
-    }
+	}
+	
+	public function luaranTarget($id)
+	{
+		return json_encode(LuaranTarget::getTargetByLuaran($id));
+	}
 }

@@ -35,6 +35,7 @@ Route::post('role/{id}', 'HomeController@update')->name('role.update');
 Route::get('skema/{id}', 'Admin\SkemaUsulanController@usulan');
 Route::get('skema-usulan/{id}', 'Admin\SkemaUsulanController@skema');
 Route::get('usulan/{id}', 'HomeController@usulan');
+Route::get('luaran-target/{id}', 'HomeController@luaranTarget');
 
 // Route::get('kabkota/{id}', 'HomeController@kabkota')->name('kabkota');
 // Route::get('kecamatan/{id}', 'HomeController@kecamatan')->name('kecamatan');
