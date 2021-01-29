@@ -70,20 +70,21 @@
                         <div class="col-md-2 text-md-right">
                             <span>Rumpun Ilmu Saat Ini :</span>
                         </div>
-                        <div class="col-md-10">
-                            <p class="mb-0">{{ $usulan->rumpun_ilmu_1 }}</p>
-                            @isset($usulan->rumpun_ilmu_2)
-                                <ul>
-                                    <li>{{ $usulan->rumpun_ilmu_2 }}
-                                        @isset($usulan->rumpun_ilmu_3)
-                                            <ul>
-                                                <li>{{ $usulan->rumpun_ilmu_3 }}</li>
-                                            </ul>
-                                        @endisset
-                                    </li>
-                                </ul>
-                            @endisset
-                        </div>
+                        @if ($rumpunIlmu[0] != NULL)
+                            <div class="col-md-4">
+                                <span>{{ $rumpunIlmu[0] }}</span>
+                            </div>
+                        @endif
+                        @if ($rumpunIlmu[1] != NULL)
+                            <div class="col-md-3">
+                                <span>{{ $rumpunIlmu[1] }}</span>
+                            </div>
+                        @endif
+                        @if ($rumpunIlmu[2] != NULL)
+                            <div class="col-md-3">
+                                <span>{{ $rumpunIlmu[2] }}</span>
+                            </div>
+                        @endif
                     </div>
                 @endisset
                 <div class="form-group row">

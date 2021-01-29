@@ -12,6 +12,11 @@ class RumpunIlmu extends Model
     protected $table = 'rumpun_ilmu';
     protected $fillable = ['kode', 'rumpun', 'sub'];
 
+    static function firstRumpunIlmu($kode)
+    {
+        return RumpunIlmu::where('kode', $kode)->pluck('rumpun');
+    }
+
     static function getRumpunIlmuLevel1()
     {
         return RumpunIlmu::whereNull('sub')->get();

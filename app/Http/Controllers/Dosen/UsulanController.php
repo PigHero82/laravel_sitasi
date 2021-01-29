@@ -71,7 +71,12 @@ class UsulanController extends Controller
         $usulanLuaran = UsulanLuaran::firstLuaran($usulan->id);
         $usulanRab = UsulanRab::getRab($usulan->id);
 
-        return view('usulan.create', compact('data', 'dosen', 'jumlah', 'kabkota', 'kecamatan', 'kelompok', 'luaran', 'mitraJenis', 'peran', 'provinsi', 'rabJenis', 'satuan', 'skema', 'target', 'tahun', 'usulan', 'usulanAnggota', 'usulanBerkas', 'usulanKegiatan', 'usulanLuaran', 'usulanMitra', 'usulanRab'));
+        $rumpunIlmu = [];
+        $rumpunIlmu[] = ($usulan->rumpun_ilmu_1 != NULL) ? RumpunIlmu::firstRumpunIlmu($usulan->rumpun_ilmu_1)[0] : NULL ; 
+        $rumpunIlmu[] = ($usulan->rumpun_ilmu_2 != NULL) ? RumpunIlmu::firstRumpunIlmu($usulan->rumpun_ilmu_2)[0] : NULL ; 
+        $rumpunIlmu[] = ($usulan->rumpun_ilmu_3 != NULL) ? RumpunIlmu::firstRumpunIlmu($usulan->rumpun_ilmu_3)[0] : NULL ; 
+
+        return view('usulan.create', compact('data', 'dosen', 'jumlah', 'kabkota', 'kecamatan', 'kelompok', 'luaran', 'mitraJenis', 'peran', 'provinsi', 'rabJenis', 'rumpunIlmu', 'satuan', 'skema', 'target', 'tahun', 'usulan', 'usulanAnggota', 'usulanBerkas', 'usulanKegiatan', 'usulanLuaran', 'usulanMitra', 'usulanRab'));
     }
 
     /**
