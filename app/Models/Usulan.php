@@ -58,7 +58,7 @@ class Usulan extends Model
             $data['belanja'] = UsulanBelanja::getBelanja($id);
             $data['berkas'] = UsulanBerkas::getBerkas($id);
             $data['kegiatan'] = UsulanKegiatan::getKegiatan($id);
-            $data['luaran'] = UsulanLuaran::firstLuaran($id);
+            $data['luaran'] = UsulanLuaran::getLuaran($id);
             $data['rab'] = UsulanRab::getRab($id);
             $data['skema_usulan'] = SkemaUsulan::firstSkema($usulan->skema_usulan_id);
             $data['mitra'] = UsulanMitra::firstMitra($id);
@@ -82,7 +82,7 @@ class Usulan extends Model
         $data['belanja'] = UsulanBelanja::getBelanja($data->id);
         $data['berkas'] = UsulanBerkas::getBerkas($data->id);
         $data['kegiatan'] = UsulanKegiatan::getKegiatan($data->id);
-        $data['luaran'] = UsulanLuaran::firstLuaran($data->id);
+        $data['luaran'] = UsulanLuaran::getLuaran($data->id);
         $data['mitra'] = UsulanMitra::firstMitra($data->id);
         $data['rab'] = UsulanRab::getRab($data->id);
         $data['skema_usulan'] = SkemaUsulan::firstSkema($data->skema_usulan_id);
@@ -121,7 +121,7 @@ class Usulan extends Model
                 $data[$key]['anggota'] = UsulanAnggota::getAnggota($value->id);
                 $data[$key]['belanja'] = UsulanBelanja::getBelanja($value->id);
                 $data[$key]['kegiatan'] = UsulanKegiatan::getKegiatan($value->id);
-                $data[$key]['luaran'] = UsulanLuaran::firstLuaran($value->id);
+                $data[$key]['luaran'] = UsulanLuaran::getLuaran($value->id);
                 $data[$key]['mitra'] = UsulanMitra::firstMitra($value->id);
                 $data[$key]['rab'] = UsulanRab::getRab($value->id);
                 $data[$key]['reviewer'] = ($value->reviewer != NULL) ? Dosen::firstDosenByNidn($value->reviewer) : NULL ;
@@ -150,7 +150,7 @@ class Usulan extends Model
                 $data[$key]['anggota'] = UsulanAnggota::getAnggota($value->id);
                 $data[$key]['belanja'] = UsulanBelanja::getBelanja($value->id);
                 $data[$key]['kegiatan'] = UsulanKegiatan::getKegiatan($value->id);
-                $data[$key]['luaran'] = UsulanLuaran::firstLuaran($value->id);
+                $data[$key]['luaran'] = UsulanLuaran::getLuaran($value->id);
                 $data[$key]['mitra'] = UsulanMitra::firstMitra($value->id);
                 $data[$key]['rab'] = UsulanRab::getRab($value->id);
                 $data[$key]['reviewer'] = ($value->reviewer != NULL) ? Dosen::firstDosenByNidn($value->reviewer) : NULL ;
@@ -177,7 +177,7 @@ class Usulan extends Model
                 $data[$key]['skema_usulan'] = SkemaUsulan::firstSkema($value->skema_usulan_id);
                 $data[$key]['anggota'] = UsulanAnggota::getAnggota($value->id);
                 $data[$key]['kegiatan'] = UsulanKegiatan::getKegiatan($value->id);
-                $data[$key]['luaran'] = UsulanLuaran::firstLuaran($value->id);
+                $data[$key]['luaran'] = UsulanLuaran::getLuaran($value->id);
                 $data[$key]['rab'] = UsulanRab::getRab($value->id);
             }
 
@@ -200,7 +200,7 @@ class Usulan extends Model
                 $data[$key]['skema_usulan'] = SkemaUsulan::firstSkema($value->skema_usulan_id);
                 $data[$key]['anggota'] = UsulanAnggota::getAnggota($value->id);
                 $data[$key]['kegiatan'] = UsulanKegiatan::getKegiatan($value->id);
-                $data[$key]['luaran'] = UsulanLuaran::firstLuaran($value->id);
+                $data[$key]['luaran'] = UsulanLuaran::getLuaran($value->id);
                 $data[$key]['rab'] = UsulanRab::getRab($value->id);
             }
 
@@ -223,7 +223,7 @@ class Usulan extends Model
                 $data[$key]['skema_usulan'] = SkemaUsulan::firstSkema($value->skema_usulan_id);
                 $data[$key]['anggota'] = UsulanAnggota::getAnggota($value->id);
                 $data[$key]['kegiatan'] = UsulanKegiatan::getKegiatan($value->id);
-                $data[$key]['luaran'] = UsulanLuaran::firstLuaran($value->id);
+                $data[$key]['luaran'] = UsulanLuaran::getLuaran($value->id);
                 $data[$key]['rab'] = UsulanRab::getRab($value->id);
             }
 
@@ -245,7 +245,7 @@ class Usulan extends Model
                 $data[$key]['skema_usulan'] = SkemaUsulan::firstSkema($value->skema_usulan_id);
                 $data[$key]['anggota'] = UsulanAnggota::getAnggota($value->id);
                 $data[$key]['kegiatan'] = UsulanKegiatan::getKegiatan($value->id);
-                $data[$key]['luaran'] = UsulanLuaran::firstLuaran($value->id);
+                $data[$key]['luaran'] = UsulanLuaran::getLuaran($value->id);
                 $data[$key]['rab'] = UsulanRab::getRab($value->id);
             }
 
@@ -268,7 +268,7 @@ class Usulan extends Model
                 $data[$key]['anggota'] = UsulanAnggota::getAnggota($value->id);
                 $data[$key]['belanja'] = UsulanBelanja::getBelanja($value->id);
                 $data[$key]['kegiatan'] = UsulanKegiatan::getKegiatan($value->id);
-                $data[$key]['luaran'] = UsulanLuaran::firstLuaran($value->id);
+                $data[$key]['luaran'] = UsulanLuaran::getLuaran($value->id);
                 $data[$key]['mitra'] = UsulanMitra::firstMitra($value->id);
                 $data[$key]['rab'] = UsulanRab::getRab($value->id);
                 $data[$key]['skema_usulan'] = SkemaUsulan::firstSkema($value->skema_usulan_id);
@@ -294,7 +294,7 @@ class Usulan extends Model
                 $data[$key]['skema_usulan'] = SkemaUsulan::firstSkema($value->skema_usulan_id);
                 $data[$key]['anggota'] = UsulanAnggota::getAnggota($value->id);
                 $data[$key]['kegiatan'] = UsulanKegiatan::getKegiatan($value->id);
-                $data[$key]['luaran'] = UsulanLuaran::firstLuaran($value->id);
+                $data[$key]['luaran'] = UsulanLuaran::getLuaran($value->id);
                 $data[$key]['rab'] = UsulanRab::getRab($value->id);
             }
 
@@ -317,7 +317,7 @@ class Usulan extends Model
                 $data[$key]['skema_usulan'] = SkemaUsulan::firstSkema($value->skema_usulan_id);
                 $data[$key]['anggota'] = UsulanAnggota::getAnggota($value->id);
                 $data[$key]['kegiatan'] = UsulanKegiatan::getKegiatan($value->id);
-                $data[$key]['luaran'] = UsulanLuaran::firstLuaran($value->id);
+                $data[$key]['luaran'] = UsulanLuaran::getLuaran($value->id);
                 $data[$key]['rab'] = UsulanRab::getRab($value->id);
             }
 
@@ -350,7 +350,7 @@ class Usulan extends Model
                 $data[$key]['anggota'] = UsulanAnggota::getAnggota($value->id);
                 $data[$key]['belanja'] = UsulanBelanja::getBelanja($value->id);
                 $data[$key]['kegiatan'] = UsulanKegiatan::getKegiatan($value->id);
-                $data[$key]['luaran'] = UsulanLuaran::firstLuaran($value->id);
+                $data[$key]['luaran'] = UsulanLuaran::getLuaran($value->id);
                 $data[$key]['mitra'] = UsulanMitra::firstMitra($value->id);
                 $data[$key]['rab'] = UsulanRab::getRab($value->id);
                 $data[$key]['reviewer'] = ($value->reviewer != NULL) ? Dosen::firstDosenByNidn($value->reviewer) : NULL ;
@@ -379,7 +379,7 @@ class Usulan extends Model
                 $data[$key]['anggota'] = UsulanAnggota::getAnggota($value->id);
                 $data[$key]['belanja'] = UsulanBelanja::getBelanja($value->id);
                 $data[$key]['kegiatan'] = UsulanKegiatan::getKegiatan($value->id);
-                $data[$key]['luaran'] = UsulanLuaran::firstLuaran($value->id);
+                $data[$key]['luaran'] = UsulanLuaran::getLuaran($value->id);
                 $data[$key]['mitra'] = UsulanMitra::firstMitra($value->id);
                 $data[$key]['rab'] = UsulanRab::getRab($value->id);
                 $data[$key]['reviewer'] = ($value->reviewer != NULL) ? Dosen::firstDosenByNidn($value->reviewer) : NULL ;

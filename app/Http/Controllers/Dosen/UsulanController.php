@@ -68,7 +68,7 @@ class UsulanController extends Controller
         $usulanBerkas = UsulanBerkas::getBerkas($usulan->id);
         $usulanKegiatan = UsulanKegiatan::getKegiatan($usulan->id);
         $usulanMitra = UsulanMitra::getMitra($usulan->id);
-        $usulanLuaran = UsulanLuaran::firstLuaran($usulan->id);
+        $usulanLuaran = UsulanLuaran::getLuaran($usulan->id);
         $usulanRab = UsulanRab::getRab($usulan->id);
 
         $rumpunIlmu = [];
@@ -162,7 +162,6 @@ class UsulanController extends Controller
         
         // Step 4
         else if ($request->cookie('page') == 4) {
-            UsulanLuaran::updateLuaran($request);
             Usulan::updateUsulan4($request, $request->cookie('skema_usulan_id'));
             return redirect()->route('dosen.usulan.create')
                                 ->withCookie(cookie('jenis', $request->cookie('jenis'), 1000))

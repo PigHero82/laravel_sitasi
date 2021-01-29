@@ -12,23 +12,44 @@ class UsulanLuaran extends Model
     protected $table = 'usulan_luaran';
     protected $fillable = ['usulan_id', 'tahun', 'luaran_luaran_id', 'luaran_target_id', 'jumlah', 'keterangan'];
 
-    static function firstLuaran($usulanId)
+    static function destroyLuaran($id)
     {
-        return UsulanLuaran::firstWhere('usulan_id', $usulanId);
+        UsulanLuaran::whereId($id)->delete();
     }
 
-    static function updateLuaran($request)
+    static function firstLuaran($id)
     {
-        $request->validate([
-            'usulan_id'             => 'numeric|required',
-            'tahun'                 => 'numeric|required',
-            'luaran_luaran_id'      => 'numeric|required',
-            'luaran_target_id'      => 'numeric|required',
-            'jumlah'                => 'numeric|required'
-        ]);
-        
-        UsulanLuaran::updateOrCreate(['usulan_id' => $request->usulan_id], [
+        return UsulanLuaran::select('usulan_luaran.*', 'luaran_luaran.nama as nama_luaran', 'luaran_target.nama as nama_target')
+                            ->join('luaran_luaran', 'usulan_luaran.luaran_luaran_id', 'luaran_luaran.id')
+                            ->join('luaran_target', 'usulan_luaran.luaran_target_id', 'luaran_target.id')
+                            ->where('usulan_luaran.id', $id)
+                            ->first();
+    }
+
+    static function getLuaran($usulanId)
+    {
+        return UsulanLuaran::select('usulan_luaran.*', 'luaran_luaran.nama as nama_luaran', 'luaran_target.nama as nama_target')
+                            ->join('luaran_luaran', 'usulan_luaran.luaran_luaran_id', 'luaran_luaran.id')
+                            ->join('luaran_target', 'usulan_luaran.luaran_target_id', 'luaran_target.id')
+                            ->where('usulan_luaran.usulan_id', $usulanId)
+                            ->get();
+    }
+
+    static function storeLuaran($request)
+    {
+        UsulanLuaran::create([
             'usulan_id'             => $request->usulan_id,
+            'tahun'                 => $request->tahun,
+            'luaran_luaran_id'      => $request->luaran_luaran_id,
+            'luaran_target_id'      => $request->luaran_target_id,
+            'jumlah'                => $request->jumlah,
+            'keterangan'            => $request->keterangan
+        ]);
+    }
+
+    static function updateLuaran($request, $id)
+    {
+        UsulanLuaran::whereId($id)->update([
             'tahun'                 => $request->tahun,
             'luaran_luaran_id'      => $request->luaran_luaran_id,
             'luaran_target_id'      => $request->luaran_target_id,
