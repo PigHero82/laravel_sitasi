@@ -42,19 +42,9 @@
                     <div class=" d-flex justify-content-center">
                         <div class="col-md-8">
                             <p class="font-weight-bold mb-2">Pada bagian ini, pengusul wajib mengisi luaran wajib & tambahan, tahun capaian, dan status pencapaiannya. Sama halnya seperti pada luaran penelitian, luaran publikasi pengabdian kepada masyarakat</p>
-                            <h3>Informasi Janji Luaran</h3>
+                            <h3>Informasi Luaran Wajib</h3>
                             <ul>
-                                <li>Tahun ke 1
-                                    <p class="mt-1 ml-3">Abdasdadas</p>
-                                    <p class="ml-3">sadhbasjhdbasdosa</p>
-                                    <p class="ml-3">ADASFASJFNSAKF</p>
-                                </li>
-                                <li>Tahun ke 1
-                                    <p class="mt-1 ml-3">Media lokal sudah hadir</p>
-                                </li>
-                                <li>Tahun ke 1
-                                    <p class="mt-1 ml-3">Apa yang auw asd akjdka</p>
-                                </li>
+                                <li>Jurnal ilmiah nasional (minimal SINTA 6)
                             </ul>
                         </div>
                     </div>

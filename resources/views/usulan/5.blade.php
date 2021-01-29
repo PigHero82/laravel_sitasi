@@ -82,7 +82,7 @@
                                 <span>Detail Item :</span>
                             </div>
                             <div class="col-md-5 col-4">
-                                <input type="text" name="item1" class="form-control" required>
+                                <input type="number" name="item1" class="form-control" placeholder="jumlah" required>
                             </div>
                             <div class="col-md-4 col-4">
                                 <input type="text" name="satuan1" class="form-control" placeholder="satuan"required>
@@ -92,7 +92,7 @@
                             <div class="col-md-2 col-4 text-right">
                             </div>
                             <div class="col-md-5 col-4">
-                                <input type="text" name="item2" class="form-control">
+                                <input type="number" name="item2" class="form-control" placeholder="jumlah">
                             </div>
                             <div class="col-md-4 col-4">
                                 <input type="text" name="satuan2" class="form-control" placeholder="satuan">
@@ -102,7 +102,7 @@
                             <div class="col-md-2 col-4 text-right">
                             </div>
                             <div class="col-md-5 col-4">
-                                <input type="text" name="item3" class="form-control">
+                                <input type="number" name="item3" class="form-control" placeholder="jumlah">
                             </div>
                             <div class="col-md-4 col-4">
                                 <input type="text" name="satuan3" class="form-control" placeholder="satuan">
@@ -113,7 +113,7 @@
                                 <span>Harga Satuan :</span>
                             </div>
                             <div class="col-md-9 col-8">
-                                <input type="text" name="harga" class="form-control" required>
+                                <input type="number" name="harga" class="form-control" required>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -127,7 +127,26 @@
                     </div>
                 </div>
             </form>
-
+            <h3>Keterangan:</h3>
+            <div class="col-md-10 justify-content-end">
+            <h5> <b>Jenis:</b> memilih jenis penggunaan anggaran yang meliputi : </h5>
+            <ul>
+                <li>HONOR OUTPUT KEGIATAN (Honorarium pelaksana non dosen)</li>
+                <li>BELANJA BARANG NON OPERASIONAL LAINNYA (Penginapan/hotel)</li>
+                <li>BELANJA BAHAN (ATK, bahan habis pakai, surat menyurat, photo copy, penggandaan, dokumentasi, dan pelaporan)</li>
+                <li>BELANJA PERJALANAN LAINNYA (Perjalanan/transportasi)</li>    
+            </ul>
+            
+            <h5><b>Penggunaan:</b> mengisi penggunaan anggaran, misalnya Jenis memilih BELANJA BAHAN maka dibagian penggunaan bisa dimasukan ATK.</h5>
+            <h5><b>Nama Item:</b> mengisi Item dari penggunaan anggaran, misalnya dibagian Penggunaan tadi mengisi ATK maka di Nama Item bisa diisi Kertas A4</h5>
+            <h5><b>Detail Item:</b> mengisi jumlah dan satuan dari Nama Item, tetapi tidak semuanya 3 detail item diisi. Misalnya mau mengisi penggunaan kertas A4 sebulan sebanyak 2 rim tiap bulan selama 3 bulan, maka cara mengisinya</h5>
+            <ul>
+                <li>Detail Item 1 : 2 rim</li>
+                <li>Detail Item 2 : 3 bulan</li>
+            </ul>
+            <h5><b>Biaya Satuan:</b> mengisi harga tiap satuan misalnya harga kertas 1 rim nya 40.000 maka akan dikalikan : 40.000 x 2 rim x 3 bulan</h5>
+            <h5><b>Total:</b> secara otomatis akan terisi dari hasil perkalian, contoh diatas akan menghasilkan 240.000</h5>
+            </div>
             <h3>Daftar Item Anggaran</h3>
             <hr>
             <div class="table-responsive">
