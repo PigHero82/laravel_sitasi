@@ -110,7 +110,7 @@
                                                     <label for="jenis">Jenis</label>
                                                     <select class="form-control" name="mitra_jenis_id" required>
                                                         <option value="" hidden>--Pilih jenis mitra</option>
-                                                        @foreach ($mitraJenis as $item)
+                                                        {{-- @foreach ($mitraJenis as $item)
                                                             <option value="{{ $item->id }}"
                                                                 @if(!$usulanMitra->isEmpty())
                                                                     @if ($usulanMitra->mitra_jenis_id == $item->id)
@@ -118,7 +118,7 @@
                                                                     @endif
                                                                 @endif
                                                             >{{ $item->nama }}</option>
-                                                        @endforeach
+                                                        @endforeach --}}
                                                     </select>
                                                 </div>
                                             </div>
