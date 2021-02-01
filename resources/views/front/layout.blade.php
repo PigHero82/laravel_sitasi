@@ -10,8 +10,8 @@
     <meta name="description" content="SITASI STMIK STIKOM Indonesia">
     <meta name="author" content="STIKI">
     <title>@yield('judul') - STMIK STIKOM Indonesia</title>
-    <link rel="apple-touch-icon" href="{{ asset('logo.jpg') }}">
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('logo.jpg') }}">
+    <link rel="apple-touch-icon" href="{{ asset('app-assets/images/ico/logo.png') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('app-assets/images/ico/logo.ico') }}">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600" rel="stylesheet">
 
     <!-- BEGIN: Vendor CSS-->
