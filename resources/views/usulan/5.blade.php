@@ -51,11 +51,11 @@
                                     <option value="" hidden>--Pilih jenis</option>
                                     @foreach ($rabJenis as $item)
                                         <option value="{{ $item->id }}"
-                                        @isset($usulanLuaran)
+                                        {{-- @isset($usulanLuaran)
                                             @if ($usulanLuaran->id == $item->id)
                                                 selected
                                             @endif
-                                        @endisset
+                                        @endisset --}}
                                     >{{ $item->nama }}</option>
                                     @endforeach
                                 </select>

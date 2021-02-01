@@ -43,10 +43,6 @@
                     <div class="d-flex justify-content-center">
                         <div class="col-md-8">
                             <p class="font-weight-bold mb-2">Pada bagian ini, pengusul wajib mengisi luaran wajib & tambahan, tahun capaian, dan status pencapaiannya. Sama halnya seperti pada luaran penelitian, luaran publikasi pengabdian kepada masyarakat</p>
-                            <h3>Informasi Luaran Wajib</h3>
-                            <ul>
-                                <li>Jurnal ilmiah nasional (minimal SINTA 6)
-                            </ul>
                         </div>
                     </div>
                 </div>
@@ -91,9 +87,15 @@
                     document.getElementById('backward-form').submit();">Kembali</a>
                 </div>
                 <div class="col-6 text-right">
+                    <form action="{{ route('dosen.usulan.update', $usulan->id) }}" method="POST">
+                        @csrf
+                    @method('PATCH')
+                    
                     <input type="hidden" name="step" value="5">
                     <input type="hidden" name="usulan_id" value="{{ $usulan->id }}">
                     <button type="submit" class="btn btn-success px-1">Lanjut</a>
+                    </button>
+                </form>
                 </div>
             </div>
             <!-- /.card-footer -->

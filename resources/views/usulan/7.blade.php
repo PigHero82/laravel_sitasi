@@ -112,11 +112,11 @@
                                                         <option value="" hidden>--Pilih jenis mitra</option>
                                                         @foreach ($mitraJenis as $item)
                                                             <option value="{{ $item->id }}"
-                                                                @isset($usulanMitra)
+                                                                @if(!$usulanMitra->isEmpty())
                                                                     @if ($usulanMitra->mitra_jenis_id == $item->id)
                                                                         selected
                                                                     @endif
-                                                                @endisset
+                                                                @endif
                                                             >{{ $item->nama }}</option>
                                                         @endforeach
                                                     </select>

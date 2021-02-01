@@ -37,7 +37,7 @@
         
         <div class="card-body">
             <p>Unggah file berdasarkan template dibawah</p>
-            <button type="button" class="btn btn-success">Unduh Template</button>
+            <a class="btn btn-success" download="template" href="{{ url('/berkas/template.zip') }}" title="template">Unduh Template</a>
             <hr>
             <form action="{{ route('dosen.usulan.proposal', $usulan->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
