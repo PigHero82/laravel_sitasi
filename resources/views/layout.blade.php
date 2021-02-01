@@ -75,7 +75,7 @@
                                     @if (file_exists(asset($composerUser->profile_photo_path)))
                                         <img class="round" src="{{ asset($composerUser->profile_photo_path) }}" alt="avatar" height="40" width="40">
                                     @else
-                                        <img class="round" src="{{ asset('images/dosen/0105.jpg') }}" alt="avatar" height="40" width="40">
+                                        <img class="round" src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png" alt="avatar" height="40" width="40">
                                     @endif
                                 </span>
                             </a>
