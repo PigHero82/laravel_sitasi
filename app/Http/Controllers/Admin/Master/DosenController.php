@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Master;
 
 use App\Http\Controllers\Controller;
 use App\Models\Dosen;
+use App\Models\Jabatan;
 use Illuminate\Http\Request;
 
 class DosenController extends Controller
@@ -16,8 +17,9 @@ class DosenController extends Controller
     public function index()
     {
         $data = Dosen::getDosenNIDNNama();
+        $jabatan = Jabatan::miniGetJabatan();
 
-        return view('master.dosen', compact('data'));
+        return view('master.dosen', compact('data', 'jabatan'));
     }
 
     /**
@@ -72,7 +74,13 @@ class DosenController extends Controller
      */
     public function update(Request $request, Dosen $dosen)
     {
-        //
+        $request->validate([
+            'nidn' => 'required|numeric',
+            'nama' => 'required'
+        ]);
+        
+        Dosen::updateDosen($request, $dosen->id);
+        return back()->with('success', 'Data dosen berhasil diubah');
     }
 
     /**

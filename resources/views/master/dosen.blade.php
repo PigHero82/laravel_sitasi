@@ -10,11 +10,30 @@
 @endsection
 
 @section('content')
-    @if(session()->get('success'))
-        <div class ="alert alert-success">
-            {{ session()->get('success') }}  
-        </div><br />
+    @if ($message = Session::get('success'))
+    <div class="alert alert-success alert-block">
+        <button type="button" class="close" data-dismiss="alert"><i class="fas fa-times"></i></button>
+        {{ $message }}
+    </div>
     @endif
+
+    @if ($message = Session::get('danger'))
+    <div class="alert alert-danger alert-block">
+        <button type="button" class="close" data-dismiss="alert"><i class="fas fa-times"></i></button>
+        {{ $message }}
+    </div>
+    @endif
+
+    @if ($errors->any())
+    <div class="alert alert-danger alert-block">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+
     <div class="row justify-content-center">
         <!-- left column -->
         <div class="col-lg-8">
@@ -108,71 +127,83 @@
                         </button>
                     </div>
 
-                    
-                    <div class="modal-body">
-                        <div class="card-text">
-                            <dl class="row">
-                                <dt class="col-sm-4 text-md-right">NIDN</dt>
-                                <dd class="col-sm-8" id="nidn"></dd>
-                            </dl>
-                            <dl class="row">
-                                <dt class="col-sm-4 text-md-right">Nama</dt>
-                                <dd class="col-sm-8" id="nama"></dd>
-                            </dl>
-                            <dl class="row">
-                                <dt class="col-sm-4 text-md-right">Alamat</dt>
-                                <dd class="col-sm-8" id="alamat"></dd>
-                            </dl>
-                            <dl class="row">
-                                <dt class="col-sm-4 text-md-right">Tempat Lahir</dt>
-                                <dd class="col-sm-8" id="tempat_lahir"></dd>
-                            </dl>
-                            <dl class="row">
-                                <dt class="col-sm-4 text-md-right">Tanggal Lahir</dt>
-                                <dd class="col-sm-8" id="tanggal_lahir"></dd>
-                            </dl>
-                            <dl class="row">
-                                <dt class="col-sm-4 text-md-right">Jabatan Fungsional</dt>
-                                <dd class="col-sm-8" id="jabatan_fungsional"></dd>
-                            </dl>
-                            <dl class="row">
-                                <dt class="col-sm-4 text-md-right">No. KTP</dt>
-                                <dd class="col-sm-8" id="ktp"></dd>
-                            </dl>
-                            <dl class="row">
-                                <dt class="col-sm-4 text-md-right">No. Telepon</dt>
-                                <dd class="col-sm-8" id="telepon"></dd>
-                            </dl>
-                            <dl class="row">
-                                <dt class="col-sm-4 text-md-right">No. HP</dt>
-                                <dd class="col-sm-8" id="hp"></dd>
-                            </dl>
-                            <dl class="row">
-                                <dt class="col-sm-4 text-md-right">Alamat Email</dt>
-                                <dd class="col-sm-8" id="email"></dd>
-                            </dl>
-                            <dl class="row">
-                                <dt class="col-sm-4 text-md-right">Situs Web</dt>
-                                <dd class="col-sm-8" id="web"></dd>
-                            </dl>
-                            <dl class="row">
-                                <dt class="col-sm-4 text-md-right">ID Sinta</dt>
-                                <dd class="col-sm-8" id="sinta_id"></dd>
-                            </dl>
-                            <dl class="row">
-                                <dt class="col-sm-4 text-md-right">ID Google Scholar</dt>
-                                <dd class="col-sm-8" id="google_scholar_id"></dd>
-                            </dl>
+                    <form id="form" method="POST">
+                        @csrf
+                        @method('PATCH')
+                        <div class="modal-body">
+                            <div class="card-text">
+                                <div class="form-group" id="nidn">
+                                    <label>NIDN</label>
+                                    <input type="number" class="form-control" name="nidn" required>
+                                </div>
+                                <div class="form-group" id="nama">
+                                    <label>Nama</label>
+                                    <input type="text" class="form-control" name="nama" required>
+                                </div>
+                                <div class="form-group" id="alamat">
+                                    <label>Alamat</label>
+                                    <input type="text" class="form-control" name="alamat">
+                                </div>
+                                <div class="form-group" id="tempat_lahir">
+                                    <label>Tempat Lahir</label>
+                                    <input type="text" class="form-control" name="tempat_lahir">
+                                </div>
+                                <div class="form-group" id="tanggal_lahir">
+                                    <label>Tanggal Lahir</label>
+                                    <input type="date" class="form-control" name="tanggal_lahir">
+                                </div>
+                                <div class="form-group" id="jabatan_id">
+                                    <label>Jabatan Fungsional</label>
+                                    <select class="form-control" name="jabatan_id">
+                                        @foreach ($jabatan as $item)
+                                            <option value="{{ $item->level }}">{{ $item->nama }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group" id="ktp">
+                                    <label>No. KTP</label>
+                                    <input type="number" class="form-control" name="ktp">
+                                </div>
+                                <div class="form-group" id="telepon">
+                                    <label>No. Telepon</label>
+                                    <input type="number" class="form-control" name="telepon">
+                                </div>
+                                <div class="form-group" id="hp">
+                                    <label>No. HP</label>
+                                    <input type="number" class="form-control" name="hp">
+                                </div>
+                                <div class="form-group" id="email">
+                                    <label>Alamat Email</label>
+                                    <input type="email" class="form-control" name="email">
+                                </div>
+                                <div class="form-group" id="web">
+                                    <label>Situs Web</label>
+                                    <input type="text" class="form-control" name="web">
+                                </div>
+                                <div class="form-group" id="sinta_id">
+                                    <label>ID Sinta</label>
+                                    <input type="text" class="form-control" name="sinta_id">
+                                </div>
+                                <div class="form-group" id="google_scholar_id">
+                                    <label>ID Google Scholar</label>
+                                    <input type="text" class="form-control" name="google_scholar_id">
+                                </div>
+                                <div class="form-group" id="status">
+                                    <label>Status</label>
+                                    <select class="form-control" name="status">
+                                        <option value="1">Aktif</option>
+                                        <option value="2">Tidak aktif</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="modal-footer">
-                        <form action="#" method="POST">
+                        <div class="modal-footer">
                             @csrf
                             <input type="text" name="nidn" id="nidn-field" hidden required>
-                            <button type="button" class="btn btn-primary" data-dismiss="modal">Perbarui</button>
-                        </form>
-                    </div>
+                            <button type="submit" class="btn btn-primary">Perbarui</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -193,25 +224,29 @@
             $(document).on('click', '#myTable tbody tr td a', function(e) {
                 var id = $(this).attr('data-value');
                 $.get( "/admin/master/dosen/" + id, function( data ) {
-                    console.log(JSON.parse(data));
                     var d = JSON.parse(data);
                     $('#myModalLabel33').text(d.nama + " | Detail Dosen");
                     $('#nidn-field').val(d.nidn);
-                    $('#nidn').text(d.nidn);
-                    $('#nama').text(d.nama);
-                    $('#alamat').text(d.alamat);
-                    $('#tempat_lahir').text(d.tempat_lahir);
-                    $('#tanggal_lahir').text(d.tanggal_lahir);
-                    $('#jabatan_fungsional').text(d.jabatan_fungsional_nama);
-                    $('#ktp').text(d.ktp);
-                    $('#telepon').text(d.telepon);
-                    $('#hp').text(d.hp);
-                    $('#email').text(d.email);
-                    $('#web').text(d.web);
-                    $('#sinta_id').text(d.sinta_id);
-                    $('#google_scholar_id').html('<a href="https://scholar.google.com/citations?user=' + d.google_scholar_id + '&hl=id" target="_blank" rel="noopener noreferrer">' + d.google_scholar_id + '</a>');
+                    $('#form').attr('action','{{ url("/admin/master/dosen") }}/' + d.id);
+                    $('#nidn input').val(d.nidn);
+                    $('#nama input').val(d.nama);
+                    $('#alamat input').val(d.alamat);
+                    $('#tempat_lahir input').val(d.tempat_lahir);
+                    $('#tanggal_lahir input').val(d.tanggal_lahir);
+                    $('#jabatan_id select').val(d.jabatan_id);
+                    $('#ktp input').val(d.ktp);
+                    $('#telepon input').val(d.telepon);
+                    $('#hp input').val(d.hp);
+                    $('#email input').val(d.email);
+                    $('#web input').val(d.web);
+                    $('#sinta_id input').val(d.sinta_id);
+                    $('#google_scholar_id input').val(d.google_scholar_id);
+                    $('#status select').val(d.status);
                 });
-                console.log($(this).attr('data-value'));
+            });
+
+            $('form').submit(function() {
+                $(this).find("button[type='submit']").prop('disabled',true);
             });
         } );
     </script>

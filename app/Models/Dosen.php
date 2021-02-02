@@ -48,4 +48,25 @@ class Dosen extends Model
                     ->where('dosen.id', $id)
                     ->first();
     }
+
+    static function updateDosen($request, $id)
+    {
+        Dosen::whereId($id)->update([
+            'nidn'              => $request->nidn,
+            'nama'              => $request->nama,
+            'alamat'            => $request->alamat,
+            'tempat_lahir'      => $request->tempat_lahir,
+            'tanggal_lahir'     => $request->tanggal_lahir,
+            'ktp'               => $request->ktp,
+            'telepon'           => $request->telepon,
+            'hp'                => $request->hp,
+            'email'             => $request->email,
+            'web'               => $request->web,
+            'jabatan_id'        => $request->jabatan_id,
+            'prodi_id'          => $request->prodi_id,
+            'sinta_id'          => $request->sinta_id,
+            'google_scholar_id' => $request->google_scholar_id,
+            'status'            => $request->status
+        ]);
+    }
 }

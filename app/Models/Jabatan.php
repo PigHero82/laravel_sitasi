@@ -16,6 +16,14 @@ class Jabatan extends Model
     {
         return Jabatan::orderBy('level')->get();
     }
+
+    static function miniGetJabatan()
+    {
+        return Jabatan::select('id', 'nama', 'level')
+                        ->where('status', 1)
+                        ->orderBy('level')
+                        ->get();
+    }
     
     static function storeJabatan($request)
     {
