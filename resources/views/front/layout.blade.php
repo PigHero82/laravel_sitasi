@@ -8,6 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta name="description" content="SITASI STMIK STIKOM Indonesia">
+    <meta name="keywords" content="sitasi, stiki, stiki indonesia, stmik stikom indonesia, sitasi stiki indonesia, sitasi stmik stikom indonesia">
     <meta name="author" content="STIKI">
     <title>@yield('judul') - STMIK STIKOM Indonesia</title>
     <link rel="apple-touch-icon" href="{{ asset('app-assets/images/ico/logo.png') }}">
