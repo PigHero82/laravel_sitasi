@@ -132,4 +132,9 @@ class User extends Authenticatable
         }
         return $data;
     }
+
+    static function updateNidn($newNidn, $oldNidn)
+    {
+        User::where('nidn', $oldNidn)->update(['nidn' => $newNidn]);
+    }
 }

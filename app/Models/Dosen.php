@@ -51,6 +51,11 @@ class Dosen extends Model
 
     static function updateDosen($request, $id)
     {
+        $dosen = Dosen::firstDosen($id);
+        if ($request->nidn !== $dosen->nidn) {
+            User::updateNidn($request->nidn, $dosen->nidn);
+        }
+
         Dosen::whereId($id)->update([
             'nidn'              => $request->nidn,
             'nama'              => $request->nama,

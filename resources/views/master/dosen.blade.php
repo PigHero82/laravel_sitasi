@@ -199,8 +199,6 @@
                         </div>
 
                         <div class="modal-footer">
-                            @csrf
-                            <input type="text" name="nidn" id="nidn-field" hidden required>
                             <button type="submit" class="btn btn-primary">Perbarui</button>
                         </div>
                     </form>
