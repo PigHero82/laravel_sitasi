@@ -54,9 +54,6 @@ class UsulanMitra extends Model
             'kecamatan_id'      => 'numeric|required',
             'alamat'            => 'required',
             'tlp'               => 'numeric|required',
-            'hp'                => 'numeric|required',
-            'fax'               => 'numeric|required',
-            'email'             => 'required',
             'surat_path'        => 'required'
         ]);
 

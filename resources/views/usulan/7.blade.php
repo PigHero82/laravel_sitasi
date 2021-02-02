@@ -94,43 +94,41 @@
                                         <div class="row">
                                             <div class="form-group col-md-6">
                                                 <div class="controls">
-                                                    <label for="nama">Nama Mitra</label>
+                                                    <label for="nama">Nama Mitra <span class="text-danger">*</span></label>
                                                     <input type="hidden" name="usulan_id" value="{{ $usulan->id }}" required>
                                                     <input type="text" class="form-control" name="nama" placeholder="Nama Mitra" value="" required>
                                                 </div>
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <div class="controls">
-                                                    <label for="pimpinan">Nama Pimpinan</label>
+                                                    <label for="pimpinan">Nama Pimpinan <span class="text-danger">*</span></label>
                                                     <input type="text" class="form-control" name="pimpinan" placeholder="Nama Pimpinan" value="" required>
                                                 </div>
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <div class="controls">
-                                                    <label for="jenis">Jenis</label>
-                                                    <select class="form-control" name="mitra_jenis_id" required>
-                                                        <option value="" hidden>--Pilih jenis mitra</option>
-                                                        {{-- @foreach ($mitraJenis as $item)
-                                                            <option value="{{ $item->id }}"
-                                                                @if(!$usulanMitra->isEmpty())
-                                                                    @if ($usulanMitra->mitra_jenis_id == $item->id)
-                                                                        selected
-                                                                    @endif
-                                                                @endif
-                                                            >{{ $item->nama }}</option>
-                                                        @endforeach --}}
-                                                    </select>
+                                                    <label for="jenis">Jenis <span class="text-danger">*</span></label>
+                                                    @if ($mitraJenis->isNotEmpty())
+                                                        <select class="form-control" name="mitra_jenis_id" required>
+                                                            <option value="" hidden>--Pilih jenis mitra</option>
+                                                            @foreach ($mitraJenis as $item)
+                                                                <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    @else
+                                                        <input type="text" value="Tidak ada jenis mitra">
+                                                    @endif
                                                 </div>
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <div class="controls">
-                                                    <label for="institusi">Institusi</label>
+                                                    <label for="institusi">Institusi <span class="text-danger">*</span></label>
                                                     <input type="text" class="form-control" name="institusi" placeholder="Institusi" value="" required>
                                                 </div>
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <div class="controls">
-                                                    <label for="provinsi">Provinsi</label>
+                                                    <label for="provinsi">Provinsi <span class="text-danger">*</span></label>
                                                     <select class="form-control provinsi_create" id="provinsi_create" name="provinsi_id" required>
                                                         <option value="" hidden>--Pilih provinsi</option>
                                                         @foreach ($provinsi as $item)
@@ -141,7 +139,7 @@
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <div class="controls">
-                                                    <label for="kabupaten">Kabupaten/Kota</label>
+                                                    <label for="kabupaten">Kabupaten/Kota <span class="text-danger">*</span></label>
                                                     <select class="form-control kabkota_create" id="kabkota_create" name="kabkota_id" required>
                                                         <option value="" hidden>--Pilih kabupaten/kota</option>
                                                     </select>
@@ -149,7 +147,7 @@
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <div class="controls">
-                                                    <label for="kecamatan">Kecamatan</label>
+                                                    <label for="kecamatan">Kecamatan <span class="text-danger">*</span></label>
                                                     <select class="form-control kecamatan_create" id="kecamatan_create" name="kecamatan_id" required>
                                                         <option value="" hidden>--Pilih kecamatan</option>
                                                     </select>
@@ -157,32 +155,32 @@
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <div class="controls">
-                                                    <label for="alamat">Alamat</label>
+                                                    <label for="alamat">Alamat <span class="text-danger">*</span></label>
                                                     <input type="text" class="form-control" name="alamat" placeholder="Alamat" value="" required>
                                                 </div>
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <div class="controls">
-                                                    <label for="telepon">No. Telepon</label>
+                                                    <label for="telepon">No. Telepon <span class="text-danger">*</span></label>
                                                     <input type="tel" class="form-control" name="tlp" placeholder="No. Telepon" value="" required>
                                                 </div>
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <div class="controls">
                                                     <label for="hp">No. HP</label>
-                                                    <input type="tel" class="form-control" name="hp" placeholder="No. HP" value="" required>
+                                                    <input type="tel" class="form-control" name="hp" placeholder="No. HP" value="">
                                                 </div>
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <div class="controls">
                                                     <label for="fax">No. Fax</label>
-                                                    <input type="tel" class="form-control" name="fax" placeholder="No. Fax" value="" required>
+                                                    <input type="tel" class="form-control" name="fax" placeholder="No. Fax" value="">
                                                 </div>
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <div class="controls">
                                                     <label for="email">Alamat Email</label>
-                                                    <input type="email" class="form-control" name="email" placeholder="Alamat Email" value="" required>
+                                                    <input type="email" class="form-control" name="email" placeholder="Alamat Email" value="">
                                                 </div>
                                             </div>
                                             <fieldset class="form-group position-relative has-icon-left col-md-6">
@@ -193,7 +191,7 @@
                                                 </div>
                                             </fieldset>
                                             <fieldset class="form-group col-md-6">
-                                                <label for="surat">Surat Pernyataan Mitra (pdf, maksimal 5 MB)</label>
+                                                <label for="surat">Surat Pernyataan Mitra (pdf, maksimal 5 MB) <span class="text-danger">*</span></label>
                                                 <div class="custom-file">
                                                     <input type="file" class="custom-file-input" name="surat_path" id="inputGroupFile01" required>
                                                     <label class="custom-file-label" for="inputGroupFile01">Pilih berkas</label>

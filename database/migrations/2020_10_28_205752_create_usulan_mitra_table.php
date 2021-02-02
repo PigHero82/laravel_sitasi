@@ -25,9 +25,9 @@ class CreateUsulanMitraTable extends Migration
             $table->string('kabkota_id', 100);
             $table->string('provinsi_id', 100);
             $table->string('tlp', 12);
-            $table->string('hp', 15);
-            $table->string('fax', 12);
-            $table->string('email', 100);
+            $table->string('hp', 15)->nullable();
+            $table->string('fax', 12)->nullable();
+            $table->string('email', 100)->nullable();
             $table->integer('dana')->unsigned()->default(0)->nullable();
             $table->timestamps();
         });
