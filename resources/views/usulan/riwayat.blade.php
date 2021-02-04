@@ -271,8 +271,11 @@
                     $('#jenis').text('Pengabdian');
                     $('#judul').html(d.judul);
                     $('#ketua').html(d.ketua);
-                    for (var i = 0; i < d.anggota.length; i++) {
-                        $('#anggota').html('<li>'+d.anggota[i].dosen_nama+'</li>');
+                    if(d.anggota.length > 0){
+                        $('#anggota').html('');
+                        for (var i = 0; i < d.anggota.length; i++) {
+                            $('#anggota').append('<li>'+d.anggota[i].dosen_nama+'</li>');
+                        }
                     }
                     $('#skema').html(d.skema_usulan.nama);
                     $('#tahun-usulan').html(d.skema_usulan.tahun_skema);
