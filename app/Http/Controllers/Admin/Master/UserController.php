@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Master;
 
 use App\Http\Controllers\Controller;
+use App\Models\Dosen;
 use App\Models\ListRole;
 use App\Models\RoleUser;
 use App\Models\User;
@@ -17,6 +18,7 @@ class UserController extends Controller
      */
     public function index()
     {
+        // return 'a';
         $data = User::getUser();
         return view('master.user', compact('data'));
     }
@@ -39,7 +41,15 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nidn'      => 'required|numeric',
+            'nama'      => 'required',
+            'password'  => 'required',
+        ]);
+
+        // User::storeUser($request);
+        Dosen::storeUser($request);
+        return back()->with('success', 'Data user berhasil ditambahkan');
     }
 
     /**

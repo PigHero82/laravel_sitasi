@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
@@ -130,7 +131,22 @@ class User extends Authenticatable
                                                 ->get();
             }
         }
+        return 'a';
         return $data;
+    }
+
+    static function storeUser($request)
+    {
+        $user = User::create([
+            'nidn'                  => $request->nidn,
+            'password'              => Hash::make($request->password)
+        ]);
+        $user->roles()->attach(Role::where('name', 'admin')->first());
+
+        ListRole::insert([
+            'role_id' => 1,
+            'user_id' => $user->id
+        ]);
     }
 
     static function updateNidn($newNidn, $oldNidn)

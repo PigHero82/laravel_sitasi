@@ -227,27 +227,28 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form action="#" novalidate>
+                    <form action="{{ route('admin.master.user.store') }}" method="POST" autocomplete="off">
+                        @csrf
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col-md-12">
                                     <label>NIDN</label>
                                     <div class="form-group">
-                                        <input type="number" placeholder="NIDN" class="form-control" data-validation-required-message="NIDN tidak boleh kosong">
+                                        <input type="number" name="nidn" placeholder="NIDN" class="form-control" required>
                                     </div>
                                 </div>
                                 
                                 <div class="col-md-12">
                                     <label>Nama</label>
                                     <div class="form-group">
-                                        <input type="text" placeholder="Nama" class="form-control" data-validation-required-message="Nama tidak boleh kosong">
+                                        <input type="text" name="nama" placeholder="Nama" class="form-control" required autocomplete="off">
                                     </div>
                                 </div>
                                 
                                 <div class="col-md-12">
                                     <label>Kata Sandi</label>
                                     <div class="form-group">
-                                        <input type="password" placeholder="Kata Sandi" class="form-control" data-validation-required-message="Kata Sandi minimal berisi 8 karakter" minlength="8">
+                                        <input type="password" name="password" placeholder="Kata Sandi" class="form-control" minlength="8" required autocomplete="off">
                                     </div>
                                 </div>
                             </div>

@@ -74,4 +74,12 @@ class Dosen extends Model
             'status'            => $request->status
         ]);
     }
+
+    static function storeUser($request)
+    {
+        Dosen::updateOrCreate(['nidn' => $request->nidn], [
+            'nidn' => $request->nidn,
+            'nama' => $request->nama,
+        ]);
+    }
 }
