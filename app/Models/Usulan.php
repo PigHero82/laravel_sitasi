@@ -19,6 +19,7 @@ class Usulan extends Model
     {
         return Usulan::where('jenis', $jenis)
                         ->where('dosen_id', $id)
+                        ->whereNotNull('judul')
                         ->count();
     }
 
@@ -260,6 +261,7 @@ class Usulan extends Model
     {
         $usulan = Usulan::where('jenis', $jenis)
                         ->where('dosen_id', $id)
+                        ->whereNotNull('judul')
                         ->orderByDesc('created_at')
                         ->get();
 
