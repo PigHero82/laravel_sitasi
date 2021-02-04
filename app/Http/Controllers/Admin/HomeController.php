@@ -25,7 +25,7 @@ class HomeController extends Controller
     {
         $penelitian = Usulan::getUsulanPenelitian();
         $pengabdian = Usulan::getUsulanPengabdian();
-
+       
         return view('usulan.riwayat', compact('penelitian', 'pengabdian'));
     }
 }

@@ -68,6 +68,7 @@ Route::namespace('Admin')->name('admin.')->prefix('admin')->middleware('auth', '
         Route::resource('skema', 'SkemaController');
         Route::resource('user', 'UserController');
     });
+    
     Route::name('review.')->prefix('review')->group(function() {
         Route::get('pembagian-reviewer', 'ReviewController@pembagian')->name('pembagian-reviewer');
         Route::patch('store/{id}', 'ReviewController@storeReviewer')->name('store');
