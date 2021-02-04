@@ -131,7 +131,7 @@ class User extends Authenticatable
                                                 ->get();
             }
         }
-        return 'a';
+       
         return $data;
     }
 

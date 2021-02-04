@@ -62,7 +62,7 @@
                         </thead>
     
                         <tbody>
-                            @foreach ($data as $item)
+                            @foreach($data as $item)
                                 <tr>
                                     <td>
                                         <div class="avatar text-center">

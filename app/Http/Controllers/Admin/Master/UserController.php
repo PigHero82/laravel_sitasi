@@ -18,8 +18,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        // return 'a';
         $data = User::getUser();
+   
         return view('master.user', compact('data'));
     }
 
