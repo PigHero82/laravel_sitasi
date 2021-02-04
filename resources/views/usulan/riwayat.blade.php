@@ -57,6 +57,7 @@
                         <thead>
                             <tr>
                                 <th style="width: 60%">Judul</th>
+                                <th>Ketua</th>
                                 <th>Skema Usulan</th>
                                 <th style="width: 15%">Tahun Pelaksanaan</th>
                             </tr>
@@ -65,6 +66,7 @@
                             @foreach ($penelitian as $item)
                                 <tr>
                                     <td><a href="#modal" data-toggle="modal" data-value="{{ $item->id }}">{{ $item->judul }}</a></td>
+                                    <td>{{ $item->ketua }}</td>
                                     <td>{{ $item->skema_usulan->tahun_skema . ' - ' . $item->skema_usulan->kode }}</td>
                                     <td>{{ $item->skema_usulan->tahun_pelaksanaan }}</td>
                                 </tr>
@@ -73,6 +75,7 @@
                         <tfoot>
                             <tr>
                                 <th>Judul</th>
+                                <th>Ketua</th>
                                 <th>Skema Usulan</th>
                                 <th>Tahun Pelaksanaan</th>
                             </tr>

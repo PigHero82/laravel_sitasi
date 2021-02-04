@@ -110,7 +110,7 @@ class Usulan extends Model
 
     static function getUsulan($jenis)
     {
-        $usulan = Usulan::select('id', 'skema_usulan_id', 'reviewer')
+        $usulan = Usulan::select('id', 'skema_usulan_id', 'reviewer','step')
                         ->where('jenis', $jenis)
                         ->orderByDesc('created_at')
                         ->get();
@@ -143,7 +143,6 @@ class Usulan extends Model
                         ->orderBy('step')
                         ->orderByDesc('created_at')
                         ->get();
-
         if ($usulan->isNotEmpty()) {
             foreach ($usulan as $key => $value) {
                 $data[$key] = Usulan::findOrFail($value->id);
@@ -156,7 +155,6 @@ class Usulan extends Model
                 $data[$key]['reviewer'] = ($value->reviewer != NULL) ? Dosen::firstDosenByNidn($value->reviewer) : NULL ;
                 $data[$key]['skema_usulan'] = SkemaUsulan::firstSkema($value->skema_usulan_id);
             }
-
             return $data;
         }
 
@@ -168,9 +166,9 @@ class Usulan extends Model
         $data = [];
         $usulan = Usulan::select()
                         ->where('jenis', 1)
+                        ->where('step', '>', 8)
                         ->orderByDesc('skema_usulan_id')
                         ->get();
-
         if ($usulan->isNotEmpty()) {
             foreach ($usulan as $key => $value) {
                 $data[$key] = Usulan::firstUsulan($value->id);
@@ -214,6 +212,7 @@ class Usulan extends Model
     {
         $data = [];
         $usulan = Usulan::where('jenis', 2)
+                        ->where('step', '>', 8)
                         ->orderByDesc('skema_usulan_id')
                         ->get();
 
@@ -334,6 +333,9 @@ class Usulan extends Model
                         ->where('usulan.jenis', $jenis)
                         ->groupBy('skema_usulan.tahun_pelaksanaan')
                         ->get();
+    }
+    static function getUsulanBySkema($skema_id){
+
     }
 
     static function getUsulanByReviewer($reviewer, $jenis)
