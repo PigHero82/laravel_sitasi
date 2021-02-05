@@ -55,7 +55,8 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 
 Route::namespace('Admin')->name('admin.')->prefix('admin')->middleware('auth', 'role:admin')->group(function() {
     Route::get('', 'HomeController@index')->name('index');
-    Route::get('usulan', 'HomeController@usulan')->name('usulan');
+    Route::get('usulan/', 'HomeController@usulan')->name('usulan');
+    Route::get('usulan/{skema}', 'HomeController@usulanBySkema')->name('usulanBySkema');
     Route::namespace('Master')->name('master.')->prefix('master')->group(function() {
         Route::resource('dosen', 'DosenController');
         Route::resource('jabatan', 'JabatanController');

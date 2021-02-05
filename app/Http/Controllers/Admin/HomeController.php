@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Usulan;
 use Illuminate\Http\Request;
+use App\Models\SkemaUsulan;
 
 class HomeController extends Controller
 {
@@ -27,5 +28,20 @@ class HomeController extends Controller
         $pengabdian = Usulan::getUsulanPengabdian();
        
         return view('usulan.riwayat', compact('penelitian', 'pengabdian'));
+    }
+
+    public function usulanBySkema($skema){
+
+       
+        
+        if($skema == 1){
+            $penelitian = Usulan::getUsulanPenelitian();
+            $skema = SkemaUsulan::getSkemaPenelitian();
+            return view('usulan.list-penelitian', compact('penelitian','skema'));
+        }
+
+        $pengabdian = Usulan::getUsulanPengabdian();
+        $skema = SkemaUsulan::getSkemaPengabdian();
+        return view('usulan.list-pengabdian', compact('pengabdian','skema'));
     }
 }

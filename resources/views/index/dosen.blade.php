@@ -92,7 +92,93 @@
                 </div>
             @endif
             <!-- /.card -->
+            <div class="row">
+                <div class="col-12">
+                @if((!count($penelitian)) && (!count($pengabdian)))
+                <div class="card bg-danger text-white">
+                    <div class="card-header">
+                        <h3 class="card-title text-white">Usulan yang Dapat Diajukan</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-content">
+                        <div class="card-body text-center">
+                            <h1 class="text-white"><i class="feather icon-alert-octagon"></i></h1>
+                            <h4 class="card-title text-white">Tidak ada data</h4>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                @else
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Usulan yang sedang diajukan</h3>
+                    </div>
+                    <div class="card-body">
+                        <table id="usulan-berjalan" class="table zero-configuration table-striped" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th style="width: 60%;">Judul</th>
+                                <th>Skema</th>
+                                <th>Status</th>
 
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($penelitian as $item)
+                                @if($item->tahun_skema == date('Y'))
+                                <tr>
+                                    <td>{{ $item->judul }}</td>
+                                    <td>{{ $item->tahun_skema . ' - ' . $item->kode }}</td>
+                                    <td>
+                                        @if($item->step < 9)
+                                       
+                                        <form action="{{ route('dosen.usulan.store') }}" method="post">
+                                            @csrf
+                                            <input type="hidden" name="skema_usulan_id" value="{{ $item->skema_usulan_id }}/{{ $item->tahun_skema }}">
+                                            <input type="hidden" name="jenis" value="1">
+                                            <input type="hidden" name="step" value="{{ $item->step }}">
+                                            <button type="submit" class="btn btn-danger">Lanjutkan</button>
+                                        </form>
+                                        @else
+                                        Telah diajukan
+                                        @endif
+
+                                    </td>
+                                    
+                                </tr>
+                                @endif
+                            @endforeach
+                            @foreach ($pengabdian as $item)
+                                @if($item->tahun_skema == date('Y'))
+                                <tr>
+                                    <td>{{ $item->judul }}</td>
+                                    <td>{{ $item->tahun_skema . ' - ' . $item->kode }}</td>
+                                    <td>
+                                        @if($item->step < 9)
+                        
+                                        <form action="{{ route('dosen.usulan.store') }}" method="post">
+                                            @csrf
+                                            <input type="hidden" name="skema_usulan_id" value="{{ $item->skema_usulan_id }}/{{ $item->tahun_skema }}">
+                                            <input type="hidden" name="jenis" value="1">
+                                            <input type="hidden" name="step" value="{{ $item->step }}">
+                                            <button type="submit" class="btn btn-danger">Lanjutkan</button>
+                                        </form>
+                                        @else
+                                        Telah diajukan
+                                        @endif
+
+                                    </td>
+                                    
+                                </tr>
+                                @endif
+                            @endforeach
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+                @endif
+                </div>
+            </div>
             <div class="row">
                 <div class="col-6">
                     <div class="card text-center">
@@ -548,7 +634,11 @@
     <script>
         $(document).ready( function () {
             $('#skema').DataTable();
-            $('#penelitian').DataTable();
+            $('#penelitian').DataTable({
+            responsive: true,
+            "order": [[1, "desc"]],
+            "dom": '<"top row" <"col-md-4"l><"col-md-4"p><"col-md-4"f>>rt<"bottom row"<"col-md-4"l><"col-md-4"p>><"clear">'
+        });
             $('#pengabdian').DataTable();
         });
     </script>
