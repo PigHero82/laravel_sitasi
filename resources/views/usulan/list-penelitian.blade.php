@@ -63,6 +63,9 @@
                         </select>
                         </div>
                     </div>
+                    <div class="col-md-12 text-md-right" >
+                        <h4> Jumlah usulan: <span id="jumlah-data"></span></h4>
+                    </div>
                     <table id="table-penelitian" class="table zero-configuration table-striped table-responsive" style="width:100%">
                         <thead>
                             <tr>
@@ -197,9 +200,15 @@
         $('#filter-skema').on('change',function(){
             var val = $(this).val();
             tabel.column(2).search( val ? '^'+$(this).val()+'$' : val, true, false ).draw();
+            var info = tabel.page.info();
+      
+            $("#jumlah-data").html(info.recordsDisplay);
         });
 
         $(document).ready( function () {
+            var info = tabel.page.info();
+      
+            $("#jumlah-data").html(info.recordsDisplay);
             $(document).on('click', '#table-penelitian tbody tr td a', function(e) {
                 var id = $(this).attr('data-value');
                 $.get( "/usulan/" + id, function( data ) {
