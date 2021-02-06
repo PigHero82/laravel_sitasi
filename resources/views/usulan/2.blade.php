@@ -69,6 +69,7 @@
                             <th>Jabatan Fungsional</th>
                             <th>Peran Personil</th>
                             <th>Status Konfirmasi</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -79,13 +80,22 @@
                                 <td>{{ $item->prodi_nama }}</td>
                                 <td>{{ $item->jabatan_nama }}</td>
                                 <td>{{ $item->peran_nama }}</td>
-                                @if ($item->status == 1)
-                                    <td class="badge badge-pill badge-warning mt-1"><i class="feather icon-clock"></i> {{ $item->status_nama }}</td>
-                                @elseif ($item->status == 2)
-                                    <td class="badge badge-pill badge-success mt-1"><i class="feather icon-check"></i> {{ $item->status_nama }}</td>
-                                @elseif ($item->status == 3)
-                                    <td class="badge badge-pill badge-danger mt-1"><i class="feather icon-check"></i> {{ $item->status_nama }}</td>
-                                @endif
+                                <td>
+                                    @if ($item->status == 0)
+                                        <i class="feather icon-clock text-warning"></i> {{ $item->status_nama }}
+                                    @elseif ($item->status == 1)
+                                        <i class="feather icon-check text-success"></i> {{ $item->status_nama }}
+                                    @elseif ($item->status == 2)
+                                        <i class="feather icon-x text-danger"></i> {{ $item->status_nama }}
+                                    @endif
+                                </td>
+                                <td>
+                                    <form action="{{ route('dosen.usulan.anggota.destroy', $item->id)}}" method="post">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" style="padding: 0; border: none; background: none;" class="action-edit text-danger" title="Hapus"><i class="feather icon-trash"></i></button>
+                                    </form>
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>

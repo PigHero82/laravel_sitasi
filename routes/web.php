@@ -117,6 +117,7 @@ Route::namespace('Dosen')->name('dosen.')->prefix('dosen')->middleware('auth', '
         Route::resource('', 'UsulanController')->except(['update']);
         Route::patch('{id}', 'UsulanController@update')->name('update');
         Route::post('anggota', 'UsulanController@anggota')->name('anggota');
+        Route::delete('anggota/{usulanAnggota}', 'UsulanController@destroyAnggota')->name('anggota.destroy');
         Route::post('backward', 'UsulanController@backward')->name('backward');
         Route::post('dana', 'UsulanController@usulanDanaUpdate')->name('dana');
         Route::name('kegiatan.')->prefix('kegiatan')->group(function() {

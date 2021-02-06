@@ -12,6 +12,11 @@ class UsulanAnggota extends Model
     protected $table = 'usulan_anggota';
     protected $fillable = ['usulan_id', 'dosen_id', 'peran_id', 'status'];
 
+    static function destroyAnggota($id)
+    {
+        UsulanAnggota::whereId($id)->delete();
+    }
+
     static function firstAnggota($usulanId, $dosenId)
     {
         $data = UsulanAnggota::where('usulan_id', $usulanId)

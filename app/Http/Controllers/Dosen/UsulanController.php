@@ -228,6 +228,12 @@ class UsulanController extends Controller
         }
     }
 
+    public function destroyAnggota(UsulanAnggota $usulanAnggota)
+    {
+        UsulanAnggota::destroyAnggota($usulanAnggota->id);
+        return back()->with('success', 'Anggota berhasil dihapus');
+    }
+
     public function backward(Request $request)
     {
         $page = $request->cookie('page');
