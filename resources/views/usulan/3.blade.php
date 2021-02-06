@@ -47,8 +47,9 @@
                         <span>Unggah File :</span>
                     </div>
                     <div class="col-md-9">
+                
                         @if (count($usulan->berkas))
-                            <iframe src="{{ asset($usulan->berkas[0]->berkas) }}" width="100%" height="500px">
+                            <iframe src="{{ asset($usulan->berkas->where('jenis_berkas_id',1)->first()->berkas) }}" width="100%" height="500px">
                             </iframe>
                         @endif
                         <div class="row">

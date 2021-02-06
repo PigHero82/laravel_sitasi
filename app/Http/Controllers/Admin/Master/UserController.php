@@ -19,7 +19,6 @@ class UserController extends Controller
     public function index()
     {
         $data = User::getUser();
-   
         return view('master.user', compact('data'));
     }
 
@@ -47,7 +46,7 @@ class UserController extends Controller
             'password'  => 'required',
         ]);
 
-        // User::storeUser($request);
+        User::storeUser($request);
         Dosen::storeUser($request);
         return back()->with('success', 'Data user berhasil ditambahkan');
     }

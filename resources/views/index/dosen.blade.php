@@ -159,7 +159,7 @@
                                         <form action="{{ route('dosen.usulan.store') }}" method="post">
                                             @csrf
                                             <input type="hidden" name="skema_usulan_id" value="{{ $item->skema_usulan_id }}/{{ $item->tahun_skema }}">
-                                            <input type="hidden" name="jenis" value="1">
+                                            <input type="hidden" name="jenis" value="2">
                                             <input type="hidden" name="step" value="{{ $item->step }}">
                                             <button type="submit" class="btn btn-danger">Lanjutkan</button>
                                         </form>

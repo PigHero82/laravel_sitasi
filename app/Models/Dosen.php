@@ -80,6 +80,7 @@ class Dosen extends Model
         Dosen::updateOrCreate(['nidn' => $request->nidn], [
             'nidn' => $request->nidn,
             'nama' => $request->nama,
+            'jabatan_id' => 6
         ]);
     }
 }

@@ -119,17 +119,21 @@ class User extends Authenticatable
     static function getUser()
     {
         $user = User::all();
+        $data = [];
         if ($user->isNotEmpty()) {
             foreach ($user as $key => $value) {
                 $data[$key] = User::select('users.id', 'users.nidn', 'users.profile_photo_path', 'dosen.nama', 'jabatan.nama as jabatan')
                                     ->join('dosen', 'users.nidn', 'dosen.nidn')
                                     ->join('jabatan', 'jabatan.id', 'dosen.jabatan_id')
                                     ->findOrFail($value->id);
+
                 $data[$key]['roles'] = ListRole::where('user_id', $value->id)
                                                 ->select('roles.id', 'roles.description')
                                                 ->join('roles', 'list_roles.role_id', 'roles.id')
                                                 ->get();
             }
+       
+          
         }
        
         return $data;
@@ -141,12 +145,15 @@ class User extends Authenticatable
             'nidn'                  => $request->nidn,
             'password'              => Hash::make($request->password)
         ]);
-        $user->roles()->attach(Role::where('name', 'admin')->first());
-
-        ListRole::insert([
-            'role_id' => 1,
+        
+        foreach ($request->role as $key => $value) {
+            $user->roles()->attach($value);
+            ListRole::insert([
+            'role_id' => $value,
             'user_id' => $user->id
-        ]);
+            ]);
+        }
+        
     }
 
     static function updateNidn($newNidn, $oldNidn)

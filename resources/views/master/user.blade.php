@@ -251,6 +251,77 @@
                                         <input type="password" name="password" placeholder="Kata Sandi" class="form-control" minlength="8" required autocomplete="off">
                                     </div>
                                 </div>
+                                <div class="col-md-12">
+                                    <label>Role</label>
+                                    <div class="form-group">
+                                        <fieldset>
+                                        <div class="vs-checkbox-con vs-checkbox-primary">
+                                            <input class="input-role" name="role[]" id="admin" type="checkbox" value="1">
+                                            <span class="vs-checkbox">
+                                                <span class="vs-checkbox--check">
+                                                    <i class="vs-icon feather icon-check"></i>
+                                                </span>
+                                            </span>
+                                            <span class="">Admin</span>
+                                        </div>
+                                    </fieldset>
+                                    <fieldset>
+                                        <div class="vs-checkbox-con vs-checkbox-primary">
+                                            <input class="input-role" name="role[]" id="pimpinan" type="checkbox" value="2">
+                                            <span class="vs-checkbox">
+                                                <span class="vs-checkbox--check">
+                                                    <i class="vs-icon feather icon-check"></i>
+                                                </span>
+                                            </span>
+                                            <span class="">Pimpinan</span>
+                                        </div>
+                                    </fieldset>
+                                    <fieldset>
+                                        <div class="vs-checkbox-con vs-checkbox-primary">
+                                            <input class="input-role" name="role[]" id="dosen" type="checkbox" value="3">
+                                            <span class="vs-checkbox">
+                                                <span class="vs-checkbox--check">
+                                                    <i class="vs-icon feather icon-check"></i>
+                                                </span>
+                                            </span>
+                                            <span class="">Dosen</span>
+                                        </div>
+                                    </fieldset>
+                                    <fieldset>
+                                        <div class="vs-checkbox-con vs-checkbox-primary">
+                                            <input class="input-role" name="role[]" id="penelitian" type="checkbox" value="4">
+                                            <span class="vs-checkbox">
+                                                <span class="vs-checkbox--check">
+                                                    <i class="vs-icon feather icon-check"></i>
+                                                </span>
+                                            </span>
+                                            <span class="">Koordinator Penelitian</span>
+                                        </div>
+                                    </fieldset>
+                                    <fieldset>
+                                        <div class="vs-checkbox-con vs-checkbox-primary">
+                                            <input class="input-role" name="role[]" id="pengabdian" type="checkbox" value="5">
+                                            <span class="vs-checkbox">
+                                                <span class="vs-checkbox--check">
+                                                    <i class="vs-icon feather icon-check"></i>
+                                                </span>
+                                            </span>
+                                            <span class="">Koordinator Pengabdian</span>
+                                        </div>
+                                    </fieldset>
+                                    <fieldset>
+                                        <div class="vs-checkbox-con vs-checkbox-primary">
+                                            <input class="input-role" name="role[]" id="reviewer" type="checkbox" value="6">
+                                            <span class="vs-checkbox">
+                                                <span class="vs-checkbox--check">
+                                                    <i class="vs-icon feather icon-check"></i>
+                                                </span>
+                                            </span>
+                                            <span class="">Reviewer</span>
+                                        </div>
+                                    </fieldset>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="modal-footer">

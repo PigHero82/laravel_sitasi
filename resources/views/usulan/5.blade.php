@@ -31,7 +31,8 @@
 
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Step 5 - Rencana Anggaran</h3>
+            <h3 class="card-title col-8">Step 5 - Rencana Anggaran</h3>
+            <h4 class="col-4">Total Anggaran: <span id="total-anggaran">0</span>,-</h4>
         </div>
         <!-- /.card-header -->
         <div class="card-body">
@@ -235,6 +236,12 @@
             $('form').submit(function() {
                 $(this).find("button[type='submit']").prop('disabled', true);
             });
+            var total = 0;
+            @foreach($usulanRab as $item)
+            total += {{ $item->total }};
+            @endforeach
+
+            $('#total-anggaran').html(formatRupiah(''+total, 'Rp. '));
         });
     </script>
 @endsection
