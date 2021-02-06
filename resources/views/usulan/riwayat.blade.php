@@ -137,7 +137,6 @@
     </div>
     <!-- /.row -->
 
-        
     <!-- modal -->
     <div class="modal fade text-left" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
@@ -224,19 +223,17 @@
     <script src="{{ asset('app-assets/vendors/js/tables/datatable/datatables.min.js') }}"></script>
     <script src="{{ asset('app-assets/vendors/js/tables/datatable/datatables.bootstrap4.min.js') }}"></script>
     <script>
-        $('#table-penelitian').DataTable({
-            responsive: true,
-            "order": [[2, "desc"]],
-            "dom": '<"top row" <"col-md-4"l><"col-md-4"p><"col-md-4"f>>rt<"bottom row"<"col-md-4"l><"col-md-4"p>><"clear">'
-        });
-
-        $('#table-pengabdian').DataTable({
-            responsive: true,
-            "order": [[2, "desc"]],
-            "dom": '<"top row" <"col-md-4"l><"col-md-4"p><"col-md-4"f>>rt<"bottom row"<"col-md-4"l><"col-md-4"p>><"clear">'
-        });
-
         $(document).ready( function () {
+            $('#table-penelitian').DataTable({
+                responsive: true,
+                "order": [[2, "desc"]]
+            });
+    
+            $('#table-pengabdian').DataTable({
+                responsive: true,
+                "order": [[2, "desc"]]
+            });
+    
             $(document).on('click', '#table-penelitian tbody tr td a', function(e) {
                 var id = $(this).attr('data-value');
                 $.get( "/usulan/" + id, function( data ) {

@@ -111,7 +111,7 @@
                 @else
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Usulan yang sedang diajukan</h3>
+                        <h3 class="card-title">Usulan yang Sedang Diajukan</h3>
                     </div>
                     <div class="card-body">
                         <table id="usulan-berjalan" class="table zero-configuration table-striped" style="width:100%">
@@ -322,32 +322,24 @@
                     <!-- /.card-header -->
                     <div class="card-content collapse show">
                         <div class="card-body">
-                            <table id="penelitian" class="table zero-configuration table-striped" style="width:100%">
+                            <table id="tablePenelitian" class="table zero-configuration table-striped" style="width:100%">
                                 <thead>
                                     <tr>
-                                        @isset($penelitian)
-                                            <th style="width: 60%">Judul</th>
-                                            <th>Skema Usulan</th>
-                                            <th>Tahun Pelaksanaan</th>
-                                        @else
-                                            <th>Judul</th>
-                                            <th>Skema Usulan</th>
-                                            <th>Tahun Pelaksanaan</th>
-                                        @endisset
+                                        <th style="width: 60%">Judul</th>
+                                        <th>Skema Usulan</th>
+                                        <th>Tahun Pelaksanaan</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @isset($penelitian)
-                                        @foreach ($penelitian as $item)
-                                            <tr>
-                                                <td><a href="#modalPenelitian" data-toggle="modal">{{ $item->judul }}</a></td>
-                                                <td>{{ $item->skema_usulan->tahun_skema . ' - ' . $item->skema_usulan->kode }}</td>
-                                                <td>{{ $item->skema_usulan->tahun_pelaksanaan }}</td>
-                                            </tr>
-                                        @endforeach
-                                    @else
+                                    @forelse ($penelitian as $item)
+                                        <tr>
+                                            <td><a href="#modal" data-toggle="modal" data-value="{{ $item->id }}">{{ $item->judul }}</a></td>
+                                            <td>{{ $item->skema_usulan->tahun_skema . ' - ' . $item->skema_usulan->kode }}</td>
+                                            <td>{{ $item->skema_usulan->tahun_pelaksanaan }}</td>
+                                        </tr>
+                                    @empty
                                             Tidak ada data
-                                    @endisset
+                                    @endforelse
                                 </tbody>
                                 <tfoot>
                                     <tr>
@@ -395,7 +387,7 @@
                     <!-- /.card-header -->
                     <div class="card-content collapse show">
                         <div class="card-body">
-                            <table id="pengabdian" class="table zero-configuration table-striped" style="width:100%">
+                            <table id="tablePengabdian" class="table zero-configuration table-striped" style="width:100%">
                                 <thead>
                                     <tr>
                                         <th style="width: 60%">Judul</th>
@@ -406,7 +398,7 @@
                                 <tbody>
                                     @foreach ($pengabdian as $item)
                                         <tr>
-                                            <td><a href="#modalPengabdian" data-toggle="modal">{{ $item->judul }}</a></td>
+                                            <td><a href="#modal" data-toggle="modal" data-value="{{ $item->id }}">{{ $item->judul }}</a></td>
                                             <td>{{ $item->skema_usulan->tahun_skema . ' - ' . $item->skema_usulan->kode }}</td>
                                             <td>{{ $item->skema_usulan->tahun_pelaksanaan }}</td>
                                         </tr>
@@ -446,13 +438,12 @@
     </div>
     <!-- /.row -->
 
-        
-    <!-- modal penelitian -->
-    <div class="modal fade text-left" id="modalPenelitian" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
+    <!-- modal -->
+    <div class="modal fade text-left" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="myModalLabel33">Detail Penelitian</h4>
+                    <h4 class="modal-title" id="label">Detail</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -461,153 +452,62 @@
                     <div class="card-text">
                         <dl class="row">
                             <dt class="col-sm-4 text-md-right">Judul</dt>
-                            <dd class="col-sm-8">Implementasi Komik Interaktif Cerita Rakyat Cupak Grantang dengan Bahasa Isyarat berbasis Mobile</dd>
+                            <dd class="col-sm-8" id="judul">-</dd>
                         </dl>
-                        <dl class="row">
+                        <dl class="row mb-0">
                             <dt class="col-sm-4 text-md-right">Tim Peneliti</dt>
-                            <dd class="col-sm-8">
+                            <dd class="col-sm-8 ml-1 ml-md-0">
                                 <dl class="row">
                                     <dt class="col-sm-3 text-md-right">Ketua</dt>
-                                    <dd class="col-sm-9">Airi Satou</dd>
+                                    <dd class="col-sm-9" id="ketua">-</dd>
                                 </dl>
-                                <dl class="row">
-                                    <dt class="col-sm-3 text-md-right">Anggota</dt>
-                                    <dd class="col-sm-9">
-                                        <ul class="list-unstyled">
-                                            <li>Ashton Cox</li>
-                                            <li class="mt-1">Cedric Kelly</li>
-                                            <li class="mt-1">Garrett Winters</li>
-                                            <li class="mt-1">Tiger Nixon</li>
-                                        </ul>
+                                <dl class="row mb-0">
+                                    <dt class="col-sm-3 mb-0 text-md-right">Anggota</dt>
+                                    <dd class="col-sm-9 mb-0">
+                                        <ul class="list-unstyled" id="anggota">-</ul>
                                     </dd>
                                 </dl>
                             </dd>
                         </dl>
                         <dl class="row">
                             <dt class="col-sm-4 text-md-right">Skema</dt>
-                            <dd class="col-sm-8">PPDS Batch 1</dd>
+                            <dd class="col-sm-8" id="skema">-</dd>
                         </dl>
                         <dl class="row">
                             <dt class="col-sm-4 text-md-right">Tahun Usulan</dt>
-                            <dd class="col-sm-8">2020</dd>
+                            <dd class="col-sm-8" id="tahun-usulan">-</dd>
                         </dl>
                         <dl class="row">
                             <dt class="col-sm-4 text-md-right">Tahun Penelitian</dt>
-                            <dd class="col-sm-8">2020</dd>
+                            <dd class="col-sm-8" id="tahun-pelaksanaan">-</dd>
                         </dl>
                         <dl class="row">
                             <dt class="col-sm-4 text-md-right">Jenis Usulan</dt>
-                            <dd class="col-sm-8">Penelitian</dd>
+                            <dd class="col-sm-8" id="jenis">Penelitian</dd>
                         </dl>
                         <dl class="row">
                             <dt class="col-sm-4 text-md-right">Proposal</dt>
-                            <dd class="col-sm-8"><a href="#">Berkas Proposal</a></dd>
+                            <dd class="col-sm-8" id="berkas-proposal">-</dd>
                         </dl>
                         <dl class="row">
                             <dt class="col-sm-4 text-md-right">Laporan Kemajuan</dt>
-                            <dd class="col-sm-8">-</dd>
+                            <dd class="col-sm-8" id="berkas-laporan-kemajuan">-</dd>
                         </dl>
                         <dl class="row">
                             <dt class="col-sm-4 text-md-right">Laporan Akhir</dt>
-                            <dd class="col-sm-8">-</dd>
+                            <dd class="col-sm-8" id="berkas-laporan-akhir">-</dd>
                         </dl>
                         <dl class="row">
                             <dt class="col-sm-4 text-md-right">Laporan Anggaran</dt>
-                            <dd class="col-sm-8">-</dd>
+                            <dd class="col-sm-8" id="berkas-laporan-anggaran">-</dd>
                         </dl>
                         <dl class="row">
                             <dt class="col-sm-4 text-md-right">Laporan Belanja</dt>
-                            <dd class="col-sm-8">-</dd>
+                            <dd class="col-sm-8" id="berkas-laporan-belanja">-</dd>
                         </dl>
                         <dl class="row">
                             <dt class="col-sm-4 text-md-right">Laporan Publikasi</dt>
-                            <dd class="col-sm-8">-</dd>
-                        </dl>
-                        <dl class="row">
-                            <dt class="col-sm-4 text-md-right">Link Publikasi/Google Scholar</dt>
-                            <dd class="col-sm-8">-</dd>
-                        </dl>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- modal pengabdian -->
-    <div class="modal fade text-left" id="modalPengabdian" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="myModalLabel33">Detail Usulan Pengabdian</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="card-text">
-                        <dl class="row">
-                            <dt class="col-sm-4 text-md-right">Judul</dt>
-                            <dd class="col-sm-8">Pelatihan Teknologi Komputer Dasar DI Taman Belajar Anak Br Pedahan Kaja Desa Tianyar Tengah, Kecamatan Kubu, Karangasem</dd>
-                        </dl>
-                        <dl class="row">
-                            <dt class="col-sm-4 text-md-right">Tim Peneliti</dt>
-                            <dd class="col-sm-8">
-                                <dl class="row">
-                                    <dt class="col-sm-3 text-md-right">Ketua</dt>
-                                    <dd class="col-sm-9">Airi Satou</dd>
-                                </dl>
-                                <dl class="row">
-                                    <dt class="col-sm-3 text-md-right">Anggota</dt>
-                                    <dd class="col-sm-9">
-                                        <ul class="list-unstyled">
-                                            <li>Ashton Cox</li>
-                                            <li class="mt-1">Cedric Kelly</li>
-                                            <li class="mt-1">Garrett Winters</li>
-                                            <li class="mt-1">Tiger Nixon</li>
-                                        </ul>
-                                    </dd>
-                                </dl>
-                            </dd>
-                        </dl>
-                        <dl class="row">
-                            <dt class="col-sm-4 text-md-right">Skema</dt>
-                            <dd class="col-sm-8">PKM STIKI Peduli (Tahunan) Batch 1</dd>
-                        </dl>
-                        <dl class="row">
-                            <dt class="col-sm-4 text-md-right">Tahun Usulan</dt>
-                            <dd class="col-sm-8">2020</dd>
-                        </dl>
-                        <dl class="row">
-                            <dt class="col-sm-4 text-md-right">Tahun Penelitian</dt>
-                            <dd class="col-sm-8">2020</dd>
-                        </dl>
-                        <dl class="row">
-                            <dt class="col-sm-4 text-md-right">Jenis Usulan</dt>
-                            <dd class="col-sm-8">Pengabdian</dd>
-                        </dl>
-                        <dl class="row">
-                            <dt class="col-sm-4 text-md-right">Proposal</dt>
-                            <dd class="col-sm-8"><a href="#">Berkas Proposal</a></dd>
-                        </dl>
-                        <dl class="row">
-                            <dt class="col-sm-4 text-md-right">Laporan Kemajuan</dt>
-                            <dd class="col-sm-8">-</dd>
-                        </dl>
-                        <dl class="row">
-                            <dt class="col-sm-4 text-md-right">Laporan Akhir</dt>
-                            <dd class="col-sm-8">-</dd>
-                        </dl>
-                        <dl class="row">
-                            <dt class="col-sm-4 text-md-right">Laporan Anggaran</dt>
-                            <dd class="col-sm-8">-</dd>
-                        </dl>
-                        <dl class="row">
-                            <dt class="col-sm-4 text-md-right">Laporan Belanja</dt>
-                            <dd class="col-sm-8">-</dd>
-                        </dl>
-                        <dl class="row">
-                            <dt class="col-sm-4 text-md-right">Laporan Publikasi</dt>
-                            <dd class="col-sm-8">-</dd>
+                            <dd class="col-sm-8" id="berkas-laporan-publikasi">-</dd>
                         </dl>
                         <dl class="row">
                             <dt class="col-sm-4 text-md-right">Link Publikasi/Google Scholar</dt>
@@ -634,12 +534,76 @@
     <script>
         $(document).ready( function () {
             $('#skema').DataTable();
-            $('#penelitian').DataTable({
-            responsive: true,
-            "order": [[1, "desc"]],
-            "dom": '<"top row" <"col-md-4"l><"col-md-4"p><"col-md-4"f>>rt<"bottom row"<"col-md-4"l><"col-md-4"p>><"clear">'
-        });
-            $('#pengabdian').DataTable();
+
+            $('#tablePenelitian').DataTable({
+                responsive: true,
+                "order": [[1, "desc"]]
+            });
+
+            $('#tablePengabdian').DataTable({
+                responsive: true,
+                "order": [[1, "desc"]]
+            });
+            $(document).on('click', '#tablePenelitian tbody tr td a', function(e) {
+                var id = $(this).attr('data-value');
+                $.get( "/usulan/" + id, function( data ) {
+                    console.log(JSON.parse(data));
+                    var d = JSON.parse(data);
+                    $('#label').text('Detail Penelitian');
+                    $('#jenis').text('Penelitian');
+                    $('#judul').html(d.judul);
+                    $('#ketua').html(d.ketua);
+                    for (var i = 0; i < d.anggota.length; i++) {
+                        $('#anggota').html('<li>'+d.anggota[i].dosen_nama+'</li>');
+                    }
+                    $('#skema').html(d.skema_usulan.nama);
+                    $('#tahun-usulan').html(d.skema_usulan.tahun_skema);
+                    $('#tahun-pelaksanaan').html(d.skema_usulan.tahun_pelaksanaan);
+                    for (var i = 0; i < d.berkas.length; i++) {
+                        if (d.berkas[i]['jenis_berkas_id'] == 1) {
+                            $('#berkas-proposal').html('<a href="/' + d.berkas[i]['berkas'] + '">Berkas Proposal</a>')
+                        } else if (d.berkas[i]['jenis_berkas_id'] == 2) {
+                            $('#berkas-laporan-kemajuan').html('<a href="/' + d.berkas[i]['berkas'] + '">Berkas Laporan Kemajuan</a>')
+                        } else if (d.berkas[i]['jenis_berkas_id'] == 3) {
+                            $('#berkas-laporan-akhir').html('<a href="/' + d.berkas[i]['berkas'] + '">Berkas Laporan Akhir</a>')
+                        } else if (d.berkas[i]['jenis_berkas_id'] == 4) {
+                            $('#berkas-laporan-anggaran').html('<a href="/' + d.berkas[i]['berkas'] + '">Berkas Laporan Anggaran</a>')
+                        }
+                    }
+                });
+            });
+
+            $(document).on('click', '#tablePengabdian tbody tr td a', function(e) {
+                var id = $(this).attr('data-value');
+                $.get( "/usulan/" + id, function( data ) {
+                    console.log(JSON.parse(data));
+                    var d = JSON.parse(data);  
+                    $('#label').text('Detail Pengabdian');
+                    $('#jenis').text('Pengabdian');
+                    $('#judul').html(d.judul);
+                    $('#ketua').html(d.ketua);
+                    if(d.anggota.length > 0){
+                        $('#anggota').html('');
+                        for (var i = 0; i < d.anggota.length; i++) {
+                            $('#anggota').append('<li>'+d.anggota[i].dosen_nama+'</li>');
+                        }
+                    }
+                    $('#skema').html(d.skema_usulan.nama);
+                    $('#tahun-usulan').html(d.skema_usulan.tahun_skema);
+                    $('#tahun-pelaksanaan').html(d.skema_usulan.tahun_pelaksanaan);
+                    for (var i = 0; i < d.berkas.length; i++) {
+                        if (d.berkas[i]['jenis_berkas_id'] == 1) {
+                            $('#berkas-proposal').html('<a href="/' + d.berkas[i]['berkas'] + '">Berkas Proposal</a>')
+                        } else if (d.berkas[i]['jenis_berkas_id'] == 2) {
+                            $('#berkas-laporan-kemajuan').html('<a href="/' + d.berkas[i]['berkas'] + '">Berkas Laporan Kemajuan</a>')
+                        } else if (d.berkas[i]['jenis_berkas_id'] == 3) {
+                            $('#berkas-laporan-akhir').html('<a href="/' + d.berkas[i]['berkas'] + '">Berkas Laporan Akhir</a>')
+                        } else if (d.berkas[i]['jenis_berkas_id'] == 4) {
+                            $('#berkas-laporan-anggaran').html('<a href="/' + d.berkas[i]['berkas'] + '">Berkas Laporan Anggaran</a>')
+                        }
+                    }
+                });
+            });
         });
     </script>
 @endsection
