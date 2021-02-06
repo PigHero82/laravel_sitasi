@@ -30,7 +30,6 @@ View::composer(['*'], function ($view) {
 Route::get('', 'HomeController@index');
 Route::view('author', 'front.author')->name('author');
 Route::get('pengumuman/{id}', 'HomeController@pengumuman')->name('pengumuman');
-Route::view('profil', 'profil')->name('profil');
 Route::post('role/{id}', 'HomeController@update')->name('role.update');
 Route::get('skema/{id}', 'Admin\SkemaUsulanController@usulan');
 Route::get('skema-usulan/{id}', 'Admin\SkemaUsulanController@skema');
@@ -52,6 +51,7 @@ Route::get('kecamatan/{id}', 'HomeController@kecamatan')->name('kecamatan');
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
+Route::resource('profil', 'ProfileController');
 
 Route::namespace('Admin')->name('admin.')->prefix('admin')->middleware('auth', 'role:admin')->group(function() {
     Route::get('', 'HomeController@index')->name('index');
