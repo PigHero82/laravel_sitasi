@@ -31,7 +31,7 @@ class UsulanAnggota extends Model
     static function getAnggota($usulanId)
     {
         return UsulanAnggota::select('usulan_anggota.id', 'usulan_anggota.dosen_id', 'dosen.nidn', 'dosen.nama as dosen_nama', 'dosen.prodi_id', 'dosen.jabatan_id', 'jabatan.nama as jabatan_nama', 'usulan_anggota.peran_id', 'peran.nama as peran_nama', 'usulan_anggota.status')
-                            ->selectRaw('CASE WHEN usulan_anggota.status="1" THEN "Belum disetujui" WHEN usulan_anggota.status="2" THEN "Disetujui" WHEN usulan_anggota.status="3" THEN "Ditolak" ELSE "Error" END as status_nama')
+                            ->selectRaw('CASE WHEN usulan_anggota.status="0" THEN "Belum disetujui" WHEN usulan_anggota.status="1" THEN "Disetujui" WHEN usulan_anggota.status="2" THEN "Ditolak" ELSE "Error" END as status_nama')
                             ->join('dosen', 'usulan_anggota.dosen_id', 'dosen.id')
                             ->join('jabatan', 'dosen.jabatan_id', 'jabatan.id')
                             ->join('peran', 'usulan_anggota.peran_id', 'peran.id')

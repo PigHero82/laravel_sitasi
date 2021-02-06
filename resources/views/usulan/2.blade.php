@@ -90,7 +90,7 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <form action="{{ route('dosen.usulan.anggota.destroy', $item->id)}}" method="post">
+                                    <form action="{{ route('dosen.usulan.anggota.destroy', $item->id)}}" method="post" onsubmit="return confirm('Apakah Anda yakin ingin menghapus {{ $item->dosen_nama }}?');">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" style="padding: 0; border: none; background: none;" class="action-edit text-danger" title="Hapus"><i class="feather icon-trash"></i></button>
