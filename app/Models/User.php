@@ -165,7 +165,7 @@ class User extends Authenticatable
     static function updatePhotoProfile($request, $id)
     {
         User::whereId($id)->update([
-            'profile_photo_path' => $request->file('profile_photo_path')->storeAs('storage/berkas/foto', (Auth::user()->nidn . "." . $request->file('profile_photo_path')->getClientOriginalExtension()))
+            'profile_photo_path' => $request->file('profile_photo_path')->storeAs('berkas/foto', (Auth::user()->nidn . "." . $request->file('profile_photo_path')->getClientOriginalExtension()))
         ]);
     }
 }
