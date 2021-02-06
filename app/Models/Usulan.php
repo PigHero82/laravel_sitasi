@@ -19,6 +19,7 @@ class Usulan extends Model
     {
         return Usulan::where('jenis', $jenis)
                         ->where('dosen_id', $id)
+                        ->whereNotNull('judul')
                         ->count();
     }
 
@@ -166,7 +167,7 @@ class Usulan extends Model
         $data = [];
         $usulan = Usulan::select()
                         ->where('jenis', 1)
-                        ->where('step', '>', 8)
+                        ->whereNotNull('judul')
                         ->orderByDesc('skema_usulan_id')
                         ->get();
         if ($usulan->isNotEmpty()) {
@@ -188,6 +189,7 @@ class Usulan extends Model
     static function getLimitedUsulanPenelitian($count)
     {
         $usulan = Usulan::where('jenis', 1)
+                        ->whereNotNull('judul')
                         ->orderByDesc('skema_usulan_id')
                         ->take($count)
                         ->get();
@@ -212,7 +214,7 @@ class Usulan extends Model
     {
         $data = [];
         $usulan = Usulan::where('jenis', 2)
-                        ->where('step', '>', 8)
+                        ->whereNotNull('judul')
                         ->orderByDesc('skema_usulan_id')
                         ->get();
 
@@ -235,6 +237,7 @@ class Usulan extends Model
     static function getLimitedUsulanPengabdian($count)
     {
         $usulan = Usulan::where('jenis', 2)
+                        ->whereNotNull('judul')
                         ->orderByDesc('skema_usulan_id')
                         ->paginate($count);
 
@@ -258,6 +261,7 @@ class Usulan extends Model
     {
         $usulan = Usulan::where('jenis', $jenis)
                         ->where('dosen_id', $id)
+                        ->whereNotNull('judul')
                         ->orderByDesc('created_at')
                         ->get();
 

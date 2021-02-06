@@ -6,7 +6,7 @@
 @endsection
 
 @section('judul')
-    Riwayat Penelitian & Pengabdian
+    Riwayat Penelitian
 @endsection
 
 @section('content')
@@ -37,7 +37,6 @@
     <div class="row">
         <!-- left column -->
         <div class="col-md-12">
-
             <!-- skema penelitian -->
             <!-- general form elements -->
             <div class="card">
@@ -51,8 +50,22 @@
                 </div>
               </div>
               <!-- /.card-header -->
-              <div class="card-content collapse">
+              <div class="card-content collapse show">
                   <div class="card-body">
+                    <div id="filter">
+                        <div class="form-group" id="select-filter-skema">
+                        <label>Pilih Skema Penelitian: </label>
+                        <select class="form-control" id="filter-skema">
+                            <option value="">Semua skema</option>
+                            @foreach($skema->reverse() as $s)
+                            <option value="{{ $s->tahun_skema . ' - ' . $s->kode }}">{{ $s->tahun_skema . ' - ' . $s->kode }}</option>
+                            @endforeach
+                        </select>
+                        </div>
+                    </div>
+                    <div class="col-md-12 text-md-right" >
+                        <h4> Jumlah usulan: <span id="jumlah-data"></span></h4>
+                    </div>
                     <table id="table-penelitian" class="table zero-configuration table-striped table-responsive" style="width:100%">
                         <thead>
                             <tr>
@@ -76,52 +89,6 @@
                             <tr>
                                 <th>Judul</th>
                                 <th>Ketua</th>
-                                <th>Skema Usulan</th>
-                                <th>Tahun Pelaksanaan</th>
-                            </tr>
-                        </tfoot>
-                    </table>
-                  </div>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-  
-            <!-- skema pengabdian -->
-            <!-- general form elements -->
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">Daftar Pengabdian</h3>
-                <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
-                <div class="heading-elements">
-                    <ul class="list-inline mb-0">
-                        <li><a data-action="collapse"><i class="feather icon-chevron-down"></i></a></li>
-                    </ul>
-                </div>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-content collapse">
-                  <div class="card-body">
-                    <table id="table-pengabdian" class="table zero-configuration table-striped" style="width:100%">
-                        <thead>
-                            <tr>
-                                <th style="width: 60%">Judul</th>
-                                <th>Skema Usulan</th>
-                                <th style="width: 15%">Tahun Pelaksanaan</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($pengabdian as $item)
-                                <tr>
-                                    <td><a href="#modal" data-toggle="modal" data-value="{{ $item->id }}">{{ $item->judul }}</a></td>
-                                    <td>{{ $item->skema_usulan->tahun_skema . ' - ' . $item->skema_usulan->kode }}</td>
-                                    <td>{{ $item->skema_usulan->tahun_pelaksanaan }}</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <th>Judul</th>
                                 <th>Skema Usulan</th>
                                 <th>Tahun Pelaksanaan</th>
                             </tr>
@@ -224,19 +191,24 @@
     <script src="{{ asset('app-assets/vendors/js/tables/datatable/datatables.min.js') }}"></script>
     <script src="{{ asset('app-assets/vendors/js/tables/datatable/datatables.bootstrap4.min.js') }}"></script>
     <script>
-        $('#table-penelitian').DataTable({
+        var tabel = $('#table-penelitian').DataTable({
             responsive: true,
             "order": [[2, "desc"]],
             "dom": '<"top row" <"col-md-4"l><"col-md-4"p><"col-md-4"f>>rt<"bottom row"<"col-md-4"l><"col-md-4"p>><"clear">'
         });
 
-        $('#table-pengabdian').DataTable({
-            responsive: true,
-            "order": [[2, "desc"]],
-            "dom": '<"top row" <"col-md-4"l><"col-md-4"p><"col-md-4"f>>rt<"bottom row"<"col-md-4"l><"col-md-4"p>><"clear">'
+        $('#filter-skema').on('change',function(){
+            var val = $(this).val();
+            tabel.column(2).search( val ? '^'+$(this).val()+'$' : val, true, false ).draw();
+            var info = tabel.page.info();
+      
+            $("#jumlah-data").html(info.recordsDisplay);
         });
 
         $(document).ready( function () {
+            var info = tabel.page.info();
+      
+            $("#jumlah-data").html(info.recordsDisplay);
             $(document).on('click', '#table-penelitian tbody tr td a', function(e) {
                 var id = $(this).attr('data-value');
                 $.get( "/usulan/" + id, function( data ) {
@@ -248,38 +220,6 @@
                     $('#ketua').html(d.ketua);
                     for (var i = 0; i < d.anggota.length; i++) {
                         $('#anggota').html('<li>'+d.anggota[i].dosen_nama+'</li>');
-                    }
-                    $('#skema').html(d.skema_usulan.nama);
-                    $('#tahun-usulan').html(d.skema_usulan.tahun_skema);
-                    $('#tahun-pelaksanaan').html(d.skema_usulan.tahun_pelaksanaan);
-                    for (var i = 0; i < d.berkas.length; i++) {
-                        if (d.berkas[i]['jenis_berkas_id'] == 1) {
-                            $('#berkas-proposal').html('<a href="/' + d.berkas[i]['berkas'] + '">Berkas Proposal</a>')
-                        } else if (d.berkas[i]['jenis_berkas_id'] == 2) {
-                            $('#berkas-laporan-kemajuan').html('<a href="/' + d.berkas[i]['berkas'] + '">Berkas Laporan Kemajuan</a>')
-                        } else if (d.berkas[i]['jenis_berkas_id'] == 3) {
-                            $('#berkas-laporan-akhir').html('<a href="/' + d.berkas[i]['berkas'] + '">Berkas Laporan Akhir</a>')
-                        } else if (d.berkas[i]['jenis_berkas_id'] == 4) {
-                            $('#berkas-laporan-anggaran').html('<a href="/' + d.berkas[i]['berkas'] + '">Berkas Laporan Anggaran</a>')
-                        }
-                    }
-                });
-            });
-
-            $(document).on('click', '#table-pengabdian tbody tr td a', function(e) {
-                var id = $(this).attr('data-value');
-                $.get( "/usulan/" + id, function( data ) {
-                    console.log(JSON.parse(data));
-                    var d = JSON.parse(data);  
-                    $('#label').text('Detail Pengabdian');
-                    $('#jenis').text('Pengabdian');
-                    $('#judul').html(d.judul);
-                    $('#ketua').html(d.ketua);
-                    if(d.anggota.length > 0){
-                        $('#anggota').html('');
-                        for (var i = 0; i < d.anggota.length; i++) {
-                            $('#anggota').append('<li>'+d.anggota[i].dosen_nama+'</li>');
-                        }
                     }
                     $('#skema').html(d.skema_usulan.nama);
                     $('#tahun-usulan').html(d.skema_usulan.tahun_skema);
