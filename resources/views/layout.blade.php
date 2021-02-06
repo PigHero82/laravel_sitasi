@@ -57,26 +57,26 @@
                         <li class="nav-item d-none d-lg-block"><a class="nav-link nav-link-expand"><i class="ficon feather icon-maximize"></i></a></li>
                         <li class="dropdown dropdown-user nav-item"><a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
                                 <div class="user-nav d-sm-flex d-none"><span class="user-name text-bold-600">{{ $composerUser->nama }}</span><span class="user-status">
-                                    @if (request()->is('admin*'))
+                                    @if (request()->is('admin*') || Auth::user()->hasRole('admin'))
                                         Administrator
-                                    @elseif (request()->is('pimpinan*'))
+                                    @elseif (request()->is('pimpinan*') || Auth::user()->hasRole('pimpinan'))
                                         Pimpinan
-                                    @elseif (request()->is('dosen*'))
+                                    @elseif (request()->is('dosen*') || Auth::user()->hasRole('dosen'))
                                         Dosen
-                                    @elseif (request()->is('penelitian*'))
+                                    @elseif (request()->is('penelitian*') || Auth::user()->hasRole('penelitian'))
                                         Penelitian
-                                    @elseif (request()->is('pengabdian*'))
+                                    @elseif (request()->is('pengabdian*') || Auth::user()->hasRole('pengabdian'))
                                         Pengabdian
-                                    @elseif (request()->is('reviewer*'))
+                                    @elseif (request()->is('reviewer*') || Auth::user()->hasRole('reviewer'))
                                         Reviewer
                                     @endif
                                 </span></div>
                                 <span>
-                                    @if (file_exists(asset($composerUser->profile_photo_path)))
+                                    @isset ($composerUser->profile_photo_path)
                                         <img class="round" src="{{ asset($composerUser->profile_photo_path) }}" alt="avatar" height="40" width="40">
                                     @else
                                         <img class="round" src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png" alt="avatar" height="40" width="40">
-                                    @endif
+                                    @endisset
                                 </span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
@@ -110,17 +110,17 @@
         <div class="navbar-header">
             <ul class="nav navbar-nav flex-row">
                 <li class="nav-item mr-auto"><a class="navbar-brand" href="
-                    @if (request()->is('admin*'))
+                    @if (request()->is('admin*') || Auth::user()->hasRole('admin'))
                         {{ route('admin.index') }}
-                    @elseif (request()->is('pimpinan*'))
+                    @elseif (request()->is('pimpinan*') || Auth::user()->hasRole('pimpinan'))
                         {{ route('pimpinan.index') }}
-                    @elseif (request()->is('dosen*'))
+                    @elseif (request()->is('dosen*') || Auth::user()->hasRole('dosen'))
                         {{ route('dosen.index') }}
-                    @elseif (request()->is('penelitian*'))
+                    @elseif (request()->is('penelitian*') || Auth::user()->hasRole('penelitian'))
                         {{ route('penelitian.index') }}
-                    @elseif (request()->is('pengabdian*'))
+                    @elseif (request()->is('pengabdian*') || Auth::user()->hasRole('pengabdian'))
                         {{ route('pengabdian.index') }}
-                    @elseif (request()->is('reviewer'))
+                    @elseif (request()->is('reviewer') || Auth::user()->hasRole('reviewer'))
                         {{ route('reviewer.index') }}
                     @endif
                     ">

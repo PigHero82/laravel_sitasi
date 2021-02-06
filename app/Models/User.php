@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Auth;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -152,5 +153,12 @@ class User extends Authenticatable
     static function updateNidn($newNidn, $oldNidn)
     {
         User::where('nidn', $oldNidn)->update(['nidn' => $newNidn]);
+    }
+
+    static function updatePhotoProfile($request, $id)
+    {
+        User::whereId($id)->update([
+            'profile_photo_path' => $request->file('profile_photo_path')->storeAs('storage/berkas/foto', (Auth::user()->nidn . "." . $request->file('profile_photo_path')->getClientOriginalExtension()))
+        ]);
     }
 }

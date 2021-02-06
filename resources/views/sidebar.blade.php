@@ -1,7 +1,7 @@
 <div class="main-menu-content">
     <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
 
-        @if (request()->is('admin*'))
+        @if (request()->is('admin*') || Auth::user()->hasRole('admin'))
             <li class="{{ (request()->is('admin')) ? 'active' : '' }} nav-item"><a href="{{ route('admin.index') }}" title="Dashboard"><i class="feather icon-home"></i><span class="menu-title">Dashboard</span></a></li>
             <li class="nav-item"><a href="#" title="Data Master"><i class="feather icon-codepen"></i><span class="menu-title">Data Master</span></a>
                 <ul class="menu-content">
@@ -30,7 +30,7 @@
             <li class="{{ (request()->is('admin/*')) ? 'active' : '' }} nav-item"><a href="#" title=""><i class="feather icon-user"></i><span class="menu-item"></span></a></li>
             <li class="{{ (request()->is('admin/*')) ? 'active' : '' }} nav-item"><a href="#" title=""><i class="feather icon-user"></i><span class="menu-item"></span></a></li> --}}
         
-        @elseif (request()->is('dosen*'))
+        @elseif (request()->is('dosen*') || Auth::user()->hasRole('dosen'))
             <li class="{{ (request()->is('dosen')) ? 'active' : '' }} nav-item"><a href="{{ route('dosen.index') }}"><i class="feather icon-home"></i><span class="menu-title">Dashboard</span></a></li>
             <li class="nav-item"><a href="#"><i class="feather icon-book"></i><span class="menu-title">Usulan</span></a>
                 <ul class="menu-content">
@@ -42,7 +42,7 @@
             <li class="@yield('pelaksanaanactive') nav-item"><a href="#"><i class="feather icon-calendar"></i><span class="menu-title">Pelaksanaan</span></a></li>
             <li class="{{ (request()->is('dosen/persetujuan-personil')) ? 'active' : '' }} nav-item"><a href="{{ route('dosen.persetujuan-personil') }}"><i class="feather icon-user"></i><span class="menu-title">Persetujuan Personil</span></a></li>
         
-        @elseif (request()->is('reviewer*'))
+        @elseif (request()->is('reviewer*') || Auth::user()->hasRole('reviewer'))
             <li class="{{ (request()->is('reviewer')) ? 'active' : '' }} nav-item"><a href="{{ route('reviewer.index') }}"><i class="feather icon-home"></i><span class="menu-title">Dashboard</span></a></li>
             <li class="{{ (request()->is('reviewer/review*')) ? 'active' : '' }} nav-item"><a href="{{ route('reviewer.review.index') }}"><i class="feather icon-book"></i><span class="menu-title">Review</span></a></li>
         @endif
