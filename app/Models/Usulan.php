@@ -55,7 +55,7 @@ class Usulan extends Model
                         ->join('skema_usulan', 'usulan.skema_usulan_id', 'skema_usulan.id')
                         ->join('skema', 'skema_usulan.skema_id', 'skema.id')
                         ->firstWhere('usulan.id', $id);
-            $data['anggota'] = UsulanAnggota::getAnggota($id);
+            $data['anggota'] = UsulanAnggota::getConfirmedAnggota($id);
             $data['belanja'] = UsulanBelanja::getBelanja($id);
             $data['berkas'] = UsulanBerkas::getBerkas($id);
             $data['kegiatan'] = UsulanKegiatan::getKegiatan($id);
@@ -79,7 +79,7 @@ class Usulan extends Model
                         ->where('dosen_id', $dosenId)
                         ->where('skema_usulan_id', $skemaUsulanId)
                         ->first();
-        $data['anggota'] = UsulanAnggota::getAnggota($data->id);
+        $data['anggota'] = UsulanAnggota::getConfirmedAnggota($data->id);
         $data['belanja'] = UsulanBelanja::getBelanja($data->id);
         $data['berkas'] = UsulanBerkas::getBerkas($data->id);
         $data['kegiatan'] = UsulanKegiatan::getKegiatan($data->id);
@@ -119,7 +119,7 @@ class Usulan extends Model
         if ($usulan->isNotEmpty()) {
             foreach ($usulan as $key => $value) {
                 $data[$key] = Usulan::findOrFail($value->id);
-                $data[$key]['anggota'] = UsulanAnggota::getAnggota($value->id);
+                $data[$key]['anggota'] = UsulanAnggota::getConfirmedAnggota($value->id);
                 $data[$key]['belanja'] = UsulanBelanja::getBelanja($value->id);
                 $data[$key]['kegiatan'] = UsulanKegiatan::getKegiatan($value->id);
                 $data[$key]['luaran'] = UsulanLuaran::getLuaran($value->id);
@@ -147,7 +147,7 @@ class Usulan extends Model
         if ($usulan->isNotEmpty()) {
             foreach ($usulan as $key => $value) {
                 $data[$key] = Usulan::findOrFail($value->id);
-                $data[$key]['anggota'] = UsulanAnggota::getAnggota($value->id);
+                $data[$key]['anggota'] = UsulanAnggota::getConfirmedAnggota($value->id);
                 $data[$key]['belanja'] = UsulanBelanja::getBelanja($value->id);
                 $data[$key]['kegiatan'] = UsulanKegiatan::getKegiatan($value->id);
                 $data[$key]['luaran'] = UsulanLuaran::getLuaran($value->id);
@@ -174,7 +174,7 @@ class Usulan extends Model
             foreach ($usulan as $key => $value) {
                 $data[$key] = Usulan::firstUsulan($value->id);
                 $data[$key]['skema_usulan'] = SkemaUsulan::firstSkema($value->skema_usulan_id);
-                $data[$key]['anggota'] = UsulanAnggota::getAnggota($value->id);
+                $data[$key]['anggota'] = UsulanAnggota::getConfirmedAnggota($value->id);
                 $data[$key]['kegiatan'] = UsulanKegiatan::getKegiatan($value->id);
                 $data[$key]['luaran'] = UsulanLuaran::getLuaran($value->id);
                 $data[$key]['rab'] = UsulanRab::getRab($value->id);
@@ -198,7 +198,7 @@ class Usulan extends Model
             foreach ($usulan as $key => $value) {
                 $data[$key] = Usulan::firstUsulan($value->id);
                 $data[$key]['skema_usulan'] = SkemaUsulan::firstSkema($value->skema_usulan_id);
-                $data[$key]['anggota'] = UsulanAnggota::getAnggota($value->id);
+                $data[$key]['anggota'] = UsulanAnggota::getConfirmedAnggota($value->id);
                 $data[$key]['kegiatan'] = UsulanKegiatan::getKegiatan($value->id);
                 $data[$key]['luaran'] = UsulanLuaran::getLuaran($value->id);
                 $data[$key]['rab'] = UsulanRab::getRab($value->id);
@@ -222,7 +222,7 @@ class Usulan extends Model
             foreach ($usulan as $key => $value) {
                 $data[$key] = Usulan::firstUsulan($value->id);
                 $data[$key]['skema_usulan'] = SkemaUsulan::firstSkema($value->skema_usulan_id);
-                $data[$key]['anggota'] = UsulanAnggota::getAnggota($value->id);
+                $data[$key]['anggota'] = UsulanAnggota::getConfirmedAnggota($value->id);
                 $data[$key]['kegiatan'] = UsulanKegiatan::getKegiatan($value->id);
                 $data[$key]['luaran'] = UsulanLuaran::getLuaran($value->id);
                 $data[$key]['rab'] = UsulanRab::getRab($value->id);
@@ -245,7 +245,7 @@ class Usulan extends Model
             foreach ($usulan as $key => $value) {
                 $data[$key] = Usulan::firstUsulan($value->id);
                 $data[$key]['skema_usulan'] = SkemaUsulan::firstSkema($value->skema_usulan_id);
-                $data[$key]['anggota'] = UsulanAnggota::getAnggota($value->id);
+                $data[$key]['anggota'] = UsulanAnggota::getConfirmedAnggota($value->id);
                 $data[$key]['kegiatan'] = UsulanKegiatan::getKegiatan($value->id);
                 $data[$key]['luaran'] = UsulanLuaran::getLuaran($value->id);
                 $data[$key]['rab'] = UsulanRab::getRab($value->id);
@@ -268,7 +268,7 @@ class Usulan extends Model
         if ($usulan->isNotEmpty()) {
             foreach ($usulan as $key => $value) {
                 $data[$key] = Usulan::firstUsulan($value->id);
-                $data[$key]['anggota'] = UsulanAnggota::getAnggota($value->id);
+                $data[$key]['anggota'] = UsulanAnggota::getConfirmedAnggota($value->id);
                 $data[$key]['belanja'] = UsulanBelanja::getBelanja($value->id);
                 $data[$key]['kegiatan'] = UsulanKegiatan::getKegiatan($value->id);
                 $data[$key]['luaran'] = UsulanLuaran::getLuaran($value->id);
@@ -295,7 +295,7 @@ class Usulan extends Model
             foreach ($usulan as $key => $value) {
                 $data[$key] = Usulan::firstUsulan($value->id);
                 $data[$key]['skema_usulan'] = SkemaUsulan::firstSkema($value->skema_usulan_id);
-                $data[$key]['anggota'] = UsulanAnggota::getAnggota($value->id);
+                $data[$key]['anggota'] = UsulanAnggota::getConfirmedAnggota($value->id);
                 $data[$key]['kegiatan'] = UsulanKegiatan::getKegiatan($value->id);
                 $data[$key]['luaran'] = UsulanLuaran::getLuaran($value->id);
                 $data[$key]['rab'] = UsulanRab::getRab($value->id);
@@ -318,7 +318,7 @@ class Usulan extends Model
             foreach ($usulan as $key => $value) {
                 $data[$key] = Usulan::firstUsulan($value->id);
                 $data[$key]['skema_usulan'] = SkemaUsulan::firstSkema($value->skema_usulan_id);
-                $data[$key]['anggota'] = UsulanAnggota::getAnggota($value->id);
+                $data[$key]['anggota'] = UsulanAnggota::getConfirmedAnggota($value->id);
                 $data[$key]['kegiatan'] = UsulanKegiatan::getKegiatan($value->id);
                 $data[$key]['luaran'] = UsulanLuaran::getLuaran($value->id);
                 $data[$key]['rab'] = UsulanRab::getRab($value->id);
@@ -353,7 +353,7 @@ class Usulan extends Model
         if ($usulan->isNotEmpty()) {
             foreach ($usulan as $key => $value) {
                 $data[$key] = Usulan::findOrFail($value->id);
-                $data[$key]['anggota'] = UsulanAnggota::getAnggota($value->id);
+                $data[$key]['anggota'] = UsulanAnggota::getConfirmedAnggota($value->id);
                 $data[$key]['belanja'] = UsulanBelanja::getBelanja($value->id);
                 $data[$key]['kegiatan'] = UsulanKegiatan::getKegiatan($value->id);
                 $data[$key]['luaran'] = UsulanLuaran::getLuaran($value->id);
@@ -382,7 +382,7 @@ class Usulan extends Model
         if ($usulan->isNotEmpty()) {
             foreach ($usulan as $key => $value) {
                 $data[$key] = Usulan::findOrFail($value->id);
-                $data[$key]['anggota'] = UsulanAnggota::getAnggota($value->id);
+                $data[$key]['anggota'] = UsulanAnggota::getConfirmedAnggota($value->id);
                 $data[$key]['belanja'] = UsulanBelanja::getBelanja($value->id);
                 $data[$key]['kegiatan'] = UsulanKegiatan::getKegiatan($value->id);
                 $data[$key]['luaran'] = UsulanLuaran::getLuaran($value->id);

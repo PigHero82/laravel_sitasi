@@ -28,6 +28,25 @@ class UsulanAnggota extends Model
         }
     }
 
+    static function firstPersonal($id)
+    {
+        $usulan = UsulanAnggota::findOrFail($id);
+
+        if ($usulan) {
+            $data = UsulanAnggota::select('usulan_anggota.id', 'usulan_anggota.usulan_id', 'usulan_anggota.dosen_id', 'dosen.nidn', 'dosen.nama as dosen_nama', 'dosen.prodi_id', 'dosen.jabatan_id', 'jabatan.nama as jabatan_nama', 'usulan_anggota.peran_id', 'peran.nama as peran_nama', 'usulan_anggota.status')
+                                    ->selectRaw('CASE WHEN usulan_anggota.status="0" THEN "Belum disetujui" WHEN usulan_anggota.status="1" THEN "Disetujui" WHEN usulan_anggota.status="2" THEN "Ditolak" ELSE "Error" END as status_nama')
+                                    ->join('dosen', 'usulan_anggota.dosen_id', 'dosen.id')
+                                    ->join('jabatan', 'dosen.jabatan_id', 'jabatan.id')
+                                    ->join('peran', 'usulan_anggota.peran_id', 'peran.id')
+                                    ->where('usulan_anggota.id', $id)->first();
+            $data['penelitian'] = Usulan::firstUsulan($data->usulan_id);
+
+            return $data;
+        }
+
+        return $usulan;
+    }
+
     static function getAnggota($usulanId)
     {
         return UsulanAnggota::select('usulan_anggota.id', 'usulan_anggota.dosen_id', 'dosen.nidn', 'dosen.nama as dosen_nama', 'dosen.prodi_id', 'dosen.jabatan_id', 'jabatan.nama as jabatan_nama', 'usulan_anggota.peran_id', 'peran.nama as peran_nama', 'usulan_anggota.status')
@@ -36,6 +55,66 @@ class UsulanAnggota extends Model
                             ->join('jabatan', 'dosen.jabatan_id', 'jabatan.id')
                             ->join('peran', 'usulan_anggota.peran_id', 'peran.id')
                             ->where('usulan_anggota.usulan_id', $usulanId)->get();
+    }
+
+    static function getConfirmedAnggota($usulanId)
+    {
+        return UsulanAnggota::select('usulan_anggota.id', 'usulan_anggota.dosen_id', 'dosen.nidn', 'dosen.nama as dosen_nama', 'dosen.prodi_id', 'dosen.jabatan_id', 'jabatan.nama as jabatan_nama', 'usulan_anggota.peran_id', 'peran.nama as peran_nama', 'usulan_anggota.status')
+                            ->selectRaw('CASE WHEN usulan_anggota.status="0" THEN "Belum disetujui" WHEN usulan_anggota.status="1" THEN "Disetujui" WHEN usulan_anggota.status="2" THEN "Ditolak" ELSE "Error" END as status_nama')
+                            ->join('dosen', 'usulan_anggota.dosen_id', 'dosen.id')
+                            ->join('jabatan', 'dosen.jabatan_id', 'jabatan.id')
+                            ->join('peran', 'usulan_anggota.peran_id', 'peran.id')
+                            ->where('usulan_anggota.usulan_id', $usulanId)
+                            ->where('usulan_anggota.status', 1)
+                            ->get();
+    }
+
+    static function getConfirmedPersonal($dosenId)
+    {
+        $usulan = UsulanAnggota::select('id')
+                                ->where('dosen_id', $dosenId)
+                                ->where('status', '>', 0)
+                                ->get();
+
+        if ($usulan->isNotEmpty()) {
+            foreach ($usulan as $key => $value) {
+                $data[$key] = UsulanAnggota::select('usulan_anggota.id', 'usulan_anggota.usulan_id', 'usulan_anggota.dosen_id', 'dosen.nidn', 'dosen.nama as dosen_nama', 'dosen.prodi_id', 'dosen.jabatan_id', 'jabatan.nama as jabatan_nama', 'usulan_anggota.peran_id', 'peran.nama as peran_nama', 'usulan_anggota.status')
+                                        ->selectRaw('CASE WHEN usulan_anggota.status="0" THEN "Belum disetujui" WHEN usulan_anggota.status="1" THEN "Disetujui" WHEN usulan_anggota.status="2" THEN "Ditolak" ELSE "Error" END as status_nama')
+                                        ->join('dosen', 'usulan_anggota.dosen_id', 'dosen.id')
+                                        ->join('jabatan', 'dosen.jabatan_id', 'jabatan.id')
+                                        ->join('peran', 'usulan_anggota.peran_id', 'peran.id')
+                                        ->where('usulan_anggota.id', $value->id)->first();
+                $data[$key]['penelitian'] = Usulan::firstUsulan($data[$key]['usulan_id']);
+            }
+
+            return $data;
+        }
+
+        return $usulan;
+    }
+
+    static function getUnconfirmedPersonal($dosenId)
+    {
+        $usulan = UsulanAnggota::select('id')
+                                ->where('dosen_id', $dosenId)
+                                ->where('status', 0)
+                                ->get();
+
+        if ($usulan->isNotEmpty()) {
+            foreach ($usulan as $key => $value) {
+                $data[$key] = UsulanAnggota::select('usulan_anggota.id', 'usulan_anggota.usulan_id', 'usulan_anggota.dosen_id', 'dosen.nidn', 'dosen.nama as dosen_nama', 'dosen.prodi_id', 'dosen.jabatan_id', 'jabatan.nama as jabatan_nama', 'usulan_anggota.peran_id', 'peran.nama as peran_nama', 'usulan_anggota.status')
+                                        ->selectRaw('CASE WHEN usulan_anggota.status="0" THEN "Belum disetujui" WHEN usulan_anggota.status="1" THEN "Disetujui" WHEN usulan_anggota.status="2" THEN "Ditolak" ELSE "Error" END as status_nama')
+                                        ->join('dosen', 'usulan_anggota.dosen_id', 'dosen.id')
+                                        ->join('jabatan', 'dosen.jabatan_id', 'jabatan.id')
+                                        ->join('peran', 'usulan_anggota.peran_id', 'peran.id')
+                                        ->where('usulan_anggota.id', $value->id)->first();
+                $data[$key]['penelitian'] = Usulan::firstUsulan($data[$key]['usulan_id']);
+            }
+
+            return $data;
+        }
+
+        return $usulan;
     }
 
     static function storeAnggota($request)
@@ -51,5 +130,10 @@ class UsulanAnggota extends Model
             'dosen_id'  => $request->dosen_id,
             'peran_id'  => $request->peran_id
         ]);
+    }
+
+    static function updatePersonal($status, $id)
+    {
+        UsulanAnggota::whereId($id)->update(['status' => $status]);
     }
 }

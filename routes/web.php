@@ -94,6 +94,7 @@ Route::namespace('Pimpinan')->name('pimpinan.')->prefix('pimpinan')->middleware(
 
 Route::namespace('Dosen')->name('dosen.')->prefix('dosen')->middleware('auth', 'role:dosen')->group(function() {
     Route::get('', 'HomeController@index')->name('index');
+    Route::resource('persetujuan', 'PersetujuanController');
     Route::view('persetujuan-personil', 'persetujuan-personil')->name('persetujuan-personil');
     Route::resource('rumpun-ilmu', 'RumpunIlmuController')->only(['index', 'show']);
     Route::view('tanggungan', 'tanggungan')->name('tanggungan');

@@ -224,6 +224,10 @@
     <script src="{{ asset('app-assets/vendors/js/tables/datatable/datatables.bootstrap4.min.js') }}"></script>
     <script>
         $(document).ready( function () {
+            $('form').submit(function() {
+                $(this).find("button[type='submit']").prop('disabled', true);
+            })
+
             $('#table-penelitian').DataTable({
                 responsive: true,
                 "order": [[2, "desc"]]
