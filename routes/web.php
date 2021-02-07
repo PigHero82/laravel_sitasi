@@ -3,6 +3,7 @@
 use App\Models\Dosen;
 use App\Models\ListRole;
 use App\Models\User;
+use App\Models\UsulanAnggota;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -21,9 +22,11 @@ View::composer(['*'], function ($view) {
     if (Auth::user() !== NULL) {
         $role = ListRole::getRole(Auth::user()->id);
         $user = Dosen::firstDosen(Auth::user()->id);
+        $invitation = UsulanAnggota::getUnconfirmedPersonal(Auth::user()->id);
 
         View::share('composerRole', $role);
         View::share('composerUser', $user);
+        View::share('composerInvitation', count($invitation));
     }
 });
 

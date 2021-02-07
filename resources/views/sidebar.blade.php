@@ -44,7 +44,11 @@
                 </ul>
             </li>
             <li class="@yield('pelaksanaanactive') nav-item"><a href="#"><i class="feather icon-calendar"></i><span class="menu-title">Pelaksanaan</span></a></li>
-            <li class="{{ (request()->is('dosen/persetujuan')) ? 'active' : '' }} nav-item"><a href="{{ route('dosen.persetujuan.index') }}"><i class="feather icon-user"></i><span class="menu-title">Persetujuan Personil</span></a></li>
+            <li class="{{ (request()->is('dosen/persetujuan')) ? 'active' : '' }} nav-item"><a href="{{ route('dosen.persetujuan.index') }}"><i class="feather icon-user"></i><span class="menu-title">Persetujuan</span>
+                @if ($composerInvitation > 0)
+                    <span class="badge badge badge-warning badge-pill float-right">{{ $composerInvitation }}</span>
+                @endif
+            </a></li>
         
         @elseif (request()->is('reviewer*') || Auth::user()->hasRole('reviewer'))
             <li class="{{ (request()->is('reviewer')) ? 'active' : '' }} nav-item"><a href="{{ route('reviewer.index') }}"><i class="feather icon-home"></i><span class="menu-title">Dashboard</span></a></li>
