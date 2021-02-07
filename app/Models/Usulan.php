@@ -335,6 +335,7 @@ class Usulan extends Model
         return Usulan::selectRaw('skema_usulan.tahun_pelaksanaan, count(skema_usulan.tahun_pelaksanaan) as jumlah')
                         ->leftjoin('skema_usulan', 'usulan.skema_usulan_id', 'skema_usulan.id')
                         ->where('usulan.jenis', $jenis)
+                        ->whereNotNull('judul')
                         ->groupBy('skema_usulan.tahun_pelaksanaan')
                         ->get();
     }
