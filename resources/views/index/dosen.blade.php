@@ -533,17 +533,20 @@
     <script src="{{ asset('app-assets/vendors/js/tables/datatable/datatables.bootstrap4.min.js') }}"></script>
     <script>
         $(document).ready( function () {
-            $('#skema').DataTable();
-
             $('#tablePenelitian').DataTable({
                 responsive: true,
                 "order": [[1, "desc"]]
-            });
-
+            })
+            
             $('#tablePengabdian').DataTable({
                 responsive: true,
                 "order": [[1, "desc"]]
-            });
+            })
+
+            $('#usulan').DataTable()
+            
+            $('#usulan-berjalan').DataTable()
+
             $(document).on('click', '#tablePenelitian tbody tr td a', function(e) {
                 var id = $(this).attr('data-value');
                 $.get( "/usulan/" + id, function( data ) {
