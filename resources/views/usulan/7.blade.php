@@ -193,7 +193,7 @@
                                             <fieldset class="form-group col-md-6">
                                                 <label for="surat">Surat Pernyataan Mitra (pdf, maksimal 5 MB) <span class="text-danger">*</span></label>
                                                 <div class="custom-file">
-                                                    <input type="file" class="custom-file-input" name="surat_path" id="inputGroupFile01" required>
+                                                    <input type="file" class="custom-file-input" name="surat_path" id="inputGroupFile01" accept=".pdf" required>
                                                     <label class="custom-file-label" for="inputGroupFile01">Pilih berkas</label>
                                                 </div>
                                             </fieldset>
@@ -240,7 +240,7 @@
                                 <tbody>
                                     @foreach ($usulanMitra as $item)
                                         <tr>
-                                            <td><a href="#modal" data-toggle="modal" data-value="{{ $item->id }}">{{ $item->nama }}</a></td>
+                                            <td><a href="#modal" data-toggle="modal" data-value="{{ $item->id }}" data-usulan="{{ $usulan->id }}">{{ $item->nama }}</a></td>
                                             <td>
                                                 @if ($item->dana == NULL || $item->dana == 0)
                                                     -
@@ -371,17 +371,17 @@
 @endsection
 
 @section('js')
+    <script src="{{ asset('app-assets/vendors/js/formatCurrency/jquery.formatCurrency-1.4.0.js') }}"></script>
     <script>
         $(function($){
             $(document).on('click', '#mitraTable tbody tr td a', function(e) {
                 var id = $(this).attr('data-value');
                 $.get("/dosen/usulan/mitra/" + id, function( data ) {
-                    console.log(JSON.parse(data));
                     var d = JSON.parse(data);
                     $('#myModalLabel33').text(d.nama + " | Ubah Mitra");
                     $('#nama_update').text(d.nama);
                     $('#pimpinan_update').text(d.pimpinan);
-                    $('#mitra_jenis_id_update').text(d.mitra_jenis_id);
+                    $('#jenis_update').text(d.mitra_jenis);
                     $('#institusi_update').text(d.institusi);
                     $('#alamat_update').text(d.alamat);
                     $('#kecamatan_update').text(d.nama_kecamatan);
@@ -391,16 +391,18 @@
                     $('#hp_update').text(d.hp);
                     $('#fax_update').text(d.fax);
                     $('#email_update').text(d.email);
-                    $('#dana_update').text(d.dana);
+                    if (d.dana == null || d.dana == 0) {
+                        $('#dana_update').text('-');
+                    } else {
+                        $('#dana_update').text(d.dana).formatCurrency({ colorize:true, region: 'id' });
+                    }
+                    $('#surat_update').html('<a download="Pernyataan-Mitra" href="/' + d.berkas.berkas + '" title="Pernyataan Mitra">Pernyataan Mitra</a>');
                 });
-
-                console.log($(this).attr('data-value'));
             });
 
             $( "select.provinsi_create" ).change(function() {
                 var id = $(this).children("option:selected").val();
                 $.get( "/kabkota/" + id, function( data ) {
-                    console.log(JSON.parse(data));
                     var d = JSON.parse(data);
                     $('#kabkota_create').empty();
                     $('#kecamatan_create').empty();
@@ -415,7 +417,6 @@
             $( "select.kabkota_create" ).change(function() {
                 var id = $(this).children("option:selected").val();
                 $.get( "/kecamatan/" + id, function( data ) {
-                    console.log(JSON.parse(data));
                     var d = JSON.parse(data);
                     $('#kecamatan_create').empty();
                     $('#kecamatan_create').append('<option value="" hidden>--Pilih kecamatan</option>');
@@ -428,7 +429,6 @@
             $( "select.provinsi_update" ).change(function() {
                 var id = $(this).children("option:selected").val();
                 $.get( "/kabkota/" + id, function( data ) {
-                    console.log(JSON.parse(data));
                     var d = JSON.parse(data);
                     $('#kabkota_update').empty();
                     $('#kecamatan_update').empty();
@@ -438,13 +438,11 @@
                         $('#kabkota_update').append('<option value="' + d[i].id + '">' + d[i].nama_kabkota + '</option>');
                     }
                 });
-                console.log($(this).children("option:selected").val());
             });
 
             $( "select.kabkota_update" ).change(function() {
                 var id = $(this).children("option:selected").val();
                 $.get( "/kecamatan/" + id, function( data ) {
-                    console.log(JSON.parse(data));
                     var d = JSON.parse(data);
                     $('#kecamatan_update').empty();
                     $('#kecamatan_update').append('<option value="" hidden>--Pilih kecamatan</option>');
@@ -452,7 +450,6 @@
                         $('#kecamatan_update').append('<option value="' + d[i].id + '">' + d[i].nama_kecamatan + '</option>');
                     }
                 });
-                console.log($(this).children("option:selected").val());
             });
         });
     </script>

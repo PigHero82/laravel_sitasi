@@ -23,10 +23,11 @@ class UsulanMitra extends Model
         $mitra = UsulanMitra::whereId($id)->first();
 
         if (isset($mitra)) {
-            $data = UsulanMitra::select('*', 'provinsi.nama_provinsi', 'kabkota.nama_kabkota', 'kecamatan.nama_kecamatan')
+            $data = UsulanMitra::select('usulan_mitra.*', 'mitra_jenis.nama as mitra_jenis', 'provinsi.nama_provinsi', 'kabkota.nama_kabkota', 'kecamatan.nama_kecamatan')
                                 ->join('provinsi', 'usulan_mitra.provinsi_id', 'provinsi.id')
                                 ->join('kabkota', 'usulan_mitra.kabkota_id', 'kabkota.id')
                                 ->join('kecamatan', 'usulan_mitra.kecamatan_id', 'kecamatan.id')
+                                ->join('mitra_jenis', 'usulan_mitra.mitra_jenis_id', 'mitra_jenis.id')
                                 ->firstWhere('usulan_mitra.id', $id);
             $data['berkas'] = UsulanBerkas::firstBerkasPernyataanMitra($id, $data->usulan_id);
     
