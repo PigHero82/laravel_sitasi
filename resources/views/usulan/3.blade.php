@@ -56,7 +56,7 @@
                             <div class="col-md-9">
                                 <div class="custom-file">
                                     <input type="hidden" name="usulan_id" value="{{ $usulan->id }}" required>
-                                    <input type="file" class="custom-file-input" id="inputGroupFile01" name="surat_path" required>
+                                    <input type="file" class="custom-file-input" id="inputGroupFile01" name="surat_path" accept=".pdf" required>
                                     <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
                                 </div>
                             </div>
