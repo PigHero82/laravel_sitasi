@@ -14,8 +14,8 @@ class ReviewController extends Controller
 {
     public function pembagian()
     {
-        $penelitian = Usulan::getUsulan(1);
-        $pengabdian = Usulan::getUsulan(2);
+        $penelitian = Usulan::getUsulanAktif(1);
+        $pengabdian = Usulan::getUsulanAktif(2);
         $reviewer = Dosen::getDosenReviewer();
 
         return view('review.pembagian-reviewer', compact('penelitian', 'pengabdian', 'reviewer'));

@@ -146,9 +146,9 @@ class User extends Authenticatable
             'nidn'                  => $request->nidn,
             'password'              => Hash::make($request->password)
         ]);
-        
+        $user->roles()->attach($request->role[0]);
         foreach ($request->role as $key => $value) {
-            $user->roles()->attach($value);
+            
             ListRole::insert([
             'role_id' => $value,
             'user_id' => $user->id

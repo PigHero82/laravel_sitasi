@@ -109,10 +109,39 @@ class Usulan extends Model
         return $usulan;
     }
 
+    static function getUsulanaktif($jenis){
+        $usulan = Usulan::select('usulan.id', 'skema_usulan_id', 'reviewer','step','skema_usulan.status')
+                        ->join('skema_usulan','usulan.skema_usulan_id','skema_usulan.id')
+                        ->where('usulan.jenis', $jenis)
+                        ->whereNotNull('judul')
+                        ->where('skema_usulan.status',1)
+                        ->orderByDesc('usulan.created_at')
+                        ->get();
+
+        if ($usulan->isNotEmpty()) {
+            foreach ($usulan as $key => $value) {
+                $data[$key] = Usulan::findOrFail($value->id);
+                $data[$key]['anggota'] = UsulanAnggota::getConfirmedAnggota($value->id);
+                $data[$key]['belanja'] = UsulanBelanja::getBelanja($value->id);
+                $data[$key]['kegiatan'] = UsulanKegiatan::getKegiatan($value->id);
+                $data[$key]['luaran'] = UsulanLuaran::getLuaran($value->id);
+                $data[$key]['mitra'] = UsulanMitra::firstMitra($value->id);
+                $data[$key]['rab'] = UsulanRab::getRab($value->id);
+                $data[$key]['reviewer'] = ($value->reviewer != NULL) ? Dosen::firstDosenByNidn($value->reviewer) : NULL ;
+                $data[$key]['skema_usulan'] = SkemaUsulan::firstSkema($value->skema_usulan_id);
+            }
+
+            return $data;
+        }
+
+        return $usulan;
+    }
+
     static function getUsulan($jenis)
     {
         $usulan = Usulan::select('id', 'skema_usulan_id', 'reviewer','step')
                         ->where('jenis', $jenis)
+                        ->whereNotNull('judul')
                         ->orderByDesc('created_at')
                         ->get();
 
