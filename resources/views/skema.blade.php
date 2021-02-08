@@ -492,7 +492,6 @@
                 var id = $(this).attr('data-value');
                 var data = $(this).attr('data-id');
 
-                console.log(id);
 
                 $("#formUbah").attr("action", "{{ url('admin/skema') }}/"+ id);
 

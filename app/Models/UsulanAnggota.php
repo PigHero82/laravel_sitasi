@@ -71,9 +71,12 @@ class UsulanAnggota extends Model
 
     static function getConfirmedPersonal($dosenId)
     {
-        $usulan = UsulanAnggota::select('id')
-                                ->where('dosen_id', $dosenId)
-                                ->where('status', '>', 0)
+        $usulan = UsulanAnggota::select('usulan_anggota.id','skema_usulan.status')
+                                ->join('usulan','usulan.id','usulan_anggota.usulan_id')
+                                ->join('skema_usulan','skema_usulan.id','usulan.skema_usulan_id')
+                                ->where('skema_usulan.status',1)
+                                ->where('usulan_anggota.dosen_id', $dosenId)
+                                ->where('usulan_anggota.status', '>', 0)
                                 ->get();
 
         if ($usulan->isNotEmpty()) {
@@ -95,9 +98,12 @@ class UsulanAnggota extends Model
 
     static function getUnconfirmedPersonal($dosenId)
     {
-        $usulan = UsulanAnggota::select('id')
-                                ->where('dosen_id', $dosenId)
-                                ->where('status', 0)
+        $usulan = UsulanAnggota::select('usulan_anggota.id','skema_usulan.status')
+                                ->join('usulan','usulan.id','usulan_anggota.usulan_id')
+                                ->join('skema_usulan','skema_usulan.id','usulan.skema_usulan_id')
+                                ->where('skema_usulan.status',1)
+                                ->where('usulan_anggota.dosen_id', $dosenId)
+                                ->where('usulan_anggota.status', 0)
                                 ->get();
 
         if ($usulan->isNotEmpty()) {
