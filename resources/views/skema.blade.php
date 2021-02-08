@@ -151,16 +151,16 @@
                                     <td>{{ $item->nama }}</td>
                                     <td>
                                         @if ($item->status == 1)
-                                            <form action="{{ route('admin.skema.status', $item->id)}}" method="post">
+                                            <form action="{{ route('admin.skema.status', $item->id) }}" method="post">
                                                 @csrf
                                                 @method('PATCH')
-                                                <button type="submit" style="padding: 0; border: none; background: none;" title="Aktif" name="status" value="2"><i class="feather icon-eye text-primary"></i></button>
+                                                <button type="submit" style="padding: 0; border: none; background: none;" title="Aktif" name="status" value="2"><span class="badge badge-primary"><i class="feather icon-eye"></i> Aktif</span></button>
                                             </form>
                                         @elseif ($item->status == 2)
-                                            <form action="{{ route('admin.skema.status', $item->id)}}" method="post">
+                                            <form action="{{ route('admin.skema.status', $item->id) }}" method="post">
                                                 @csrf
                                                 @method('PATCH')
-                                                <button type="submit" style="padding: 0; border: none; background: none;" title="Tidak aktif" name="status" value="1"><i class="feather icon-eye text-primary"></i></button>
+                                                <button type="submit" style="padding: 0; border: none; background: none;" title="Tidak aktif" name="status" value="1"><span class="badge badge-secondary"><i class="feather icon-eye-off"></i> Tidak aktif</span></button>
                                             </form>
                                         @endif
                                     </td>
