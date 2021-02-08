@@ -88,6 +88,7 @@ Route::namespace('Admin')->name('admin.')->prefix('admin')->middleware('auth', '
         Route::patch('{id}', 'SkemaUsulanController@update')->name('update');
         Route::resource('', 'SkemaUsulanController')->except(['show', 'update']);
         Route::get('{id}', 'SkemaUsulanController@show')->name('show');
+        Route::patch('status/{skemaUsulan}', 'SkemaUsulanController@status')->name('status');
     });
 });
 
