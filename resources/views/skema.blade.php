@@ -71,6 +71,7 @@
                             <tr>
                                 <th style="width: 30%">Kode</th>
                                 <th>Nama Skema</th>
+                                <th>Status</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -78,6 +79,21 @@
                                 <tr>
                                     <td><a href="#ubahModal" data-toggle="modal" data-id="1" data-value="{{ $item->id }}">{{ $item->tahun_skema . ' - ' . $item->kode }}</a></td>
                                     <td>{{ $item->nama }}</td>
+                                    <td>
+                                        @if ($item->status == 1)
+                                            <form action="{{ route('admin.skema.status', $item->id)}}" method="post">
+                                                @csrf
+                                                @method('PATCH')
+                                                <button type="submit" style="padding: 0; border: none; background: none;" title="Aktif" name="status" value="2"><span class="badge badge-primary"><i class="feather icon-eye"></i> Aktif</span></button>
+                                            </form>
+                                        @elseif ($item->status == 2)
+                                            <form action="{{ route('admin.skema.status', $item->id)}}" method="post">
+                                                @csrf
+                                                @method('PATCH')
+                                                <button type="submit" style="padding: 0; border: none; background: none;" title="Tidak aktif" name="status" value="1"><span class="badge badge-secondary"><i class="feather icon-eye-off"></i> Tidak aktif</span></button>
+                                            </form>
+                                        @endif
+                                    </td>
                                 </tr>
                             @empty
                                 <tr>
@@ -89,6 +105,7 @@
                             <tr>
                                 <th>Kode</th>
                                 <th>Nama Skema</th>
+                                <th>Status</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -124,6 +141,7 @@
                             <tr>
                                 <th style="width: 30%">Kode</th>
                                 <th>Nama Skema</th>
+                                <th>Status</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -131,6 +149,21 @@
                                 <tr>
                                     <td><a href="#ubahModal" data-toggle="modal" data-id="2" data-value="{{ $item->id }}">{{ $item->tahun_skema . ' - ' . $item->kode }}</a></td>
                                     <td>{{ $item->nama }}</td>
+                                    <td>
+                                        @if ($item->status == 1)
+                                            <form action="{{ route('admin.skema.status', $item->id)}}" method="post">
+                                                @csrf
+                                                @method('PATCH')
+                                                <button type="submit" style="padding: 0; border: none; background: none;" title="Aktif" name="status" value="2"><i class="feather icon-eye text-primary"></i></button>
+                                            </form>
+                                        @elseif ($item->status == 2)
+                                            <form action="{{ route('admin.skema.status', $item->id)}}" method="post">
+                                                @csrf
+                                                @method('PATCH')
+                                                <button type="submit" style="padding: 0; border: none; background: none;" title="Tidak aktif" name="status" value="1"><i class="feather icon-eye text-primary"></i></button>
+                                            </form>
+                                        @endif
+                                    </td>
                                 </tr>
                             @empty
                                 <tr>
@@ -142,6 +175,7 @@
                             <tr>
                                 <th>Kode</th>
                                 <th>Nama Skema</th>
+                                <th>Status</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -271,6 +305,16 @@
                                         </select>
                                     </div>
                                 </div>
+
+                                <div class="col">
+                                    <label>Status</label>
+                                    <div class="form-group">
+                                        <select class="form-control" name="status">
+                                            <option value="1">Aktif</option>
+                                            <option value="2">Tidak aktif</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -397,6 +441,16 @@
                                         </select>
                                     </div>
                                 </div>
+
+                                <div class="col">
+                                    <label>Status</label>
+                                    <div class="form-group">
+                                        <select class="form-control" id="ubahStatus" name="status">
+                                            <option value="1">Aktif</option>
+                                            <option value="2">Tidak aktif</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -462,6 +516,7 @@
                     $("#ubahDanaMaksimal").val(d.dana_maksimal);
                     $("#ubahJabatanMinimal").val(d.jabatan_minimal);
                     $("#ubahJabatanMaksimal").val(d.jabatan_maksimal);
+                    $("#ubahStatus").val(d.status);
                     if ((d.tahun_skema < {{ Carbon\Carbon::now()->format('Y') }}) || (d.tahun_penelitian < {{ Carbon\Carbon::now()->format('Y') }})) {
                         $("#ubahButton").attr('type', 'disabled').attr('class', 'btn btn-danger').text('Skema Tidak Dapat Diubah');
                     } else {

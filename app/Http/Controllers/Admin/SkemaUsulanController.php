@@ -99,6 +99,13 @@ class SkemaUsulanController extends Controller
         return json_encode(Skema::getSkemaJenis($id));
     }
 
+    public function status(Request $request, SkemaUsulan $skemaUsulan)
+    {
+        $request->validate(['status' => 'required|numeric']);
+        SkemaUsulan::updateStatus($request->status, $skemaUsulan->id);
+        return back()->with('success', 'Status skema usulan berhasil diubah');
+    }
+
     public function usulan($id)
     {
         return json_encode(SkemaUsulan::firstSkema($id));

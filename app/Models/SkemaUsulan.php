@@ -67,45 +67,53 @@ class SkemaUsulan extends Model
     static function storeSkema($request)
     {
         $request->validate([
-            'skema_id'                  => 'numeric|required',
-            'jenis'                     => 'numeric|required',
-            'jumlah'                    => 'numeric|required',
-            'tahun_skema'               => 'numeric|required',
-            'tahun_pelaksanaan'         => 'numeric|required',
-            'tanggal_usulan'            => 'date|required',
-            'tanggal_review'            => 'date|required',
-            'tanggal_publikasi'         => 'date|required'
+            'skema_id'          => 'numeric|required',
+            'jenis'             => 'numeric|required',
+            'jumlah'            => 'numeric|required',
+            'tahun_skema'       => 'numeric|required',
+            'tahun_pelaksanaan' => 'numeric|required',
+            'tanggal_usulan'    => 'date|required',
+            'tanggal_review'    => 'date|required',
+            'tanggal_publikasi' => 'date|required',
+            'status'            => 'numeric|required'
         ]);
 
         SkemaUsulan::create([
-            'skema_id'                  => $request->skema_id,
-            'jenis'                     => $request->jenis,
-            'jumlah'                    => $request->jumlah,
-            'tahun_skema'               => $request->tahun_skema,
-            'tahun_pelaksanaan'         => $request->tahun_pelaksanaan,
-            'tanggal_usulan'            => $request->tanggal_usulan,
-            'tanggal_review'            => $request->tanggal_review,
-            'tanggal_publikasi'         => $request->tanggal_publikasi,
-            'dana_maksimal'             => $request->dana_maksimal,
-            'jabatan_minimal'           => $request->jabatan_minimal,
-            'jabatan_maksimal'          => $request->jabatan_maksimal,
+            'skema_id'          => $request->skema_id,
+            'jenis'             => $request->jenis,
+            'jumlah'            => $request->jumlah,
+            'tahun_skema'       => $request->tahun_skema,
+            'tahun_pelaksanaan' => $request->tahun_pelaksanaan,
+            'tanggal_usulan'    => $request->tanggal_usulan,
+            'tanggal_review'    => $request->tanggal_review,
+            'tanggal_publikasi' => $request->tanggal_publikasi,
+            'dana_maksimal'     => $request->dana_maksimal,
+            'jabatan_minimal'   => $request->jabatan_minimal,
+            'jabatan_maksimal'  => $request->jabatan_maksimal,
+            'status'            => $request->status
         ]);
     }
 
     static function updateSkema($request, $id)
     {
         SkemaUsulan::whereId($id)->update([
-            'skema_id'                  => $request->skema_id,
-            'jenis'                     => $request->jenis,
-            'jumlah'                    => $request->jumlah,
-            'tahun_skema'               => $request->tahun_skema,
-            'tahun_pelaksanaan'         => $request->tahun_penelitian,
-            'tanggal_usulan'            => $request->tanggal_usulan,
-            'tanggal_review'            => $request->tanggal_review,
-            'tanggal_publikasi'         => $request->tanggal_publikasi,
-            'dana_maksimal'             => $request->dana_maksimal,
-            'jabatan_minimal'           => $request->jabatan_minimal,
-            'jabatan_maksimal'          => $request->jabatan_maksimal,
+            'skema_id'          => $request->skema_id,
+            'jenis'             => $request->jenis,
+            'jumlah'            => $request->jumlah,
+            'tahun_skema'       => $request->tahun_skema,
+            'tahun_pelaksanaan' => $request->tahun_penelitian,
+            'tanggal_usulan'    => $request->tanggal_usulan,
+            'tanggal_review'    => $request->tanggal_review,
+            'tanggal_publikasi' => $request->tanggal_publikasi,
+            'dana_maksimal'     => $request->dana_maksimal,
+            'jabatan_minimal'   => $request->jabatan_minimal,
+            'jabatan_maksimal'  => $request->jabatan_maksimal,
+            'status'            => $request->status
         ]);
+    }
+
+    static function updateStatus($status, $id)
+    {
+        SkemaUsulan::whereId($id)->update(['status' => $status]);
     }
 }
