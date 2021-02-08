@@ -298,7 +298,11 @@
                     for (var i = 0; i < d.anggota.length; i++) {
                         $('#anggota').html('<li>'+d.anggota[i].dosen_nama+'</li>');
                     }
-                    $('#reviewer').val(d.reviewer.nidn);
+                    if (d.reviewer == null) {
+                        $('#reviewer').val('-');
+                    } else {
+                        $('#reviewer').val(d.reviewer.nidn);
+                    }
                     $('#skema').text(d.skema_usulan.nama);
                     $('#tahun-usulan').text(d.skema_usulan.tahun_skema);
                     $('#tahun-pelaksanaan').text(d.skema_usulan.tahun_pelaksanaan);
