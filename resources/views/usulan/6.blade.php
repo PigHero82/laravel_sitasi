@@ -4,6 +4,10 @@
     Usulan | {{ $usulan->tahun_skema }} - {{ $usulan->kode }}
 @endsection
 
+@section('css')
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+@endsection
+
 @section('content')
     @if ($message = Session::get('success'))
         <div class="alert alert-success alert-block">
@@ -74,10 +78,10 @@
                                     <input type="text" name="nama" class="form-control" placeholder="Nama kegiatan" required>
                                 </td>
                                 <td>
-                                    <input type="date" name="tanggal_mulai" class="form-control" placeholder="Tanggal mulai" min="{{ Carbon\Carbon::now()->format('Y-m-d') }}" required>
+                                    <input type="text" name="tanggal_mulai" class="form-control date" placeholder="Tanggal mulai" min="{{ Carbon\Carbon::now()->format('Y-m-d') }}" required>
                                 </td>
                                 <td>
-                                    <input type="date" name="tanggal_selesai" class="form-control" placeholder="Tanggal selesai" min="{{ Carbon\Carbon::now()->format('Y-m-d') }}" required>
+                                    <input type="text" name="tanggal_selesai" class="form-control date" placeholder="Tanggal selesai" min="{{ Carbon\Carbon::now()->format('Y-m-d') }}" required>
                                 </td>
                                 <td>
                                     <input type="hidden" name="usulan_id" value="{{ $usulan->id }}" required>
@@ -116,8 +120,13 @@
 @endsection
 
 @section('js')
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
         $(document).ready( function () {
+            $(".date").datepicker({
+                dateFormat: "yy-mm-dd"
+            });
+            
             $('form').submit(function() {
                 $(this).find("button[type='submit']").prop('disabled', true);
             });
