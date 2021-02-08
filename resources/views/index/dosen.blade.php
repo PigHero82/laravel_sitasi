@@ -236,10 +236,10 @@
                                         <div class="col-12">
                                             @isset ($user->profile_photo_path)
                                                 @if (file_exists(asset($user->profile_photo_path)))
-                                                    <img src="{{ asset($user->profile_photo_path) }}" alt="Profile picture">
+                                                    <img src="{{ asset($user->profile_photo_path) }}" class="img-fluid" alt="Profile picture">
                                                 @endif
                                             @else
-                                                <img src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png" alt="Profile picture">
+                                                <img src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png" class="img-fluid" alt="Profile picture">
                                             @endisset
                                         </div>
                                         <div class="col-12">
@@ -521,14 +521,6 @@
 @endsection
 
 @section('js')
-    <!-- BEGIN: Page Vendor JS-->
-    <script src="{{ asset('app-assets/vendors/js/charts/apexcharts.min.js') }}"></script>
-    <!-- END: Page Vendor JS-->
-
-    <!-- BEGIN: Page JS-->
-    <script src="{{ asset('app-assets/js/scripts/cards/card-statistics.js') }}"></script>
-    <!-- END: Page JS-->
-
     <script src="{{ asset('app-assets/vendors/js/tables/datatable/datatables.min.js') }}"></script>
     <script src="{{ asset('app-assets/vendors/js/tables/datatable/datatables.bootstrap4.min.js') }}"></script>
     <script>
@@ -562,6 +554,10 @@
                     $('#skema').html(d.skema_usulan.nama);
                     $('#tahun-usulan').html(d.skema_usulan.tahun_skema);
                     $('#tahun-pelaksanaan').html(d.skema_usulan.tahun_pelaksanaan);
+                    $('#berkas-proposal').html('-');
+                    $('#berkas-laporan-kemajuan').html('-');
+                    $('#berkas-laporan-akhir').html('-');
+                    $('#berkas-laporan-anggaran').html('-');
                     for (var i = 0; i < d.berkas.length; i++) {
                         if (d.berkas[i]['jenis_berkas_id'] == 1) {
                             $('#berkas-proposal').html('<a href="/' + d.berkas[i]['berkas'] + '">Berkas Proposal</a>')
@@ -594,7 +590,11 @@
                     $('#skema').html(d.skema_usulan.nama);
                     $('#tahun-usulan').html(d.skema_usulan.tahun_skema);
                     $('#tahun-pelaksanaan').html(d.skema_usulan.tahun_pelaksanaan);
-                    for (var i = 0; i < d.berkas.length; i++) {
+                    $('#berkas-proposal').html('-');
+                    $('#berkas-laporan-kemajuan').html('-');
+                    $('#berkas-laporan-akhir').html('-');
+                    $('#berkas-laporan-anggaran').html('-');
+                    for (var i = 0; i < d.berkas.html; i++) {
                         if (d.berkas[i]['jenis_berkas_id'] == 1) {
                             $('#berkas-proposal').html('<a href="/' + d.berkas[i]['berkas'] + '">Berkas Proposal</a>')
                         } else if (d.berkas[i]['jenis_berkas_id'] == 2) {
