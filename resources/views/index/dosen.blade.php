@@ -232,31 +232,11 @@
                             <dl class="row">
                                 <dt class="col-sm-3 text-right">Foto Profil</dt>
                                 <dd class="col-sm-9">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            @isset ($user->profile_photo_path)
-                                                @if (file_exists(asset($user->profile_photo_path)))
-                                                    <img src="{{ asset($user->profile_photo_path) }}" class="img-fluid" alt="Profile picture">
-                                                @endif
-                                            @else
-                                                <img src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png" class="img-fluid" alt="Profile picture">
-                                            @endisset
-                                        </div>
-                                        <div class="col-12">
-                                            <form action="#" method="post">
-                                                <fieldset class="form-group">
-                                                    <label for="basicInputFile"><strong>Ubah Foto</strong> *Maksimal Ukuran Foto 250Kb</label>
-                                                    <div class="custom-file">
-                                                        <input type="file" class="custom-file-input" id="inputGroupFile01">
-                                                        <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-                                                    </div>
-                                                </fieldset>
-                                            </form>
-                                        </div>
-                                        <div class="col-12">
-                                            <button type="button" class="btn btn-primary" data-dismiss="modal">Unggah</button>
-                                        </div>
-                                    </div>
+                                    @isset ($composerUser->profile_photo_path)
+                                        <img src="{{ asset($composerUser->profile_photo_path) }}" class="img-fluid" alt="Profile picture">
+                                    @else
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png" class="img-fluid" alt="Profile picture">
+                                    @endisset
                                 </dd>
                             </dl>
                             <dl class="row">
@@ -277,7 +257,7 @@
                                     @isset($dosen->google_scholar_id)
                                         <a href="https://scholar.google.com/citations?user={{ $dosen->google_scholar_id }}&hl=id">{{ $dosen->google_scholar_id }}</a>
                                     @else
-                                        <a href="#" class="text-danger">Ubah Profil Untuk Setting Link Google Scholar</a>
+                                        <a href="{{ route('profil.index') }}" class="text-danger">Ubah Profil Untuk Setting Link Google Scholar</a>
                                     @endisset
                                 </dd>
                             </dl>
