@@ -401,13 +401,17 @@ class Usulan extends Model
 
     static function getUsulanByReviewerLimited($reviewer, $jenis, $count)
     {
-        $usulan = Usulan::select('id', 'skema_usulan_id', 'reviewer')
+        return $usulan = Usulan::select('id', 'skema_usulan_id', 'reviewer')
                         ->where('reviewer', $reviewer)
                         ->where('jenis', $jenis)
+                        ->where('step', '>', 8)
                         ->where('nilai', 0)
-                        ->orWhereNull('nilai')
+                        ->orWhere('reviewer', $reviewer)
+                        ->where('jenis', $jenis)
+                        ->where('step', '>', 8)
+                        ->whereNull('nilai')
                         ->orderByDesc('created_at')
-                        ->paginate($count);
+                        ->get();
 
         if ($usulan->isNotEmpty()) {
             foreach ($usulan as $key => $value) {
