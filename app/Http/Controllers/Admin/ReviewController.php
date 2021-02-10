@@ -48,20 +48,22 @@ class ReviewController extends Controller
         $usulans = Usulan::getUsulanId($jenis);
 
         foreach ($usulans as $key => $usulan) {
-            do {
-                $status = true;
-                $dosen = User::firstUserReviewer();
-                if ($usulan->dosen_id != $dosen->id) {
-                    $anggota = UsulanAnggota::getAnggota($usulan->id);
-                    foreach ($anggota as $key => $value) {
-                        if ($value->dosen_id == $dosen->id) {
-                            $status = false;
+            if ($usulan['reviewer'] == NULL) {
+                do {
+                    $status = true;
+                    $dosen = User::firstUserReviewer();
+                    if ($usulan->dosen_id != $dosen->id) {
+                        $anggota = UsulanAnggota::getAnggota($usulan->id);
+                        foreach ($anggota as $key => $value) {
+                            if ($value->dosen_id == $dosen->id) {
+                                $status = false;
+                            }
                         }
                     }
-                }
-            } while ($status == false);
-
-            Usulan::updateReviewer($dosen->nidn, $usulan->id);
+                } while ($status == false);
+    
+                Usulan::updateReviewer($dosen->nidn, $usulan->id);
+            }
         }
 
         return back()->with('success', 'Reviewer usulan berhasil diacak');

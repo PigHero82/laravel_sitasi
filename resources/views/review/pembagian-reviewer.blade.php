@@ -110,7 +110,7 @@
               </div>
 
               <div class="card-tools mr-3">
-                <a href="#" class="btn btn-outline-success"><i class="fas fa-sync-alt"></i> Acak Reviewer</a>
+                <a href="{{ route('admin.review.random-reviewer', 2) }}" class="btn btn-outline-success"><i class="fas fa-sync-alt"></i> Acak Reviewer</a>
               </div>
             </div>
             <!-- /.card-header -->
@@ -254,9 +254,8 @@
                                 </dd>
                             </dl>
 
-                            <div class="modal-footer justify-content-between">
-                                {{-- <button type="button" class="btn btn-success" data-dismiss="modal">Pilih Acak</button> --}}
-                                <button type="submit" class="btn btn-primary">Ubah</button>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary float-right">Ubah</button>
                             </div>
                         </form>
                     </div>
@@ -279,10 +278,9 @@
     <!-- END: Datatables JS-->
     
     <script>
-        $(document).ready( function () {
-            $('#penelitianTable').DataTable();
-            $('#pengabdianTable').DataTable();
-        });
+        $('#penelitianTable').DataTable();
+
+        $('#pengabdianTable').DataTable();
 
         $(document).ready( function () {
             $(document).on('click', '#penelitianTable tbody tr td a', function(e) {
@@ -298,23 +296,23 @@
                     for (var i = 0; i < d.anggota.length; i++) {
                         $('#anggota').html('<li>'+d.anggota[i].dosen_nama+'</li>');
                     }
-                    if (d.reviewer == null) {
-                        $('#reviewer').val('-');
+                    if (d.reviewer != null) {
+                        $('#reviewer').val(d.reviewer);
                     } else {
-                        $('#reviewer').val(d.reviewer.nidn);
+                        $('#reviewer').val(null);
                     }
                     $('#skema').text(d.skema_usulan.nama);
                     $('#tahun-usulan').text(d.skema_usulan.tahun_skema);
                     $('#tahun-pelaksanaan').text(d.skema_usulan.tahun_pelaksanaan);
                     for (var i = 0; i < d.berkas.length; i++) {
                         if (d.berkas[i]['jenis_berkas_id'] == 1) {
-                            $('#berkas-proposal').html('<a href="/' + d.berkas[i]['berkas'] + '">Berkas Proposal</a>')
+                            $('#berkas-proposal').html('<a href="/' + d.berkas[i]['berkas'] + '" target="_blank">Berkas Proposal</a>')
                         } else if (d.berkas[i]['jenis_berkas_id'] == 2) {
-                            $('#berkas-laporan-kemajuan').html('<a href="/' + d.berkas[i]['berkas'] + '">Berkas Laporan Kemajuan</a>')
+                            $('#berkas-laporan-kemajuan').html('<a href="/' + d.berkas[i]['berkas'] + '" target="_blank">Berkas Laporan Kemajuan</a>')
                         } else if (d.berkas[i]['jenis_berkas_id'] == 3) {
-                            $('#berkas-laporan-akhir').html('<a href="/' + d.berkas[i]['berkas'] + '">Berkas Laporan Akhir</a>')
+                            $('#berkas-laporan-akhir').html('<a href="/' + d.berkas[i]['berkas'] + '" target="_blank">Berkas Laporan Akhir</a>')
                         } else if (d.berkas[i]['jenis_berkas_id'] == 4) {
-                            $('#berkas-laporan-anggaran').html('<a href="/' + d.berkas[i]['berkas'] + '">Berkas Laporan Anggaran</a>')
+                            $('#berkas-laporan-anggaran').html('<a href="/' + d.berkas[i]['berkas'] + '" target="_blank">Berkas Laporan Anggaran</a>')
                         }
                     }
                 });
@@ -331,6 +329,11 @@
                     $('#ketua').html(d.ketua);
                     for (var i = 0; i < d.anggota.length; i++) {
                         $('#anggota').html('<li>'+d.anggota[i].dosen_nama+'</li>');
+                    }
+                    if (d.reviewer != null) {
+                        $('#reviewer').val(d.reviewer);
+                    } else {
+                        $('#reviewer').val(null);
                     }
                     $('#skema').html(d.skema_usulan.nama);
                     $('#tahun-usulan').html(d.skema_usulan.tahun_skema);
