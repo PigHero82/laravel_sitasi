@@ -113,7 +113,11 @@
                                         <td><a href="#modal" data-toggle="modal" data-value="{{ $item->id }}">{{ $item->judul }}</a></td>
                                         <td>{{ $item->skema_usulan->tahun_skema . ' - ' . $item->skema_usulan->kode }}</td>
                                         <td>{{ $item->skema_usulan->tahun_pelaksanaan }}</td>
-                                        <td><h3 class="text-warning"><i class="feather icon-clock"></i></h3></td>
+                                        <td>
+                                            <div class="badge badge-pill badge-md badge-warning">
+                                                <i class="feather icon-clock"></i> Belum direview
+                                            </div>
+                                        </td>
                                         {{-- <td><h3 class="text-danger"><i class="feather icon-x"></i></h3></td> --}}
                                         {{-- <td><h3 class="text-warning"><i class="feather icon-clock"></i></h3></td> --}}
                                     </tr>
