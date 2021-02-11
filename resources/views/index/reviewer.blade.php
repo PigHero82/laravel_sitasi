@@ -76,7 +76,7 @@
         <div class="col-md-12">
 
             <!-- skema penelitian -->
-            @isset($penelitian)
+            @if(count($penelitian))
                 <!-- table -->
                 <div class="card">
                     <div class="card-header">
@@ -104,12 +104,6 @@
                             <tbody>
                                 @foreach ($penelitian as $item)
                                     <tr>
-                                        {{-- <td>
-                                            <div class="progress progress-bar-success progress-lg mb-0">
-                                                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="20" aria-valuemin="20" aria-valuemax="100" style="width:20%"></div>
-                                            </div>
-                                            <div class="badge badge-pill badge-glow badge-success block">20% | Lengkap</div>
-                                        </td> --}}
                                         <td><a href="#modal" data-toggle="modal" data-value="{{ $item->id }}">{{ $item->judul }}</a></td>
                                         <td>{{ $item->skema_usulan->tahun_skema . ' - ' . $item->skema_usulan->kode }}</td>
                                         <td>{{ $item->skema_usulan->tahun_pelaksanaan }}</td>
@@ -118,8 +112,6 @@
                                                 <i class="feather icon-clock"></i> Belum direview
                                             </div>
                                         </td>
-                                        {{-- <td><h3 class="text-danger"><i class="feather icon-x"></i></h3></td> --}}
-                                        {{-- <td><h3 class="text-warning"><i class="feather icon-clock"></i></h3></td> --}}
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -160,10 +152,10 @@
                 <!-- /.card-body -->
                 </div>
                 <!-- /.empty table -->
-            @endisset
+            @endif
 
             <!-- skema pengabdian -->
-            @isset($pengabdian)
+            @if(count($pengabdian))
                 <!-- table -->
                 <div class="card">
                     <div class="card-header">
@@ -191,18 +183,10 @@
                             <tbody>
                                 @foreach ($pengabdian as $item)
                                     <tr>
-                                        {{-- <td>
-                                            <div class="progress progress-bar-success progress-lg mb-0">
-                                                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="20" aria-valuemin="20" aria-valuemax="100" style="width:20%"></div>
-                                            </div>
-                                            <div class="badge badge-pill badge-glow badge-success block">20% | Lengkap</div>
-                                        </td> --}}
                                         <td><a href="#modal" data-toggle="modal" data-value="{{ $item->id }}">{{ $item->judul }}</a></td>
                                         <td>{{ $item->skema_usulan->tahun_skema . ' - ' . $item->skema_usulan->kode }}</td>
                                         <td>{{ $item->skema_usulan->tahun_pelaksanaan }}</td>
                                         <td><h3 class="text-warning"><i class="feather icon-clock"></i></h3></td>
-                                        {{-- <td><h3 class="text-danger"><i class="feather icon-x"></i></h3></td> --}}
-                                        {{-- <td><h3 class="text-warning"><i class="feather icon-clock"></i></h3></td> --}}
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -243,7 +227,7 @@
                 <!-- /.card-body -->
                 </div>
                 <!-- /.empty table -->
-            @endisset
+            @endif
         
             <!-- modal -->
             <div class="modal fade text-left" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">

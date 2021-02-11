@@ -15,8 +15,8 @@
             </li>
             <li class="nav-item"><a href="#" title="Review"><i class="feather icon-book"></i><span class="menu-title">Usulan</span></a>
                 <ul class="menu-content">
-                    <li class="{{ (request()->is('admin/review/penilaian*')) ? 'active' : '' }}"><a href="{{ route('admin.usulanBySkema',['skema' => 1]) }}" title="User"><i></i><span class="menu-item">Usulan Penelitian</span></a></li>
-                    <li class="{{ (request()->is('admin/review/penilaian*')) ? 'active' : '' }}"><a href="{{ route('admin.usulanBySkema',['skema' => 2]) }}" title="User"><i></i><span class="menu-item">Usulan Pengabdian</span></a></li>
+                    <li class="{{ (request()->is('admin/usulan/1*')) ? 'active' : '' }}"><a href="{{ route('admin.usulanBySkema',['skema' => 1]) }}" title="User"><i></i><span class="menu-item">Usulan Penelitian</span></a></li>
+                    <li class="{{ (request()->is('admin/usulan/2*')) ? 'active' : '' }}"><a href="{{ route('admin.usulanBySkema',['skema' => 2]) }}" title="User"><i></i><span class="menu-item">Usulan Pengabdian</span></a></li>
                     <li class="{{ (request()->is('admin/review/pembagian-reviewer*')) ? 'active' : '' }}"><a href="{{ route('admin.review.pembagian-reviewer') }}" title="Dosen"><i></i><span class="menu-item">Pembagian Reviewer</span></a></li>
                     <li class="{{ (request()->is('admin/review/penilaian*')) ? 'active' : '' }}"><a href="{{ route('admin.review.penilaian.index') }}" title="User"><i></i><span class="menu-item">Penilaian</span></a></li>
                     {{-- <li class="{{ (request()->is('admin/review/penilaian*')) ? 'active' : '' }}"><a href="{{ route('admin.usulan') }}" title="User"><i></i><span class="menu-item">Semua Usulan</span></a></li> --}}
