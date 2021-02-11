@@ -323,6 +323,7 @@
                 $.get( "/usulan/" + id, function( data ) {
                     console.log(JSON.parse(data));
                     var d = JSON.parse(data);
+                    $('#form').attr('action', '/admin/review/store/' + id);
                     $('#label').text('Detail Pengabdian');
                     $('#jenis').text('Pengabdian');
                     $('#judul').html(d.judul);
