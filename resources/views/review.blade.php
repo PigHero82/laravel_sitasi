@@ -309,6 +309,29 @@
                             $('#berkas-laporan-anggaran').html('<a href="/' + d.berkas[i]['berkas'] + '" target="_blank">Berkas Laporan Anggaran</a>')
                         }
                     }
+
+                    if (d.nilai == 1) {
+                        $('#modal-form').remove()
+                        $('hr').removeClass('d-none')
+                        $('#nilai-modal').removeClass('d-none')
+                        $('#nilai-modal').empty()
+                        for (let i = 0; i < 5; i++) {
+                            $('#nilai-modal').append('<dl class="row"><dt class="col-sm-4 text-md-right">Nilai ' + d.penilaian[i].nama + '</dt><dd class="col-sm-8">' + d.penilaian[i].nilai + '</dd></dl>')
+                        }
+                        $('#nilai-modal').append('<dl class="row"><dt class="col-sm-4 text-md-right">Komentar</dt><dd class="col-sm-8">' + d.komentar[0].komentar + '</dd></dl>')
+                    } else {
+                        $.get('/reviewer/review/indikator/1', function(data) {
+                            console.log(JSON.parse(data))
+                            var d = JSON.parse(data)
+                            $('hr').removeClass('d-none')
+                            $('#nilai').empty()
+                            for (var i = 0; i < d.length; i++) {
+                                $('#nilai').append('<dl class="row mb-0"><dt class="col-sm-4 text-md-right">' + d[i].nama + '</dt><dd class="col-sm-8"><div class="form-group"><input type="number" class="form-control" name="nilai[' + d[i].id + ']" placeholder="' + d[i].nama + '" min="2" max="5" required></div></dd></dl>')
+                            }
+                            $('#tahapId').val(1)
+                            $('#komentar').removeClass('d-none')
+                        })
+                    }
                 });
             });
 
