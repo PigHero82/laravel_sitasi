@@ -386,11 +386,12 @@ class Usulan extends Model
 
     static function getUsulanByReviewer($reviewer, $jenis)
     {
-        $usulan = Usulan::select('usulan.id', 'usulan.skema_usulan_id', 'usulan.reviewer', 'skema_usulan.status')
+        $usulan = Usulan::select('usulan.id', 'skema_usulan_id', 'usulan.reviewer')
                         ->join('skema_usulan','usulan.skema_usulan_id','skema_usulan.id')
-                        ->where('usulan.reviewer', $reviewer)
+                        ->where('reviewer', $reviewer)
                         ->where('usulan.jenis', $jenis)
                         ->where('skema_usulan.status',1)
+                        ->whereNotNull('judul')
                         ->orderByDesc('usulan.created_at')
                         ->get();
 
@@ -417,7 +418,8 @@ class Usulan extends Model
 
     static function getUsulanByReviewerLimited($reviewer, $jenis, $count)
     {
-        $usulan = Usulan::select('id', 'skema_usulan_id', 'reviewer')
+        $usulan = Usulan::select('id', 'skema_usulan_id', 'reviewer','judul')
+                        ->whereNotNull('judul')
                         ->where(function ($query) use($reviewer, $jenis) {
                             $query->where('reviewer', $reviewer)
                                     ->where('jenis', $jenis)
