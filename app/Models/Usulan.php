@@ -59,7 +59,9 @@ class Usulan extends Model
             $data['belanja'] = UsulanBelanja::getBelanja($id);
             $data['berkas'] = UsulanBerkas::getBerkas($id);
             $data['kegiatan'] = UsulanKegiatan::getKegiatan($id);
+            $data['komentar'] = UsulanKomentar::getKomentar($id);
             $data['luaran'] = UsulanLuaran::getLuaran($id);
+            $data['penilaian'] = UsulanNilai::getNilai($id);
             $data['rab'] = UsulanRab::getRab($id);
             $data['skema_usulan'] = SkemaUsulan::firstSkema($usulan->skema_usulan_id);
             $data['mitra'] = UsulanMitra::firstMitra($id);
@@ -83,8 +85,10 @@ class Usulan extends Model
         $data['belanja'] = UsulanBelanja::getBelanja($data->id);
         $data['berkas'] = UsulanBerkas::getBerkas($data->id);
         $data['kegiatan'] = UsulanKegiatan::getKegiatan($data->id);
+        $data['komentar'] = UsulanKomentar::getKomentar($data->id);
         $data['luaran'] = UsulanLuaran::getLuaran($data->id);
         $data['mitra'] = UsulanMitra::firstMitra($data->id);
+        $data['penilaian'] = UsulanNilai::getNilai($data->id);
         $data['rab'] = UsulanRab::getRab($data->id);
         $data['skema_usulan'] = SkemaUsulan::firstSkema($data->skema_usulan_id);
 
@@ -110,7 +114,7 @@ class Usulan extends Model
     }
 
     static function getUsulanaktif($jenis){
-        $usulan = Usulan::select('usulan.id', 'skema_usulan_id', 'reviewer','step','skema_usulan.status')
+        $usulan = Usulan::select('usulan.id', 'skema_usulan_id', 'reviewer','step', 'skema_usulan.status')
                         ->join('skema_usulan','usulan.skema_usulan_id','skema_usulan.id')
                         ->where('usulan.jenis', $jenis)
                         ->whereNotNull('judul')
@@ -124,8 +128,10 @@ class Usulan extends Model
                 $data[$key]['anggota'] = UsulanAnggota::getConfirmedAnggota($value->id);
                 $data[$key]['belanja'] = UsulanBelanja::getBelanja($value->id);
                 $data[$key]['kegiatan'] = UsulanKegiatan::getKegiatan($value->id);
+                $data[$key]['komentar'] = UsulanKomentar::getKomentar($value->id);
                 $data[$key]['luaran'] = UsulanLuaran::getLuaran($value->id);
                 $data[$key]['mitra'] = UsulanMitra::firstMitra($value->id);
+                $data[$key]['penilaian'] = UsulanNilai::getNilai($value->id);
                 $data[$key]['rab'] = UsulanRab::getRab($value->id);
                 $data[$key]['reviewer'] = ($value->reviewer != NULL) ? Dosen::firstDosenByNidn($value->reviewer) : NULL ;
                 $data[$key]['skema_usulan'] = SkemaUsulan::firstSkema($value->skema_usulan_id);
@@ -151,8 +157,10 @@ class Usulan extends Model
                 $data[$key]['anggota'] = UsulanAnggota::getConfirmedAnggota($value->id);
                 $data[$key]['belanja'] = UsulanBelanja::getBelanja($value->id);
                 $data[$key]['kegiatan'] = UsulanKegiatan::getKegiatan($value->id);
+                $data[$key]['komentar'] = UsulanKomentar::getKomentar($value->id);
                 $data[$key]['luaran'] = UsulanLuaran::getLuaran($value->id);
                 $data[$key]['mitra'] = UsulanMitra::firstMitra($value->id);
+                $data[$key]['penilaian'] = UsulanNilai::getNilai($value->id);
                 $data[$key]['rab'] = UsulanRab::getRab($value->id);
                 $data[$key]['reviewer'] = ($value->reviewer != NULL) ? Dosen::firstDosenByNidn($value->reviewer) : NULL ;
                 $data[$key]['skema_usulan'] = SkemaUsulan::firstSkema($value->skema_usulan_id);
@@ -179,8 +187,10 @@ class Usulan extends Model
                 $data[$key]['anggota'] = UsulanAnggota::getConfirmedAnggota($value->id);
                 $data[$key]['belanja'] = UsulanBelanja::getBelanja($value->id);
                 $data[$key]['kegiatan'] = UsulanKegiatan::getKegiatan($value->id);
+                $data[$key]['komentar'] = UsulanKomentar::getKomentar($value->id);
                 $data[$key]['luaran'] = UsulanLuaran::getLuaran($value->id);
                 $data[$key]['mitra'] = UsulanMitra::firstMitra($value->id);
+                $data[$key]['penilaian'] = UsulanNilai::getNilai($value->id);
                 $data[$key]['rab'] = UsulanRab::getRab($value->id);
                 $data[$key]['reviewer'] = ($value->reviewer != NULL) ? Dosen::firstDosenByNidn($value->reviewer) : NULL ;
                 $data[$key]['skema_usulan'] = SkemaUsulan::firstSkema($value->skema_usulan_id);
@@ -300,8 +310,10 @@ class Usulan extends Model
                 $data[$key]['anggota'] = UsulanAnggota::getConfirmedAnggota($value->id);
                 $data[$key]['belanja'] = UsulanBelanja::getBelanja($value->id);
                 $data[$key]['kegiatan'] = UsulanKegiatan::getKegiatan($value->id);
+                $data[$key]['komentar'] = UsulanKomentar::getKomentar($value->id);
                 $data[$key]['luaran'] = UsulanLuaran::getLuaran($value->id);
                 $data[$key]['mitra'] = UsulanMitra::firstMitra($value->id);
+                $data[$key]['penilaian'] = UsulanNilai::getNilai($value->id);
                 $data[$key]['rab'] = UsulanRab::getRab($value->id);
                 $data[$key]['skema_usulan'] = SkemaUsulan::firstSkema($value->skema_usulan_id);
             }
@@ -374,10 +386,12 @@ class Usulan extends Model
 
     static function getUsulanByReviewer($reviewer, $jenis)
     {
-        $usulan = Usulan::select('id', 'skema_usulan_id', 'reviewer')
-                        ->where('reviewer', $reviewer)
-                        ->where('jenis', $jenis)
-                        ->orderByDesc('created_at')
+        $usulan = Usulan::select('usulan.id', 'usulan.skema_usulan_id', 'usulan.reviewer', 'skema_usulan.status')
+                        ->join('skema_usulan','usulan.skema_usulan_id','skema_usulan.id')
+                        ->where('usulan.reviewer', $reviewer)
+                        ->where('usulan.jenis', $jenis)
+                        ->where('skema_usulan.status',1)
+                        ->orderByDesc('usulan.created_at')
                         ->get();
 
         if ($usulan->isNotEmpty()) {
@@ -386,8 +400,10 @@ class Usulan extends Model
                 $data[$key]['anggota'] = UsulanAnggota::getConfirmedAnggota($value->id);
                 $data[$key]['belanja'] = UsulanBelanja::getBelanja($value->id);
                 $data[$key]['kegiatan'] = UsulanKegiatan::getKegiatan($value->id);
+                $data[$key]['komentar'] = UsulanKomentar::getKomentar($value->id);
                 $data[$key]['luaran'] = UsulanLuaran::getLuaran($value->id);
                 $data[$key]['mitra'] = UsulanMitra::firstMitra($value->id);
+                $data[$key]['penilaian'] = UsulanNilai::getNilai($value->id);
                 $data[$key]['rab'] = UsulanRab::getRab($value->id);
                 $data[$key]['reviewer'] = ($value->reviewer != NULL) ? Dosen::firstDosenByNidn($value->reviewer) : NULL ;
                 $data[$key]['skema_usulan'] = SkemaUsulan::firstSkema($value->skema_usulan_id);
@@ -423,8 +439,10 @@ class Usulan extends Model
                 $data[$key]['anggota'] = UsulanAnggota::getConfirmedAnggota($value->id);
                 $data[$key]['belanja'] = UsulanBelanja::getBelanja($value->id);
                 $data[$key]['kegiatan'] = UsulanKegiatan::getKegiatan($value->id);
+                $data[$key]['komentar'] = UsulanKomentar::getKomentar($value->id);
                 $data[$key]['luaran'] = UsulanLuaran::getLuaran($value->id);
                 $data[$key]['mitra'] = UsulanMitra::firstMitra($value->id);
+                $data[$key]['penilaian'] = UsulanNilai::getNilai($value->id);
                 $data[$key]['rab'] = UsulanRab::getRab($value->id);
                 $data[$key]['reviewer'] = ($value->reviewer != NULL) ? Dosen::firstDosenByNidn($value->reviewer) : NULL ;
                 $data[$key]['skema_usulan'] = SkemaUsulan::firstSkema($value->skema_usulan_id);
@@ -453,12 +471,9 @@ class Usulan extends Model
         ]);
     }
 
-    static function updateNilai($request, $id)
+    static function updateNilai($nilai, $id)
     {
-        Usulan::whereId($id)->update([
-            'nilai'     => $request->nilai,
-            'komentar'  => $request->komentar
-        ]);
+        Usulan::whereId($id)->update(['nilai' => $nilai]);
     }
 
     static function updateReviewer($dosenId, $id)

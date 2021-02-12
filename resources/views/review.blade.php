@@ -28,7 +28,7 @@
         <div class="col-md-12">
 
             <!-- skema penelitian -->
-            @isset($penelitian)
+            @if(count($penelitian))
                 <!-- table -->
                 <div class="card">
                     <div class="card-header">
@@ -66,9 +66,13 @@
                                         <td><a href="#modal" data-toggle="modal" data-value="{{ $item->id }}">{{ $item->judul }}</a></td>
                                         <td>{{ $item->skema_usulan->tahun_skema . ' - ' . $item->skema_usulan->kode }}</td>
                                         <td>{{ $item->skema_usulan->tahun_pelaksanaan }}</td>
-                                        <td><h3 class="text-warning"><i class="feather icon-clock"></i></h3></td>
-                                        {{-- <td><h3 class="text-danger"><i class="feather icon-x"></i></h3></td> --}}
-                                        {{-- <td><h3 class="text-warning"><i class="feather icon-clock"></i></h3></td> --}}
+                                        <td>
+                                            @if ($item->nilai == 1)
+                                                <h3 class="badge badge-md badge-pill badge-success"><i class="feather icon-check"></i> Selesai</h3>
+                                            @else
+                                                <h3 class="badge badge-md badge-pill badge-warning"><i class="feather icon-clock"></i> Menunggu</h3>
+                                            @endif
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -109,10 +113,10 @@
                 <!-- /.card-body -->
                 </div>
                 <!-- /.empty table -->
-            @endisset
+            @endif
 
             <!-- skema pengabdian -->
-            @isset($pengabdian)
+            @if(count($pengabdian))
                 <!-- table -->
                 <div class="card">
                     <div class="card-header">
@@ -150,9 +154,13 @@
                                         <td><a href="#modal" data-toggle="modal" data-value="{{ $item->id }}">{{ $item->judul }}</a></td>
                                         <td>{{ $item->skema_usulan->tahun_skema . ' - ' . $item->skema_usulan->kode }}</td>
                                         <td>{{ $item->skema_usulan->tahun_pelaksanaan }}</td>
-                                        <td><h3 class="text-warning"><i class="feather icon-clock"></i></h3></td>
-                                        {{-- <td><h3 class="text-danger"><i class="feather icon-x"></i></h3></td> --}}
-                                        {{-- <td><h3 class="text-warning"><i class="feather icon-clock"></i></h3></td> --}}
+                                        <td>
+                                            @if ($item->nilai == 1)
+                                                <h3 class="badge badge-md badge-pill badge-success"><i class="feather icon-check"></i> Selesai</h3>
+                                            @else
+                                                <h3 class="badge badge-md badge-pill badge-warning"><i class="feather icon-clock"></i> Menunggu</h3>
+                                            @endif
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -193,7 +201,7 @@
                 <!-- /.card-body -->
                 </div>
                 <!-- /.empty table -->
-            @endisset
+            @endif
         
             <!-- modal -->
             <div class="modal fade text-left" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
@@ -227,36 +235,22 @@
                                     <dt class="col-sm-4 text-md-right">Jenis Usulan</dt>
                                     <dd class="col-sm-8" id="jenis">-</dd>
                                 </dl>
-                                {{-- <dl class="row">
-                                    <dt class="col-sm-4 text-md-right">Progress</dt>
-                                    <dd class="col-sm-8">
-                                        <div class="progress progress-bar-success progress-lg mb-0">
-                                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="20" aria-valuemin="20" aria-valuemax="100" style="width:20%"></div>
-                                        </div>
-                                        <div class="badge badge-pill badge-glow badge-success block">20% | Lengkap</div>
-                                    </dd>
-                                </dl> --}}
                                 <dl class="row">
                                     <dt class="col-sm-4 text-md-right">Proposal</dt>
                                     <dd class="col-sm-8" id="berkas-proposal">-</dd>
                                 </dl>
-                                <hr/>
-                                <form action="#" method="POST" id="modal-form">
+                                <hr class="d-none"/>
+                                <div class="d-none" id="nilai-modal"></div>
+                                <form action="#" method="POST" id="modal-form" onsubmit="return confirm('Apakah Anda yakin? Nilai tidak dapat diubah kembali');">
                                     @csrf
                                     @method('PATCH')
-                                    <dl class="row mb-0">
-                                        <dt class="col-sm-4 text-md-right">Nilai</dt>
-                                        <dd class="col-sm-8">
-                                            <div class="form-group">
-                                                <input type="number" class="form-control" name="nilai" placeholder="Nilai" min="1" max="100" required>
-                                            </div>
-                                        </dd>
-                                    </dl>
-        
-                                    <dl class="row mb-0">
+                                    <div id="nilai"></div>
+                                    
+                                    <dl class="row mb-0 d-none" id="komentar">
                                         <dt class="col-sm-4 text-md-right">Komentar</dt>
                                         <dd class="col-sm-8">
                                             <fieldset class="form-group">
+                                                <input type="hidden" name="penilaian_tahap_id" id="tahapId" required>
                                                 <textarea class="form-control" name="komentar" id="basicTextarea" rows="3" placeholder="Komentar" required></textarea>
                                             </fieldset>
                                         </dd>
@@ -288,6 +282,10 @@
         });
 
         $(document).ready( function () {
+            $('form').submit(function() {
+                $(this).find("button[type='submit']").prop('disabled', true);
+            });
+            
             $(document).on('click', '#table-penelitian tbody tr td a', function(e) {
                 var id = $(this).attr('data-value');
                 $.get( "/usulan/" + id, function( data ) {
@@ -302,13 +300,13 @@
                     $('#modal-form').attr('action', '/reviewer/review/' + id);
                     for (var i = 0; i < d.berkas.length; i++) {
                         if (d.berkas[i]['jenis_berkas_id'] == 1) {
-                            $('#berkas-proposal').html('<a href="/' + d.berkas[i]['berkas'] + '">Berkas Proposal</a>')
+                            $('#berkas-proposal').html('<a href="/' + d.berkas[i]['berkas'] + '" target="_blank">Berkas Proposal</a>')
                         } else if (d.berkas[i]['jenis_berkas_id'] == 2) {
-                            $('#berkas-laporan-kemajuan').html('<a href="/' + d.berkas[i]['berkas'] + '">Berkas Laporan Kemajuan</a>')
+                            $('#berkas-laporan-kemajuan').html('<a href="/' + d.berkas[i]['berkas'] + '" target="_blank">Berkas Laporan Kemajuan</a>')
                         } else if (d.berkas[i]['jenis_berkas_id'] == 3) {
-                            $('#berkas-laporan-akhir').html('<a href="/' + d.berkas[i]['berkas'] + '">Berkas Laporan Akhir</a>')
+                            $('#berkas-laporan-akhir').html('<a href="/' + d.berkas[i]['berkas'] + '" target="_blank">Berkas Laporan Akhir</a>')
                         } else if (d.berkas[i]['jenis_berkas_id'] == 4) {
-                            $('#berkas-laporan-anggaran').html('<a href="/' + d.berkas[i]['berkas'] + '">Berkas Laporan Anggaran</a>')
+                            $('#berkas-laporan-anggaran').html('<a href="/' + d.berkas[i]['berkas'] + '" target="_blank">Berkas Laporan Anggaran</a>')
                         }
                     }
                 });
@@ -317,7 +315,7 @@
             $(document).on('click', '#table-pengabdian tbody tr td a', function(e) {
                 var id = $(this).attr('data-value');
                 $.get( "/usulan/" + id, function( data ) {
-                    console.log(JSON.parse(data));
+                    console.log(JSON.parse(data))
                     var d = JSON.parse(data);
                     $('#label').text('Detail Pengabdian');
                     $('#jenis').text('Pengabdian');
@@ -328,16 +326,39 @@
                     $('#modal-form').attr('action', '/reviewer/review/' + id);
                     for (var i = 0; i < d.berkas.length; i++) {
                         if (d.berkas[i]['jenis_berkas_id'] == 1) {
-                            $('#berkas-proposal').html('<a href="/' + d.berkas[i]['berkas'] + '">Berkas Proposal</a>')
+                            $('#berkas-proposal').html('<a href="/' + d.berkas[i]['berkas'] + '" target="_blank">Berkas Proposal</a>')
                         } else if (d.berkas[i]['jenis_berkas_id'] == 2) {
-                            $('#berkas-laporan-kemajuan').html('<a href="/' + d.berkas[i]['berkas'] + '">Berkas Laporan Kemajuan</a>')
+                            $('#berkas-laporan-kemajuan').html('<a href="/' + d.berkas[i]['berkas'] + '" target="_blank">Berkas Laporan Kemajuan</a>')
                         } else if (d.berkas[i]['jenis_berkas_id'] == 3) {
-                            $('#berkas-laporan-akhir').html('<a href="/' + d.berkas[i]['berkas'] + '">Berkas Laporan Akhir</a>')
+                            $('#berkas-laporan-akhir').html('<a href="/' + d.berkas[i]['berkas'] + '" target="_blank">Berkas Laporan Akhir</a>')
                         } else if (d.berkas[i]['jenis_berkas_id'] == 4) {
-                            $('#berkas-laporan-anggaran').html('<a href="/' + d.berkas[i]['berkas'] + '">Berkas Laporan Anggaran</a>')
+                            $('#berkas-laporan-anggaran').html('<a href="/' + d.berkas[i]['berkas'] + '" target="_blank">Berkas Laporan Anggaran</a>')
                         }
                     }
-                });
+
+                    if (d.nilai == 1) {
+                        $('#modal-form').remove()
+                        $('hr').removeClass('d-none')
+                        $('#nilai-modal').removeClass('d-none')
+                        $('#nilai-modal').empty()
+                        for (let i = 0; i < 5; i++) {
+                            $('#nilai-modal').append('<dl class="row"><dt class="col-sm-4 text-md-right">Nilai ' + d.penilaian[i].nama + '</dt><dd class="col-sm-8">' + d.penilaian[i].nilai + '</dd></dl>')
+                        }
+                        $('#nilai-modal').append('<dl class="row"><dt class="col-sm-4 text-md-right">Komentar</dt><dd class="col-sm-8">' + d.komentar[0].komentar + '</dd></dl>')
+                    } else {
+                        $.get('/reviewer/review/indikator/2', function(data) {
+                            console.log(JSON.parse(data))
+                            var d = JSON.parse(data)
+                            $('hr').removeClass('d-none')
+                            $('#nilai').empty()
+                            for (var i = 0; i < d.length; i++) {
+                                $('#nilai').append('<dl class="row mb-0"><dt class="col-sm-4 text-md-right">' + d[i].nama + '</dt><dd class="col-sm-8"><div class="form-group"><input type="number" class="form-control" name="nilai[' + d[i].id + ']" placeholder="' + d[i].nama + '" min="2" max="5" required></div></dd></dl>')
+                            }
+                            $('#tahapId').val(1)
+                            $('#komentar').removeClass('d-none')
+                        })
+                    }
+                })
             });
         });
     </script>

@@ -11,4 +11,9 @@ class PenilaianIndikator extends Model
 
     protected $table = 'penilaian_indikator';
     protected $fillable = ['penilaian_tahap_id', 'nama', 'deskripsi', 'jenis', 'status'];
+
+    static function getIndikator($jenis)
+    {
+        return PenilaianIndikator::where('jenis', $jenis)->get();
+    }
 }
