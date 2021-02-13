@@ -244,10 +244,13 @@
                                 <form action="#" method="POST" id="modal-form" onsubmit="return confirm('Apakah Anda yakin? Nilai tidak dapat diubah kembali');">
                                     @csrf
                                     @method('PATCH')
-                                    <div id="nilai"></div>
+                                    <h5>Penilaian</h5>
+                                    <div id="nilai">
+                                        
+                                    </div>
                                     
                                     <dl class="row mb-0 d-none" id="komentar">
-                                        <dt class="col-sm-4 text-md-right">Komentar</dt>
+                                        <dt class="col-sm-4 text-md-left">Komentar</dt>
                                         <dd class="col-sm-8">
                                             <fieldset class="form-group">
                                                 <input type="hidden" name="penilaian_tahap_id" id="tahapId" required>
@@ -318,7 +321,7 @@
                         for (let i = 0; i < 5; i++) {
                             $('#nilai-modal').append('<dl class="row"><dt class="col-sm-4 text-md-right">Nilai ' + d.penilaian[i].nama + '</dt><dd class="col-sm-8">' + d.penilaian[i].nilai + '</dd></dl>')
                         }
-                        $('#nilai-modal').append('<dl class="row"><dt class="col-sm-4 text-md-right">Komentar</dt><dd class="col-sm-8">' + d.komentar[0].komentar + '</dd></dl>')
+                        $('#nilai-modal').append('<dl class="row"><dt class="col-sm-4 text-md-left">Komentar</dt><dd class="col-sm-8">' + d.komentar[0].komentar + '</dd></dl>')
                     } else {
                         $.get('/reviewer/review/indikator/1', function(data) {
                             console.log(JSON.parse(data))
@@ -326,7 +329,7 @@
                             $('hr').removeClass('d-none')
                             $('#nilai').empty()
                             for (var i = 0; i < d.length; i++) {
-                                $('#nilai').append('<dl class="row mb-0"><dt class="col-sm-4 text-md-right">' + d[i].nama + '</dt><dd class="col-sm-8"><div class="form-group"><input type="number" class="form-control" name="nilai[' + d[i].id + ']" placeholder="' + d[i].nama + '" min="2" max="5" required></div></dd></dl>')
+                                $('#nilai').append('<dl class="row mb-0"><dt class="col-sm-4 text-md-left">' + d[i].nama + '<br/><small class="text-muted">'+d[i].deskripsi+' <br/><br/></small></dt><dd class="col-sm-8"><div class="form-group"><input type="number" class="form-control" name="nilai[' + d[i].id + ']" placeholder="' + d[i].nama + '" min="2" max="5" aria-describedby="nilai-'+d[i].id+'-block" required><small id="nilai-'+d[i].id+'-block" class="form-text text-danger">*2 (kurang jelas/sesuai) – 5 (sangat jelas/sesuai) <br/></small></div></dd></dl>')
                             }
                             $('#tahapId').val(1)
                             $('#komentar').removeClass('d-none')
@@ -367,7 +370,7 @@
                         for (let i = 0; i < 5; i++) {
                             $('#nilai-modal').append('<dl class="row"><dt class="col-sm-4 text-md-right">Nilai ' + d.penilaian[i].nama + '</dt><dd class="col-sm-8">' + d.penilaian[i].nilai + '</dd></dl>')
                         }
-                        $('#nilai-modal').append('<dl class="row"><dt class="col-sm-4 text-md-right">Komentar</dt><dd class="col-sm-8">' + d.komentar[0].komentar + '</dd></dl>')
+                        $('#nilai-modal').append('<dl class="row"><dt class="col-sm-4 text-md-left">Komentar</dt><dd class="col-sm-8">' + d.komentar[0].komentar + '</dd></dl>')
                     } else {
                         $.get('/reviewer/review/indikator/2', function(data) {
                             console.log(JSON.parse(data))
@@ -375,7 +378,7 @@
                             $('hr').removeClass('d-none')
                             $('#nilai').empty()
                             for (var i = 0; i < d.length; i++) {
-                                $('#nilai').append('<dl class="row mb-0"><dt class="col-sm-4 text-md-right">' + d[i].nama + '</dt><dd class="col-sm-8"><div class="form-group"><input type="number" class="form-control" name="nilai[' + d[i].id + ']" placeholder="' + d[i].nama + '" min="2" max="5" required></div></dd></dl>')
+                                $('#nilai').append('<dl class="row mb-0"><dt class="col-sm-4 text-md-left">' + d[i].nama + '<br/><small class="text-muted">'+d[i].deskripsi+' <br/><br/></small></dt><dd class="col-sm-8"><div class="form-group"><input type="number" class="form-control" name="nilai[' + d[i].id + ']" placeholder="' + d[i].nama + '" min="2" max="5" aria-describedby="nilai-'+d[i].id+'-block" required><small id="nilai-'+d[i].id+'-block" class="form-text text-danger">*2 (kurang jelas/sesuai) – 5 (sangat jelas/sesuai) <br/></small></div></dd></dl>')
                             }
                             $('#tahapId').val(1)
                             $('#komentar').removeClass('d-none')

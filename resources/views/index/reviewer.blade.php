@@ -29,7 +29,7 @@
         </div>
     @endif
 
-    <div class="row">
+    {{-- <div class="row">
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header d-flex align-items-start pb-0">
@@ -60,7 +60,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     <div class="content-header row">
         <div class="content-header-left col-md-9 col-12 mb-2">
@@ -186,7 +186,9 @@
                                         <td>{{ $item->judul }}</td>
                                         <td>{{ $item->skema_usulan->tahun_skema . ' - ' . $item->skema_usulan->kode }}</td>
                                         <td>{{ $item->skema_usulan->tahun_pelaksanaan }}</td>
-                                        <td><h3 class="text-warning"><i class="feather icon-clock"></i></h3></td>
+                                        <td><div class="badge badge-pill badge-md badge-warning">
+                                                <i class="feather icon-clock"></i> Belum direview
+                                            </div></td>
                                     </tr>
                                 @endforeach
                             </tbody>
