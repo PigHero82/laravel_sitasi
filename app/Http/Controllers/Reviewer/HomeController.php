@@ -7,6 +7,7 @@ use App\Models\PenilaianIndikator;
 use App\Models\Usulan;
 use App\Models\UsulanKomentar;
 use App\Models\UsulanNilai;
+use App\Models\UsulanRab;
 use Auth;
 use Illuminate\Http\Request;
 
@@ -28,6 +29,14 @@ class HomeController extends Controller
         $pengabdian = Usulan::getUsulanByReviewer(Auth::user()->nidn, 2);
 
         return view('review', compact('penelitian', 'pengabdian'));
+    }
+
+    public function rabShow($usulanID){
+        $usulan = Usulan::firstUsulan($usulanID);
+        $usulanRab = UsulanRab::getRab($usulanID);
+       
+
+        return view('rab',compact('usulan','usulanRab'));
     }
 
     public function getindikator($jenis)

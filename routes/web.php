@@ -154,6 +154,7 @@ Route::namespace('Pengabdian')->name('pengabdian.')->prefix('pengabdian')->middl
 
 Route::namespace('Reviewer')->name('reviewer.')->prefix('reviewer')->middleware('auth', 'role:reviewer')->group(function() {
     Route::get('', 'HomeController@index')->name('index');
+    Route::get('rab/{usulanID}','HomeController@rabShow');
     Route::name('review.')->prefix('review')->group(function() {
         Route::get('', 'HomeController@review')->name('index');
         Route::patch('{id}', 'HomeController@storeNilai')->name('store');

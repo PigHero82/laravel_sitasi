@@ -236,6 +236,10 @@
                                     <dd class="col-sm-8" id="jenis">-</dd>
                                 </dl>
                                 <dl class="row">
+                                    <dt class="col-sm-4 text-md-right">Rencana Anggaran</dt>
+                                    <dd class="col-sm-8" id="anggaran">-</dd>
+                                </dl>
+                                <dl class="row">
                                     <dt class="col-sm-4 text-md-right">Proposal</dt>
                                     <dd class="col-sm-8" id="berkas-proposal">-</dd>
                                 </dl>
@@ -294,12 +298,14 @@
                 $.get( "/usulan/" + id, function( data ) {
                     console.log(JSON.parse(data));
                     var d = JSON.parse(data);
+                    var linkrab = ' <a href="{{ url('reviewer/rab/') }}/' + d.id +'" target="_blank"> Lihat anggaran </a>';
                     $('#label').text('Detail Penelitian');
                     $('#jenis').text('Penelitian');
                     $('#judul').html(d.judul);
                     $('#skema').html(d.skema_usulan.nama);
                     $('#tahun-usulan').html(d.skema_usulan.tahun_skema);
                     $('#tahun-pelaksanaan').html(d.skema_usulan.tahun_pelaksanaan);
+                    $('#anggaran').html(formatRupiah(''+d.usulan_dana, 'Rp. ') + linkrab);
                     $('#modal-form').attr('action', '/reviewer/review/' + id);
                     for (var i = 0; i < d.berkas.length; i++) {
                         if (d.berkas[i]['jenis_berkas_id'] == 1) {
@@ -343,12 +349,14 @@
                 $.get( "/usulan/" + id, function( data ) {
                     console.log(JSON.parse(data))
                     var d = JSON.parse(data);
+                    var linkrab = ' <a href="{{ url('reviewer/rab/') }}/' + d.id +'" target="_blank"> Lihat anggaran </a>';
                     $('#label').text('Detail Pengabdian');
                     $('#jenis').text('Pengabdian');
                     $('#judul').html(d.judul);
                     $('#skema').html(d.skema_usulan.nama);
                     $('#tahun-usulan').html(d.skema_usulan.tahun_skema);
                     $('#tahun-pelaksanaan').html(d.skema_usulan.tahun_pelaksanaan);
+                    $('#anggaran').html(formatRupiah(''+d.usulan_dana, 'Rp. ') + linkrab);
                     $('#modal-form').attr('action', '/reviewer/review/' + id);
                     for (var i = 0; i < d.berkas.length; i++) {
                         if (d.berkas[i]['jenis_berkas_id'] == 1) {

@@ -20,7 +20,7 @@ class UsulanRab extends Model
     static function getRab($usulanId)
     {
         return UsulanRab::select('usulan_rab.*', 'rab_jenis.nama as nama_jenis')
-                        ->selectRaw('item1 * item2 * item3 * harga as total')
+                        ->selectRaw('(item1 * item2 * item3 * harga) as total')
                         ->join('rab_jenis', 'usulan_rab.rab_jenis_id', 'rab_jenis.id')
                         ->where('usulan_rab.usulan_id', $usulanId)
                         ->get();
