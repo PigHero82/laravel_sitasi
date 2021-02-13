@@ -240,6 +240,10 @@
                                     <dd class="col-sm-8" id="anggaran">-</dd>
                                 </dl>
                                 <dl class="row">
+                                    <dt class="col-sm-4 text-md-right">Rencana Luaran</dt>
+                                    <dd class="col-sm-8" id="luaran">-</dd>
+                                </dl>
+                                <dl class="row">
                                     <dt class="col-sm-4 text-md-right">Proposal</dt>
                                     <dd class="col-sm-8" id="berkas-proposal">-</dd>
                                 </dl>
@@ -306,6 +310,13 @@
                     $('#tahun-usulan').html(d.skema_usulan.tahun_skema);
                     $('#tahun-pelaksanaan').html(d.skema_usulan.tahun_pelaksanaan);
                     $('#anggaran').html(formatRupiah(''+d.usulan_dana, 'Rp. ') + linkrab);
+                    $('#luaran').empty();
+                    for(var l = 0; l < d.luaran.length; l++){
+                      
+                        $('#luaran').append('<li>'+d.luaran[l].nama_luaran + ' <span class="text-info">(' + d.luaran[l].nama_target + ')</span><br/></li>');
+                      
+                    }
+      
                     $('#modal-form').attr('action', '/reviewer/review/' + id);
                     for (var i = 0; i < d.berkas.length; i++) {
                         if (d.berkas[i]['jenis_berkas_id'] == 1) {
@@ -357,6 +368,12 @@
                     $('#tahun-usulan').html(d.skema_usulan.tahun_skema);
                     $('#tahun-pelaksanaan').html(d.skema_usulan.tahun_pelaksanaan);
                     $('#anggaran').html(formatRupiah(''+d.usulan_dana, 'Rp. ') + linkrab);
+                    $('#luaran').empty();
+                    for(var l = 0; l < d.luaran.length; l++){
+                      
+                        $('#luaran').append('<li>'+d.luaran[l].nama_luaran + ' <span class="text-info">(' + d.luaran[l].nama_target + ')</span><br/></li>');
+                      
+                    }
                     $('#modal-form').attr('action', '/reviewer/review/' + id);
                     for (var i = 0; i < d.berkas.length; i++) {
                         if (d.berkas[i]['jenis_berkas_id'] == 1) {

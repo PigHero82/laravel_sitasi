@@ -38,6 +38,7 @@ class Dosen extends Model
                     ->join('list_roles', 'list_roles.user_id', 'users.id')
                     ->join('roles', 'roles.id', 'list_roles.role_id')
                     ->where('roles.name', 'reviewer')
+                    ->orderByDesc('dosen.nama')
                     ->get();
     }
     
