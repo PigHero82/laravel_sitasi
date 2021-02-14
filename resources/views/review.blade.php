@@ -317,7 +317,7 @@
                       
                     }
       
-                    $('#modal-form').attr('action', '/reviewer/review/' + id);
+                    
                     for (var i = 0; i < d.berkas.length; i++) {
                         if (d.berkas[i]['jenis_berkas_id'] == 1) {
                             $('#berkas-proposal').html('<a href="/' + d.berkas[i]['berkas'] + '" target="_blank">Berkas Proposal</a>')
@@ -331,25 +331,30 @@
                     }
 
                     if (d.nilai == 1) {
-                        $('#modal-form').remove()
-                        $('hr').removeClass('d-none')
-                        $('#nilai-modal').removeClass('d-none')
-                        $('#nilai-modal').empty()
+                        $('#modal-form').hide();
+                        $('hr').removeClass('d-none');
+                        $('#nilai-modal').removeClass('d-none');
+                        $('#nilai-modal').empty();
+
                         for (let i = 0; i < 5; i++) {
-                            $('#nilai-modal').append('<dl class="row"><dt class="col-sm-4 text-md-right">Nilai ' + d.penilaian[i].nama + '</dt><dd class="col-sm-8">' + d.penilaian[i].nilai + '</dd></dl>')
+                            $('#nilai-modal').append('<dl class="row"><dt class="col-sm-4 text-md-right">Nilai ' + d.penilaian[i].nama + '</dt><dd class="col-sm-8">' + d.penilaian[i].nilai + '</dd></dl>');
                         }
-                        $('#nilai-modal').append('<dl class="row"><dt class="col-sm-4 text-md-left">Komentar</dt><dd class="col-sm-8">' + d.komentar[0].komentar + '</dd></dl>')
+                        $('#nilai-modal').append('<dl class="row"><dt class="col-sm-4 text-md-left">Komentar</dt><dd class="col-sm-8">' + d.komentar[0].komentar + '</dd></dl>');
                     } else {
+                        
+                        $('#modal-form').attr('action', '/reviewer/review/' + id);
+                        $('#nilai').empty();
+                        $('#modal-form').show();
                         $.get('/reviewer/review/indikator/1', function(data) {
-                            console.log(JSON.parse(data))
-                            var d = JSON.parse(data)
-                            $('hr').removeClass('d-none')
-                            $('#nilai').empty()
+                            console.log(JSON.parse(data));
+                            var d = JSON.parse(data);
+                            $('hr').removeClass('d-none');
+                            $('#nilai-modal').empty();
                             for (var i = 0; i < d.length; i++) {
                                 $('#nilai').append('<dl class="row mb-0"><dt class="col-sm-4 text-md-left">' + d[i].nama + '<br/><small class="text-muted">'+d[i].deskripsi+' <br/><br/></small></dt><dd class="col-sm-8"><div class="form-group"><input type="number" class="form-control" name="nilai[' + d[i].id + ']" placeholder="' + d[i].nama + '" min="2" max="5" aria-describedby="nilai-'+d[i].id+'-block" required><small id="nilai-'+d[i].id+'-block" class="form-text text-danger">*2 (kurang jelas/sesuai) – 5 (sangat jelas/sesuai) <br/></small></div></dd></dl>')
                             }
-                            $('#tahapId').val(1)
-                            $('#komentar').removeClass('d-none')
+                            $('#tahapId').val(1);
+                            $('#komentar').removeClass('d-none');
                         })
                     }
                 });
@@ -358,7 +363,7 @@
             $(document).on('click', '#table-pengabdian tbody tr td a', function(e) {
                 var id = $(this).attr('data-value');
                 $.get( "/usulan/" + id, function( data ) {
-                    console.log(JSON.parse(data))
+                    console.log(JSON.parse(data));
                     var d = JSON.parse(data);
                     var linkrab = ' <a href="{{ url('reviewer/rab/') }}/' + d.id +'" target="_blank"> Lihat anggaran </a>';
                     $('#label').text('Detail Pengabdian');
@@ -374,7 +379,7 @@
                         $('#luaran').append('<li>'+d.luaran[l].nama_luaran + ' <span class="text-info">(' + d.luaran[l].nama_target + ')</span><br/></li>');
                       
                     }
-                    $('#modal-form').attr('action', '/reviewer/review/' + id);
+                    
                     for (var i = 0; i < d.berkas.length; i++) {
                         if (d.berkas[i]['jenis_berkas_id'] == 1) {
                             $('#berkas-proposal').html('<a href="/' + d.berkas[i]['berkas'] + '" target="_blank">Berkas Proposal</a>')
@@ -388,25 +393,28 @@
                     }
 
                     if (d.nilai == 1) {
-                        $('#modal-form').remove()
-                        $('hr').removeClass('d-none')
-                        $('#nilai-modal').removeClass('d-none')
-                        $('#nilai-modal').empty()
+                        $('#modal-form').hide();
+                        $('hr').removeClass('d-none');
+                        $('#nilai-modal').removeClass('d-none');
+                        $('#nilai-modal').empty();
                         for (let i = 0; i < 5; i++) {
-                            $('#nilai-modal').append('<dl class="row"><dt class="col-sm-4 text-md-right">Nilai ' + d.penilaian[i].nama + '</dt><dd class="col-sm-8">' + d.penilaian[i].nilai + '</dd></dl>')
+                            $('#nilai-modal').append('<dl class="row"><dt class="col-sm-4 text-md-right">Nilai ' + d.penilaian[i].nama + '</dt><dd class="col-sm-8">' + d.penilaian[i].nilai + '</dd></dl>');
                         }
-                        $('#nilai-modal').append('<dl class="row"><dt class="col-sm-4 text-md-left">Komentar</dt><dd class="col-sm-8">' + d.komentar[0].komentar + '</dd></dl>')
+                        $('#nilai-modal').append('<dl class="row"><dt class="col-sm-4 text-md-left">Komentar</dt><dd class="col-sm-8">' + d.komentar[0].komentar + '</dd></dl>');
                     } else {
+                        $('#nilai').empty();
+                        $('#modal-form').attr('action', '/reviewer/review/' + id);
+                        $('#modal-form').show();
                         $.get('/reviewer/review/indikator/2', function(data) {
-                            console.log(JSON.parse(data))
-                            var d = JSON.parse(data)
-                            $('hr').removeClass('d-none')
-                            $('#nilai').empty()
+                            console.log(JSON.parse(data));
+                            var d = JSON.parse(data);
+                            $('hr').removeClass('d-none');
+                            $('#nilai-modal').empty();
                             for (var i = 0; i < d.length; i++) {
-                                $('#nilai').append('<dl class="row mb-0"><dt class="col-sm-4 text-md-left">' + d[i].nama + '<br/><small class="text-muted">'+d[i].deskripsi+' <br/><br/></small></dt><dd class="col-sm-8"><div class="form-group"><input type="number" class="form-control" name="nilai[' + d[i].id + ']" placeholder="' + d[i].nama + '" min="2" max="5" aria-describedby="nilai-'+d[i].id+'-block" required><small id="nilai-'+d[i].id+'-block" class="form-text text-danger">*2 (kurang jelas/sesuai) – 5 (sangat jelas/sesuai) <br/></small></div></dd></dl>')
+                                $('#nilai').append('<dl class="row mb-0"><dt class="col-sm-4 text-md-left">' + d[i].nama + '<br/><small class="text-muted">'+d[i].deskripsi+' <br/><br/></small></dt><dd class="col-sm-8"><div class="form-group"><input type="number" class="form-control" name="nilai[' + d[i].id + ']" placeholder="' + d[i].nama + '" min="2" max="5" aria-describedby="nilai-'+d[i].id+'-block" required><small id="nilai-'+d[i].id+'-block" class="form-text text-danger">*2 (kurang jelas/sesuai) – 5 (sangat jelas/sesuai) <br/></small></div></dd></dl>');
                             }
-                            $('#tahapId').val(1)
-                            $('#komentar').removeClass('d-none')
+                            $('#tahapId').val(1);
+                            $('#komentar').removeClass('d-none');
                         })
                     }
                 })
