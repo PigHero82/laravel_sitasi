@@ -48,7 +48,7 @@
                     </div>
                     <div class="col-md-9">
                 
-                        @if (count($usulan->berkas))
+                        @if (($usulan->berkas->where('jenis_berkas_id,1')->first()))
                             <iframe src="{{ asset($usulan->berkas->where('jenis_berkas_id',1)->first()->berkas) }}" width="100%" height="500px">
                             </iframe>
                         @endif

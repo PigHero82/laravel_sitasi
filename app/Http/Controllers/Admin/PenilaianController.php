@@ -12,8 +12,10 @@ class PenilaianController extends Controller
     {
         $penelitian = Usulan::getUsulanPenilaian(1);
         $pengabdian = Usulan::getUsulanPenilaian(2);
+        $datas = Usulan::join('skema_usulan','usulan.skema_usulan_id','skema_usulan.id')
+                        ->where('skema_usulan.status',1)->get();
 
-        return view('review.penilaian', compact('penelitian', 'pengabdian'));
+        return view('review.penilaian', compact('penelitian', 'pengabdian','datas'));
     }
 
     public function update(Request $request, $id)

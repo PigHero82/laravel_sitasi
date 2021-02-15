@@ -299,6 +299,7 @@
             
             $(document).on('click', '#table-penelitian tbody tr td a', function(e) {
                 var id = $(this).attr('data-value');
+                $('#berkas-proposal').html('-');
                 $.get( "/usulan/" + id, function( data ) {
                     console.log(JSON.parse(data));
                     var d = JSON.parse(data);
@@ -361,6 +362,7 @@
             });
 
             $(document).on('click', '#table-pengabdian tbody tr td a', function(e) {
+                $('#berkas-proposal').html('-');
                 var id = $(this).attr('data-value');
                 $.get( "/usulan/" + id, function( data ) {
                     console.log(JSON.parse(data));

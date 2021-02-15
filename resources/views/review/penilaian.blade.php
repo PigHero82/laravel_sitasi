@@ -44,7 +44,15 @@
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Usulan Penelitian</h3>
-
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <h5 class="text-warning">Menunggu review: {{ $datas->where('nilai',0)->where('jenis',1)->whereNotNull('judul')->count() }}</h5>
+                            </div>
+                            <div class="col-sm-6">
+                                <h5 class="text-success">selesai: {{ $datas->where('nilai',1)->where('jenis',1)->whereNotNull('judul')->count() }}</h5>
+                            </div>
+                        </div>
+                        
                         <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
                         <div class="heading-elements">
                             <ul class="list-inline mb-0">
@@ -60,7 +68,8 @@
                                     <thead>
                                         <tr>
                                             {{-- <th>Progress</th> --}}
-                                            <th style="width: 50%">Judul</th>
+                                            <th>Judul</th>
+                                            <th>Ketua Pelaksana</th>
                                             <th>Skema Usulan</th>
                                             <th>Tahun Pelaksanaan</th>
                                             <th>Status Review</th>
@@ -76,15 +85,15 @@
                                                     <div class="badge badge-pill badge-glow badge-success block">20% | Lengkap</div>
                                                 </td> --}}
                                                 <td><a href="#modal" data-toggle="modal" data-value="{{ $item->id }}">{{ $item->judul }}</a></td>
+                                                <td>{{ $item->ketua }}</td>
                                                 <td>{{ $item->skema_usulan->tahun_skema . ' - ' . $item->skema_usulan->kode }}</td>
+
                                                 <td>{{ $item->skema_usulan->tahun_pelaksanaan }}</td>
                                                 <td>
-                                                    @if ($item->step == 9)
-                                                        <h3 class="text-warning"><i class="feather icon-clock"></i></h3>
-                                                    @elseif ($item->step == 10)
-                                                        <h3 class="text-danger"><i class="feather icon-x"></i></h3>
-                                                    @elseif ($item->step == 11)
-                                                        <h3 class="text-success"><i class="feather icon-check"></i></h3>
+                                                    @if ($item->nilai == 0)
+                                                        <h5 class="text-warning"><i class="feather icon-clock"></i>Menunggu review</h5>
+                                                    @elseif ($item->nilai == 1)
+                                                        <h5 class="text-success"><i class="feather icon-check"></i>Selesai</h5>
                                                     @endif
                                                 </td>
                                                 {{-- <td><h3 class="text-danger"><i class="feather icon-x"></i></h3></td> --}}
@@ -96,6 +105,7 @@
                                         <tr>
                                             {{-- <th>Progress</th> --}}
                                             <th>Judul</th>
+                                            <th>Ketua Pelaksana</th>
                                             <th>Skema Usulan</th>
                                             <th>Tahun Pelaksanaan</th>
                                             <th>Status Review</th>
@@ -138,6 +148,14 @@
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Usulan Pengabdian</h3>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <h5 class="text-warning">Menunggu review: {{ $datas->where('nilai',0)->where('jenis',2)->whereNotNull('judul')->count() }}</h5>
+                            </div>
+                            <div class="col-sm-6">
+                                <h5 class="text-success">selesai: {{ $datas->where('nilai',1)->where('jenis',2)->whereNotNull('judul')->count() }}</h5>
+                            </div>
+                        </div>
 
                         <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
                         <div class="heading-elements">
@@ -154,7 +172,8 @@
                                     <thead>
                                         <tr>
                                             {{-- <th>Progress</th> --}}
-                                            <th style="width: 50%">Judul</th>
+                                            <th>Judul</th>
+                                            <th>Ketua Pelaksana</th>
                                             <th>Skema Usulan</th>
                                             <th>Tahun Pelaksanaan</th>
                                             <th>Status Review</th>
@@ -170,9 +189,16 @@
                                                     <div class="badge badge-pill badge-glow badge-success block">20% | Lengkap</div>
                                                 </td> --}}
                                                 <td><a href="#modal" data-toggle="modal" data-value="{{ $item->id }}">{{ $item->judul }}</a></td>
+                                                <td>{{ $item->ketua }}</td>
                                                 <td>{{ $item->skema_usulan->tahun_skema . ' - ' . $item->skema_usulan->kode }}</td>
                                                 <td>{{ $item->skema_usulan->tahun_pelaksanaan }}</td>
-                                                <td><h3 class="text-warning"><i class="feather icon-clock"></i></h3></td>
+                                                <td>
+                                                    @if ($item->nilai == 0)
+                                                        <h5 class="text-warning"><i class="feather icon-clock"></i>Menunggu review</h5>
+                                                    @elseif ($item->nilai == 1)
+                                                        <h5 class="text-success"><i class="feather icon-check"></i>Selesai</h5>
+                                                    @endif
+                                                </td>
                                                 {{-- <td><h3 class="text-danger"><i class="feather icon-x"></i></h3></td> --}}
                                                 {{-- <td><h3 class="text-warning"><i class="feather icon-clock"></i></h3></td> --}}
                                             </tr>
@@ -292,8 +318,18 @@
 @endsection
 
 @section('js')
+<script src="{{ asset('app-assets/vendors/js/tables/datatable/datatables.min.js') }}"></script>
+    <script src="{{ asset('app-assets/vendors/js/tables/datatable/datatables.bootstrap4.min.js') }}"></script>
     <script>
         $(document).ready( function () {
+            $('#table-penelitian').DataTable({
+            responsive: true,
+            "dom": '<"top row" <"col-md-4"l><"col-md-4 text-center"p><"col-md-4 text-md-right"f>>rt<"bottom row"<"col-md-4"l><"col-md-4"p>><"clear">'
+        });
+            $('#table-pengabdian').DataTable({
+            responsive: true,
+            "dom": '<"top row" <"col-md-4"l><"col-md-4 text-center"p><"col-md-4 text-md-right"f>>rt<"bottom row"<"col-md-4"l><"col-md-4"p>><"clear">'
+        });
             $(document).on('click', '#table-penelitian tbody tr td a', function(e) {
                 var id = $(this).attr('data-value');
                 $.get( "/usulan/" + id, function( data ) {

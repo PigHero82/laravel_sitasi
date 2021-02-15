@@ -174,16 +174,17 @@ class Usulan extends Model
 
     static function getUsulanPenilaian($jenis)
     {
-        $usulan = Usulan::select('id', 'skema_usulan_id', 'reviewer')
-                        ->where('jenis', $jenis)
-                        ->where('step', '>', 8)
-                        ->where('nilai', '>', 0)
-                        ->orderBy('step')
-                        ->orderByDesc('created_at')
+        $usulan = Usulan::select('usulan.id', 'skema_usulan_id', 'usulan.reviewer')
+                        ->join('skema_usulan','usulan.skema_usulan_id','skema_usulan.id')
+                        ->where('usulan.jenis', $jenis)
+                        ->where('usulan.step', '>', 8)
+                        ->where('skema_usulan.status',1)
+                        ->orderBy('usulan.step')
+                        ->orderByDesc('usulan.judul')
                         ->get();
         if ($usulan->isNotEmpty()) {
             foreach ($usulan as $key => $value) {
-                $data[$key] = Usulan::findOrFail($value->id);
+                $data[$key] = Usulan::firstUsulan($value->id);
                 $data[$key]['anggota'] = UsulanAnggota::getConfirmedAnggota($value->id);
                 $data[$key]['belanja'] = UsulanBelanja::getBelanja($value->id);
                 $data[$key]['kegiatan'] = UsulanKegiatan::getKegiatan($value->id);
