@@ -161,3 +161,6 @@ Route::namespace('Reviewer')->name('reviewer.')->prefix('reviewer')->middleware(
         Route::get('indikator/{jenis}', 'HomeController@getIndikator')->name('indikator');
     });
 });
+
+Route::view('lihat-rab', 'usulan.lihat-rab');
+Route::view('ubah-rab', 'usulan.ubah-rab');
