@@ -351,8 +351,14 @@
                             var d = JSON.parse(data);
                             $('hr').removeClass('d-none');
                             $('#nilai-modal').empty();
+                            let deskripsi
                             for (var i = 0; i < d.length; i++) {
-                                $('#nilai').append('<dl class="row mb-0"><dt class="col-sm-4 text-md-left">' + d[i].nama + '<br/><small class="text-muted">'+d[i].deskripsi+' <br/><br/></small></dt><dd class="col-sm-8"><div class="form-group"><input type="number" class="form-control" name="nilai[' + d[i].id + ']" placeholder="' + d[i].nama + '" min="2" max="5" aria-describedby="nilai-'+d[i].id+'-block" required><small id="nilai-'+d[i].id+'-block" class="form-text text-danger">*2 (kurang jelas/sesuai) – 5 (sangat jelas/sesuai) <br/></small></div></dd></dl>')
+                                if (d[i].deskripsi == null) {
+                                    deskripsi = ''
+                                } else {
+                                    deskripsi = '<small class="text-muted">'+d[i].deskripsi+' <br/><br/></small>'
+                                }
+                                $('#nilai').append('<dl class="row mb-0"><dt class="col-sm-4 text-md-left">' + d[i].nama + '<br/>' + deskripsi + '</dt><dd class="col-sm-8"><div class="form-group"><input type="number" class="form-control" name="nilai[' + d[i].id + ']" placeholder="' + d[i].nama + '" min="2" max="5" aria-describedby="nilai-'+d[i].id+'-block" required><small id="nilai-'+d[i].id+'-block" class="form-text text-danger">*2 (kurang jelas/sesuai) – 5 (sangat jelas/sesuai) <br/></small></div></dd></dl>')
                             }
                             $('#tahapId').val(1);
                             $('#komentar').removeClass('d-none');
