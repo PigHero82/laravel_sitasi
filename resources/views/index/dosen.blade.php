@@ -548,19 +548,24 @@
                             <dt class="col-sm-4 text-md-right">Proposal</dt>
                             <dd class="col-sm-8" id="revisi-proposal">-</dd>
                         </dl>
-                        <dl class="row mb-0">
-                            <dt class="col-sm-4 text-md-right">Ubah Proposal</dt>
-                            <dd class="col-sm-8">
-                                <div class="custom-file mr-1">
-                                    <input type="file" class="custom-file-input" id="inputGroupFile01" name="profile_photo_path" accept=".jpg,.jpeg,.png">
-                                    <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-                                </div>
-                            </dd>
-                        </dl>
-                        <dl class="row">
-                            <dt class="col-sm-4 text-md-right"></dt>
-                            <dd class="col-sm-8" id=""><button type="button" class="btn btn-success"><i class="feather icon-edit-2"></i> Ubah Proposal</button></dd>
-                        </dl>
+                        <form action="#" method="post" id="form-proposal" enctype="multipart/form-data">
+                            @csrf
+                            @method('PATCH')
+                            <dl class="row mb-0">
+                                <dt class="col-sm-4 text-md-right">Ubah Proposal</dt>
+                                <dd class="col-sm-8">
+                                    <div class="custom-file mr-1">
+                                        <input type="hidden" name="usulan_id" id="proposal-usulan-id" required>
+                                        <input type="file" class="custom-file-input" id="inputGroupFile01" name="surat_path" accept=".pdf" required>
+                                        <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                                    </div>
+                                </dd>
+                            </dl>
+                            <dl class="row">
+                                <dt class="col-sm-4 text-md-right"></dt>
+                                <dd class="col-sm-8" id=""><button type="submit" class="btn btn-success"><i class="feather icon-edit-2"></i> Unggah Proposal</button></dd>
+                            </dl>
+                        </form>
                         <dl class="row">
                             <dt class="col-sm-4 text-md-right">RAB</dt>
                             <dd class="col-sm-8" id="revisi-rab">-</dd>
@@ -700,8 +705,12 @@
                     for (var i = 0; i < d.berkas.length; i++) {
                         if (d.berkas[i]['jenis_berkas_id'] == 1) {
                             $('#revisi-proposal').html('<a href="/' + d.berkas[i]['berkas'] + '" target="_blank">Berkas Proposal</a>')
+                            $('#form-proposal').attr('action', '{{ url("dosen/usulan/revisi/proposal") }}/' + id)
+                            $('#proposal-usulan-id').val(d.id)
                         } else {
                             $('#revisi-proposal').text('-')
+                            $('#form-proposal').attr('action', '#')
+                            $('#proposal-usulan-id').val()
                         }
                     }
 

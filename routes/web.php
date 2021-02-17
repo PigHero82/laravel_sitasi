@@ -136,6 +136,7 @@ Route::namespace('Dosen')->name('dosen.')->prefix('dosen')->middleware('auth', '
             Route::get('{id}', 'UsulanController@mitraShow')->name('show');
         });
         Route::patch('proposal/{id}', 'UsulanController@proposal')->name('proposal');
+        Route::patch('revisi/proposal/{id}', 'UsulanController@updateProposal');
         Route::get('riwayat', 'UsulanController@riwayat')->name('riwayat');
         Route::resource('rab', 'RabController');
     });

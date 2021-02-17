@@ -19,6 +19,7 @@ use App\Models\SatuanWaktu;
 use App\Models\Usulan;
 use App\Models\UsulanAnggota;
 use App\Models\UsulanBerkas;
+use App\Models\UsulanBerkasBackup;
 use App\Models\UsulanKegiatan;
 use App\Models\UsulanLuaran;
 use App\Models\UsulanMitra;
@@ -279,6 +280,28 @@ class UsulanController extends Controller
         UsulanBerkas::storeBerkas($request, 1);
 
         return back()->with('success', 'Proposal berhasil diunggah');
+    }
+
+    public function updateProposal(Request $request, $id)
+    {
+        $request->validate([
+            'usulan_id'     => 'numeric|required',
+            'surat_path'    => 'max:5000|mimes:pdf|required'
+        ]);
+
+        $oldBerkas = UsulanBerkas::getBerkas($id);
+        $backedUpBerkas = UsulanBerkasBackup::latestBerkasJenis(1, $id);
+
+        if (empty($backedUpBerkas)) {
+            $revisi = 1;
+        } else {
+            $revisi = $backedUpBerkas->review + 1;
+        }
+
+        UsulanBerkasBackup::storeBerkas($oldBerkas, 1, $revisi);
+        UsulanBerkas::storeBerkas($request, 1);
+
+        return back()->with('success', 'Proposal berhasil diubah');
     }
     
     public function riwayat()

@@ -86,7 +86,7 @@ class RabController extends Controller
         }
         
         foreach ($oldRab as $key => $old) {
-            UsulanRabBackup::storeRab($old, $revisi);
+            UsulanRabBackup::storeRab($old,  $revisi);
             UsulanRab::destroyRab($old->id);
         }
 
