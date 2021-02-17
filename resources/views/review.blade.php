@@ -23,7 +23,7 @@
             {{ session('danger') }}
         </div>
     @endif
-    
+
     <!-- skema penelitian -->
     @if(count($penelitian))
         <!-- table -->
@@ -255,7 +255,7 @@
                             </div>
                             
                             <dl class="row mb-0 d-none" id="komentar">
-                                <dt class="col-sm-4 text-md-left">Komentar</dt>
+                                <dt class="col-sm-4 text-md-right">Komentar</dt>
                                 <dd class="col-sm-8">
                                     <fieldset class="form-group">
                                         <input type="hidden" name="penilaian_tahap_id" id="tahapId" required>
@@ -335,7 +335,7 @@
                         for (let i = 0; i < 5; i++) {
                             $('#nilai-modal').append('<dl class="row"><dt class="col-sm-4 text-md-right">Nilai ' + d.penilaian[i].nama + '</dt><dd class="col-sm-8">' + d.penilaian[i].nilai + '</dd></dl>');
                         }
-                        $('#nilai-modal').append('<dl class="row"><dt class="col-sm-4 text-md-left">Komentar</dt><dd class="col-sm-8">' + d.komentar[0].komentar + '</dd></dl>');
+                        $('#nilai-modal').append('<dl class="row"><dt class="col-sm-4 text-md-right">Komentar</dt><dd class="col-sm-8">' + d.komentar[0].komentar + '</dd></dl>');
                     } else {
                         
                         $('#modal-form').attr('action', '/reviewer/review/' + id);
