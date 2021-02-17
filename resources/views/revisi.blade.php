@@ -1,29 +1,15 @@
 @extends('layout')
 
+@section('judul')
+    Revisi
+@endsection
+
 @section('css')
     <link rel="stylesheet" type="text/css" href="{{ asset('/app-assets/vendors/css/tables/datatable/datatables.min.css') }}">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.5/css/responsive.dataTables.min.css">
 @endsection
 
-@section('judul')
-    Review
-@endsection
-
 @section('content')
-    @if ($message = Session::get('success'))
-        <div class="alert alert-success alert-block">
-            <button type="button" class="close" data-dismiss="alert"><i class="fas fa-times"></i></button>
-            {{ session('success') }}
-        </div>
-    @endif
-
-    @if ($message = Session::get('danger'))
-        <div class="alert alert-danger alert-block">
-            <button type="button" class="close" data-dismiss="alert"><i class="fas fa-times"></i></button>
-            {{ session('danger') }}
-        </div>
-    @endif
-    
     <!-- skema penelitian -->
     @if(count($penelitian))
         <!-- table -->
@@ -244,32 +230,95 @@
                             <dt class="col-sm-4 text-md-right">Proposal</dt>
                             <dd class="col-sm-8" id="berkas-proposal">-</dd>
                         </dl>
-                        <hr class="d-none"/>
-                        <div class="d-none" id="nilai-modal"></div>
-                        <form action="#" method="POST" id="modal-form" onsubmit="return confirm('Apakah Anda yakin? Nilai tidak dapat diubah kembali');">
-                            @csrf
-                            @method('PATCH')
-                            <h5>Penilaian</h5>
-                            <div id="nilai">
-                                
-                            </div>
-                            
-                            <dl class="row mb-0 d-none" id="komentar">
-                                <dt class="col-sm-4 text-md-left">Komentar</dt>
-                                <dd class="col-sm-8">
-                                    <fieldset class="form-group">
-                                        <input type="hidden" name="penilaian_tahap_id" id="tahapId" required>
-                                        <textarea class="form-control" name="komentar" id="basicTextarea" rows="3" placeholder="Komentar" required></textarea>
-                                    </fieldset>
-                                </dd>
-                            </dl>
+                        
+                        <hr/>
 
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary float-right">Ubah</button>
-                            </div>
-                        </form>
+                        
+                        <div class="d-flex justify-content-between flex-sm-row flex-column mb-1">
+                            <h4>Riwayat Revisi</h4>
+                            
+                            <a href="http://localhost:8000/reviewer/review" class="btn btn-outline-success waves-effect waves-light">
+                                Lihat Semua
+                            </a>
+                        </div>
+                        <ul class="activity-timeline timeline-left list-unstyled">
+                            <li>
+                                <div class="timeline-icon bg-warning">
+                                    <i class="feather icon-clock font-medium-2 align-middle"></i>
+                                </div>
+                                <div class="timeline-info">
+                                    <div class="d-flex justify-content-between flex-sm-row flex-column mb-sm-0 mb-1">
+                                        <p class="font-weight-bold mb-0">Client Meeting</p>
+                                        <small class="text-muted">25 mins ago</small>
+                                    </div>
+                                    <span class="font-small-3">Bonbon macaroon jelly beans gummi bears jelly lollipop apple</span>
+                                </div>
+                                <div class="btn-group mt-1" role="group" aria-label="Basic example">
+                                    <button type="button" class="btn btn-outline-primary waves-effect waves-light"><i class="feather icon-facebook"></i></button>
+                                    <button type="button" class="btn btn-outline-danger waves-effect waves-light"><i class="feather icon-twitter"></i></button>
+                                    <button type="button" class="btn btn-outline-info waves-effect waves-light"><i class="feather icon-instagram"></i></button>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="timeline-icon bg-success">
+                                    <i class="feather icon-check font-medium-2 align-middle"></i>
+                                </div>
+                                <div class="timeline-info">
+                                    <div class="d-flex justify-content-between flex-sm-row flex-column mb-sm-0 mb-1">
+                                        <p class="font-weight-bold mb-0">Client Meeting</p>
+                                        <small class="text-muted">25 mins ago</small>
+                                    </div>
+                                    <span class="font-small-3">Bonbon macaroon jelly beans gummi bears jelly lollipop apple</span>
+                                </div>
+                                <div class="btn-group mt-1" role="group" aria-label="Basic example">
+                                    <button type="button" class="btn btn-outline-primary waves-effect waves-light"><i class="feather icon-facebook"></i></button>
+                                    <button type="button" class="btn btn-outline-danger waves-effect waves-light"><i class="feather icon-twitter"></i></button>
+                                    <button type="button" class="btn btn-outline-info waves-effect waves-light"><i class="feather icon-instagram"></i></button>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Activity Timeline</h4>
+            <div class="card-tools">
+                <a href="http://localhost:8000/reviewer/review" class="btn btn-outline-success waves-effect waves-light">
+                    Lihat Semua
+                </a>
+            </div>
+        </div>
+        <div class="card-content">
+            <div class="card-body">
+                <ul class="activity-timeline timeline-left list-unstyled">
+                    <li>
+                        <div class="timeline-icon bg-warning">
+                            <i class="feather icon-clock font-medium-2 align-middle"></i>
+                        </div>
+                        <div class="timeline-info">
+                            <div class="d-flex justify-content-between flex-sm-row flex-column mb-sm-0 mb-1">
+                                <p class="font-weight-bold mb-0">Client Meeting</p>
+                                <small class="text-muted">25 mins ago</small>
+                            </div>
+                            <span class="font-small-3">Bonbon macaroon jelly beans gummi bears jelly lollipop apple</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="timeline-icon bg-success">
+                            <i class="feather icon-check font-medium-2 align-middle"></i>
+                        </div>
+                        <div class="timeline-info">
+                            <div class="d-flex justify-content-between flex-sm-row flex-column mb-sm-0 mb-1">
+                                <p class="font-weight-bold mb-0">Client Meeting</p>
+                                <small class="text-muted">25 mins ago</small>
+                            </div>
+                            <span class="font-small-3">Bonbon macaroon jelly beans gummi bears jelly lollipop apple</span>
+                        </div>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
@@ -325,40 +374,6 @@
                             $('#berkas-laporan-anggaran').html('<a href="/' + d.berkas[i]['berkas'] + '" target="_blank">Berkas Laporan Anggaran</a>')
                         }
                     }
-
-                    if (d.nilai == 1) {
-                        $('#modal-form').hide();
-                        $('hr').removeClass('d-none');
-                        $('#nilai-modal').removeClass('d-none');
-                        $('#nilai-modal').empty();
-
-                        for (let i = 0; i < 5; i++) {
-                            $('#nilai-modal').append('<dl class="row"><dt class="col-sm-4 text-md-right">Nilai ' + d.penilaian[i].nama + '</dt><dd class="col-sm-8">' + d.penilaian[i].nilai + '</dd></dl>');
-                        }
-                        $('#nilai-modal').append('<dl class="row"><dt class="col-sm-4 text-md-left">Komentar</dt><dd class="col-sm-8">' + d.komentar[0].komentar + '</dd></dl>');
-                    } else {
-                        
-                        $('#modal-form').attr('action', '/reviewer/review/' + id);
-                        $('#nilai').empty();
-                        $('#modal-form').show();
-                        $.get('/reviewer/review/indikator/1', function(data) {
-                            console.log(JSON.parse(data));
-                            var d = JSON.parse(data);
-                            $('hr').removeClass('d-none');
-                            $('#nilai-modal').empty();
-                            let deskripsi
-                            for (var i = 0; i < d.length; i++) {
-                                if (d[i].deskripsi == null) {
-                                    deskripsi = ''
-                                } else {
-                                    deskripsi = '<small class="text-muted">'+d[i].deskripsi+' <br/><br/></small>'
-                                }
-                                $('#nilai').append('<dl class="row mb-0"><dt class="col-sm-4 text-md-left">' + d[i].nama + '<br/>' + deskripsi + '</dt><dd class="col-sm-8"><div class="form-group"><input type="number" class="form-control" name="nilai[' + d[i].id + ']" placeholder="' + d[i].nama + '" min="2" max="5" aria-describedby="nilai-'+d[i].id+'-block" required><small id="nilai-'+d[i].id+'-block" class="form-text text-danger">*2 (kurang jelas/sesuai) – 5 (sangat jelas/sesuai) <br/></small></div></dd></dl>')
-                            }
-                            $('#tahapId').val(1);
-                            $('#komentar').removeClass('d-none');
-                        })
-                    }
                 });
             });
 
@@ -393,32 +408,6 @@
                         } else if (d.berkas[i]['jenis_berkas_id'] == 4) {
                             $('#berkas-laporan-anggaran').html('<a href="/' + d.berkas[i]['berkas'] + '" target="_blank">Berkas Laporan Anggaran</a>')
                         }
-                    }
-
-                    if (d.nilai == 1) {
-                        $('#modal-form').hide();
-                        $('hr').removeClass('d-none');
-                        $('#nilai-modal').removeClass('d-none');
-                        $('#nilai-modal').empty();
-                        for (let i = 0; i < 5; i++) {
-                            $('#nilai-modal').append('<dl class="row"><dt class="col-sm-4 text-md-right">Nilai ' + d.penilaian[i].nama + '</dt><dd class="col-sm-8">' + d.penilaian[i].nilai + '</dd></dl>');
-                        }
-                        $('#nilai-modal').append('<dl class="row"><dt class="col-sm-4 text-md-left">Komentar</dt><dd class="col-sm-8">' + d.komentar[0].komentar + '</dd></dl>');
-                    } else {
-                        $('#nilai').empty();
-                        $('#modal-form').attr('action', '/reviewer/review/' + id);
-                        $('#modal-form').show();
-                        $.get('/reviewer/review/indikator/2', function(data) {
-                            console.log(JSON.parse(data));
-                            var d = JSON.parse(data);
-                            $('hr').removeClass('d-none');
-                            $('#nilai-modal').empty();
-                            for (var i = 0; i < d.length; i++) {
-                                $('#nilai').append('<dl class="row mb-0"><dt class="col-sm-4 text-md-left">' + d[i].nama + '<br/><small class="text-muted">'+d[i].deskripsi+' <br/><br/></small></dt><dd class="col-sm-8"><div class="form-group"><input type="number" class="form-control" name="nilai[' + d[i].id + ']" placeholder="' + d[i].nama + '" min="2" max="5" aria-describedby="nilai-'+d[i].id+'-block" required><small id="nilai-'+d[i].id+'-block" class="form-text text-danger">*2 (kurang jelas/sesuai) – 5 (sangat jelas/sesuai) <br/></small></div></dd></dl>');
-                            }
-                            $('#tahapId').val(1);
-                            $('#komentar').removeClass('d-none');
-                        })
                     }
                 })
             });

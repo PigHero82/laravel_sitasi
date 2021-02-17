@@ -53,6 +53,7 @@
         @elseif (request()->is('reviewer*') || Auth::user()->hasRole('reviewer'))
             <li class="{{ (request()->is('reviewer')) ? 'active' : '' }} nav-item"><a href="{{ route('reviewer.index') }}"><i class="feather icon-home"></i><span class="menu-title">Dashboard</span></a></li>
             <li class="{{ (request()->is('reviewer/review*')) ? 'active' : '' }} nav-item"><a href="{{ route('reviewer.review.index') }}"><i class="feather icon-book"></i><span class="menu-title">Review</span></a></li>
+            {{-- <li class="{{ (request()->is('reviewer/revisi*')) ? 'active' : '' }} nav-item"><a href="{{ route('reviewer.revisi.index') }}"><i class="feather icon-edit-1"></i><span class="menu-title">Revisi</span></a></li> --}}
         @endif
     </ul>
 </div>

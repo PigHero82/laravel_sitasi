@@ -160,6 +160,9 @@ Route::namespace('Reviewer')->name('reviewer.')->prefix('reviewer')->middleware(
         Route::patch('{id}', 'HomeController@storeNilai')->name('store');
         Route::get('indikator/{jenis}', 'HomeController@getIndikator')->name('indikator');
     });
+    Route::resource('revisi', 'RevisiController');
+    Route::name('revisi.')->prefix('revisi')->group(function() {
+    });
 });
 
 Route::view('lihat-rab', 'usulan.lihat-rab');
