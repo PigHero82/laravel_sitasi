@@ -137,10 +137,7 @@ Route::namespace('Dosen')->name('dosen.')->prefix('dosen')->middleware('auth', '
         });
         Route::patch('proposal/{id}', 'UsulanController@proposal')->name('proposal');
         Route::get('riwayat', 'UsulanController@riwayat')->name('riwayat');
-        Route::name('rab.')->prefix('rab')->group(function() {
-            Route::delete('{id}', 'UsulanController@rabDestroy')->name('destroy');
-            Route::post('', 'UsulanController@rabStore')->name('store');
-        });
+        Route::resource('rab', 'RabController');
     });
 });
 

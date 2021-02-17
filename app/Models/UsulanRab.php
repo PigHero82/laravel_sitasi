@@ -56,4 +56,27 @@ class UsulanRab extends Model
             'harga'         => $request->harga,
         ]);
     }
+
+    static function updateRab($request, $usulanId)
+    {
+        foreach ($request->item as $key => $rab) {
+            $item1 = explode(' ', $rab['item1']);
+            $item2 = ($rab['item2'] != NULL) ? explode(' ', $rab['item2']) : [1, NULL] ;
+            $item3 = ($rab['item3'] != NULL) ? explode(' ', $rab['item3']) : [1, NULL] ;
+
+            UsulanRab::create([
+                'usulan_id'     => $usulanId,
+                'rab_jenis_id'  => $rab['rab_jenis_id'],
+                'penggunaan'    => $rab['penggunaan'],
+                'nama'          => $rab['nama'],
+                'item1'         => $item1[0],
+                'satuan1'       => $item1[1],
+                'item2'         => $item2[0],
+                'satuan2'       => $item2[1],
+                'item3'         => $item3[0],
+                'satuan3'       => $item3[1],
+                'harga'         => $rab['harga'],
+            ]);
+        }
+    }
 }

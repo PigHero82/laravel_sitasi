@@ -541,16 +541,16 @@
                         </dl>
                         <hr>
                         <dl class="row">
-                            <dt class="col-sm-4 text-md-right">Proposal</dt>
-                            <dd class="col-sm-8" id="berkas-proposal">-</dd>
+                            <dt class="col-sm-4 text-md-right">Komentar</dt>
+                            <dd class="col-sm-8" id="revisi-komentar">-</dd>
                         </dl>
                         <dl class="row">
-                            <dt class="col-sm-4 text-md-right">Komentar</dt>
-                            <dd class="col-sm-8" id="">-</dd>
+                            <dt class="col-sm-4 text-md-right">Proposal</dt>
+                            <dd class="col-sm-8" id="revisi-proposal">-</dd>
                         </dl>
                         <dl class="row mb-0">
                             <dt class="col-sm-4 text-md-right">Ubah Proposal</dt>
-                            <dd class="col-sm-8" id="">
+                            <dd class="col-sm-8">
                                 <div class="custom-file mr-1">
                                     <input type="file" class="custom-file-input" id="inputGroupFile01" name="profile_photo_path" accept=".jpg,.jpeg,.png">
                                     <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
@@ -563,15 +563,19 @@
                         </dl>
                         <dl class="row">
                             <dt class="col-sm-4 text-md-right">RAB</dt>
-                            <dd class="col-sm-8" id="berkas-proposal"><a href="/lihat-rab">Lihat RAB</a></dd>
-                        </dl>
-                        <dl class="row">
-                            <dt class="col-sm-4 text-md-right">Komentar</dt>
-                            <dd class="col-sm-8" id="">-</dd>
+                            <dd class="col-sm-8" id="revisi-rab">-</dd>
                         </dl>
                         <dl class="row">
                             <dt class="col-sm-4 text-md-right"></dt>
-                            <dd class="col-sm-8" id=""><a class="btn btn-warning" href="/ubah-rab"><i class="feather icon-edit-2"></i> Ubah RAB</a></dd>
+                            <dd class="col-sm-8" id="revisi-rab-2">-</dd>
+                        </dl>
+                        <dl class="row">
+                            <dt class="col-sm-4 text-md-right">Luaran</dt>
+                            <dd class="col-sm-8" id="revisi-luaran">-</dd>
+                        </dl>
+                        <dl class="row">
+                            <dt class="col-sm-4 text-md-right"></dt>
+                            <dd class="col-sm-8" id="revisi-luaran-2"><a class="btn btn-warning" href="#"><i class="feather icon-edit-2"></i> Ubah Luaran</a></dd>
                         </dl>
                     </div>
                 </div>
@@ -671,7 +675,7 @@
             $(document).on('click', '#usulan-berjalan tbody tr td a', function(e) {
                 var id = $(this).attr('data-value');
                 $('#berkas-proposal').html('-');
-                $.get( "/usulan/" + id, function( data ) {
+                $.get( "/usulan/" + id, function(data) {
                     console.log(JSON.parse(data));
                     var d = JSON.parse(data);
                     var linkrab = ' <a href="{{ url('reviewer/rab/') }}/' + d.id +'" target="_blank"> Lihat anggaran </a>';
@@ -682,52 +686,43 @@
                     $('#tahun-usulan').html(d.skema_usulan.tahun_skema);
                     $('#tahun-pelaksanaan').html(d.skema_usulan.tahun_pelaksanaan);
                     $('#anggaran').html(formatRupiah(''+d.usulan_dana, 'Rp. ') + linkrab);
-                    $('#luaran').empty();
-                    for(var l = 0; l < d.luaran.length; l++){
-                      
-                        $('#luaran').append('<li>'+d.luaran[l].nama_luaran + ' <span class="text-info">(' + d.luaran[l].nama_target + ')</span><br/></li>');
-                      
+
+                    $('#revisi-komentar').empty()
+                    for (let i = 0; i < d.komentar.length; i++) {
+                        if (d.komentar[i].penilaian_tahap_id == 1) {
+                            $('#revisi-komentar').text(d.komentar[i].komentar)
+                        } else {
+                            $('#revisi-komentar').text('-')
+                        }
                     }
-      
-                    
+
+                    $('#revisi-proposal').empty()
                     for (var i = 0; i < d.berkas.length; i++) {
                         if (d.berkas[i]['jenis_berkas_id'] == 1) {
-                            $('#berkas-proposal').html('<a href="/' + d.berkas[i]['berkas'] + '" target="_blank">Berkas Proposal</a>')
-                        } else if (d.berkas[i]['jenis_berkas_id'] == 2) {
-                            $('#berkas-laporan-kemajuan').html('<a href="/' + d.berkas[i]['berkas'] + '" target="_blank">Berkas Laporan Kemajuan</a>')
-                        } else if (d.berkas[i]['jenis_berkas_id'] == 3) {
-                            $('#berkas-laporan-akhir').html('<a href="/' + d.berkas[i]['berkas'] + '" target="_blank">Berkas Laporan Akhir</a>')
-                        } else if (d.berkas[i]['jenis_berkas_id'] == 4) {
-                            $('#berkas-laporan-anggaran').html('<a href="/' + d.berkas[i]['berkas'] + '" target="_blank">Berkas Laporan Anggaran</a>')
+                            $('#revisi-proposal').html('<a href="/' + d.berkas[i]['berkas'] + '" target="_blank">Berkas Proposal</a>')
+                        } else {
+                            $('#revisi-proposal').text('-')
                         }
                     }
 
-                    if (d.nilai == 1) {
-                        $('#modal-form').hide();
-                        $('hr').removeClass('d-none');
-                        $('#nilai-modal').removeClass('d-none');
-                        $('#nilai-modal').empty();
-
-                        for (let i = 0; i < 5; i++) {
-                            $('#nilai-modal').append('<dl class="row"><dt class="col-sm-4 text-md-right">Nilai ' + d.penilaian[i].nama + '</dt><dd class="col-sm-8">' + d.penilaian[i].nilai + '</dd></dl>');
-                        }
-                        $('#nilai-modal').append('<dl class="row"><dt class="col-sm-4 text-md-left">Komentar</dt><dd class="col-sm-8">' + d.komentar[0].komentar + '</dd></dl>');
+                    $('#revisi-rab').empty()
+                    $('#revisi-rab-2').empty()
+                    if (d.rab.length > 0) {
+                        $('#revisi-rab').html('<a href="/dosen/usulan/rab/' + d.id + '" target="_blank">Lihat RAB</a>')
+                        $('#revisi-rab-2').html('<a class="btn btn-warning" href="/dosen/usulan/rab/' + d.id + '#ubah"><i class="feather icon-edit-2"></i> Ubah RAB</a>')
                     } else {
-                        
-                        // $('#modal-form').attr('action', '/reviewer/review/' + id);
-                        // $('#nilai').empty();
-                        // $('#modal-form').show();
-                        // $.get('/reviewer/review/indikator/1', function(data) {
-                        //     console.log(JSON.parse(data));
-                        //     var d = JSON.parse(data);
-                        //     $('hr').removeClass('d-none');
-                        //     $('#nilai-modal').empty();
-                        //     for (var i = 0; i < d.length; i++) {
-                        //         $('#nilai').append('<dl class="row mb-0"><dt class="col-sm-4 text-md-left">' + d[i].nama + '<br/><small class="text-muted">'+d[i].deskripsi+' <br/><br/></small></dt><dd class="col-sm-8"><div class="form-group"><input type="number" class="form-control" name="nilai[' + d[i].id + ']" placeholder="' + d[i].nama + '" min="2" max="5" aria-describedby="nilai-'+d[i].id+'-block" required><small id="nilai-'+d[i].id+'-block" class="form-text text-danger">*2 (kurang jelas/sesuai) – 5 (sangat jelas/sesuai) <br/></small></div></dd></dl>')
-                        //     }
-                        //     $('#tahapId').val(1);
-                        //     $('#komentar').removeClass('d-none');
-                        // })
+                        $('#revisi-rab').text('-')
+                        $('#revisi-rab-2').text('-')
+                    }
+
+                    $('#revisi-luaran').empty()
+                    $('#revisi-luaran-2').empty()
+                    if (d.luaran.length > 0) {
+                        $('#revisi-luaran').html('<a href="/dosen/usulan/luaran/' + d.id + '" target="_blank">Lihat Luaran</a>')
+                        $('#revisi-luaran-2').html('<a class="btn btn-warning" href="/dosen/usulan/luaran/' + d.id + '#ubah"><i class="feather icon-edit-2"></i> Ubah Luaran</a>')
+                    } else {
+                        $('#revisi-luaran').text('-')
+                        $('#revisi-luaran-2').text('-')
                     }
                 });
             });

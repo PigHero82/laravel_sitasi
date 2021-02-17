@@ -280,18 +280,6 @@ class UsulanController extends Controller
 
         return back()->with('success', 'Proposal berhasil diunggah');
     }
-
-    public function rabStore(Request $request)
-    {
-        UsulanRab::storeRab($request);
-        return redirect()->back()->with('success', 'Anggaran penelitian berhasil ditambahkan');
-    }
-
-    public function rabDestroy($id)
-    {
-        UsulanRab::destroyRab($id);
-        return redirect()->back()->with('success', 'Anggaran penelitian berhasil dihapus');
-    }
     
     public function riwayat()
     {
