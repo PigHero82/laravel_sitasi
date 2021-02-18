@@ -8,65 +8,7 @@
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">Daftar Item Anggaran</h3>
-            <div class="float-right">
-                <a class="btn btn-primary" href="#ubah" role="button"><i class="feather icon-edit-2"></i> Ubah RAB</a>
-            </div>
         </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-striped text-center">
-                    <thead>
-                        <tr>
-                            <th rowspan="2" class="text-center align-middle my-auto">Jenis Pembelanjaan</th>
-                            <th rowspan="2" class="text-center align-middle my-auto">Penggunaan</th>
-                            <th rowspan="2" class="text-center align-middle my-auto">Nama Item</th>
-                            <th colspan="3" class="text-center">Volume</th>
-                            <th rowspan="2" class="text-center align-middle my-auto">Harga Satuan (Rp)</th>
-                            <th rowspan="2" class="text-center align-middle my-auto">Total (Rp)</th>
-                        </tr>
-                        <tr>
-                            <th class="text-center">Jumlah</th>
-                            <th class="text-center">Jumlah</th>
-                            <th class="text-center">Jumlah</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($rab as $item)
-                            <tr>
-                                <td>{{ $item->nama_jenis }}</td>
-                                <td>{{ $item->penggunaan }}</td>
-                                <td>{{ $item->nama }}</td>
-                                <td>{{ $item->item1 }} {{ $item->satuan1 }}</td>
-                                <td>
-                                    @isset($item->satuan2)
-                                        {{ $item->item2 }} {{ $item->satuan2 }}
-                                    @else
-                                        -
-                                    @endisset
-                                </td>
-                                <td>
-                                    @isset($item->satuan3)
-                                        {{ $item->item3 }} {{ $item->satuan3 }}
-                                    @else
-                                        -
-                                    @endisset
-                                </td>
-                                <td>{{ number_format($item->harga, 0, ',', '.') }}</td>
-                                <td>{{ number_format($item->total, 0, ',', '.') }}</td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-
-    <div class="card" id="ubah">
-        <div class="card-header">
-            <h3 class="card-title col-8">Ubah RAB</h3>
-            <h4 class="col-4">Total Anggaran: <span id="total-anggaran">0</span>,-</h4>
-        </div>
-        <!-- /.card-header -->
         <div class="card-body">
             <h3>Keterangan:</h3>
             <div class="col-md-10 justify-content-end">
@@ -87,7 +29,128 @@
             </ul>
             <h5><b>Biaya Satuan:</b> mengisi harga tiap satuan misalnya harga kertas 1 rim nya 40.000 maka akan dikalikan : 40.000 x 2 rim x 3 bulan</h5>
             <h5><b>Total:</b> secara otomatis akan terisi dari hasil perkalian, contoh diatas akan menghasilkan 240.000</h5>
+            <br/>
+
             </div>
+            <hr>
+            <div class="row">
+                <div class="col-6 text-left">
+                    <h4>Total Anggaran: <span id="total-anggaran">0</span>,-</h4>
+                </div>
+                <div class="col-6 text-right">
+                    <a class="btn btn-primary" data-toggle="modal" href="#modal-RAB" ><i class="feather icon-edit-2"></i> Tambah Anggaran</a>
+                </div>
+            </div>
+            <br>
+            
+            <div class="table-responsive">
+                <form action="{{ route('dosen.usulan.rab.update', $usulanId) }}" method="post">
+                @csrf
+                @method('PATCH')
+                <table class="table table-striped text-center">
+                    <thead>
+                        <tr>
+                            <th rowspan="2" class="text-center align-middle my-auto">Jenis Pembelanjaan</th>
+                            <th rowspan="2" class="text-center align-middle my-auto">Penggunaan</th>
+                            <th rowspan="2" class="text-center align-middle my-auto">Nama Item</th>
+                            <th colspan="3" class="text-center">Volume</th>
+                            <th rowspan="2" class="text-center align-middle my-auto">Harga Satuan (Rp)</th>
+                            <th rowspan="2" class="text-center align-middle my-auto">Total (Rp)</th>
+                            <th rowspan="2" class="text-center align-middle my-auto"></th>
+                        </tr>
+                        <tr>
+                            <th class="text-center">Jumlah</th>
+                            <th class="text-center">Jumlah</th>
+                            <th class="text-center">Jumlah</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                        @php
+                        $total = 0;
+                        @endphp
+                        @foreach ($rab as $item)
+                            <tr>
+
+                                <td>
+                                    <input type="hidden" name="item[{{ $loop->index }}][rab_jenis_id]" value="{{$item->rab_jenis_id}}">
+                                    {{ $item->nama_jenis }}
+                                </td>
+                                <td>
+                                    <input type="hidden" name="item[{{ $loop->index }}][penggunaan]" value="{{$item->penggunaan}}">
+                                    {{ $item->penggunaan }}
+                                </td>
+                                <td>
+                                    <input type="hidden" name="item[{{ $loop->index }}][nama]" value="{{$item->nama}}">
+                                    {{ $item->nama }}
+                                </td>
+                                <td>
+                                    <input type="hidden" name="item[{{ $loop->index }}][item1]" value="{{ $item->item1 }} {{ $item->satuan1 }}">
+                                    {{ $item->item1 }} {{ $item->satuan1 }}
+                                    @php
+                                    $jumlah = $item->item1;
+                                    @endphp
+                                </td>
+                                <td>
+                                    @isset($item->satuan2)
+                                        <input type="hidden" name="item[{{ $loop->index }}][item2]" value="{{ $item->item2 }} {{ $item->satuan2 }}">
+                                    {{ $item->item2 }} {{ $item->satuan2 }}
+                                    @php
+                                    $jumlah *= $item->item2;
+                                    @endphp
+                                    @else
+                                        -
+                                    @endisset
+                                </td>
+                                <td>
+                                    @isset($item->satuan3)
+                                        <input type="hidden" name="item[{{ $loop->index }}][item3]" value="{{ $item->item3 }} {{ $item->satuan3 }}">
+                                    {{ $item->item3 }} {{ $item->satuan3 }}
+                                    @php
+                                    $jumlah *= $item->item3;
+                                    @endphp
+                                    @else
+                                        -
+                                    @endisset
+                                </td>
+                                <td>
+                                    <input type="hidden" name="item[{{ $loop->index }}][harga]" value="{{ $item->harga }}">
+                                    {{ number_format($item->harga, 0, ',', '.') }}
+                                </td>
+                                <td>{{ number_format(($jumlah * $item->harga), 0, ',', '.') }}</td>
+                                <td>
+                                    <a data-toggle="modal" href="#modal-RAB" style="padding: 0; border: none; background: none;" class="action-edit text-primary" title="Edit" ><i class="feather icon-edit-2"></i></a>
+                                    <a style="padding: 0; border: none; background: none;" class="action-delete text-danger" title="Hapus" href="#"><i class="feather icon-trash"></i></a>
+                                </td>
+                            </tr>
+                            @php
+                                $total += $jumlah * $item->harga;
+                            @endphp
+                        @endforeach
+
+                    
+                    </tbody>
+                </table>
+                
+            </div>
+            <div class="row">
+                    <div class="col-md-12 text-right">
+                        <button type="submit" class="btn btn-success">Simpan</button>
+                    </div>
+                    
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="card" id="ubah">
+        <div class="card-header">
+            <h3 class="card-title col-8">Ubah RAB</h3>
+            <h4 class="col-4">Total Anggaran: <span id="total-anggaran">0</span>,-</h4>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+            
             <h3>Daftar Item Anggaran</h3>
             <hr>
             <form action="{{ route('dosen.usulan.rab.update', $usulanId) }}" method="post">
@@ -135,22 +198,93 @@
             </form>
         </div>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade text-left" id="modal-RAB" tabindex="-1" role="dialog" aria-labelledby="modal-RAB" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="label">Detail</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="card-text">
+                        <form id="form-tambah">
+                        <dl class="row">
+                            <dt class="col-sm-4 text-md-right">Jenis Pembelanjaan</dt>
+                            <dd class="col-sm-8" id="jenis"><select class="input-modal form-control" required>
+                                        <option value="" hidden>-- Pilih Jenis</option>
+                                            @foreach ($jenis as $item)
+                                                <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                            @endforeach
+                                    </select></dd>
+                        </dl>
+                        
+                        <dl class="row">
+                            <dt class="col-sm-4 text-md-right">Penggunaan</dt>
+                            <dd class="col-sm-8" ><input type="text" class="input-modal form-control" required></dd>
+                        </dl>
+                        <dl class="row">
+                            <dt class="col-sm-4 text-md-right">Nama Item</dt>
+                            <dd class="col-sm-8" ><input type="text" class="input-modal form-control" required></dd>
+                        </dl>
+                        <dt>Volume</dt>
+                        <dl class="row">
+                            <dt class="col-sm-4 text-md-right">Detail Item 1</dt>
+                            <dd class="col-sm-8" ><input type="text" class="input-modal form-control" required>
+                                <small class="text-muted">Contoh: 5 Orang</small></dd>
+                        </dl>
+                       
+                        <dl class="row">
+                            <dt class="col-sm-4 text-md-right">Detail Item 2</dt>
+                            <dd class="col-sm-8" ><input type="text" class="input-modal form-control" >
+                                <small class="text-muted">Contoh: 8 Bulan</small></dd>
+                        </dl>
+                     
+                        <dl class="row">
+                            <dt class="col-sm-4 text-md-right">Detail Item 3</dt>
+                            <dd class="col-sm-8" ><input type="text" class="input-modal form-control" ></dd>
+                        </dl>
+                     
+                        <dl class="row form-group">
+                            <dt class="col-sm-4 text-md-right">Harga Satuan</dt>
+                            <dd class="col-sm-8" ><input type="text" class="input-modal form-control" required>
+                                <small class="text-muted">Harga per satuan</small></dd>
+                        </dl>
+                        <dl class="row text-center">
+                            <div class="col-md-12 text-md-right">
+                                <button class="btn btn-success text-center">Tambah</button>
+                            </div> 
+                        </dl>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.Modal -->
 @endsection
 
 @section('js')
     <script>
         $(document).ready(function () {
-            let i = 0
-            $(document).on('click', '#tambahButton', function(e) {
-                i++
-                $('#tambahTable tbody').append('<tr id="' + i + '"><td><select class="form-control"name="item[' + i + '][rab_jenis_id]" required><option value="" hidden>-- Pilih Jenis</option>@foreach ($jenis as $item)<option value="{{ $item->id }}">{{ $item->nama }}</option>@endforeach</select></td><td><input type="text" name="item[' + i + '][penggunaan]" class="form-control" required></td><td><input type="text" name="item[' + i + '][nama]" class="form-control" required></td><td><input type="text" name="item[' + i + '][item1]" class="form-control" placeholder="[Jumlah] [Satuan]" required></td><td><input type="text" name="item[' + i + '][item2]" class="form-control" placeholder="[Jumlah] [Satuan]"></td><td><input type="text" name="item[' + i + '][item3]" class="form-control" placeholder="[Jumlah] [Satuan]"></td><td><input type="number" name="item[' + i + '][harga]" class="form-control" required></td><td><button style="padding: 0; border: none; background: none;" class="action-edit text-danger hapusButton" data-value="' + i + '"><i class="feather icon-trash"></i></button></td></tr>')
-            })
+            let i = 0;
+            
+            $('#total-anggaran').html(formatRupiah('{{ $total }}', 'Rp. '));
+            $('#form-tambah').submit(function(e){
+                e.preventDefault(e);
+                $('.input-modal').val('');
+                $('#modal-RAB').modal('hide');
+            });
 
-            $(document).on('click', '.hapusButton', function(e) {
-                var id = $(this).attr('data-value')
-                console.log('Button ' + id + ' clicked')
-                $('#' + id).remove()
-            })
+            $('.action-delete').on('click',function(e){
+                $(this).parent().parent().remove();
+                e.preventDefault(e);
+            });
+
+            
         });
     </script>
 @endsection

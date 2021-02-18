@@ -513,40 +513,40 @@
                     <div class="card-text">
                         <dl class="row">
                             <dt class="col-sm-4 text-md-right">Judul</dt>
-                            <dd class="col-sm-8" id="judul">-</dd>
+                            <dd class="col-sm-8" id="judul-pengajuan">-</dd>
                         </dl>
                         <dl class="row">
                             <dt class="col-sm-4 text-md-right">Skema</dt>
-                            <dd class="col-sm-8" id="skema">-</dd>
+                            <dd class="col-sm-8" id="skema-pengajuan">-</dd>
                         </dl>
                         <dl class="row">
                             <dt class="col-sm-4 text-md-right">Tahun Usulan</dt>
-                            <dd class="col-sm-8" id="tahun-usulan">-</dd>
+                            <dd class="col-sm-8" id="tahun-usulan-pengajuan">-</dd>
                         </dl>
                         <dl class="row">
                             <dt class="col-sm-4 text-md-right">Tahun Pelaksanaan</dt>
-                            <dd class="col-sm-8" id="tahun-pelaksanaan"></dd>
+                            <dd class="col-sm-8" id="tahun-pelaksanaan-pengajuan"></dd>
                         </dl>
                         <dl class="row">
                             <dt class="col-sm-4 text-md-right">Jenis Usulan</dt>
-                            <dd class="col-sm-8" id="jenis">-</dd>
+                            <dd class="col-sm-8" id="jenis-pengajuan">-</dd>
                         </dl>
                         <dl class="row">
                             <dt class="col-sm-4 text-md-right">Rencana Anggaran</dt>
-                            <dd class="col-sm-8" id="anggaran">-</dd>
+                            <dd class="col-sm-8" id="anggaran-pengajuan">-</dd>
                         </dl>
                         <dl class="row">
                             <dt class="col-sm-4 text-md-right">Rencana Luaran</dt>
-                            <dd class="col-sm-8" id="luaran">-</dd>
+                            <dd class="col-sm-8" id="luaran-pengajuan">-</dd>
                         </dl>
                         <hr>
                         <dl class="row">
                             <dt class="col-sm-4 text-md-right">Komentar</dt>
-                            <dd class="col-sm-8" id="revisi-komentar">-</dd>
+                            <dd class="col-sm-8" id="revisi-komentar-pengajuan">-</dd>
                         </dl>
                         <dl class="row">
                             <dt class="col-sm-4 text-md-right">Proposal</dt>
-                            <dd class="col-sm-8" id="revisi-proposal">-</dd>
+                            <dd class="col-sm-8" id="revisi-proposal-pengajuan">-</dd>
                         </dl>
                         <form action="#" method="post" id="form-proposal" enctype="multipart/form-data">
                             @csrf
@@ -568,19 +568,19 @@
                         </form>
                         <dl class="row">
                             <dt class="col-sm-4 text-md-right">RAB</dt>
-                            <dd class="col-sm-8" id="revisi-rab">-</dd>
+                            <dd class="col-sm-8" id="revisi-rab-pengajuan">-</dd>
                         </dl>
                         <dl class="row">
                             <dt class="col-sm-4 text-md-right"></dt>
-                            <dd class="col-sm-8" id="revisi-rab-2">-</dd>
+                            <dd class="col-sm-8" id="revisi-rab-2-pengajuan">-</dd>
                         </dl>
                         <dl class="row">
                             <dt class="col-sm-4 text-md-right">Luaran</dt>
-                            <dd class="col-sm-8" id="revisi-luaran">-</dd>
+                            <dd class="col-sm-8" id="revisi-luaran-pengajuan">-</dd>
                         </dl>
                         <dl class="row">
                             <dt class="col-sm-4 text-md-right"></dt>
-                            <dd class="col-sm-8" id="revisi-luaran-2"><a class="btn btn-warning" href="#"><i class="feather icon-edit-2"></i> Ubah Luaran</a></dd>
+                            <dd class="col-sm-8" id="revisi-luaran-2-pengajuan"><a class="btn btn-warning" href="#"><i class="feather icon-edit-2"></i> Ubah Luaran</a></dd>
                         </dl>
                     </div>
                 </div>
@@ -679,59 +679,64 @@
 
             $(document).on('click', '#usulan-berjalan tbody tr td a', function(e) {
                 var id = $(this).attr('data-value');
-                $('#berkas-proposal').html('-');
+                $('#berkas-proposal-pengajuan').html('-');
                 $.get( "/usulan/" + id, function(data) {
                     console.log(JSON.parse(data));
                     var d = JSON.parse(data);
-                    var linkrab = ' <a href="{{ url('reviewer/rab/') }}/' + d.id +'" target="_blank"> Lihat anggaran </a>';
-                    $('#label').text('Detail Penelitian');
-                    $('#jenis').text('Penelitian');
-                    $('#judul').html(d.judul);
-                    $('#skema').html(d.skema_usulan.nama);
-                    $('#tahun-usulan').html(d.skema_usulan.tahun_skema);
-                    $('#tahun-pelaksanaan').html(d.skema_usulan.tahun_pelaksanaan);
-                    $('#anggaran').html(formatRupiah(''+d.usulan_dana, 'Rp. ') + linkrab);
-
-                    $('#revisi-komentar').empty()
+                    $('#jenis-pengajuan').text('Penelitian');
+                    if(d.jenis == 2){
+                        $('#jenis-pengajuan').text('Pengabdian');    
+                    }
+                    
+                    $('#judul-pengajuan').html(d.judul);
+                    $('#skema-pengajuan').html(d.skema_usulan.nama);
+                    $('#tahun-usulan-pengajuan').html(d.skema_usulan.tahun_skema);
+                    $('#tahun-pelaksanaan-pengajuan').html(d.skema_usulan.tahun_pelaksanaan);
+                    $('#anggaran-pengajuan').html(formatRupiah(''+d.usulan_dana, 'Rp. '));
+                    $('#luaran-pengajuan').html('');
+                    for(var l = 0; l < d.luaran.length;l++){
+                        $('#luaran-pengajuan').append('<li>'+d.luaran[l].nama_luaran+'</li>')
+                    }
+                    $('#revisi-komentar-pengajuan').empty()
                     for (let i = 0; i < d.komentar.length; i++) {
                         if (d.komentar[i].penilaian_tahap_id == 1) {
-                            $('#revisi-komentar').text(d.komentar[i].komentar)
+                            $('#revisi-komentar-pengajuan').text(d.komentar[i].komentar)
                         } else {
-                            $('#revisi-komentar').text('-')
+                            $('#revisi-komentar-pengajuan').text('-')
                         }
                     }
 
-                    $('#revisi-proposal').empty()
+                    $('#revisi-proposal-pengajuan').empty()
                     for (var i = 0; i < d.berkas.length; i++) {
                         if (d.berkas[i]['jenis_berkas_id'] == 1) {
-                            $('#revisi-proposal').html('<a href="/' + d.berkas[i]['berkas'] + '" target="_blank">Berkas Proposal</a>')
+                            $('#revisi-proposal-pengajuan').html('<a href="/' + d.berkas[i]['berkas'] + '" target="_blank">Berkas Proposal</a>')
                             $('#form-proposal').attr('action', '{{ url("dosen/usulan/revisi/proposal") }}/' + id)
                             $('#proposal-usulan-id').val(d.id)
                         } else {
-                            $('#revisi-proposal').text('-')
+                            $('#revisi-proposal-pengajuan').text('-')
                             $('#form-proposal').attr('action', '#')
                             $('#proposal-usulan-id').val()
                         }
                     }
 
-                    $('#revisi-rab').empty()
-                    $('#revisi-rab-2').empty()
+                    $('#revisi-rab-pengajuan').empty()
+                    $('#revisi-rab-2-pengajuan').empty()
                     if (d.rab.length > 0) {
-                        $('#revisi-rab').html('<a href="/dosen/usulan/rab/' + d.id + '" target="_blank">Lihat RAB</a>')
-                        $('#revisi-rab-2').html('<a class="btn btn-warning" href="/dosen/usulan/rab/' + d.id + '#ubah"><i class="feather icon-edit-2"></i> Ubah RAB</a>')
+                        $('#revisi-rab-pengajuan').html('<a href="/dosen/usulan/rab/' + d.id + '" target="_blank">Lihat RAB</a>')
+                        $('#revisi-rab-2-pengajuan').html('<a class="btn btn-warning" href="/dosen/usulan/rab/' + d.id + '#ubah"><i class="feather icon-edit-2"></i> Ubah RAB</a>')
                     } else {
-                        $('#revisi-rab').text('-')
-                        $('#revisi-rab-2').text('-')
+                        $('#revisi-rab-pengajuan').text('-')
+                        $('#revisi-rab-2-pengajuan').text('-')
                     }
 
-                    $('#revisi-luaran').empty()
-                    $('#revisi-luaran-2').empty()
+                    $('#revisi-luaran-pengajuan').empty()
+                    $('#revisi-luaran-2-pengajuan').empty()
                     if (d.luaran.length > 0) {
-                        $('#revisi-luaran').html('<a href="/dosen/usulan/luaran/' + d.id + '" target="_blank">Lihat Luaran</a>')
-                        $('#revisi-luaran-2').html('<a class="btn btn-warning" href="/dosen/usulan/luaran/' + d.id + '#ubah"><i class="feather icon-edit-2"></i> Ubah Luaran</a>')
+                        $('#revisi-luaran-pengajuan').html('<a href="/dosen/usulan/luaran/' + d.id + '" target="_blank">Lihat Luaran</a>')
+                        $('#revisi-luaran-2-pengajuan').html('<a class="btn btn-warning" href="/dosen/usulan/luaran/' + d.id + '#ubah"><i class="feather icon-edit-2"></i> Ubah Luaran</a>')
                     } else {
-                        $('#revisi-luaran').text('-')
-                        $('#revisi-luaran-2').text('-')
+                        $('#revisi-luaran-pengajuan').text('-')
+                        $('#revisi-luaran-2-pengajuan').text('-')
                     }
                 });
             });

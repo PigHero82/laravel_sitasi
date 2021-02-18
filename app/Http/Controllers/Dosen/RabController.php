@@ -76,7 +76,9 @@ class RabController extends Controller
      */
     public function update(Request $request, $usulanId)
     {
-        $oldRab = UsulanRab::getRab($usulanId);
+        dd($request->item);
+        
+        /*$oldRab = UsulanRab::getRab($usulanId);
         $backedUpRab = UsulanRabBackup::latestRab($usulanId);
 
         if (empty($backedUpRab)) {
@@ -91,7 +93,7 @@ class RabController extends Controller
         }
 
         UsulanRab::updateRab($request, $usulanId);
-        return redirect()->route('dosen.index')->with('success', 'RAB berhasil diubah');
+        return redirect()->route('dosen.index')->with('success', 'RAB berhasil diubah');*/
     }
 
     /**
