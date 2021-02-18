@@ -120,9 +120,9 @@
                                     <input type="hidden" name="item[{{ $loop->index }}][harga]" value="{{ $item->harga }}">
                                     {{ number_format($item->harga, 0, ',', '.') }}
                                 </td>
-                                <td>{{ number_format(($jumlah * $item->harga), 0, ',', '.') }}</td>
+                                <td class="table-subtotal">{{ number_format(($jumlah * $item->harga), 0, ',', '.') }}</td>
                                 <td>
-                                    <a data-toggle="modal" href="#modal-RAB" style="padding: 0; border: none; background: none;" class="action-edit text-primary" title="Edit" id="{{ $item->id }}"><i class="feather icon-edit-2"></i></a>
+                                    <a data-toggle="modal" href="#modal-RAB" style="padding: 0; border: none; background: none;" class="action-edit text-primary" title="Edit" id="{{ $item->id }} {{ $indTable + 1 }}"><i class="feather icon-edit-2"></i></a>
                                     <a style="padding: 0; border: none; background: none;" class="action-delete text-danger" title="Hapus" href="#"><i class="feather icon-trash"></i></a>
                                 </td>
                             </tr>
@@ -297,10 +297,23 @@
                 detailItem3 = '<td> <input type="hidden" name="item['+indTable+'][item3]">-</td>';
             }
             
-            var total = '<td>' + (item1.split(" ")[0] * item2.split(" ")[0] * item3.split(" ")[0] * $('#harga').val()) + '</td>';
+            var total = '<td class="table-subtotal">' + (item1.split(" ")[0] * item2.split(" ")[0] * item3.split(" ")[0] * $('#harga').val()) + '</td>';
             var aksi = '<td> <a style="padding: 0; border: none; background: none;" class="action-delete text-danger" title="Hapus" href="#"><i class="feather icon-trash"></i></a></td>';
 
             return (jenis+penggunaan+nama+detailItem1+detailItem2+detailItem3+harga+total+aksi);
+        }
+
+
+        function totalAnggaran(){
+            var total = 0;
+            $('.table-subtotal').each(function(){
+                var t = $(this).text();
+                sub = t.split('.').join('');
+                total += parseInt(sub);
+    
+            });
+            
+            return total;
         }
         $(document).on('click','.action-delete',function(e){
                 $(this).parent().parent().remove();
@@ -309,6 +322,7 @@
         $(document).ready(function () {
             let i = 0;
             var indTable = {{ $indTable }};
+            var tdID;
             $('#total-anggaran').html(formatRupiah('{{ $total }}', 'Rp. '));
             $('#form-tambah').submit(function(e){
                 e.preventDefault(e);
@@ -323,7 +337,14 @@
                 $('#modal-RAB').modal('hide'); 
             });
 
-            
+            $('#modal-button-ubah').on('click',function(e){
+                e.preventDefault(e);
+                $('tr#'+trID).empty();
+                var ap = genHTML((trID - 1));
+                $('tr#'+trID).append(ap);
+                $('#total-anggaran').html(formatRupiah(''+totalAnggaran(), 'Rp. '));
+                $('#modal-RAB').modal('hide');
+            });
 
             $('#tambah-anggaran').on('click',function(e){
                 e.preventDefault(e);
@@ -334,6 +355,10 @@
 
             $('.action-edit').on('click',function(e){
                 var id = this.id;
+                
+                trID = $(this).parent().parent().attr('id');
+                
+
                 $("#modal-button-tambah").hide();
                 $("#modal-button-ubah").show();
                 $('.input-modal').val('');
