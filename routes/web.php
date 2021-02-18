@@ -139,6 +139,7 @@ Route::namespace('Dosen')->name('dosen.')->prefix('dosen')->middleware('auth', '
         Route::patch('revisi/proposal/{id}', 'UsulanController@updateProposal');
         Route::get('riwayat', 'UsulanController@riwayat')->name('riwayat');
         Route::resource('rab', 'RabController');
+        Route::get('rab/detail/{id}', 'RabController@getDetail');
     });
 });
 

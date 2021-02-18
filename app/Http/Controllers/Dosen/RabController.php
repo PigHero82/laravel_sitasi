@@ -19,7 +19,9 @@ class RabController extends Controller
     {
         //
     }
-
+    public function getDetail($id){
+        return json_encode(UsulanRab::firstRab($id));
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -76,9 +78,8 @@ class RabController extends Controller
      */
     public function update(Request $request, $usulanId)
     {
-        dd($request->item);
         
-        /*$oldRab = UsulanRab::getRab($usulanId);
+        $oldRab = UsulanRab::getRab($usulanId);
         $backedUpRab = UsulanRabBackup::latestRab($usulanId);
 
         if (empty($backedUpRab)) {
@@ -93,7 +94,7 @@ class RabController extends Controller
         }
 
         UsulanRab::updateRab($request, $usulanId);
-        return redirect()->route('dosen.index')->with('success', 'RAB berhasil diubah');*/
+        return redirect()->route('dosen.index')->with('success', 'RAB berhasil diubah');
     }
 
     /**

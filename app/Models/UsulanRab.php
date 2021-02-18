@@ -17,6 +17,13 @@ class UsulanRab extends Model
         UsulanRab::findOrFail($id)->delete();
     }
 
+    static function firstRab($id){
+        return UsulanRab::select('usulan_rab.*', 'rab_jenis.nama as nama_jenis')
+                        ->join('rab_jenis', 'usulan_rab.rab_jenis_id', 'rab_jenis.id')
+                        ->where('usulan_rab.id', $id)
+                        ->first();
+    }
+
     static function getRab($usulanId)
     {
         return UsulanRab::select('usulan_rab.*', 'rab_jenis.nama as nama_jenis')

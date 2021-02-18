@@ -681,7 +681,6 @@
                 var id = $(this).attr('data-value');
                 $('#berkas-proposal-pengajuan').html('-');
                 $.get( "/usulan/" + id, function(data) {
-                    console.log(JSON.parse(data));
                     var d = JSON.parse(data);
                     $('#jenis-pengajuan').text('Penelitian');
                     if(d.jenis == 2){

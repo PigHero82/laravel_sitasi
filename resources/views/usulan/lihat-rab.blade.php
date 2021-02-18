@@ -38,7 +38,7 @@
                     <h4>Total Anggaran: <span id="total-anggaran">0</span>,-</h4>
                 </div>
                 <div class="col-6 text-right">
-                    <a class="btn btn-primary" data-toggle="modal" href="#modal-RAB" ><i class="feather icon-edit-2"></i> Tambah Anggaran</a>
+                    <a id="tambah-anggaran" class="btn btn-primary" data-toggle="modal" href="#modal-RAB" ><i class="feather icon-edit-2" ></i> Tambah Anggaran</a>
                 </div>
             </div>
             <br>
@@ -64,16 +64,17 @@
                             <th class="text-center">Jumlah</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="table-body">
                         
                         @php
                         $total = 0;
+                        $indTable = 0;
                         @endphp
                         @foreach ($rab as $item)
-                            <tr>
+                            <tr id="{{ $indTable + 1 }}">
 
                                 <td>
-                                    <input type="hidden" name="item[{{ $loop->index }}][rab_jenis_id]" value="{{$item->rab_jenis_id}}">
+                                    <input type="hidden" name="item[{{ $loop->index }}][rab_jenis_id]" value="{{$item->rab_jenis_id}}" id="">
                                     {{ $item->nama_jenis }}
                                 </td>
                                 <td>
@@ -99,6 +100,7 @@
                                     $jumlah *= $item->item2;
                                     @endphp
                                     @else
+                                    <input type="hidden" name="item[{{ $loop->index }}][item2]">
                                         -
                                     @endisset
                                 </td>
@@ -110,6 +112,7 @@
                                     $jumlah *= $item->item3;
                                     @endphp
                                     @else
+                                    <input type="hidden" name="item[{{ $loop->index }}][item3]">
                                         -
                                     @endisset
                                 </td>
@@ -119,12 +122,13 @@
                                 </td>
                                 <td>{{ number_format(($jumlah * $item->harga), 0, ',', '.') }}</td>
                                 <td>
-                                    <a data-toggle="modal" href="#modal-RAB" style="padding: 0; border: none; background: none;" class="action-edit text-primary" title="Edit" ><i class="feather icon-edit-2"></i></a>
+                                    <a data-toggle="modal" href="#modal-RAB" style="padding: 0; border: none; background: none;" class="action-edit text-primary" title="Edit" id="{{ $item->id }}"><i class="feather icon-edit-2"></i></a>
                                     <a style="padding: 0; border: none; background: none;" class="action-delete text-danger" title="Hapus" href="#"><i class="feather icon-trash"></i></a>
                                 </td>
                             </tr>
                             @php
                                 $total += $jumlah * $item->harga;
+                                $indTable++;
                             @endphp
                         @endforeach
 
@@ -143,7 +147,7 @@
         </div>
     </div>
 
-    <div class="card" id="ubah">
+    {{-- <div class="card" id="ubah">
         <div class="card-header">
             <h3 class="card-title col-8">Ubah RAB</h3>
             <h4 class="col-4">Total Anggaran: <span id="total-anggaran">0</span>,-</h4>
@@ -197,7 +201,7 @@
                 <button type="submit" class="btn btn-primary float-right mt-2">Submit</button>
             </form>
         </div>
-    </div>
+    </div> --}}
 
     <!-- Modal -->
     <div class="modal fade text-left" id="modal-RAB" tabindex="-1" role="dialog" aria-labelledby="modal-RAB" aria-hidden="true">
@@ -214,7 +218,7 @@
                         <form id="form-tambah">
                         <dl class="row">
                             <dt class="col-sm-4 text-md-right">Jenis Pembelanjaan</dt>
-                            <dd class="col-sm-8" id="jenis"><select class="input-modal form-control" required>
+                            <dd class="col-sm-8" id="jenis"><select class="input-modal form-control" required id="rab_jenis_id">
                                         <option value="" hidden>-- Pilih Jenis</option>
                                             @foreach ($jenis as $item)
                                                 <option value="{{ $item->id }}">{{ $item->nama }}</option>
@@ -224,39 +228,42 @@
                         
                         <dl class="row">
                             <dt class="col-sm-4 text-md-right">Penggunaan</dt>
-                            <dd class="col-sm-8" ><input type="text" class="input-modal form-control" required></dd>
+                            <dd class="col-sm-8" ><input type="text" class="input-modal form-control" required id="penggunaan"></dd>
                         </dl>
                         <dl class="row">
                             <dt class="col-sm-4 text-md-right">Nama Item</dt>
-                            <dd class="col-sm-8" ><input type="text" class="input-modal form-control" required></dd>
+                            <dd class="col-sm-8" ><input type="text" class="input-modal form-control" required id="nama"></dd>
                         </dl>
                         <dt>Volume</dt>
                         <dl class="row">
                             <dt class="col-sm-4 text-md-right">Detail Item 1</dt>
-                            <dd class="col-sm-8" ><input type="text" class="input-modal form-control" required>
+                            <dd class="col-sm-8" ><input type="text" class="input-modal form-control" required id="item1">
                                 <small class="text-muted">Contoh: 5 Orang</small></dd>
                         </dl>
                        
                         <dl class="row">
                             <dt class="col-sm-4 text-md-right">Detail Item 2</dt>
-                            <dd class="col-sm-8" ><input type="text" class="input-modal form-control" >
+                            <dd class="col-sm-8" ><input type="text" class="input-modal form-control" id="item2">
                                 <small class="text-muted">Contoh: 8 Bulan</small></dd>
                         </dl>
                      
                         <dl class="row">
                             <dt class="col-sm-4 text-md-right">Detail Item 3</dt>
-                            <dd class="col-sm-8" ><input type="text" class="input-modal form-control" ></dd>
+                            <dd class="col-sm-8" ><input type="text" class="input-modal form-control" id="item3"></dd>
                         </dl>
                      
                         <dl class="row form-group">
                             <dt class="col-sm-4 text-md-right">Harga Satuan</dt>
-                            <dd class="col-sm-8" ><input type="text" class="input-modal form-control" required>
+                            <dd class="col-sm-8" ><input type="text" class="input-modal form-control" required id="harga">
                                 <small class="text-muted">Harga per satuan</small></dd>
                         </dl>
                         <dl class="row text-center">
                             <div class="col-md-12 text-md-right">
-                                <button class="btn btn-success text-center">Tambah</button>
-                            </div> 
+                                <button class="btn btn-success text-center" id="modal-button-tambah">Tambah</button>
+                            </div>
+                            <div class="col-md-12 text-md-right">
+                                <button class="btn btn-success text-center" id="modal-button-ubah">Ubah</button>
+                            </div>  
                         </dl>
                         </form>
                     </div>
@@ -269,22 +276,83 @@
 
 @section('js')
     <script>
-        $(document).ready(function () {
-            let i = 0;
+        function genHTML(indTable){
             
-            $('#total-anggaran').html(formatRupiah('{{ $total }}', 'Rp. '));
-            $('#form-tambah').submit(function(e){
-                e.preventDefault(e);
-                $('.input-modal').val('');
-                $('#modal-RAB').modal('hide');
-            });
+            var jenis = '<td> <input type="hidden" name="item['+indTable+'][rab_jenis_id]" value="'+$('#rab_jenis_id').val()+'">'+ $('#rab_jenis_id').find(':selected').text() + '</td>';
+            var penggunaan = '<td> <input type="hidden" name="item['+indTable+'][penggunaan]" value="'+$('#penggunaan').val()+'">'+ $('#penggunaan').val() + '</td>';
+            var nama = '<td> <input type="hidden" name="item['+indTable+'][nama]" value="'+$('#nama').val()+'">'+ $('#nama').val() + '</td>';
+            var detailItem1 = '<td> <input type="hidden" name="item['+indTable+'][item1]" value="'+$('#item1').val()+'">'+ $('#item1').val() + '</td>';
+            var detailItem2 = '<td> <input type="hidden" name="item['+indTable+'][item2]" value="'+$('#item2').val()+'">'+ $('#item2').val() + '</td>';
+            var detailItem3 = '<td> <input type="hidden" name="item['+indTable+'][item3]" value="'+$('#item3').val()+'">'+ $('#item3').val() + '</td>';
+            var harga = '<td> <input type="hidden" name="item['+indTable+'][harga]" value="'+$('#harga').val()+'">'+ $('#harga').val() + '</td>';
+            var item1 = $('#item1').val();
+            var item2 = $('#item2').val();
+            var item3 = $('#item3').val();
+            if(!$('#item2').val()){
+                item2="1 ";
+                detailItem2 = '<td> <input type="hidden" name="item['+indTable+'][item2]">-</td>';
+            }
+            if(!$('#item3').val()){
+                item3="1 ";
+                detailItem3 = '<td> <input type="hidden" name="item['+indTable+'][item3]">-</td>';
+            }
+            
+            var total = '<td>' + (item1.split(" ")[0] * item2.split(" ")[0] * item3.split(" ")[0] * $('#harga').val()) + '</td>';
+            var aksi = '<td> <a style="padding: 0; border: none; background: none;" class="action-delete text-danger" title="Hapus" href="#"><i class="feather icon-trash"></i></a></td>';
 
-            $('.action-delete').on('click',function(e){
+            return (jenis+penggunaan+nama+detailItem1+detailItem2+detailItem3+harga+total+aksi);
+        }
+        $(document).on('click','.action-delete',function(e){
                 $(this).parent().parent().remove();
                 e.preventDefault(e);
             });
+        $(document).ready(function () {
+            let i = 0;
+            var indTable = {{ $indTable }};
+            $('#total-anggaran').html(formatRupiah('{{ $total }}', 'Rp. '));
+            $('#form-tambah').submit(function(e){
+                e.preventDefault(e);
+                
+            });
+            $('#modal-button-tambah').on('click',function(e){
+                e.preventDefault(e);
+                var ap = '<tr id="'+ (indTable+1) +'">';
+                ap += genHTML((indTable));
+                ap += '</tr>';
+                $('#table-body').append(ap);
+                $('#modal-RAB').modal('hide'); 
+            });
 
             
+
+            $('#tambah-anggaran').on('click',function(e){
+                e.preventDefault(e);
+                $('.input-modal').val('');
+                $("#modal-button-tambah").show();
+                $("#modal-button-ubah").hide();
+            });
+
+            $('.action-edit').on('click',function(e){
+                var id = this.id;
+                $("#modal-button-tambah").hide();
+                $("#modal-button-ubah").show();
+                $('.input-modal').val('');
+                $.get("detail/" + id, function(data){
+                    var d = JSON.parse(data);
+                    
+                    $('#rab_jenis_id').val(d.rab_jenis_id);
+                    $('#penggunaan').val(d.penggunaan);
+                    $('#nama').val(d.nama);
+                    $('#harga').val(d.harga);
+                    $('#item1').val(d.item1 + ' ' +d.satuan1);
+                    if(d.satuan2 != null){
+                        $('#item2').val(d.item2 + ' ' +d.satuan2);
+                    }
+                    if(d.satuan3 != null){
+                        $('#item3').val(d.item3 + ' ' +d.satuan3);
+                    }
+                });
+            });
         });
     </script>
 @endsection
