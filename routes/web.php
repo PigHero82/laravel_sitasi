@@ -129,6 +129,7 @@ Route::namespace('Dosen')->name('dosen.')->prefix('dosen')->middleware('auth', '
             Route::delete('{id}', 'UsulanController@kegiatanDestroy')->name('destroy');
             Route::post('', 'UsulanController@kegiatanStore')->name('store');
         });
+        Route::resource('luaran', 'LuaranController');
         Route::name('mitra.')->prefix('mitra')->group(function() {
             Route::delete('{id}', 'UsulanController@mitraDestroy')->name('destroy');
             Route::patch('{id}', 'UsulanController@mitraUpdate')->name('update');
