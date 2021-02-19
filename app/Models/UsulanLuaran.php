@@ -47,6 +47,21 @@ class UsulanLuaran extends Model
         ]);
     }
 
+    static function updateLuaranRevisi($request, $usulanId){
+        
+        foreach ($request->item as $key => $value) {
+            
+            UsulanLuaran::create([
+            'usulan_id'             => $usulanId,
+            'tahun'                 => $value['tahun'],
+            'luaran_luaran_id'      => $value['luaran_luaran_id'],
+            'luaran_target_id'      => $value['luaran_target_id'],
+            'jumlah'                => $value['jumlah'],
+            'keterangan'            => $value['keterangan']
+        ]);       
+        }
+    }
+
     static function updateLuaran($request, $id)
     {
         UsulanLuaran::whereId($id)->update([

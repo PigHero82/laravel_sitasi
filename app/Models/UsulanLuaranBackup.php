@@ -14,14 +14,15 @@ class UsulanLuaranBackup extends Model
 
     static function latestLuaran($usulanId)
     {
-        return UsulanRabBackup::where('usulan_id', $usulanId)
+        return UsulanLuaranBackup::where('usulan_id', $usulanId)
                                 ->latest()
                                 ->first();
     }
 
     static function storeLuaran($request, $revisi)
     {
-        UsulanRabBackup::create([
+
+        UsulanLuaranBackup::create([
             'usulan_id'         => $request->usulan_id,
             'tahun'             => $request->tahun,
             'luaran_luaran_id'  => $request->luaran_luaran_id,

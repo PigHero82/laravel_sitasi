@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('judul')
-    ASDADASD
+    Revisi Rencana Anggara
 @endsection
 
 @section('content')
@@ -122,8 +122,8 @@
                                 </td>
                                 <td class="table-subtotal">{{ number_format(($jumlah * $item->harga), 0, ',', '.') }}</td>
                                 <td>
-                                    <a data-toggle="modal" href="#modal-RAB" style="padding: 0; border: none; background: none;" class="action-edit text-primary" title="Edit" id="{{ $item->id }} {{ $indTable + 1 }}"><i class="feather icon-edit-2"></i></a>
-                                    <a style="padding: 0; border: none; background: none;" class="action-delete text-danger" title="Hapus" href="#"><i class="feather icon-trash"></i></a>
+                                    <a data-toggle="modal" href="#modal-RAB" class="btn btn-icon btn-icon rounded-circle btn-primary mr-1 mb-1 waves-effect waves-light modal-edit" title="Edit" id="{{ $item->id }} {{ $indTable + 1 }}"><i class="feather icon-edit-2"></i></a>
+                                    <a class="btn btn-icon btn-icon rounded-circle btn-danger mr-1 mb-1 waves-effect waves-light" title="Hapus" href="#"><i class="feather icon-trash"></i></a>
                                 </td>
                             </tr>
                             @php

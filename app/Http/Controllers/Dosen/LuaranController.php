@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Dosen;
 use App\Http\Controllers\Controller;
 use App\Models\UsulanLuaran;
 use App\Models\UsulanLuaranBackup;
+use App\Models\LuaranKelompok;
+use App\Models\LuaranLuaran;
+use App\Models\LuaranTarget;
 use Illuminate\Http\Request;
 
 class LuaranController extends Controller
@@ -48,7 +51,13 @@ class LuaranController extends Controller
      */
     public function show($usulanId)
     {
-        return $usulanId;
+        $luaran = LuaranLuaran::getActiveLuaran();
+        $kelompok = LuaranKelompok::getKelompok();
+        $target = LuaranTarget::getActiveTarget();
+        $usulanLuaran = UsulanLuaran::getLuaran($usulanId);
+        $jumlah = [1, 2, 3, 4, 5];
+        $tahun = [1, 2, 3, 4, 5];
+        return view('usulan.lihat-luaran',compact('luaran','kelompok','target','usulanLuaran','tahun','jumlah', 'usulanId'));
     }
 
     /**
@@ -73,7 +82,7 @@ class LuaranController extends Controller
     {
         $oldLuaran = UsulanLuaran::getLuaran($usulanId);
         $backedUpLuaran = UsulanLuaranBackup::latestLuaran($usulanId);
-
+       
         if (empty($backedUpLuaran)) {
             $revisi = 1;
         } else {
@@ -81,11 +90,12 @@ class LuaranController extends Controller
         }
         
         foreach ($oldLuaran as $key => $old) {
+
             UsulanLuaranBackup::storeLuaran($old,  $revisi);
             UsulanLuaran::destroyLuaran($old->id);
         }
 
-        UsulanLuaran::storeLuaran($request);
+        UsulanLuaran::updateLuaranRevisi($request,$usulanId);
         return redirect()->route('dosen.index')->with('success', 'Luaran berhasil diubah');
     }
 
