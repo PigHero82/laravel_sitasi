@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('judul')
-    Revisi Rencana Anggara
+    Revisi Rencana Anggaran
 @endsection
 
 @section('content')
@@ -122,8 +122,8 @@
                                 </td>
                                 <td class="table-subtotal">{{ number_format(($jumlah * $item->harga), 0, ',', '.') }}</td>
                                 <td>
-                                    <a data-toggle="modal" href="#modal-RAB" class="btn btn-icon btn-icon rounded-circle btn-primary mr-1 mb-1 waves-effect waves-light modal-edit" title="Edit" id="{{ $item->id }} {{ $indTable + 1 }}"><i class="feather icon-edit-2"></i></a>
-                                    <a class="btn btn-icon btn-icon rounded-circle btn-danger mr-1 mb-1 waves-effect waves-light" title="Hapus" href="#"><i class="feather icon-trash"></i></a>
+                                    <a data-toggle="modal" href="#modal-RAB" class="btn btn-icon btn-icon rounded-circle btn-primary mr-1 mb-1 waves-effect waves-light action-edit" title="Edit" id="{{ $item->id }} {{ $indTable + 1 }}"><i class="feather icon-edit-2"></i></a>
+                                    <a class="btn btn-icon btn-icon rounded-circle btn-danger mr-1 mb-1 waves-effect waves-light action-delete" title="Hapus" href="#"><i class="feather icon-trash"></i></a>
                                 </td>
                             </tr>
                             @php
@@ -298,7 +298,7 @@
             }
             
             var total = '<td class="table-subtotal">' + (item1.split(" ")[0] * item2.split(" ")[0] * item3.split(" ")[0] * $('#harga').val()) + '</td>';
-            var aksi = '<td> <a style="padding: 0; border: none; background: none;" class="action-delete text-danger" title="Hapus" href="#"><i class="feather icon-trash"></i></a></td>';
+            var aksi = '<td> <a class="btn btn-icon btn-icon rounded-circle btn-danger mr-1 mb-1 waves-effect waves-light action-delete" title="Hapus" href="#"><i class="feather icon-trash"></i></a></td>';
 
             return (jenis+penggunaan+nama+detailItem1+detailItem2+detailItem3+harga+total+aksi);
         }

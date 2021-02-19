@@ -682,11 +682,11 @@
                 $('#berkas-proposal-pengajuan').html('-');
                 $.get( "/usulan/" + id, function(data) {
                     var d = JSON.parse(data);
+                    console.log(d);
                     $('#jenis-pengajuan').text('Penelitian');
                     if(d.jenis == 2){
                         $('#jenis-pengajuan').text('Pengabdian');    
                     }
-                    
                     $('#judul-pengajuan').html(d.judul);
                     $('#skema-pengajuan').html(d.skema_usulan.nama);
                     $('#tahun-usulan-pengajuan').html(d.skema_usulan.tahun_skema);
@@ -708,9 +708,12 @@
                     $('#revisi-proposal-pengajuan').empty()
                     for (var i = 0; i < d.berkas.length; i++) {
                         if (d.berkas[i]['jenis_berkas_id'] == 1) {
-                            $('#revisi-proposal-pengajuan').html('<a href="/' + d.berkas[i]['berkas'] + '" target="_blank">Berkas Proposal</a>')
+
+                            $('#revisi-proposal-pengajuan').html('<a href="/' + d.berkas[i]['berkas'] + '" target="_blank">Berkas Proposal</a>');
+                            console.log(d.berkas[i]);
                             $('#form-proposal').attr('action', '{{ url("dosen/usulan/revisi/proposal") }}/' + id)
-                            $('#proposal-usulan-id').val(d.id)
+                            $('#proposal-usulan-id').val(d.id);
+                            i = d.berkas.length + 1;
                         } else {
                             $('#revisi-proposal-pengajuan').text('-')
                             $('#form-proposal').attr('action', '#')
