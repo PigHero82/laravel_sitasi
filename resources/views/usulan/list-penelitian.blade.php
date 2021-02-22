@@ -69,10 +69,17 @@
                     <table id="table-penelitian" class="table zero-configuration table-striped table-responsive" style="width:100%">
                         <thead>
                             <tr>
-                                <th style="width: 60%">Judul</th>
-                                <th>Ketua</th>
-                                <th>Skema Usulan</th>
-                                <th style="width: 15%">Tahun Pelaksanaan</th>
+                                <th rowspan="2">Judul</th>
+                                <th rowspan="2">Ketua</th>
+                                <th rowspan="2">Skema Usulan</th>
+                                <th rowspan="2">Tahun Pelaksanaan</th>
+                                <th rowspan="1" colspan="3">Nilai</th>
+                                <th rowspan="2">Anggaran yang Diajukan</th>
+                            </tr>
+                            <tr>
+                                <th>Seminar Proposal</th>
+                                <th>Monev</th>
+                                <th>Seminar Hasil</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -82,6 +89,51 @@
                                     <td>{{ $item->ketua }}</td>
                                     <td>{{ $item->skema_usulan->tahun_skema . ' - ' . $item->skema_usulan->kode }}</td>
                                     <td>{{ $item->skema_usulan->tahun_pelaksanaan }}</td>
+                                    @php
+                                    $nilai = [
+                                        0 => 0,
+                                        1 => 0,
+                                        2 => 0
+                                    ];
+                                    $total = 0;
+                                    foreach ($item->rab as $key => $value) {
+                                        $total  += $value->total;
+                                    }
+                                    @endphp
+                                    @foreach($item->arnilai as $it)
+                                        @if($it->penilaian_tahap_id == 1)
+                                        @php
+                                            $nilai[0] += $it->nilai;
+                                        @endphp
+                                        @endif
+                                        @if($it->penilaian_tahap_id == 2)
+                                        @php
+                                            $nilai[1] += $it->nilai;
+                                        @endphp
+                                        @endif
+                                        @if($it->penilaian_tahap_id == 3)
+                                        @php
+                                            $nilai[2] += $it->nilai;
+                                        @endphp
+                                        @endif
+                                    @endforeach
+
+                                    @if($nilai[0] == 0)
+                                        <td>-</td>
+                                    @else
+                                        <td>{{ $nilai[0] }}</td>
+                                    @endif
+                                    @if($nilai[1] == 0)
+                                        <td>-</td>
+                                    @else
+                                        <td>{{ $nilai[1] }}</td>
+                                    @endif
+                                    @if($nilai[2] == 0)
+                                        <td>-</td>
+                                    @else
+                                        <td>{{ $nilai[2] }}</td>
+                                    @endif
+                                    <td>{{ $total }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -151,6 +203,18 @@
                         <dl class="row">
                             <dt class="col-sm-4 text-md-right">Jenis Usulan</dt>
                             <dd class="col-sm-8" id="jenis">Penelitian</dd>
+                        </dl>
+                        <dl class="row">
+                            <dt class="col-sm-4 text-md-right">Nilai Proposal</dt>
+                            <dd class="col-sm-8" id="nilai-proposal">-</dd>
+                        </dl>
+                        <dl class="row">
+                            <dt class="col-sm-4 text-md-right">Nilai Monev</dt>
+                            <dd class="col-sm-8" id="nilai-monev">-</dd>
+                        </dl>
+                        <dl class="row">
+                            <dt class="col-sm-4 text-md-right">Nilai Hasil</dt>
+                            <dd class="col-sm-8" id="nilai-hasil">-</dd>
                         </dl>
                         <dl class="row">
                             <dt class="col-sm-4 text-md-right">Proposal</dt>

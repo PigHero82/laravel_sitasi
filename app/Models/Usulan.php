@@ -218,8 +218,8 @@ class Usulan extends Model
                 $data[$key]['kegiatan'] = UsulanKegiatan::getKegiatan($value->id);
                 $data[$key]['luaran'] = UsulanLuaran::getLuaran($value->id);
                 $data[$key]['rab'] = UsulanRab::getRab($value->id);
+                $data[$key]['arnilai'] = UsulanNilai::getNilai($value->id);
             }
-
             return $data;
         }
 
@@ -266,6 +266,7 @@ class Usulan extends Model
                 $data[$key]['kegiatan'] = UsulanKegiatan::getKegiatan($value->id);
                 $data[$key]['luaran'] = UsulanLuaran::getLuaran($value->id);
                 $data[$key]['rab'] = UsulanRab::getRab($value->id);
+                $data[$key]['arnilai'] = UsulanNilai::getNilai($value->id);
             }
 
             return $data;

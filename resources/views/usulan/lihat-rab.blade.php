@@ -238,13 +238,13 @@
                         <dl class="row">
                             <dt class="col-sm-4 text-md-right">Detail Item 1</dt>
                             <dd class="col-sm-8" ><input type="text" class="input-modal form-control" required id="item1">
-                                <small class="text-muted">Contoh: 5 Orang</small></dd>
+                                <small class="text-muted">[jumlah][spasi][satuan]<br>Contoh: 5 Orang</small></dd>
                         </dl>
                        
                         <dl class="row">
                             <dt class="col-sm-4 text-md-right">Detail Item 2</dt>
                             <dd class="col-sm-8" ><input type="text" class="input-modal form-control" id="item2">
-                                <small class="text-muted">Contoh: 8 Bulan</small></dd>
+                                <small class="text-muted">[jumlah][spasi][satuan]<br>Contoh: 8 Bulan</small></dd>
                         </dl>
                      
                         <dl class="row">
@@ -277,24 +277,34 @@
 @section('js')
     <script>
         function genHTML(indTable){
-            
+            var item1 = addSpace($('#item1').val());
+            var item2, item3, detailItem1, detailItem2, detailItem3;
+
+
+
             var jenis = '<td> <input type="hidden" name="item['+indTable+'][rab_jenis_id]" value="'+$('#rab_jenis_id').val()+'">'+ $('#rab_jenis_id').find(':selected').text() + '</td>';
             var penggunaan = '<td> <input type="hidden" name="item['+indTable+'][penggunaan]" value="'+$('#penggunaan').val()+'">'+ $('#penggunaan').val() + '</td>';
             var nama = '<td> <input type="hidden" name="item['+indTable+'][nama]" value="'+$('#nama').val()+'">'+ $('#nama').val() + '</td>';
-            var detailItem1 = '<td> <input type="hidden" name="item['+indTable+'][item1]" value="'+$('#item1').val()+'">'+ $('#item1').val() + '</td>';
-            var detailItem2 = '<td> <input type="hidden" name="item['+indTable+'][item2]" value="'+$('#item2').val()+'">'+ $('#item2').val() + '</td>';
-            var detailItem3 = '<td> <input type="hidden" name="item['+indTable+'][item3]" value="'+$('#item3').val()+'">'+ $('#item3').val() + '</td>';
+
+            var detailItem1 = '<td> <input type="hidden" name="item['+indTable+'][item1]" value="'+item1 +'">'+ $('#item1').val() + '</td>';
+            
             var harga = '<td> <input type="hidden" name="item['+indTable+'][harga]" value="'+$('#harga').val()+'">'+ $('#harga').val() + '</td>';
-            var item1 = $('#item1').val();
-            var item2 = $('#item2').val();
-            var item3 = $('#item3').val();
+            
             if(!$('#item2').val()){
                 item2="1 ";
                 detailItem2 = '<td> <input type="hidden" name="item['+indTable+'][item2]">-</td>';
+            }else{
+                item2 = addSpace($('#item2').val());
+                detailItem2 = '<td> <input type="hidden" name="item['+indTable+'][item2]" value="'+item2+'">'+ item2 + '</td>';
+                
             }
             if(!$('#item3').val()){
                 item3="1 ";
                 detailItem3 = '<td> <input type="hidden" name="item['+indTable+'][item3]">-</td>';
+                
+            }else{
+                item3 = addSpace($('#item3').val());
+                detailItem3 = '<td> <input type="hidden" name="item['+indTable+'][item3]" value="'+item3+'">'+ item3 + '</td>';
             }
             
             var total = '<td class="table-subtotal">' + (item1.split(" ")[0] * item2.split(" ")[0] * item3.split(" ")[0] * $('#harga').val()) + '</td>';
@@ -303,7 +313,20 @@
             return (jenis+penggunaan+nama+detailItem1+detailItem2+detailItem3+harga+total+aksi);
         }
 
+        function addSpace(str){
+            var angka = '';
+            var satuan = '';
 
+            for(var s = 0; s < str.length; s++){
+                if(!isNaN(str[s])){
+                    angka += str[s];
+                }else if(str != ' '){
+                    satuan += str[s];
+                }
+            }
+
+            return angka + ' ' + satuan;
+        }
         function totalAnggaran(){
             var total = 0;
             $('.table-subtotal').each(function(){

@@ -67,7 +67,52 @@ class UsulanRab extends Model
     static function updateRab($request, $usulanId)
     {
         foreach ($request->item as $key => $rab) {
-            $item1 = explode(' ', $rab['item1']);
+            //$item1 = explode(' ', $rab['item1']);
+            $arritem1 = str_split($rab['item1']);
+            $item = [];
+            $item['angka'][0] = '';
+            $item['satuan'][0] = '';
+            foreach ($arritem1 as $key => $value) {
+                if(is_numeric($value)){
+                    $item['angka'][0] .= $value;
+                }elseif($value != ' ') {
+                    $item['satuan'][0] .= $value;
+                }
+            }
+
+            if($rab['item2'] != NULL){
+                $arritem1 = str_split($rab['item2']);
+                $item['angka'][1] = '';
+                $item['satuan'][1] = '';
+                foreach ($arritem1 as $key => $value) {
+                    if(is_numeric($value)){
+                        $item['angka'][1] .= $value;
+                    }elseif($value != ' ') {
+                        $item['satuan'][1] .= $value;
+                    }
+                }
+            }else{
+                $item['angka'][1] = 1;
+                $item['satuan'][1] = NULL;
+            }
+
+            if($rab['item3'] != NULL){
+                $arritem1 = str_split($rab['item3']);
+                $item['angka'][2] = '';
+                $item['satuan'][2] = '';
+                foreach ($arritem1 as $key => $value) {
+                    if(is_numeric($value)){
+                        $item['angka'][2] .= $value;
+                    }elseif($value != ' ') {
+                        $item['satuan'][2] .= $value;
+                    }
+                }
+            }else{
+                $item['angka'][2] = 1;
+                $item['satuan'][2] = NULL;    
+            }
+
+            /*            
             $item2 = ($rab['item2'] != NULL) ? explode(' ', $rab['item2']) : [1, NULL] ;
             $item3 = ($rab['item3'] != NULL) ? explode(' ', $rab['item3']) : [1, NULL] ;
 
@@ -82,6 +127,20 @@ class UsulanRab extends Model
                 'satuan2'       => $item2[1],
                 'item3'         => $item3[0],
                 'satuan3'       => $item3[1],
+                'harga'         => $rab['harga'],
+            ]);*/
+          
+            UsulanRab::create([
+                'usulan_id'     => $usulanId,
+                'rab_jenis_id'  => $rab['rab_jenis_id'],
+                'penggunaan'    => $rab['penggunaan'],
+                'nama'          => $rab['nama'],
+                'item1'         => $item['angka'][0],
+                'satuan1'       => $item['satuan'][0],
+                'item2'         => $item['angka'][1],
+                'satuan2'       => $item['satuan'][1],
+                'item3'         => $item['angka'][2],
+                'satuan3'       => $item['satuan'][2],
                 'harga'         => $rab['harga'],
             ]);
         }

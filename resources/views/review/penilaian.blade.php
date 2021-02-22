@@ -68,15 +68,50 @@
                                     <thead>
                                         <tr>
                                             {{-- <th>Progress</th> --}}
-                                            <th>Judul</th>
-                                            <th>Ketua Pelaksana</th>
-                                            <th>Skema Usulan</th>
-                                            <th>Tahun Pelaksanaan</th>
-                                            <th>Status Review</th>
+                                            <th rowspan="2">Judul</th>
+                                            <th rowspan="2">Ketua Pelaksana</th>
+                                            <th rowspan="2">Skema Usulan</th>
+                                            <th class="text-center" rowspan="1" colspan="3">Nilai</th>
+                                            <th rowspan="2">Anggaran yang Diusulkan</th>
+                                            <th rowspan="2">Tahun Pelaksanaan</th>
+                                            <th rowspan="2">Status Review</th>
+                                        </tr>
+                                        <tr>
+                                            <th>Seminar Proposal</th>
+                                            <th>Monev</th>
+                                            <th>Seminar Hasil</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($penelitian as $item)
+                                            @php
+                                            $nilai = [
+                                                0 => 0,
+                                                1 => 0,
+                                                2 => 0
+                                            ];
+                                            $total = 0;
+                                            foreach ($item->rab as $key => $value) {
+                                                $total  += $value->total;
+                                            }
+                                            @endphp
+                                            @foreach($item->penilaian as $it)
+                                                @if($it->penilaian_tahap_id == 1)
+                                                @php
+                                                    $nilai[0] += $it->nilai;
+                                                @endphp
+                                                @endif
+                                                @if($it->penilaian_tahap_id == 2)
+                                                @php
+                                                    $nilai[1] += $it->nilai;
+                                                @endphp
+                                                @endif
+                                                @if($it->penilaian_tahap_id == 3)
+                                                @php
+                                                    $nilai[2] += $it->nilai;
+                                                @endphp
+                                                @endif
+                                            @endforeach
                                             <tr>
                                                 {{-- <td>
                                                     <div class="progress progress-bar-success progress-lg mb-0">
@@ -87,6 +122,23 @@
                                                 <td><a href="#modal" data-toggle="modal" data-value="{{ $item->id }}">{{ $item->judul }}</a></td>
                                                 <td>{{ $item->ketua }}</td>
                                                 <td>{{ $item->skema_usulan->tahun_skema . ' - ' . $item->skema_usulan->kode }}</td>
+
+                                                @if($nilai[0] == 0)
+                                                    <td>-</td>
+                                                @else
+                                                    <td>{{ $nilai[0] }}</td>
+                                                @endif
+                                                @if($nilai[1] == 0)
+                                                    <td>-</td>
+                                                @else
+                                                    <td>{{ $nilai[1] }}</td>
+                                                @endif
+                                                @if($nilai[2] == 0)
+                                                    <td>-</td>
+                                                @else
+                                                    <td>{{ $nilai[2] }}</td>
+                                                @endif
+                                                <td>{{ number_format($total, 0, ',', '.') }}</td>
 
                                                 <td>{{ $item->skema_usulan->tahun_pelaksanaan }}</td>
                                                 <td>
@@ -104,11 +156,18 @@
                                     <tfoot>
                                         <tr>
                                             {{-- <th>Progress</th> --}}
-                                            <th>Judul</th>
-                                            <th>Ketua Pelaksana</th>
-                                            <th>Skema Usulan</th>
-                                            <th>Tahun Pelaksanaan</th>
-                                            <th>Status Review</th>
+                                            <th rowspan="2">Judul</th>
+                                            <th rowspan="2">Ketua Pelaksana</th>
+                                            <th rowspan="2">Skema Usulan</th>
+                                            <th class="text-center" rowspan="1" colspan="3">Nilai</th>
+                                            <th rowspan="2">Anggaran yang Diusulkan</th>
+                                            <th rowspan="2">Tahun Pelaksanaan</th>
+                                            <th rowspan="2">Status Review</th>
+                                        </tr>
+                                        <tr>
+                                            <th>Seminar Proposal</th>
+                                            <th>Monev</th>
+                                            <th>Seminar Hasil</th>
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -172,15 +231,50 @@
                                     <thead>
                                         <tr>
                                             {{-- <th>Progress</th> --}}
-                                            <th>Judul</th>
-                                            <th>Ketua Pelaksana</th>
-                                            <th>Skema Usulan</th>
-                                            <th>Tahun Pelaksanaan</th>
-                                            <th>Status Review</th>
+                                            <th rowspan="2">Judul</th>
+                                            <th rowspan="2">Ketua Pelaksana</th>
+                                            <th rowspan="2">Skema Usulan</th>
+                                            <th class="text-center" rowspan="1" colspan="3">Nilai</th>
+                                            <th rowspan="2">Anggaran yang Diusulkan</th>
+                                            <th rowspan="2">Tahun Pelaksanaan</th>
+                                            <th rowspan="2">Status Review</th>
+                                        </tr>
+                                        <tr>
+                                            <th>Seminar Proposal</th>
+                                            <th>Monev</th>
+                                            <th>Seminar Hasil</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($pengabdian as $item)
+                                            @php
+                                            $nilai = [
+                                                0 => 0,
+                                                1 => 0,
+                                                2 => 0
+                                            ];
+                                            $total = 0;
+                                            foreach ($item->rab as $key => $value) {
+                                                $total  += $value->total;
+                                            }
+                                            @endphp
+                                            @foreach($item->penilaian as $it)
+                                                @if($it->penilaian_tahap_id == 1)
+                                                @php
+                                                    $nilai[0] += $it->nilai;
+                                                @endphp
+                                                @endif
+                                                @if($it->penilaian_tahap_id == 2)
+                                                @php
+                                                    $nilai[1] += $it->nilai;
+                                                @endphp
+                                                @endif
+                                                @if($it->penilaian_tahap_id == 3)
+                                                @php
+                                                    $nilai[2] += $it->nilai;
+                                                @endphp
+                                                @endif
+                                            @endforeach
                                             <tr>
                                                 {{-- <td>
                                                     <div class="progress progress-bar-success progress-lg mb-0">
@@ -191,6 +285,24 @@
                                                 <td><a href="#modal" data-toggle="modal" data-value="{{ $item->id }}">{{ $item->judul }}</a></td>
                                                 <td>{{ $item->ketua }}</td>
                                                 <td>{{ $item->skema_usulan->tahun_skema . ' - ' . $item->skema_usulan->kode }}</td>
+
+                                                @if($nilai[0] == 0)
+                                                    <td>-</td>
+                                                @else
+                                                    <td>{{ $nilai[0] }}</td>
+                                                @endif
+                                                @if($nilai[1] == 0)
+                                                    <td>-</td>
+                                                @else
+                                                    <td>{{ $nilai[1] }}</td>
+                                                @endif
+                                                @if($nilai[2] == 0)
+                                                    <td>-</td>
+                                                @else
+                                                    <td>{{ $nilai[2] }}</td>
+                                                @endif
+                                                <td>{{ number_format($total, 0, ',', '.') }}</td>
+
                                                 <td>{{ $item->skema_usulan->tahun_pelaksanaan }}</td>
                                                 <td>
                                                     @if ($item->nilai == 0)
@@ -207,10 +319,18 @@
                                     <tfoot>
                                         <tr>
                                             {{-- <th>Progress</th> --}}
-                                            <th>Judul</th>
-                                            <th>Skema Usulan</th>
-                                            <th>Tahun Pelaksanaan</th>
-                                            <th>Status Review</th>
+                                            <th rowspan="2">Judul</th>
+                                            <th rowspan="2">Ketua Pelaksana</th>
+                                            <th rowspan="2">Skema Usulan</th>
+                                            <th class="text-center" rowspan="1" colspan="3">Nilai</th>
+                                            <th rowspan="2">Anggaran yang Diusulkan</th>
+                                            <th rowspan="2">Tahun Pelaksanaan</th>
+                                            <th rowspan="2">Status Review</th>
+                                        </tr>
+                                        <tr>
+                                            <th>Seminar Proposal</th>
+                                            <th>Monev</th>
+                                            <th>Seminar Hasil</th>
                                         </tr>
                                     </tfoot>
                                 </table>

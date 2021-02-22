@@ -26,7 +26,6 @@ class HomeController extends Controller
     {
         $penelitian = Usulan::getUsulanPenelitian();
         $pengabdian = Usulan::getUsulanPengabdian();
-       
         return view('usulan.riwayat', compact('penelitian', 'pengabdian'));
     }
 
@@ -42,6 +41,8 @@ class HomeController extends Controller
 
         $pengabdian = Usulan::getUsulanPengabdian();
         $skema = SkemaUsulan::getSkemaPengabdian();
+
+     
         return view('usulan.list-pengabdian', compact('pengabdian','skema'));
     }
 }
