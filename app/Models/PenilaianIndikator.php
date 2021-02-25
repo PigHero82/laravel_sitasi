@@ -10,7 +10,7 @@ class PenilaianIndikator extends Model
     use HasFactory;
 
     protected $table = 'penilaian_indikator';
-    protected $fillable = ['penilaian_tahap_id', 'nama', 'deskripsi', 'jenis', 'status'];
+    protected $fillable = ['penilaian_tahap_id', 'nama', 'deskripsi', 'jenis', 'bobot', 'status'];
 
     static function getIndikator($jenis)
     {
