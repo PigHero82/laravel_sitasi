@@ -62,7 +62,10 @@ Route::namespace('Admin')->name('admin.')->prefix('admin')->middleware('auth', '
     Route::get('usulan/{skema}', 'HomeController@usulanBySkema')->name('usulanBySkema');
     Route::namespace('Master')->name('master.')->prefix('master')->group(function() {
         Route::resource('dosen', 'DosenController');
+        Route::post('indikator', 'PenilaianController@storeIndikator')->name('indikator.store');
+        Route::patch('indikator/{id}', 'PenilaianController@updateIndikator');
         Route::resource('jabatan', 'JabatanController');
+        Route::resource('penilaian', 'PenilaianController');
         Route::resource('prodi', 'ProdiController');
         Route::name('rumpun-ilmu.')->prefix('rumpun-ilmu')->group(function() {
             Route::resource('', 'RumpunIlmuController')->except(['edit', 'show']);
