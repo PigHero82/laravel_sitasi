@@ -318,9 +318,9 @@
             var satuan = '';
 
             for(var s = 0; s < str.length; s++){
-                if(!isNaN(str[s])){
+                if((!isNaN(str[s])) && (str[s] != ' ')){
                     angka += str[s];
-                }else if(str != ' '){
+                }else if(str[s] != ' '){
                     satuan += str[s];
                 }
             }

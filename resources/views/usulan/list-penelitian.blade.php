@@ -66,86 +66,120 @@
                     <div class="col-md-12 text-md-right" >
                         <h4> Jumlah usulan: <span id="jumlah-data"></span></h4>
                     </div>
-                    <table id="table-penelitian" class="table zero-configuration table-striped table-responsive" style="width:100%">
-                        <thead>
-                            <tr>
-                                <th rowspan="2">Judul</th>
-                                <th rowspan="2">Ketua</th>
-                                <th rowspan="2">Skema Usulan</th>
-                                <th rowspan="2">Tahun Pelaksanaan</th>
-                                <th rowspan="1" colspan="3">Nilai</th>
-                                <th rowspan="2">Anggaran yang Diajukan</th>
-                            </tr>
-                            <tr>
-                                <th>Seminar Proposal</th>
-                                <th>Monev</th>
-                                <th>Seminar Hasil</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($penelitian as $item)
-                                <tr>
-                                    <td><a href="#modal" data-toggle="modal" data-value="{{ $item->id }}">{{ $item->judul }}</a></td>
-                                    <td>{{ $item->ketua }}</td>
-                                    <td>{{ $item->skema_usulan->tahun_skema . ' - ' . $item->skema_usulan->kode }}</td>
-                                    <td>{{ $item->skema_usulan->tahun_pelaksanaan }}</td>
-                                    @php
-                                    $nilai = [
-                                        0 => 0,
-                                        1 => 0,
-                                        2 => 0
-                                    ];
-                                    $total = 0;
-                                    foreach ($item->rab as $key => $value) {
-                                        $total  += $value->total;
-                                    }
-                                    @endphp
-                                    @foreach($item->arnilai as $it)
-                                        @if($it->penilaian_tahap_id == 1)
-                                        @php
-                                            $nilai[0] += $it->nilai;
-                                        @endphp
-                                        @endif
-                                        @if($it->penilaian_tahap_id == 2)
-                                        @php
-                                            $nilai[1] += $it->nilai;
-                                        @endphp
-                                        @endif
-                                        @if($it->penilaian_tahap_id == 3)
-                                        @php
-                                            $nilai[2] += $it->nilai;
-                                        @endphp
-                                        @endif
-                                    @endforeach
+                    <div class="table-responsive">
+                    <table id="table-penelitian" class="table zero-configuration table-striped" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            {{-- <th>Progress</th> --}}
+                                            <th rowspan="2">Judul</th>
+                                            <th rowspan="2">Ketua Pelaksana</th>
+                                            <th rowspan="2">Skema Usulan</th>
+                                            <th class="text-center" rowspan="1" colspan="3">Nilai</th>
+                                            <th rowspan="2">Anggaran yang Diusulkan</th>
+                                            <th rowspan="2">Anggaran yang Disetujui</th>
+                                            <th rowspan="2">Tahun Pelaksanaan</th>
+                                            <th rowspan="2">Status Review</th>
+                                        </tr>
+                                        <tr>
+                                            <th>Seminar Proposal</th>
+                                            <th>Monev</th>
+                                            <th>Seminar Hasil</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($penelitian as $item)
+                                            @php
+                                            $nilai = [
+                                                0 => 0,
+                                                1 => 0,
+                                                2 => 0
+                                            ];
+                                            $total = 0;
+                                            foreach ($item->rab as $key => $value) {
+                                                $total  += $value->total;
+                                            }
+                                            @endphp
+                                            @foreach($item->penilaian as $it)
+                                                @if($it->penilaian_tahap_id == 1)
+                                                @php
+                                                    $nilai[0] += ($it->nilai/5)*$it->bobot;
+                                                @endphp
+                                                @endif
+                                                @if($it->penilaian_tahap_id == 2)
+                                                @php
+                                                    $nilai[1] += ($it->nilai/5)*$it->bobot;
+                                                @endphp
+                                                @endif
+                                                @if($it->penilaian_tahap_id == 3)
+                                                @php
+                                                    $nilai[2] += ($it->nilai/5)*$it->bobot;
+                                                @endphp
+                                                @endif
+                                            @endforeach
+                                            <tr>
+                                                {{-- <td>
+                                                    <div class="progress progress-bar-success progress-lg mb-0">
+                                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="20" aria-valuemin="20" aria-valuemax="100" style="width:20%"></div>
+                                                    </div>
+                                                    <div class="badge badge-pill badge-glow badge-success block">20% | Lengkap</div>
+                                                </td> --}}
+                                                <td><a href="#modal" data-toggle="modal" data-value="{{ $item->id }}">{{ $item->judul }}</a></td>
+                                                <td>{{ $item->ketua }}</td>
+                                                <td>{{ $item->skema_usulan->tahun_skema . ' - ' . $item->skema_usulan->kode }}</td>
 
-                                    @if($nilai[0] == 0)
-                                        <td>-</td>
-                                    @else
-                                        <td>{{ $nilai[0] }}</td>
-                                    @endif
-                                    @if($nilai[1] == 0)
-                                        <td>-</td>
-                                    @else
-                                        <td>{{ $nilai[1] }}</td>
-                                    @endif
-                                    @if($nilai[2] == 0)
-                                        <td>-</td>
-                                    @else
-                                        <td>{{ $nilai[2] }}</td>
-                                    @endif
-                                    <td>{{ $total }}</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <th>Judul</th>
-                                <th>Ketua</th>
-                                <th>Skema Usulan</th>
-                                <th>Tahun Pelaksanaan</th>
-                            </tr>
-                        </tfoot>
-                    </table>
+                                                @if($nilai[0] == 0)
+                                                    <td>-</td>
+                                                @else
+                                                    <td>{{ $nilai[0] }}/100</td>
+                                                @endif
+                                                @if($nilai[1] == 0)
+                                                    <td>-</td>
+                                                @else
+                                                    <td>{{ $nilai[1] }}/100</td>
+                                                @endif
+                                                @if($nilai[2] == 0)
+                                                    <td>-</td>
+                                                @else
+                                                    <td>{{ $nilai[2] }}/100</td>
+                                                @endif
+
+                                                <td>{{ number_format($total, 0, '.', ',') }}</td>
+                                                <td>{{ number_format((($nilai[0]/100) * $total), 0, '.', ',')}}</td>
+
+                                                <td>{{ $item->skema_usulan->tahun_pelaksanaan }}</td>
+                                                <td>
+                                                    @if ($item->nilai == 0)
+                                                        <h5 class="text-warning"><i class="feather icon-clock"></i>Menunggu review</h5>
+                                                    @elseif ($item->nilai == 1)
+                                                        <h5 class="text-success"><i class="feather icon-check"></i>Selesai</h5>
+                                                    @endif
+                                                </td>
+                                                {{-- <td><h3 class="text-danger"><i class="feather icon-x"></i></h3></td> --}}
+                                                {{-- <td><h3 class="text-warning"><i class="feather icon-clock"></i></h3></td> --}}
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            {{-- <th>Progress</th> --}}
+                                            <th rowspan="2">Judul</th>
+                                            <th rowspan="2">Ketua Pelaksana</th>
+                                            <th rowspan="2">Skema Usulan</th>
+                                            <th class="text-center" rowspan="1" colspan="3">Nilai</th>
+                                            <th rowspan="2">Anggaran yang Diusulkan</th>
+                                            <th rowspan="2">Anggaran yang Disetujui</th>
+                                            <th rowspan="2">Tahun Pelaksanaan</th>
+                                            <th rowspan="2">Status Review</th>
+                                        </tr>
+                                        <tr>
+                                            <th>Seminar Proposal</th>
+                                            <th>Monev</th>
+                                            <th>Seminar Hasil</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                    </div>
+                    
                   </div>
               </div>
               <!-- /.card-body -->
@@ -254,11 +288,19 @@
 @section('js')
     <script src="{{ asset('app-assets/vendors/js/tables/datatable/datatables.min.js') }}"></script>
     <script src="{{ asset('app-assets/vendors/js/tables/datatable/datatables.bootstrap4.min.js') }}"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.5/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.html5.min.js"></script>
     <script>
         var tabel = $('#table-penelitian').DataTable({
             responsive: true,
             "order": [[2, "desc"]],
-            "dom": '<"top row" <"col-md-4"l><"col-md-4"p><"col-md-4"f>>rt<"bottom row"<"col-md-4"l><"col-md-4"p>><"clear">'
+            dom: '<"top row" <"col-md-4"l><"col-md-4 text-center"p><"col-md-4 text-md-right"fB>>rt<"bottom row"<"col-md-4"l><"col-md-4"p>><"clear">',
+            buttons: {
+                buttons: [
+                    { extend: 'excel', className: 'excelButton btn btn-success btn-sm' }
+                ]
+            }
         });
 
         $('#filter-skema').on('change',function(){

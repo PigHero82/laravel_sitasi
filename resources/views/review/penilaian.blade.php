@@ -73,6 +73,7 @@
                                             <th rowspan="2">Skema Usulan</th>
                                             <th class="text-center" rowspan="1" colspan="3">Nilai</th>
                                             <th rowspan="2">Anggaran yang Diusulkan</th>
+                                            <th rowspan="2">Anggaran yang Disetujui</th>
                                             <th rowspan="2">Tahun Pelaksanaan</th>
                                             <th rowspan="2">Status Review</th>
                                         </tr>
@@ -98,17 +99,17 @@
                                             @foreach($item->penilaian as $it)
                                                 @if($it->penilaian_tahap_id == 1)
                                                 @php
-                                                    $nilai[0] += $it->nilai;
+                                                    $nilai[0] += ($it->nilai/5)*$it->bobot;
                                                 @endphp
                                                 @endif
                                                 @if($it->penilaian_tahap_id == 2)
                                                 @php
-                                                    $nilai[1] += $it->nilai;
+                                                    $nilai[1] += ($it->nilai/5)*$it->bobot;
                                                 @endphp
                                                 @endif
                                                 @if($it->penilaian_tahap_id == 3)
                                                 @php
-                                                    $nilai[2] += $it->nilai;
+                                                    $nilai[2] += ($it->nilai/5)*$it->bobot;
                                                 @endphp
                                                 @endif
                                             @endforeach
@@ -126,19 +127,21 @@
                                                 @if($nilai[0] == 0)
                                                     <td>-</td>
                                                 @else
-                                                    <td>{{ $nilai[0] }}</td>
+                                                    <td>{{ $nilai[0] }}/100</td>
                                                 @endif
                                                 @if($nilai[1] == 0)
                                                     <td>-</td>
                                                 @else
-                                                    <td>{{ $nilai[1] }}</td>
+                                                    <td>{{ $nilai[1] }}/100</td>
                                                 @endif
                                                 @if($nilai[2] == 0)
                                                     <td>-</td>
                                                 @else
-                                                    <td>{{ $nilai[2] }}</td>
+                                                    <td>{{ $nilai[2] }}/100</td>
                                                 @endif
-                                                <td>{{ number_format($total, 0, ',', '.') }}</td>
+
+                                                <td>{{ number_format($total, 0, '.', ',') }}</td>
+                                                <td>{{ number_format((($nilai[0]/100) * $total), 0, '.', ',')}}</td>
 
                                                 <td>{{ $item->skema_usulan->tahun_pelaksanaan }}</td>
                                                 <td>
@@ -161,6 +164,7 @@
                                             <th rowspan="2">Skema Usulan</th>
                                             <th class="text-center" rowspan="1" colspan="3">Nilai</th>
                                             <th rowspan="2">Anggaran yang Diusulkan</th>
+                                            <th rowspan="2">Anggaran yang Disetujui</th>
                                             <th rowspan="2">Tahun Pelaksanaan</th>
                                             <th rowspan="2">Status Review</th>
                                         </tr>
@@ -236,6 +240,7 @@
                                             <th rowspan="2">Skema Usulan</th>
                                             <th class="text-center" rowspan="1" colspan="3">Nilai</th>
                                             <th rowspan="2">Anggaran yang Diusulkan</th>
+                                            <th rowspan="2">Anggaran yang Disetujui</th>
                                             <th rowspan="2">Tahun Pelaksanaan</th>
                                             <th rowspan="2">Status Review</th>
                                         </tr>
@@ -261,17 +266,17 @@
                                             @foreach($item->penilaian as $it)
                                                 @if($it->penilaian_tahap_id == 1)
                                                 @php
-                                                    $nilai[0] += $it->nilai;
+                                                    $nilai[0] += ($it->nilai/5)*$it->bobot;
                                                 @endphp
                                                 @endif
                                                 @if($it->penilaian_tahap_id == 2)
                                                 @php
-                                                    $nilai[1] += $it->nilai;
+                                                    $nilai[1] += ($it->nilai/5)*$it->bobot;
                                                 @endphp
                                                 @endif
                                                 @if($it->penilaian_tahap_id == 3)
                                                 @php
-                                                    $nilai[2] += $it->nilai;
+                                                    $nilai[2] += ($it->nilai/5)*$it->bobot;
                                                 @endphp
                                                 @endif
                                             @endforeach
@@ -289,20 +294,20 @@
                                                 @if($nilai[0] == 0)
                                                     <td>-</td>
                                                 @else
-                                                    <td>{{ $nilai[0] }}</td>
+                                                    <td>{{ $nilai[0] }}/100</td>
                                                 @endif
                                                 @if($nilai[1] == 0)
                                                     <td>-</td>
                                                 @else
-                                                    <td>{{ $nilai[1] }}</td>
+                                                    <td>{{ $nilai[1] }}/100</td>
                                                 @endif
                                                 @if($nilai[2] == 0)
                                                     <td>-</td>
                                                 @else
-                                                    <td>{{ $nilai[2] }}</td>
+                                                    <td>{{ $nilai[2] }}/100</td>
                                                 @endif
-                                                <td>{{ number_format($total, 0, ',', '.') }}</td>
-
+                                                <td>{{ number_format($total, 0, '.', ',') }}</td>
+                                                <td>{{ number_format((($nilai[0]/100) * $total), 0, '.', ',')}}</td>
                                                 <td>{{ $item->skema_usulan->tahun_pelaksanaan }}</td>
                                                 <td>
                                                     @if ($item->nilai == 0)
@@ -417,6 +422,14 @@
                                     <dt class="col-sm-4 text-md-right">Komentar</dt>
                                     <dd class="col-sm-8" id="komentar">-</dd>
                                 </dl>
+                                <dl class="row">
+                                    <dt class="col-sm-4 text-md-right">Anggaran yang Diusulkan</dt>
+                                    <dd class="col-sm-8" id="anggaran-diusulkan">-</dd>
+                                </dl>
+                                <dl class="row">
+                                    <dt class="col-sm-4 text-md-right">Anggaran yang Disetujui</dt>
+                                    <dd class="col-sm-8" id="anggaran-disetujui">-</dd>
+                                </dl>
                                 <form action="#" method="POST" id="modal-form">
                                     @csrf
                                     @method('PATCH')
@@ -439,30 +452,88 @@
 
 @section('js')
 <script src="{{ asset('app-assets/vendors/js/tables/datatable/datatables.min.js') }}"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.5/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.html5.min.js"></script>
     <script src="{{ asset('app-assets/vendors/js/tables/datatable/datatables.bootstrap4.min.js') }}"></script>
     <script>
         $(document).ready( function () {
             $('#table-penelitian').DataTable({
             responsive: true,
-            "dom": '<"top row" <"col-md-4"l><"col-md-4 text-center"p><"col-md-4 text-md-right"f>>rt<"bottom row"<"col-md-4"l><"col-md-4"p>><"clear">'
+            dom: '<"top row" <"col-md-4"l><"col-md-4 text-center"p><"col-md-4 text-md-right"fB>>rt<"bottom row"<"col-md-4"l><"col-md-4"p>><"clear">',
+            buttons: {
+                buttons: [
+                    { extend: 'excel', className: 'excelButton btn btn-success btn-sm' }
+                ]
+            }
         });
             $('#table-pengabdian').DataTable({
             responsive: true,
-            "dom": '<"top row" <"col-md-4"l><"col-md-4 text-center"p><"col-md-4 text-md-right"f>>rt<"bottom row"<"col-md-4"l><"col-md-4"p>><"clear">'
+            dom: '<"top row" <"col-md-4"l><"col-md-4 text-center"p><"col-md-4 text-md-right"fB>>rt<"bottom row"<"col-md-4"l><"col-md-4"p>><"clear">',
+            buttons: {
+                buttons: [
+                    { extend: 'excel', className: 'excelButton btn btn-success btn-sm' }
+                ]
+            }
         });
             $(document).on('click', '#table-penelitian tbody tr td a', function(e) {
                 var id = $(this).attr('data-value');
                 $.get( "/usulan/" + id, function( data ) {
-                    console.log(JSON.parse(data));
                     var d = JSON.parse(data);
+                    console.log(d);
                     $('#label').text('Detail Penelitian');
                     $('#jenis').text('Penelitian');
                     $('#judul').html(d.judul);
                     $('#skema').html(d.skema_usulan.nama);
                     $('#tahun-usulan').html(d.skema_usulan.tahun_skema);
                     $('#tahun-pelaksanaan').html(d.skema_usulan.tahun_pelaksanaan);
-                    $('#nilai').text(d.nilai);
-                    $('#komentar').text(d.komentar);
+                    var nilai = [0,0,0];
+                    var komentar = ['-','-','-'];
+                    for(var ni=0;ni<d.penilaian.length;ni++ ){
+                        if(d.penilaian[ni].penilaian_tahap_id == 1){
+                            nilai[0] += (d.penilaian[ni].nilai/5) *d.penilaian[ni].bobot;    
+                        }else if(d.penilaian[ni].penilaian_tahap_id == 2){
+                            nilai[1] += (d.penilaian[ni].nilai/5) *d.penilaian[ni].bobot;
+                        }else{
+                            nilai[2] += (d.penilaian[ni].nilai/5) *d.penilaian[ni].bobot;
+                        }
+                        
+                    }
+
+                    for (var i = d.komentar.length - 1; i >= 0; i--) {
+                        if(d.komentar[i].penilaian_tahap_id == 1){
+                            komentar[0] = d.komentar[i].komentar;    
+                        }else if(d.komentar[i].penilaian_tahap_id == 2){
+                            komentar[1] = d.komentar[i].komentar;
+                        }else{
+                            komentar[2] = d.komentar[i].komentar;
+                        }
+                    }
+                    var textnilai = '';
+                    var textkomentar = '';
+                    var tahap =['Proposal','Monev','Hasil'];
+                    for(var i=0; i<nilai.length;i++){
+                        textnilai += '<b>Tahap '+ tahap[i] + ':</b> '+nilai[i] + '<br>';
+                        textkomentar += '<b>Tahap '+tahap[i] + ':</b> '+komentar[i] + '<br>';
+                    }
+  
+                    $('#nilai').html(textnilai);
+                    $('#komentar').html(textkomentar);
+
+
+                    var total = 0;
+                    for(var i=0;i<d.rab.length;i++){
+                        total += d.rab[i].total;
+                    }
+                    var setuju =0;
+                    var bobot = 0;
+                    if(total <= d.skema_usulan.dana_maksimal){
+                        setuju = Math.round((nilai[0]/100)*total);
+                    }else{
+                        setuju = Math.round((nilai[0]/100)*d.skema_usulan.dana_maksimal);    
+                    }
+                    $('#anggaran-diusulkan').text(formatRupiah(''+total, 'Rp. '));
+                    $('#anggaran-disetujui').text(formatRupiah(''+setuju, 'Rp. ')+ ' (' + nilai[0] +'%)');
                     $('#modal-form').attr('action', '/admin/review/penilaian/' + id);
                     for (var i = 0; i < d.berkas.length; i++) {
                         if (d.berkas[i]['jenis_berkas_id'] == 1) {
@@ -489,7 +560,53 @@
                     $('#skema').html(d.skema_usulan.nama);
                     $('#tahun-usulan').html(d.skema_usulan.tahun_skema);
                     $('#tahun-pelaksanaan').html(d.skema_usulan.tahun_pelaksanaan);
-                    $('#modal-form').attr('action', '/reviewer/review/' + id);
+                    var nilai = [0,0,0];
+                    var komentar = ['-','-','-'];
+                    for(var ni=0;ni<d.penilaian.length;ni++ ){
+                        if(d.penilaian[ni].penilaian_tahap_id == 1){
+                            nilai[0] += (d.penilaian[ni].nilai/5) *d.penilaian[ni].bobot;    
+                        }else if(d.penilaian[ni].penilaian_tahap_id == 2){
+                            nilai[1] += (d.penilaian[ni].nilai/5) *d.penilaian[ni].bobot;
+                        }else{
+                            nilai[2] += (d.penilaian[ni].nilai/5) *d.penilaian[ni].bobot;
+                        }
+                        
+                    }
+
+                    for (var i = d.komentar.length - 1; i >= 0; i--) {
+                        if(d.komentar[i].penilaian_tahap_id == 1){
+                            komentar[0] = d.komentar[i].komentar;    
+                        }else if(d.komentar[i].penilaian_tahap_id == 2){
+                            komentar[1] = d.komentar[i].komentar;
+                        }else{
+                            komentar[2] = d.komentar[i].komentar;
+                        }
+                    }
+                    var textnilai = '';
+                    var textkomentar = '';
+                    var tahap =['Proposal','Monev','Hasil'];
+                    for(var i=0; i<nilai.length;i++){
+                        textnilai += '<b>Tahap '+ tahap[i] + ':</b> '+nilai[i] + '<br>';
+                        textkomentar += '<b>Tahap '+tahap[i] + ':</b> '+komentar[i] + '<br>';
+                    }
+  
+                    $('#nilai').html(textnilai);
+                    $('#komentar').html(textkomentar);
+
+
+                    var total = 0;
+                    for(var i=0;i<d.rab.length;i++){
+                        total += d.rab[i].total;
+                    }
+                    var setuju =0;
+                    if(total <= d.skema_usulan.dana_maksimal){
+                        setuju = Math.round((nilai[0]/100)*total);
+                    }else{
+                        setuju = Math.round((nilai[0]/100)*d.skema_usulan.dana_maksimal);    
+                    }
+                    $('#anggaran-diusulkan').text(formatRupiah(''+total, 'Rp. '));
+                    $('#anggaran-disetujui').text(formatRupiah(''+setuju, 'Rp. ')+ ' (' + nilai[0] +'%)');
+                    $('#modal-form').attr('action', '/admin/review/penilaian/' + id);
                     for (var i = 0; i < d.berkas.length; i++) {
                         if (d.berkas[i]['jenis_berkas_id'] == 1) {
                             $('#berkas-proposal').html('<a href="/' + d.berkas[i]['berkas'] + '">Berkas Proposal</a>')
