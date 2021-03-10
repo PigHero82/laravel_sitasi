@@ -57,6 +57,7 @@ class PenilaianController extends Controller
     {
         $request->validate([
             'nama'      => 'required',
+            'bobot'     => 'required|numeric',
             'jenis'     => 'required|numeric',
             'status'    => 'required|numeric'
         ]);
@@ -117,6 +118,7 @@ class PenilaianController extends Controller
     {
         $request->validate([
             'nama'      => 'required',
+            'bobot'     => 'required|numeric',
             'jenis'     => 'required|numeric',
             'status'    => 'required|numeric'
         ]);

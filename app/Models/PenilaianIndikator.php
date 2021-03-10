@@ -34,6 +34,7 @@ class PenilaianIndikator extends Model
         PenilaianIndikator::create([
             'penilaian_tahap_id'    => $request->penilaian_tahap_id,
             'nama'                  => $request->nama,
+            'bobot'                 => $request->bobot,
             'deskripsi'             => $request->deskripsi,
             'jenis'                 => $request->jenis,
             'status'                => $request->status
@@ -44,6 +45,7 @@ class PenilaianIndikator extends Model
     {
         PenilaianIndikator::whereId($id)->update([
             'nama'      => $request->nama,
+            'bobot'     => $request->bobot,
             'deskripsi' => $request->deskripsi,
             'jenis'     => $request->jenis,
             'status'    => $request->status

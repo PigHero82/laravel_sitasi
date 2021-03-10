@@ -133,6 +133,7 @@
                             <tr>
                                 <th>Nama</th>
                                 <th>Jenis</th>
+                                <th>Bobot</th>
                                 <th>Deskripsi</th>
                                 <th style="width: 5%">Status</th>
                             </tr>
@@ -148,6 +149,7 @@
                                             Pengabdian
                                         @endif
                                     </td>
+                                    <td class="text-center">{{ $item->bobot }}</td>
                                     <td>{{ $item->deskripsi }}</td>
                                     <td class="text-center">
                                         @if ($item->status == 1)
@@ -163,6 +165,7 @@
                             <tr>
                                 <th>Nama</th>
                                 <th>Jenis</th>
+                                <th>Bobot</th>
                                 <th>Deskripsi</th>
                                 <th>Status</th>
                             </tr>
@@ -199,6 +202,11 @@
                             <label for="indikatorName">Nama</label>
                             <input type="hidden" name="penilaian_tahap_id" value="{{ $penilaian->id }}" required>
                             <input type="text" class="form-control" name="nama" required>
+                        </fieldset>
+                            
+                        <fieldset class="form-group">
+                            <label for="indikatorWeights">Bobot</label>
+                            <input type="number" class="form-control" name="bobot" required>
                         </fieldset>
                         
                         <fieldset class="form-group">
@@ -273,6 +281,11 @@
                             <label for="indikatorName">Nama</label>
                             <input type="text" class="form-control" name="nama" id="indikatorName" required>
                         </fieldset>
+                            
+                        <fieldset class="form-group">
+                            <label for="indikatorWeights">Bobot</label>
+                            <input type="number" class="form-control" name="bobot" id="indikatorWeights" required>
+                        </fieldset>
                         
                         <fieldset class="form-group">
                             <label for="indikatorDescription">Deskripsi</label>
@@ -340,6 +353,7 @@
                     $('#indikatorTitle').text(d.nama + ' - Indikator Penilaian')
                     $('#indikatorForm').attr('action', '{{ url("/admin/master/indikator") }}/' + d.id)
                     $('#indikatorName').val(d.nama)
+                    $('#indikatorWeights').val(d.bobot)
                     $('#indikatorDescription').val(d.deskripsi)
                     $('#indikatorType').val(d.jenis)
                     $('#indikatorStatus-' + d.status).attr('checked', true)
