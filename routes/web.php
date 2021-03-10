@@ -75,7 +75,8 @@ Route::namespace('Admin')->name('admin.')->prefix('admin')->middleware('auth', '
         Route::resource('skema', 'SkemaController');
         Route::resource('user', 'UserController');
     });
-    
+    Route::resource('pengumuman', 'PengumumanController');
+    Route::view('pimpinan', 'master.pimpinan')->name('pimpinan');
     Route::name('review.')->prefix('review')->group(function() {
         Route::get('pembagian-reviewer', 'ReviewController@pembagian')->name('pembagian-reviewer');
         Route::patch('store/{id}', 'ReviewController@storeReviewer')->name('store');
@@ -86,7 +87,6 @@ Route::namespace('Admin')->name('admin.')->prefix('admin')->middleware('auth', '
             Route::patch('{id}', 'PenilaianController@update')->name('update');
         });
     });
-    Route::view('pimpinan', 'master.pimpinan')->name('pimpinan');
     Route::name('skema.')->prefix('skema')->group(function() {
         Route::patch('{id}', 'SkemaUsulanController@update')->name('update');
         Route::resource('', 'SkemaUsulanController')->except(['show', 'update']);

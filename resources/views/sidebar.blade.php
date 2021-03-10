@@ -26,7 +26,7 @@
             </li>
             <li class="{{ (request()->is('admin/skema')) ? 'active' : '' }} nav-item"><a href="{{ route('admin.skema.index') }}" title="Skema Usulan"><i class="feather icon-paperclip"></i><span class="menu-title">Skema Usulan</span></a></li>
             <li class="{{ (request()->is('admin/pimpinan*')) ? 'active' : '' }} nav-item"><a href="{{ route('admin.pimpinan') }}" title="Pimpinan & Koordinator"><i class="feather icon-user"></i><span class="menu-item">Pimpinan & Koordinator</span></a></li>
-            <li class="{{ (request()->is('admin/pengumuman*')) ? 'active' : '' }} nav-item"><a href="#" title="Pengumuman"><i class="feather icon-user"></i><span class="menu-item">Pengumuman</span></a></li>
+            <li class="{{ (request()->is('admin/pengumuman*')) ? 'active' : '' }} nav-item"><a href="{{ route('admin.pengumuman.index') }}" title="Pengumuman"><i class="feather icon-info"></i><span class="menu-item">Pengumuman</span></a></li>
             {{-- <li class="{{ (request()->is('admin/*')) ? 'active' : '' }} nav-item"><a href="#" title=""><i class="feather icon-user"></i><span class="menu-item"></span></a></li>
             <li class="{{ (request()->is('admin/*')) ? 'active' : '' }} nav-item"><a href="#" title=""><i class="feather icon-user"></i><span class="menu-item"></span></a></li>
             <li class="{{ (request()->is('admin/*')) ? 'active' : '' }} nav-item"><a href="#" title=""><i class="feather icon-user"></i><span class="menu-item"></span></a></li>
