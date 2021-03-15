@@ -353,11 +353,14 @@
             });
             $('#modal-button-tambah').on('click',function(e){
                 e.preventDefault(e);
+
                 var ap = '<tr id="'+ (indTable+1) +'">';
                 ap += genHTML((indTable));
                 ap += '</tr>';
                 $('#table-body').append(ap);
                 $('#modal-RAB').modal('hide'); 
+                indTable++;
+
             });
 
             $('#modal-button-ubah').on('click',function(e){

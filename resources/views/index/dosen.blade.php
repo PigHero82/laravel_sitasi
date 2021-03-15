@@ -726,7 +726,11 @@
                     if (d.rab.length > 0) {
                         $('#revisi-rab-pengajuan').html('<a href="/dosen/usulan/rab/' + d.id + '" target="_blank">Lihat RAB</a>')
                         $('#revisi-rab-2-pengajuan').html('<a class="btn btn-warning" href="/dosen/usulan/rab/' + d.id + '#ubah"><i class="feather icon-edit-2"></i> Ubah RAB</a>')
-                    } else {
+                    } else if(d.nilai > 0){
+                        $('#revisi-rab-pengajuan').html('<a href="/dosen/usulan/rab/' + d.id + '" target="_blank">Lihat RAB</a>')
+                        $('#revisi-rab-2-pengajuan').html('<a class="btn btn-warning" href="/dosen/usulan/rab/' + d.id + '#ubah"><i class="feather icon-edit-2"></i> Ubah RAB</a>')
+                    }
+                    else{
                         $('#revisi-rab-pengajuan').text('-')
                         $('#revisi-rab-2-pengajuan').text('-')
                     }

@@ -70,9 +70,10 @@
                                             {{-- <th>Progress</th> --}}
                                             <th rowspan="2">Judul</th>
                                             <th rowspan="2">Ketua Pelaksana</th>
+                                            <th rowspan="2">Anggota</th>
                                             <th rowspan="2">Skema Usulan</th>
                                             <th class="text-center" rowspan="1" colspan="3">Nilai</th>
-                                            <th rowspan="2">Anggaran yang Diusulkan</th>
+                                            
                                             <th rowspan="2">Anggaran yang Disetujui</th>
                                             <th rowspan="2">Tahun Pelaksanaan</th>
                                             <th rowspan="2">Status Review</th>
@@ -122,6 +123,11 @@
                                                 </td> --}}
                                                 <td><a href="#modal" data-toggle="modal" data-value="{{ $item->id }}">{{ $item->judul }}</a></td>
                                                 <td>{{ $item->ketua }}</td>
+<td>@forelse($item->anggota as $anggota)
+<b>Anggota {{ $loop->index+1 }}: </b>{{ $anggota->dosen_nama }}
+@empty
+-
+@endforelse</td>
                                                 <td>{{ $item->skema_usulan->tahun_skema . ' - ' . $item->skema_usulan->kode }}</td>
 
                                                 @if($nilai[0] == 0)
@@ -140,8 +146,13 @@
                                                     <td>{{ $nilai[2] }}/100</td>
                                                 @endif
 
-                                                <td>{{ number_format($total, 0, '.', ',') }}</td>
+                                              
+                                                @if($total <= $item->skema_usulan->dana_maksimal)
                                                 <td>{{ number_format((($nilai[0]/100) * $total), 0, '.', ',')}}</td>
+                                                @else
+                                                <td>{{ number_format((($nilai[0]/100) * $item->skema_usulan->dana_maksimal), 0, '.', ',')}}</td>
+                                                @endif
+                                                
 
                                                 <td>{{ $item->skema_usulan->tahun_pelaksanaan }}</td>
                                                 <td>
@@ -161,9 +172,10 @@
                                             {{-- <th>Progress</th> --}}
                                             <th rowspan="2">Judul</th>
                                             <th rowspan="2">Ketua Pelaksana</th>
+                                            <th rowspan="2">Anggota</th>
                                             <th rowspan="2">Skema Usulan</th>
                                             <th class="text-center" rowspan="1" colspan="3">Nilai</th>
-                                            <th rowspan="2">Anggaran yang Diusulkan</th>
+                                      
                                             <th rowspan="2">Anggaran yang Disetujui</th>
                                             <th rowspan="2">Tahun Pelaksanaan</th>
                                             <th rowspan="2">Status Review</th>
@@ -237,9 +249,10 @@
                                             {{-- <th>Progress</th> --}}
                                             <th rowspan="2">Judul</th>
                                             <th rowspan="2">Ketua Pelaksana</th>
+                                            <th rowspan="2">Anggota</th>
                                             <th rowspan="2">Skema Usulan</th>
                                             <th class="text-center" rowspan="1" colspan="3">Nilai</th>
-                                            <th rowspan="2">Anggaran yang Diusulkan</th>
+                                        
                                             <th rowspan="2">Anggaran yang Disetujui</th>
                                             <th rowspan="2">Tahun Pelaksanaan</th>
                                             <th rowspan="2">Status Review</th>
@@ -289,6 +302,11 @@
                                                 </td> --}}
                                                 <td><a href="#modal" data-toggle="modal" data-value="{{ $item->id }}">{{ $item->judul }}</a></td>
                                                 <td>{{ $item->ketua }}</td>
+<td>@forelse($item->anggota as $anggota)
+<b>Anggota {{ $loop->index+1 }}: </b>{{ $anggota->dosen_nama }}
+@empty
+-
+@endforelse</td>
                                                 <td>{{ $item->skema_usulan->tahun_skema . ' - ' . $item->skema_usulan->kode }}</td>
 
                                                 @if($nilai[0] == 0)
@@ -306,8 +324,12 @@
                                                 @else
                                                     <td>{{ $nilai[2] }}/100</td>
                                                 @endif
-                                                <td>{{ number_format($total, 0, '.', ',') }}</td>
+                                            
+                                                @if($total <= $item->skema_usulan->dana_maksimal)
                                                 <td>{{ number_format((($nilai[0]/100) * $total), 0, '.', ',')}}</td>
+                                                @else
+                                                <td>{{ number_format((($nilai[0]/100) * $item->skema_usulan->dana_maksimal), 0, '.', ',')}}</td>
+                                                @endif
                                                 <td>{{ $item->skema_usulan->tahun_pelaksanaan }}</td>
                                                 <td>
                                                     @if ($item->nilai == 0)
@@ -326,9 +348,10 @@
                                             {{-- <th>Progress</th> --}}
                                             <th rowspan="2">Judul</th>
                                             <th rowspan="2">Ketua Pelaksana</th>
+                                            <th rowspan="2">Anggota</th>
                                             <th rowspan="2">Skema Usulan</th>
                                             <th class="text-center" rowspan="1" colspan="3">Nilai</th>
-                                            <th rowspan="2">Anggaran yang Diusulkan</th>
+                                            <th rowspan="2">Anggaran yang Disetujui</th>
                                             <th rowspan="2">Tahun Pelaksanaan</th>
                                             <th rowspan="2">Status Review</th>
                                         </tr>
@@ -456,170 +479,174 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.html5.min.js"></script>
     <script src="{{ asset('app-assets/vendors/js/tables/datatable/datatables.bootstrap4.min.js') }}"></script>
-    <script>
-        $(document).ready( function () {
-            $('#table-penelitian').DataTable({
-            responsive: true,
-            dom: '<"top row" <"col-md-4"l><"col-md-4 text-center"p><"col-md-4 text-md-right"fB>>rt<"bottom row"<"col-md-4"l><"col-md-4"p>><"clear">',
-            buttons: {
-                buttons: [
-                    { extend: 'excel', className: 'excelButton btn btn-success btn-sm' }
-                ]
-            }
+<script>
+    $(document).ready( function () {
+        $('.anggota').each(function(){
+            var txt = $.trim($(this).text());
+            $(this).text(txt.replace(/  +/g,' '));
         });
-            $('#table-pengabdian').DataTable({
-            responsive: true,
-            dom: '<"top row" <"col-md-4"l><"col-md-4 text-center"p><"col-md-4 text-md-right"fB>>rt<"bottom row"<"col-md-4"l><"col-md-4"p>><"clear">',
-            buttons: {
-                buttons: [
-                    { extend: 'excel', className: 'excelButton btn btn-success btn-sm' }
-                ]
-            }
-        });
-            $(document).on('click', '#table-penelitian tbody tr td a', function(e) {
-                var id = $(this).attr('data-value');
-                $.get( "/usulan/" + id, function( data ) {
-                    var d = JSON.parse(data);
-                    console.log(d);
-                    $('#label').text('Detail Penelitian');
-                    $('#jenis').text('Penelitian');
-                    $('#judul').html(d.judul);
-                    $('#skema').html(d.skema_usulan.nama);
-                    $('#tahun-usulan').html(d.skema_usulan.tahun_skema);
-                    $('#tahun-pelaksanaan').html(d.skema_usulan.tahun_pelaksanaan);
-                    var nilai = [0,0,0];
-                    var komentar = ['-','-','-'];
-                    for(var ni=0;ni<d.penilaian.length;ni++ ){
-                        if(d.penilaian[ni].penilaian_tahap_id == 1){
-                            nilai[0] += (d.penilaian[ni].nilai/5) *d.penilaian[ni].bobot;    
-                        }else if(d.penilaian[ni].penilaian_tahap_id == 2){
-                            nilai[1] += (d.penilaian[ni].nilai/5) *d.penilaian[ni].bobot;
-                        }else{
-                            nilai[2] += (d.penilaian[ni].nilai/5) *d.penilaian[ni].bobot;
-                        }
-                        
-                    }
-
-                    for (var i = d.komentar.length - 1; i >= 0; i--) {
-                        if(d.komentar[i].penilaian_tahap_id == 1){
-                            komentar[0] = d.komentar[i].komentar;    
-                        }else if(d.komentar[i].penilaian_tahap_id == 2){
-                            komentar[1] = d.komentar[i].komentar;
-                        }else{
-                            komentar[2] = d.komentar[i].komentar;
-                        }
-                    }
-                    var textnilai = '';
-                    var textkomentar = '';
-                    var tahap =['Proposal','Monev','Hasil'];
-                    for(var i=0; i<nilai.length;i++){
-                        textnilai += '<b>Tahap '+ tahap[i] + ':</b> '+nilai[i] + '<br>';
-                        textkomentar += '<b>Tahap '+tahap[i] + ':</b> '+komentar[i] + '<br>';
-                    }
-  
-                    $('#nilai').html(textnilai);
-                    $('#komentar').html(textkomentar);
-
-
-                    var total = 0;
-                    for(var i=0;i<d.rab.length;i++){
-                        total += d.rab[i].total;
-                    }
-                    var setuju =0;
-                    var bobot = 0;
-                    if(total <= d.skema_usulan.dana_maksimal){
-                        setuju = Math.round((nilai[0]/100)*total);
+        $('#table-penelitian').DataTable({
+        responsive: true,
+        dom: '<"top row" <"col-md-4"l><"col-md-4 text-center"p><"col-md-4 text-md-right"fB>>rt<"bottom row"<"col-md-4"l><"col-md-4"p>><"clear">',
+        buttons: {
+            buttons: [
+                { extend: 'excel', className: 'excelButton btn btn-success btn-sm' }
+            ]
+        }
+    });
+        $('#table-pengabdian').DataTable({
+        responsive: true,
+        dom: '<"top row" <"col-md-4"l><"col-md-4 text-center"p><"col-md-4 text-md-right"fB>>rt<"bottom row"<"col-md-4"l><"col-md-4"p>><"clear">',
+        buttons: {
+            buttons: [
+                { extend: 'excel', className: 'excelButton btn btn-success btn-sm' }
+            ]
+        }
+    });
+        $(document).on('click', '#table-penelitian tbody tr td a', function(e) {
+            var id = $(this).attr('data-value');
+            $.get( "/usulan/" + id, function( data ) {
+                var d = JSON.parse(data);
+                console.log(d);
+                $('#label').text('Detail Penelitian');
+                $('#jenis').text('Penelitian');
+                $('#judul').html(d.judul);
+                $('#skema').html(d.skema_usulan.nama);
+                $('#tahun-usulan').html(d.skema_usulan.tahun_skema);
+                $('#tahun-pelaksanaan').html(d.skema_usulan.tahun_pelaksanaan);
+                var nilai = [0,0,0];
+                var komentar = ['-','-','-'];
+                for(var ni=0;ni<d.penilaian.length;ni++ ){
+                    if(d.penilaian[ni].penilaian_tahap_id == 1){
+                        nilai[0] += (d.penilaian[ni].nilai/5) *d.penilaian[ni].bobot;    
+                    }else if(d.penilaian[ni].penilaian_tahap_id == 2){
+                        nilai[1] += (d.penilaian[ni].nilai/5) *d.penilaian[ni].bobot;
                     }else{
-                        setuju = Math.round((nilai[0]/100)*d.skema_usulan.dana_maksimal);    
+                        nilai[2] += (d.penilaian[ni].nilai/5) *d.penilaian[ni].bobot;
                     }
-                    $('#anggaran-diusulkan').text(formatRupiah(''+total, 'Rp. '));
-                    $('#anggaran-disetujui').text(formatRupiah(''+setuju, 'Rp. ')+ ' (' + nilai[0] +'%)');
-                    $('#modal-form').attr('action', '/admin/review/penilaian/' + id);
-                    for (var i = 0; i < d.berkas.length; i++) {
-                        if (d.berkas[i]['jenis_berkas_id'] == 1) {
-                            $('#berkas-proposal').html('<a href="/' + d.berkas[i]['berkas'] + '">Berkas Proposal</a>')
-                        } else if (d.berkas[i]['jenis_berkas_id'] == 2) {
-                            $('#berkas-laporan-kemajuan').html('<a href="/' + d.berkas[i]['berkas'] + '">Berkas Laporan Kemajuan</a>')
-                        } else if (d.berkas[i]['jenis_berkas_id'] == 3) {
-                            $('#berkas-laporan-akhir').html('<a href="/' + d.berkas[i]['berkas'] + '">Berkas Laporan Akhir</a>')
-                        } else if (d.berkas[i]['jenis_berkas_id'] == 4) {
-                            $('#berkas-laporan-anggaran').html('<a href="/' + d.berkas[i]['berkas'] + '">Berkas Laporan Anggaran</a>')
-                        }
-                    }
-                });
-            });
+                    
+                }
 
-            $(document).on('click', '#table-pengabdian tbody tr td a', function(e) {
-                var id = $(this).attr('data-value');
-                $.get( "/usulan/" + id, function( data ) {
-                    console.log(JSON.parse(data));
-                    var d = JSON.parse(data);
-                    $('#label').text('Detail Pengabdian');
-                    $('#jenis').text('Pengabdian');
-                    $('#judul').html(d.judul);
-                    $('#skema').html(d.skema_usulan.nama);
-                    $('#tahun-usulan').html(d.skema_usulan.tahun_skema);
-                    $('#tahun-pelaksanaan').html(d.skema_usulan.tahun_pelaksanaan);
-                    var nilai = [0,0,0];
-                    var komentar = ['-','-','-'];
-                    for(var ni=0;ni<d.penilaian.length;ni++ ){
-                        if(d.penilaian[ni].penilaian_tahap_id == 1){
-                            nilai[0] += (d.penilaian[ni].nilai/5) *d.penilaian[ni].bobot;    
-                        }else if(d.penilaian[ni].penilaian_tahap_id == 2){
-                            nilai[1] += (d.penilaian[ni].nilai/5) *d.penilaian[ni].bobot;
-                        }else{
-                            nilai[2] += (d.penilaian[ni].nilai/5) *d.penilaian[ni].bobot;
-                        }
-                        
-                    }
-
-                    for (var i = d.komentar.length - 1; i >= 0; i--) {
-                        if(d.komentar[i].penilaian_tahap_id == 1){
-                            komentar[0] = d.komentar[i].komentar;    
-                        }else if(d.komentar[i].penilaian_tahap_id == 2){
-                            komentar[1] = d.komentar[i].komentar;
-                        }else{
-                            komentar[2] = d.komentar[i].komentar;
-                        }
-                    }
-                    var textnilai = '';
-                    var textkomentar = '';
-                    var tahap =['Proposal','Monev','Hasil'];
-                    for(var i=0; i<nilai.length;i++){
-                        textnilai += '<b>Tahap '+ tahap[i] + ':</b> '+nilai[i] + '<br>';
-                        textkomentar += '<b>Tahap '+tahap[i] + ':</b> '+komentar[i] + '<br>';
-                    }
-  
-                    $('#nilai').html(textnilai);
-                    $('#komentar').html(textkomentar);
-
-
-                    var total = 0;
-                    for(var i=0;i<d.rab.length;i++){
-                        total += d.rab[i].total;
-                    }
-                    var setuju =0;
-                    if(total <= d.skema_usulan.dana_maksimal){
-                        setuju = Math.round((nilai[0]/100)*total);
+                for (var i = d.komentar.length - 1; i >= 0; i--) {
+                    if(d.komentar[i].penilaian_tahap_id == 1){
+                        komentar[0] = d.komentar[i].komentar;    
+                    }else if(d.komentar[i].penilaian_tahap_id == 2){
+                        komentar[1] = d.komentar[i].komentar;
                     }else{
-                        setuju = Math.round((nilai[0]/100)*d.skema_usulan.dana_maksimal);    
+                        komentar[2] = d.komentar[i].komentar;
                     }
-                    $('#anggaran-diusulkan').text(formatRupiah(''+total, 'Rp. '));
-                    $('#anggaran-disetujui').text(formatRupiah(''+setuju, 'Rp. ')+ ' (' + nilai[0] +'%)');
-                    $('#modal-form').attr('action', '/admin/review/penilaian/' + id);
-                    for (var i = 0; i < d.berkas.length; i++) {
-                        if (d.berkas[i]['jenis_berkas_id'] == 1) {
-                            $('#berkas-proposal').html('<a href="/' + d.berkas[i]['berkas'] + '">Berkas Proposal</a>')
-                        } else if (d.berkas[i]['jenis_berkas_id'] == 2) {
-                            $('#berkas-laporan-kemajuan').html('<a href="/' + d.berkas[i]['berkas'] + '">Berkas Laporan Kemajuan</a>')
-                        } else if (d.berkas[i]['jenis_berkas_id'] == 3) {
-                            $('#berkas-laporan-akhir').html('<a href="/' + d.berkas[i]['berkas'] + '">Berkas Laporan Akhir</a>')
-                        } else if (d.berkas[i]['jenis_berkas_id'] == 4) {
-                            $('#berkas-laporan-anggaran').html('<a href="/' + d.berkas[i]['berkas'] + '">Berkas Laporan Anggaran</a>')
-                        }
+                }
+                var textnilai = '';
+                var textkomentar = '';
+                var tahap =['Proposal','Monev','Hasil'];
+                for(var i=0; i<nilai.length;i++){
+                    textnilai += '<b>Tahap '+ tahap[i] + ':</b> '+nilai[i] + '<br>';
+                    textkomentar += '<b>Tahap '+tahap[i] + ':</b> '+komentar[i] + '<br>';
+                }
+
+                $('#nilai').html(textnilai);
+                $('#komentar').html(textkomentar);
+
+
+                var total = 0;
+                for(var i=0;i<d.rab.length;i++){
+                    total += d.rab[i].total;
+                }
+                var setuju =0;
+                var bobot = 0;
+                if(total <= d.skema_usulan.dana_maksimal){
+                    setuju = Math.round((nilai[0]/100)*total);
+                }else{
+                    setuju = Math.round((nilai[0]/100)*d.skema_usulan.dana_maksimal);    
+                }
+                $('#anggaran-diusulkan').text(formatRupiah(''+total, 'Rp. '));
+                $('#anggaran-disetujui').text(formatRupiah(''+setuju, 'Rp. ')+ ' (' + nilai[0] +'%)');
+                $('#modal-form').attr('action', '/admin/review/penilaian/' + id);
+                for (var i = 0; i < d.berkas.length; i++) {
+                    if (d.berkas[i]['jenis_berkas_id'] == 1) {
+                        $('#berkas-proposal').html('<a href="/' + d.berkas[i]['berkas'] + '">Berkas Proposal</a>')
+                    } else if (d.berkas[i]['jenis_berkas_id'] == 2) {
+                        $('#berkas-laporan-kemajuan').html('<a href="/' + d.berkas[i]['berkas'] + '">Berkas Laporan Kemajuan</a>')
+                    } else if (d.berkas[i]['jenis_berkas_id'] == 3) {
+                        $('#berkas-laporan-akhir').html('<a href="/' + d.berkas[i]['berkas'] + '">Berkas Laporan Akhir</a>')
+                    } else if (d.berkas[i]['jenis_berkas_id'] == 4) {
+                        $('#berkas-laporan-anggaran').html('<a href="/' + d.berkas[i]['berkas'] + '">Berkas Laporan Anggaran</a>')
                     }
-                });
+                }
             });
         });
-    </script>
+
+        $(document).on('click', '#table-pengabdian tbody tr td a', function(e) {
+            var id = $(this).attr('data-value');
+            $.get( "/usulan/" + id, function( data ) {
+                console.log(JSON.parse(data));
+                var d = JSON.parse(data);
+                $('#label').text('Detail Pengabdian');
+                $('#jenis').text('Pengabdian');
+                $('#judul').html(d.judul);
+                $('#skema').html(d.skema_usulan.nama);
+                $('#tahun-usulan').html(d.skema_usulan.tahun_skema);
+                $('#tahun-pelaksanaan').html(d.skema_usulan.tahun_pelaksanaan);
+                var nilai = [0,0,0];
+                var komentar = ['-','-','-'];
+                for(var ni=0;ni<d.penilaian.length;ni++ ){
+                    if(d.penilaian[ni].penilaian_tahap_id == 1){
+                        nilai[0] += (d.penilaian[ni].nilai/5) *d.penilaian[ni].bobot;    
+                    }else if(d.penilaian[ni].penilaian_tahap_id == 2){
+                        nilai[1] += (d.penilaian[ni].nilai/5) *d.penilaian[ni].bobot;
+                    }else{
+                        nilai[2] += (d.penilaian[ni].nilai/5) *d.penilaian[ni].bobot;
+                    }
+                    
+                }
+
+                for (var i = d.komentar.length - 1; i >= 0; i--) {
+                    if(d.komentar[i].penilaian_tahap_id == 1){
+                        komentar[0] = d.komentar[i].komentar;    
+                    }else if(d.komentar[i].penilaian_tahap_id == 2){
+                        komentar[1] = d.komentar[i].komentar;
+                    }else{
+                        komentar[2] = d.komentar[i].komentar;
+                    }
+                }
+                var textnilai = '';
+                var textkomentar = '';
+                var tahap =['Proposal','Monev','Hasil'];
+                for(var i=0; i<nilai.length;i++){
+                    textnilai += '<b>Tahap '+ tahap[i] + ':</b> '+nilai[i] + '<br>';
+                    textkomentar += '<b>Tahap '+tahap[i] + ':</b> '+komentar[i] + '<br>';
+                }
+
+                $('#nilai').html(textnilai);
+                $('#komentar').html(textkomentar);
+
+
+                var total = 0;
+                for(var i=0;i<d.rab.length;i++){
+                    total += d.rab[i].total;
+                }
+                var setuju =0;
+                if(total <= d.skema_usulan.dana_maksimal){
+                    setuju = Math.round((nilai[0]/100)*total);
+                }else{
+                    setuju = Math.round((nilai[0]/100)*d.skema_usulan.dana_maksimal);    
+                }
+                $('#anggaran-diusulkan').text(formatRupiah(''+total, 'Rp. '));
+                $('#anggaran-disetujui').text(formatRupiah(''+setuju, 'Rp. ')+ ' (' + nilai[0] +'%)');
+                $('#modal-form').attr('action', '/admin/review/penilaian/' + id);
+                for (var i = 0; i < d.berkas.length; i++) {
+                    if (d.berkas[i]['jenis_berkas_id'] == 1) {
+                        $('#berkas-proposal').html('<a href="/' + d.berkas[i]['berkas'] + '">Berkas Proposal</a>')
+                    } else if (d.berkas[i]['jenis_berkas_id'] == 2) {
+                        $('#berkas-laporan-kemajuan').html('<a href="/' + d.berkas[i]['berkas'] + '">Berkas Laporan Kemajuan</a>')
+                    } else if (d.berkas[i]['jenis_berkas_id'] == 3) {
+                        $('#berkas-laporan-akhir').html('<a href="/' + d.berkas[i]['berkas'] + '">Berkas Laporan Akhir</a>')
+                    } else if (d.berkas[i]['jenis_berkas_id'] == 4) {
+                        $('#berkas-laporan-anggaran').html('<a href="/' + d.berkas[i]['berkas'] + '">Berkas Laporan Anggaran</a>')
+                    }
+                }
+            });
+        });
+    });
+</script>
 @endsection
