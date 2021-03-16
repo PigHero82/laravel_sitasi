@@ -297,7 +297,7 @@
                     $('#pengumumanType-' + d.jenis).attr('checked', true)
                     $('#pengumumanJudul').val(d.judul)
                     $('#pengumumanKeywords').val(d.katakunci)
-                    $('#pengumumanDescription').val(d.content)
+                    tinymce.get("pengumumanDescription").setContent(d.content)
                     $('#pengumumanPhotos').empty()
 
                     if (d.foto.length > 0) {
