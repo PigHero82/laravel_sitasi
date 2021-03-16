@@ -114,7 +114,7 @@
 
     <!-- modal -->
     <div class="modal fade text-left" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">Tambah Pengumuman</h4>
@@ -122,7 +122,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="{{ route('admin.pengumuman.store') }}" method="POST">
+                <form action="{{ route('admin.pengumuman.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
 
@@ -155,20 +155,28 @@
                                 </li>
                             </ul>
                         </fieldset>
-                            
+
                         <fieldset class="form-label-group">
                             <input type="text" class="form-control" name="judul" placeholder="Judul" required>
                             <label>Judul</label>
                         </fieldset>
-                            
+
                         <fieldset class="form-label-group">
                             <input type="text" class="form-control" name="katakunci" placeholder="Kata Kunci (pisahkan dengan tanda ;)" required>
                             <label>Kata Kunci (pisahkan dengan tanda ;)</label>
                         </fieldset>
-                        
+
                         <fieldset class="form-label-group">
                             <textarea class="form-control" name="content" rows="3" placeholder="Deskripsi" required></textarea>
                             <label>Deskripsi</label>
+                        </fieldset>
+
+                        <fieldset class="form-group">
+                            <label for="basicInputFile">Gambar (ukuran maks. 500 KB)</label>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" name="foto[]" accept="image/*" multiple>
+                                <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                            </div>
                         </fieldset>
 
                     </div>
@@ -182,7 +190,7 @@
 
     <!-- pengumumanModal -->
     <div class="modal fade text-left" id="pengumumanModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title" id="pengumumanTitle">Ubah Pengumuman</h4>
@@ -190,7 +198,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="#" method="POST" id="pengumumanForm">
+                <form action="#" method="POST" id="pengumumanForm" enctype="multipart/form-data">
                     @csrf
                     @method('PATCH')
                     <div class="modal-body">
@@ -224,22 +232,31 @@
                                 </li>
                             </ul>
                         </fieldset>
-                            
+
                         <fieldset class="form-label-group">
                             <input type="text" class="form-control" id="pengumumanJudul" name="judul" placeholder="Judul" required>
                             <label for="pengumumanJudul">Judul</label>
                         </fieldset>
-                            
+
                         <fieldset class="form-label-group">
                             <input type="text" class="form-control" id="pengumumanKeywords" name="katakunci" placeholder="Kata Kunci (pisahkan dengan tanda ;)" required>
                             <label for="pengumumanKeywords">Kata Kunci (pisahkan dengan tanda ;)</label>
                         </fieldset>
-                        
+
                         <fieldset class="form-label-group">
                             <textarea class="form-control" id="pengumumanDescription" name="content" rows="3" placeholder="Deskripsi" required></textarea>
                             <label for="pengumumanDescription">Deskripsi</label>
                         </fieldset>
 
+                        <fieldset class="form-group">
+                            <label for="basicInputFile">Gambar (ukuran maks. 500 KB)</label>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" name="foto[]" accept="image/*" multiple>
+                                <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                            </div>
+                        </fieldset>
+
+                        <div id="pengumumanPhotos"></div>
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">Ubah</button>
@@ -253,9 +270,16 @@
 @section('js')
     <script src="{{ asset('app-assets/vendors/js/tables/datatable/datatables.min.js') }}"></script>
     <script src="{{ asset('app-assets/vendors/js/tables/datatable/datatables.bootstrap4.min.js') }}"></script>
+    <script src="https://cdn.tiny.cloud/1/olfhj3rf0nv614r4qvs2ucba6fhe2x0lnpupaok0wjecbn91/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 
     <script>
         $(document).ready(function() {
+            tinymce.init({
+                selector: 'textarea',
+                plugins: 'advlist autolink lists link charmap print preview hr anchor pagebreak',
+                toolbar_mode: 'floating',
+            })
+
             $('#pengumumanTable').DataTable({
                 "columnDefs": [
                     { "orderable": false, "targets": 3 }
@@ -274,6 +298,28 @@
                     $('#pengumumanJudul').val(d.judul)
                     $('#pengumumanKeywords').val(d.katakunci)
                     $('#pengumumanDescription').val(d.content)
+                    $('#pengumumanPhotos').empty()
+
+                    if (d.foto.length > 0) {
+                        $('#pengumumanPhotos').append('<hr>')
+                        $('#pengumumanPhotos').append('<div class="row" id="pengumumanPhoto"></div>')
+
+                        for (const i in d.foto) {
+                            if (d.foto.length >= 3) {
+                                if (i == 0) {
+                                    $('#pengumumanPhoto').append('<div class="col-md-4 text-center"><img class="img-fluid" src="/' + d.foto[i].foto + '" alt="' + d.foto[i].deskripsi + '"><form action="/admin/pengumuman/foto/' + d.foto[i].id + '" method="post" onsubmit="return confirm(`Apakah Anda yakin ingin menghapus?`);">@csrf @method('DELETE')<button type="submit" style="padding: 0; border: none; background: none;" class="action-edit text-danger mt-1" title="Hapus"><i class="feather icon-trash"></i></button></form></div>')
+                                } else {
+                                    $('#pengumumanPhoto').append('<div class="col-md-4 mt-1 mt-md-0 text-center"><img class="img-fluid" src="/' + d.foto[i].foto + '" alt="' + d.foto[i].deskripsi + '"><form action="/admin/pengumuman/foto/' + d.foto[i].id + '" method="post" onsubmit="return confirm(`Apakah Anda yakin ingin menghapus?`);">@csrf @method('DELETE')<button type="submit" style="padding: 0; border: none; background: none;" class="action-edit text-danger mt-1" title="Hapus"><i class="feather icon-trash"></i></button></form></div>')
+                                }
+                            } else {
+                                if (i == 0) {
+                                    $('#pengumumanPhoto').append('<div class="col-md text-center"><img class="img-fluid" src="/' + d.foto[i].foto + '" alt="' + d.foto[i].deskripsi + '"><form action="/admin/pengumuman/foto/' + d.foto[i].id + '" method="post" onsubmit="return confirm(`Apakah Anda yakin ingin menghapus?`);">@csrf @method('DELETE')<button type="submit" style="padding: 0; border: none; background: none;" class="action-edit text-danger mt-1" title="Hapus"><i class="feather icon-trash"></i></button></form></div>')
+                                } else {
+                                    $('#pengumumanPhoto').append('<div class="col-md mt-1 mt-md-0 text-center"><img class="img-fluid" src="/' + d.foto[i].foto + '" alt="' + d.foto[i].deskripsi + '"><form action="/admin/pengumuman/foto/' + d.foto[i].id + '" method="post" onsubmit="return confirm(`Apakah Anda yakin ingin menghapus?`);">@csrf @method('DELETE')<button type="submit" style="padding: 0; border: none; background: none;" class="action-edit text-danger mt-1" title="Hapus"><i class="feather icon-trash"></i></button></form></div>')
+                                }
+                            }
+                        }
+                    }
                 })
             })
         });

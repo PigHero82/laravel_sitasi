@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Pengumuman;
+use App\Models\PengumumanFoto;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Carbon\Carbon;
 
 class PengumumanController extends Controller
 {
@@ -41,7 +44,8 @@ class PengumumanController extends Controller
             'jenis'     => 'required|numeric',
             'judul'     => 'required',
             'katakunci' => 'required',
-            'content'   => 'required'
+            'content'   => 'required',
+            'foto.*'    => 'required|image|max:1024'
         ]);
 
         Pengumuman::storePengumuman($request);
@@ -56,7 +60,7 @@ class PengumumanController extends Controller
      */
     public function show(Pengumuman $pengumuman)
     {
-        return json_encode($pengumuman);
+        return json_encode(Pengumuman::firstPengumuman($pengumuman->id));
     }
 
     /**
@@ -83,7 +87,8 @@ class PengumumanController extends Controller
             'jenis'     => 'required|numeric',
             'judul'     => 'required',
             'katakunci' => 'required',
-            'content'   => 'required'
+            'content'   => 'required',
+            'foto.*'    => 'required|image|max:1024'
         ]);
 
         Pengumuman::updatePengumuman($request, $pengumuman->id);
@@ -100,5 +105,11 @@ class PengumumanController extends Controller
     {
         Pengumuman::destroyPengumuman($pengumuman->id);
         return back()->with('success', 'Pengumuman berhasil dihapus');
+    }
+
+    public function destroyPhoto(PengumumanFoto $photo)
+    {
+        PengumumanFoto::destroyPhoto($photo);
+        return back()->with('success', 'Foto berhasil dihapus');
     }
 }

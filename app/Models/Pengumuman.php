@@ -17,6 +17,14 @@ class Pengumuman extends Model
         Pengumuman::whereId($id)->delete();
     }
 
+    static function firstPengumuman($id)
+    {
+        $pengumuman = Pengumuman::whereId($id)->first();
+        $pengumuman['foto'] = PengumumanFoto::getPhotos($id);
+
+        return $pengumuman;
+    }
+
     static function getPengumuman()
     {
         return Pengumuman::where('jenis', 4)
@@ -31,12 +39,14 @@ class Pengumuman extends Model
 
     static function storePengumuman($request)
     {
-        Pengumuman::create([
+        $pengumuman = Pengumuman::create([
             'jenis'     => $request->jenis,
             'judul'     => $request->judul,
             'katakunci' => $request->katakunci,
             'content'   => $request->content
         ]);
+
+        PengumumanFoto::storePhotos($request, $pengumuman->id);
     }
 
     static function updatePengumuman($request, $id)
@@ -47,5 +57,7 @@ class Pengumuman extends Model
             'katakunci' => $request->katakunci,
             'content'   => $request->content
         ]);
+
+        PengumumanFoto::storePhotos($request, $id);
     }
 }

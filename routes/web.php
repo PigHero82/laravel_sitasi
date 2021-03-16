@@ -44,7 +44,7 @@ Route::get('kabkota/{id}', 'HomeController@kabkota')->name('kabkota');
 Route::get('kecamatan/{id}', 'HomeController@kecamatan')->name('kecamatan');
 // Route::group(['prefix' => 'migration'], function () {
 //     Route::group(['prefix' => 'dosen'], function () {
-//         Route::get('', 'MigrationController@dosen');    
+//         Route::get('', 'MigrationController@dosen');
 //         Route::get('detail', 'MigrationController@dosenDetail');
 //     });
 //     Route::get('skema-usulan', 'MigrationController@skemaUsulan');
@@ -75,6 +75,7 @@ Route::namespace('Admin')->name('admin.')->prefix('admin')->middleware('auth', '
         Route::resource('skema', 'SkemaController');
         Route::resource('user', 'UserController');
     });
+    Route::delete('pengumuman/foto/{photo}', 'PengumumanController@destroyPhoto');
     Route::resource('pengumuman', 'PengumumanController');
     Route::view('pimpinan', 'master.pimpinan')->name('pimpinan');
     Route::name('review.')->prefix('review')->group(function() {
