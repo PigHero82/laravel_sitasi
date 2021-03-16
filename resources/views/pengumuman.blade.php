@@ -167,7 +167,7 @@
                         </fieldset>
 
                         <fieldset class="form-label-group">
-                            <textarea class="form-control" name="content" rows="3" placeholder="Deskripsi" required></textarea>
+                            <textarea class="form-control" name="content" rows="3" placeholder="Deskripsi"></textarea>
                             <label>Deskripsi</label>
                         </fieldset>
 
@@ -244,7 +244,7 @@
                         </fieldset>
 
                         <fieldset class="form-label-group">
-                            <textarea class="form-control" id="pengumumanDescription" name="content" rows="3" placeholder="Deskripsi" required></textarea>
+                            <textarea class="form-control" id="pengumumanDescription" name="content" rows="3" placeholder="Deskripsi"></textarea>
                             <label for="pengumumanDescription">Deskripsi</label>
                         </fieldset>
 
@@ -278,7 +278,12 @@
                 selector: 'textarea',
                 plugins: 'advlist autolink lists link charmap print preview hr anchor pagebreak',
                 toolbar_mode: 'floating',
-            })
+            });
+            $(document).on('focusin', function(e) {
+              if ($(e.target).closest(".tox-tinymce, .tox-tinymce-aux, .moxman-window, .tam-assetmanager-root").length) {
+                e.stopImmediatePropagation();
+              }
+            });
 
             $('#pengumumanTable').DataTable({
                 "columnDefs": [
