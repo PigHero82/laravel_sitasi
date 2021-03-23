@@ -49,8 +49,8 @@ class Usulan extends Model
                         ->orderByDesc('created_at')
                         ->first();
 
-        if (isset($usulan)) {   
-            $data = [];     
+        if (isset($usulan)) {
+            $data = [];
             $data = Usulan::select(DB::raw('usulan.*, skema.kode, skema_usulan.tahun_skema, dosen.nama as ketua'))->join('dosen', 'usulan.dosen_id', 'dosen.id')
                         ->join('skema_usulan', 'usulan.skema_usulan_id', 'skema_usulan.id')
                         ->join('skema', 'skema_usulan.skema_id', 'skema.id')
@@ -460,7 +460,22 @@ class Usulan extends Model
 
     static function persetujuanUsulan($status, $id)
     {
-        Usulan::whereId($id)->update(['step' => $status]);
+        if ($status == 1) {
+            Usulan::whereId($id)->update([
+                'nilai' => $status,
+                'step'  => 10
+            ]);
+        } else if ($status == 2) {
+            Usulan::whereId($id)->update([
+                'nilai' => $status,
+                'step'  => 12
+            ]);
+        } else if ($status == 3) {
+            Usulan::whereId($id)->update([
+                'nilai' => $status,
+                'step'  => 14
+            ]);
+        }
     }
 
     static function storeUsulan($request, $skemaUsulanId)
@@ -516,7 +531,7 @@ class Usulan extends Model
 
         if ($request->rumpun_ilmu_1) {
             $request->validate(['rumpun_ilmu_1' => 'numeric']);
-            
+
             Usulan::where('dosen_id', Auth::user()->id)
                     ->where('skema_usulan_id', $skemaUsulanId)
                     ->update(['rumpun_ilmu_1' => $request->rumpun_ilmu_1]);

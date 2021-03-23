@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Usulan;
+use App\Models\PenilaianTahap;
 use Illuminate\Http\Request;
 
 class PenilaianController extends Controller
@@ -14,26 +15,16 @@ class PenilaianController extends Controller
         $pengabdian = Usulan::getUsulanPenilaian(2);
         $datas = Usulan::join('skema_usulan','usulan.skema_usulan_id','skema_usulan.id')
                         ->where('skema_usulan.status',1)->get();
+        $tahap = PenilaianTahap::getPenilaian();
 
-        return view('review.penilaian', compact('penelitian', 'pengabdian','datas'));
+        return view('review.penilaian', compact('datas', 'penelitian', 'pengabdian', 'tahap'));
     }
 
     public function update(Request $request, $id)
     {
         $request->validate(['status' => 'numeric|required']);
-
         Usulan::persetujuanUsulan($request->status, $id);
 
-        switch ($request->status) {
-            case 10:
-                return back()->with('success', 'Usulan tidak disetujui');
-            
-            case 11:
-                return back()->with('success', 'Usulan disetujui');
-            
-            default:
-                # code...
-                break;
-        }
+        return back()->with('success', 'Tahap usulan berhasil diubah');
     }
 }
