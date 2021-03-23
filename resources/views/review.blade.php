@@ -30,7 +30,7 @@
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">Usulan Penelitian</h3>
-                
+
                 <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
                 <div class="heading-elements">
                     <ul class="list-inline mb-0">
@@ -244,6 +244,18 @@
                             <dt class="col-sm-4 text-md-right">Proposal</dt>
                             <dd class="col-sm-8" id="berkas-proposal">-</dd>
                         </dl>
+                        <dl class="row">
+                            <dt class="col-sm-4 text-md-right">Laporan Kemajuan</dt>
+                            <dd class="col-sm-8" id="berkas-laporan-kemajuan">-</dd>
+                        </dl>
+                        <dl class="row">
+                            <dt class="col-sm-4 text-md-right">Laporan Hasil</dt>
+                            <dd class="col-sm-8" id="berkas-laporan-hasil">-</dd>
+                        </dl>
+                        <dl class="row">
+                            <dt class="col-sm-4 text-md-right">Laporan Anggaran</dt>
+                            <dd class="col-sm-8" id="berkas-laporan-anggaran">-</dd>
+                        </dl>
                         <hr class="d-none"/>
                         <div class="d-none" id="nilai-modal"></div>
                         <form action="#" method="POST" id="modal-form" onsubmit="return confirm('Apakah Anda yakin? Nilai tidak dapat diubah kembali');">
@@ -251,9 +263,9 @@
                             @method('PATCH')
                             <h5>Penilaian</h5>
                             <div id="nilai">
-                                
+
                             </div>
-                            
+
                             <dl class="row mb-0 d-none" id="komentar">
                                 <dt class="col-sm-4 text-md-right">Komentar</dt>
                                 <dd class="col-sm-8">
@@ -291,7 +303,7 @@
             $('form').submit(function() {
                 $(this).find("button[type='submit']").prop('disabled', true);
             });
-            
+
             $(document).on('click', '#table-penelitian tbody tr td a', function(e) {
                 var id = $(this).attr('data-value');
                 $('#berkas-proposal').html('-');
@@ -308,12 +320,12 @@
                     $('#anggaran').html(formatRupiah(''+d.usulan_dana, 'Rp. ') + linkrab);
                     $('#luaran').empty();
                     for(var l = 0; l < d.luaran.length; l++){
-                      
+
                         $('#luaran').append('<li>'+d.luaran[l].nama_luaran + ' <span class="text-info">(' + d.luaran[l].nama_target + ')</span><br/></li>');
-                      
+
                     }
-      
-                    
+
+
                     for (var i = 0; i < d.berkas.length; i++) {
                         if (d.berkas[i]['jenis_berkas_id'] == 1) {
                             $('#berkas-proposal').html('<a href="/' + d.berkas[i]['berkas'] + '" target="_blank">Berkas Proposal</a>')
@@ -326,38 +338,77 @@
                         }
                     }
 
-                    if (d.nilai == 1) {
-                        $('#modal-form').hide();
-                        $('hr').removeClass('d-none');
-                        $('#nilai-modal').removeClass('d-none');
-                        $('#nilai-modal').empty();
-
-                        for (let i = 0; i < 5; i++) {
-                            $('#nilai-modal').append('<dl class="row"><dt class="col-sm-4 text-md-right">Nilai ' + d.penilaian[i].nama + '</dt><dd class="col-sm-8">' + d.penilaian[i].nilai + '</dd></dl>');
-                        }
-                        $('#nilai-modal').append('<dl class="row"><dt class="col-sm-4 text-md-right">Komentar</dt><dd class="col-sm-8">' + d.komentar[0].komentar + '</dd></dl>');
-                    } else {
-                        
-                        $('#modal-form').attr('action', '/reviewer/review/' + id);
-                        $('#nilai').empty();
-                        $('#modal-form').show();
-                        $.get('/reviewer/review/indikator/1', function(data) {
-                            console.log(JSON.parse(data));
-                            var d = JSON.parse(data);
+                    if (d.step == 9) {
+                        if (d.nilai == 1) {
+                            $('#modal-form').hide();
                             $('hr').removeClass('d-none');
+                            $('#nilai-modal').removeClass('d-none');
                             $('#nilai-modal').empty();
-                            let deskripsi
-                            for (var i = 0; i < d.length; i++) {
-                                if (d[i].deskripsi == null) {
-                                    deskripsi = ''
-                                } else {
-                                    deskripsi = '<small class="text-muted">'+d[i].deskripsi+' <br/><br/></small>'
-                                }
-                                $('#nilai').append('<dl class="row mb-0"><dt class="col-sm-4 text-md-left">' + d[i].nama + '<br/>' + deskripsi + '</dt><dd class="col-sm-8"><div class="form-group"><input type="number" class="form-control" name="nilai[' + d[i].id + ']" placeholder="' + d[i].nama + '" min="2" max="5" aria-describedby="nilai-'+d[i].id+'-block" required><small id="nilai-'+d[i].id+'-block" class="form-text text-danger">*2 (kurang jelas/sesuai) – 5 (sangat jelas/sesuai) <br/></small></div></dd></dl>')
+
+                            for (let i = 0; i < 5; i++) {
+                                $('#nilai-modal').append('<dl class="row"><dt class="col-sm-4 text-md-right">Nilai ' + d.penilaian[i].nama + '</dt><dd class="col-sm-8">' + d.penilaian[i].nilai + '</dd></dl>');
                             }
-                            $('#tahapId').val(1);
-                            $('#komentar').removeClass('d-none');
-                        })
+                            $('#nilai-modal').append('<dl class="row"><dt class="col-sm-4 text-md-right">Komentar</dt><dd class="col-sm-8">' + d.komentar[0].komentar + '</dd></dl>');
+                        } else {
+
+                            $('#modal-form').attr('action', '/reviewer/review/' + id);
+                            $('#nilai').empty();
+                            $('#modal-form').show();
+                            $.get('/reviewer/review/indikator/1/1', function(data) {
+                                console.log(JSON.parse(data));
+                                var d = JSON.parse(data);
+                                $('hr').removeClass('d-none');
+                                $('#nilai-modal').empty();
+                                let deskripsi
+                                for (var i = 0; i < d.length; i++) {
+                                    if (d[i].deskripsi == null) {
+                                        deskripsi = ''
+                                    } else {
+                                        deskripsi = '<small class="text-muted">'+d[i].deskripsi+' <br/><br/></small>'
+                                    }
+                                    $('#nilai').append('<dl class="row mb-0"><dt class="col-sm-4 text-md-right">' + d[i].nama + '<br/>' + deskripsi + '</dt><dd class="col-sm-8"><div class="form-group"><input type="number" class="form-control" name="nilai[' + d[i].id + ']" placeholder="' + d[i].nama + '" min="2" max="5" aria-describedby="nilai-'+d[i].id+'-block" required><small id="nilai-'+d[i].id+'-block" class="form-text text-danger">*2 (kurang jelas/sesuai) – 5 (sangat jelas/sesuai) <br/></small></div></dd></dl>')
+                                }
+                                $('#tahapId').val(1);
+                                $('#komentar').removeClass('d-none');
+                            })
+                        }
+                    } else if (d.step == 10) {
+                        if (d.nilai == 2) {
+                            $('#modal-form').hide();
+                            $('hr').removeClass('d-none');
+                            $('#nilai-modal').removeClass('d-none');
+                            $('#nilai-modal').empty();
+
+                            for (let i = 0; i < 5; i++) {
+                                $('#nilai-modal').append('<dl class="row"><dt class="col-sm-4 text-md-right">Nilai ' + d.penilaian[i].nama + '</dt><dd class="col-sm-8">' + d.penilaian[i].nilai + '</dd></dl>');
+                            }
+                            $('#nilai-modal').append('<dl class="row"><dt class="col-sm-4 text-md-right">Komentar</dt><dd class="col-sm-8">' + d.komentar[0].komentar + '</dd></dl>');
+                        } else {
+
+                            $('#modal-form').attr('action', '/reviewer/review/' + id);
+                            $('#nilai').empty();
+                            $('#modal-form').show();
+                            $.get('/reviewer/review/indikator/2/1', function(data) {
+                                console.log(JSON.parse(data));
+                                var d = JSON.parse(data);
+                                $('hr').removeClass('d-none');
+                                $('#nilai-modal').empty();
+                                let deskripsi
+                                for (var i = 0; i < d.length; i++) {
+                                    if (d[i].deskripsi == null) {
+                                        deskripsi = ''
+                                    } else {
+                                        deskripsi = '<small class="text-muted">'+d[i].deskripsi+' <br/><br/></small>'
+                                    }
+                                    $('#nilai').append('<dl class="row mb-0"><dt class="col-sm-4 text-md-right">' + d[i].nama + '<br/>' + deskripsi + '</dt><dd class="col-sm-8"><div class="form-group"><input type="number" class="form-control" name="nilai[' + d[i].id + ']" placeholder="' + d[i].nama + '" min="2" max="5" aria-describedby="nilai-'+d[i].id+'-block" required><small id="nilai-'+d[i].id+'-block" class="form-text text-danger">*2 (kurang jelas/sesuai) – 5 (sangat jelas/sesuai) <br/></small></div></dd></dl>')
+                                }
+                                $('#tahapId').val(2);
+                                $('#komentar').removeClass('d-none');
+                            })
+                        }
+
+                    } else if (d.step == 12) {
+
                     }
                 });
             });
@@ -378,11 +429,11 @@
                     $('#anggaran').html(formatRupiah(''+d.usulan_dana, 'Rp. ') + linkrab);
                     $('#luaran').empty();
                     for(var l = 0; l < d.luaran.length; l++){
-                      
+
                         $('#luaran').append('<li>'+d.luaran[l].nama_luaran + ' <span class="text-info">(' + d.luaran[l].nama_target + ')</span><br/></li>');
-                      
+
                     }
-                    
+
                     for (var i = 0; i < d.berkas.length; i++) {
                         if (d.berkas[i]['jenis_berkas_id'] == 1) {
                             $('#berkas-proposal').html('<a href="/' + d.berkas[i]['berkas'] + '" target="_blank">Berkas Proposal</a>')
@@ -395,30 +446,60 @@
                         }
                     }
 
-                    if (d.nilai == 1) {
-                        $('#modal-form').hide();
-                        $('hr').removeClass('d-none');
-                        $('#nilai-modal').removeClass('d-none');
-                        $('#nilai-modal').empty();
-                        for (let i = 0; i < 5; i++) {
-                            $('#nilai-modal').append('<dl class="row"><dt class="col-sm-4 text-md-right">Nilai ' + d.penilaian[i].nama + '</dt><dd class="col-sm-8">' + d.penilaian[i].nilai + '</dd></dl>');
-                        }
-                        $('#nilai-modal').append('<dl class="row"><dt class="col-sm-4 text-md-left">Komentar</dt><dd class="col-sm-8">' + d.komentar[0].komentar + '</dd></dl>');
-                    } else {
-                        $('#nilai').empty();
-                        $('#modal-form').attr('action', '/reviewer/review/' + id);
-                        $('#modal-form').show();
-                        $.get('/reviewer/review/indikator/2', function(data) {
-                            console.log(JSON.parse(data));
-                            var d = JSON.parse(data);
+                    if (d.step == 9) {
+                        if (d.nilai == 1) {
+                            $('#modal-form').hide();
                             $('hr').removeClass('d-none');
+                            $('#nilai-modal').removeClass('d-none');
                             $('#nilai-modal').empty();
-                            for (var i = 0; i < d.length; i++) {
-                                $('#nilai').append('<dl class="row mb-0"><dt class="col-sm-4 text-md-left">' + d[i].nama + '<br/><small class="text-muted">'+d[i].deskripsi+' <br/><br/></small></dt><dd class="col-sm-8"><div class="form-group"><input type="number" class="form-control" name="nilai[' + d[i].id + ']" placeholder="' + d[i].nama + '" min="2" max="5" aria-describedby="nilai-'+d[i].id+'-block" required><small id="nilai-'+d[i].id+'-block" class="form-text text-danger">*2 (kurang jelas/sesuai) – 5 (sangat jelas/sesuai) <br/></small></div></dd></dl>');
+                            for (let i = 0; i < 5; i++) {
+                                $('#nilai-modal').append('<dl class="row"><dt class="col-sm-4 text-md-right">Nilai ' + d.penilaian[i].nama + '</dt><dd class="col-sm-8">' + d.penilaian[i].nilai + '</dd></dl>');
                             }
-                            $('#tahapId').val(1);
-                            $('#komentar').removeClass('d-none');
-                        })
+                            $('#nilai-modal').append('<dl class="row"><dt class="col-sm-4 text-md-right">Komentar</dt><dd class="col-sm-8">' + d.komentar[0].komentar + '</dd></dl>');
+                        } else {
+                            $('#nilai').empty();
+                            $('#modal-form').attr('action', '/reviewer/review/' + id);
+                            $('#modal-form').show();
+                            $.get('/reviewer/review/indikator/1/2', function(data) {
+                                console.log(JSON.parse(data));
+                                var d = JSON.parse(data);
+                                $('hr').removeClass('d-none');
+                                $('#nilai-modal').empty();
+                                for (var i = 0; i < d.length; i++) {
+                                    $('#nilai').append('<dl class="row mb-0"><dt class="col-sm-4 text-md-right">' + d[i].nama + '<br/><small class="text-muted">'+d[i].deskripsi+' <br/><br/></small></dt><dd class="col-sm-8"><div class="form-group"><input type="number" class="form-control" name="nilai[' + d[i].id + ']" placeholder="' + d[i].nama + '" min="2" max="5" aria-describedby="nilai-'+d[i].id+'-block" required><small id="nilai-'+d[i].id+'-block" class="form-text text-danger">*2 (kurang jelas/sesuai) – 5 (sangat jelas/sesuai) <br/></small></div></dd></dl>');
+                                }
+                                $('#tahapId').val(1);
+                                $('#komentar').removeClass('d-none');
+                            })
+                        }
+                    } else if (d.step == 10) {
+                        if (d.nilai == 1) {
+                            $('#modal-form').hide();
+                            $('hr').removeClass('d-none');
+                            $('#nilai-modal').removeClass('d-none');
+                            $('#nilai-modal').empty();
+                            for (let i = 0; i < 5; i++) {
+                                $('#nilai-modal').append('<dl class="row"><dt class="col-sm-4 text-md-right">Nilai ' + d.penilaian[i].nama + '</dt><dd class="col-sm-8">' + d.penilaian[i].nilai + '</dd></dl>');
+                            }
+                            $('#nilai-modal').append('<dl class="row"><dt class="col-sm-4 text-md-right">Komentar</dt><dd class="col-sm-8">' + d.komentar[0].komentar + '</dd></dl>');
+                        } else {
+                            $('#nilai').empty();
+                            $('#modal-form').attr('action', '/reviewer/review/' + id);
+                            $('#modal-form').show();
+                            $.get('/reviewer/review/indikator/2/2', function(data) {
+                                console.log(JSON.parse(data));
+                                var d = JSON.parse(data);
+                                $('hr').removeClass('d-none');
+                                $('#nilai-modal').empty();
+                                for (var i = 0; i < d.length; i++) {
+                                    $('#nilai').append('<dl class="row mb-0"><dt class="col-sm-4 text-md-right">' + d[i].nama + '<br/><small class="text-muted">'+d[i].deskripsi+' <br/><br/></small></dt><dd class="col-sm-8"><div class="form-group"><input type="number" class="form-control" name="nilai[' + d[i].id + ']" placeholder="' + d[i].nama + '" min="2" max="5" aria-describedby="nilai-'+d[i].id+'-block" required><small id="nilai-'+d[i].id+'-block" class="form-text text-danger">*2 (kurang jelas/sesuai) – 5 (sangat jelas/sesuai) <br/></small></div></dd></dl>');
+                                }
+                                $('#tahapId').val(2);
+                                $('#komentar').removeClass('d-none');
+                            })
+                        }
+                    } else if (d.step == 12) {
+
                     }
                 })
             });

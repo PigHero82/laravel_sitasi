@@ -34,14 +34,14 @@ class HomeController extends Controller
     public function rabShow($usulanID){
         $usulan = Usulan::firstUsulan($usulanID);
         $usulanRab = UsulanRab::getRab($usulanID);
-       
+
 
         return view('rab',compact('usulan','usulanRab'));
     }
 
-    public function getindikator($jenis)
+    public function getindikator($id, $jenis)
     {
-        return json_encode(PenilaianIndikator::getIndikator($jenis));
+        return json_encode(PenilaianIndikator::getIndikator($id, $jenis));
     }
 
     public function storeNilai(Request $request, $id)
@@ -54,23 +54,26 @@ class HomeController extends Controller
 
         UsulanNilai::storeNilai($request, $id);
         UsulanKomentar::storeKomentar($request, $id);
+
+        /*
+            1 = Tahap 1 pending
+            2 = Tahap 1 approved
+            3 = Tahap 1 rejected
+
+            4 = Tahap 2 pending
+            5 = Tahap 2 approved
+            6 = Tahap 2 rejected
+
+            7 = Tahap 3 pending
+            8 = Tahap 3 approved
+            9 = Tahap 3 rejected
+        */
         if ($request->penilaian_tahap_id == 1) {
-            /*
-                1 = Tahap 1 pending
-                2 = Tahap 1 approved
-                3 = Tahap 1 rejected
-
-                4 = Tahap 2 pending
-                5 = Tahap 2 approved
-                6 = Tahap 2 rejected
-
-                7 = Tahap 3 pending
-                8 = Tahap 3 approved
-                9 = Tahap 3 rejected
-            */
             Usulan::updateNilai(1, $id);
+        } else if ($request->penilaian_tahap_id == 2) {
+            Usulan::updateNilai(4, $id);
         }
-        
+
         return back()->with('success', 'Nilai usulan berhasil ditambahkan');
     }
 }

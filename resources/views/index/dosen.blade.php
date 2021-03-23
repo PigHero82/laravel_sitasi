@@ -558,8 +558,8 @@
                                     <dd class="col-sm-8">
                                         <div class="custom-file mr-1">
                                             <input type="hidden" name="usulan_id" id="proposal-usulan-id" required>
-                                            <input type="file" class="custom-file-input" id="inputGroupFile01" name="surat_path" accept=".pdf" required>
-                                            <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                                            <input type="file" class="custom-file-input" name="surat_path" accept=".pdf" required>
+                                            <label class="custom-file-label">Choose file</label>
                                         </div>
                                     </dd>
                                 </dl>
@@ -603,8 +603,8 @@
                                     <dd class="col-sm-8">
                                         <div class="custom-file mr-1">
                                             <input type="hidden" name="usulan_id" id="lk-usulan-id" required>
-                                            <input type="file" class="custom-file-input" id="inputGroupFile01" name="surat_path" accept=".pdf" required>
-                                            <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                                            <input type="file" class="custom-file-input" name="surat_path" accept=".pdf" required>
+                                            <label class="custom-file-label">Choose file</label>
                                         </div>
                                     </dd>
                                 </dl>
@@ -752,7 +752,6 @@
                             if (d.berkas[i]['jenis_berkas_id'] == 1) {
 
                                 $('#revisi-proposal-pengajuan').html('<a href="/' + d.berkas[i]['berkas'] + '" target="_blank">Berkas Proposal</a>');
-                                console.log(d.berkas[i]);
                                 $('#form-proposal').attr('action', '{{ url("dosen/usulan/revisi/proposal") }}/' + id)
                                 $('#proposal-usulan-id').val(d.id);
                                 i = d.berkas.length + 1;
@@ -807,7 +806,6 @@
                             if (d.berkas[i]['jenis_berkas_id'] == 2) {
                                 $('#lk-pengajuan').html('<a href="/' + d.berkas[i]['berkas'] + '" target="_blank">Berkas Laporan Kemajuan</a>');
                                 $('#form-monev').attr('action', '{{ url("dosen/usulan/revisi/laporan-kemajuan") }}/' + id)
-                                console.log(d.berkas[i])
                                 i = d.berkas.length + 1
                             }
                             else {

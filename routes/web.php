@@ -164,7 +164,7 @@ Route::namespace('Reviewer')->name('reviewer.')->prefix('reviewer')->middleware(
     Route::name('review.')->prefix('review')->group(function() {
         Route::get('', 'HomeController@review')->name('index');
         Route::patch('{id}', 'HomeController@storeNilai')->name('store');
-        Route::get('indikator/{jenis}', 'HomeController@getIndikator')->name('indikator');
+        Route::get('indikator/{id}/{jenis}', 'HomeController@getIndikator')->name('indikator');
     });
     Route::resource('revisi', 'RevisiController');
     Route::name('revisi.')->prefix('revisi')->group(function() {

@@ -17,9 +17,11 @@ class PenilaianIndikator extends Model
         return PenilaianIndikator::whereId($id)->first();
     }
 
-    static function getIndikator($jenis)
+    static function getIndikator($id, $jenis)
     {
-        return PenilaianIndikator::where('jenis', $jenis)->get();
+        return PenilaianIndikator::where('penilaian_tahap_id', $id)
+                                    ->where('jenis', $jenis)
+                                    ->get();
     }
 
     static function getIndikatorByTahap($penilaianTahapId)
