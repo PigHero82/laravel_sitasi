@@ -40,7 +40,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Usulan yang Dapat Diajukan</h3>
-        
+
                         <div class="card-tools">
                           <a href="{{ route('dosen.usulan.index') }}" class="btn btn-success">Ajukan Usulan</a>
                         </div>
@@ -131,7 +131,7 @@
                                     <td>{{ $item->tahun_skema . ' - ' . $item->kode }}</td>
                                     <td>
                                         @if($item->step < 9)
-                                       
+
                                         <form action="{{ route('dosen.usulan.store') }}" method="post">
                                             @csrf
                                             <input type="hidden" name="skema_usulan_id" value="{{ $item->skema_usulan_id }}/{{ $item->tahun_skema }}">
@@ -144,7 +144,7 @@
                                         @endif
 
                                     </td>
-                                    
+
                                 </tr>
                                 @endif
                             @endforeach
@@ -155,7 +155,7 @@
                                     <td>{{ $item->tahun_skema . ' - ' . $item->kode }}</td>
                                     <td>
                                         @if($item->step < 9)
-                        
+
                                         <form action="{{ route('dosen.usulan.store') }}" method="post">
                                             @csrf
                                             <input type="hidden" name="skema_usulan_id" value="{{ $item->skema_usulan_id }}/{{ $item->tahun_skema }}">
@@ -168,7 +168,7 @@
                                         @endif
 
                                     </td>
-                                    
+
                                 </tr>
                                 @endif
                             @endforeach
@@ -221,7 +221,7 @@
                   <div class="card">
                     <div class="card-header">
                       <h3 class="card-title">Informasi Pribadi</h3>
-        
+
                       <div class="card-tools">
                         <a href="#" class="btn btn-success">Ubah Profil</a>
                       </div>
@@ -350,7 +350,7 @@
                 <!-- /.card -->
             @endif
             <!-- /.card -->
-  
+
             <!-- skema pengabdian -->
             <!-- general form elements -->
             @if (count($pengabdian))
@@ -540,48 +540,80 @@
                             <dd class="col-sm-8" id="luaran-pengajuan">-</dd>
                         </dl>
                         <hr>
-                        <dl class="row">
-                            <dt class="col-sm-4 text-md-right">Komentar</dt>
-                            <dd class="col-sm-8" id="revisi-komentar-pengajuan">-</dd>
-                        </dl>
-                        <dl class="row">
-                            <dt class="col-sm-4 text-md-right">Proposal</dt>
-                            <dd class="col-sm-8" id="revisi-proposal-pengajuan">-</dd>
-                        </dl>
-                        <form action="#" method="post" id="form-proposal" enctype="multipart/form-data">
-                            @csrf
-                            @method('PATCH')
-                            <dl class="row mb-0">
-                                <dt class="col-sm-4 text-md-right">Ubah Proposal</dt>
-                                <dd class="col-sm-8">
-                                    <div class="custom-file mr-1">
-                                        <input type="hidden" name="usulan_id" id="proposal-usulan-id" required>
-                                        <input type="file" class="custom-file-input" id="inputGroupFile01" name="surat_path" accept=".pdf" required>
-                                        <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-                                    </div>
-                                </dd>
+
+                        <div id="proposal" hidden>
+                            <dl class="row">
+                                <dt class="col-sm-4 text-md-right">Komentar</dt>
+                                <dd class="col-sm-8" id="revisi-komentar-pengajuan">-</dd>
+                            </dl>
+                            <dl class="row">
+                                <dt class="col-sm-4 text-md-right">Proposal</dt>
+                                <dd class="col-sm-8" id="revisi-proposal-pengajuan">-</dd>
+                            </dl>
+                            <form action="#" method="post" id="form-proposal" enctype="multipart/form-data" hidden>
+                                @csrf
+                                @method('PATCH')
+                                <dl class="row mb-0">
+                                    <dt class="col-sm-4 text-md-right">Ubah Proposal</dt>
+                                    <dd class="col-sm-8">
+                                        <div class="custom-file mr-1">
+                                            <input type="hidden" name="usulan_id" id="proposal-usulan-id" required>
+                                            <input type="file" class="custom-file-input" id="inputGroupFile01" name="surat_path" accept=".pdf" required>
+                                            <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl class="row">
+                                    <dt class="col-sm-4 text-md-right"></dt>
+                                    <dd class="col-sm-8" id=""><button type="submit" class="btn btn-success"><i class="feather icon-edit-2"></i> Unggah Proposal</button></dd>
+                                </dl>
+                            </form>
+                            <dl class="row">
+                                <dt class="col-sm-4 text-md-right">RAB</dt>
+                                <dd class="col-sm-8" id="revisi-rab-pengajuan">-</dd>
                             </dl>
                             <dl class="row">
                                 <dt class="col-sm-4 text-md-right"></dt>
-                                <dd class="col-sm-8" id=""><button type="submit" class="btn btn-success"><i class="feather icon-edit-2"></i> Unggah Proposal</button></dd>
+                                <dd class="col-sm-8" id="revisi-rab-2-pengajuan">-</dd>
                             </dl>
-                        </form>
-                        <dl class="row">
-                            <dt class="col-sm-4 text-md-right">RAB</dt>
-                            <dd class="col-sm-8" id="revisi-rab-pengajuan">-</dd>
-                        </dl>
-                        <dl class="row">
-                            <dt class="col-sm-4 text-md-right"></dt>
-                            <dd class="col-sm-8" id="revisi-rab-2-pengajuan">-</dd>
-                        </dl>
-                        <dl class="row">
-                            <dt class="col-sm-4 text-md-right">Luaran</dt>
-                            <dd class="col-sm-8" id="revisi-luaran-pengajuan">-</dd>
-                        </dl>
-                        <dl class="row">
-                            <dt class="col-sm-4 text-md-right"></dt>
-                            <dd class="col-sm-8" id="revisi-luaran-2-pengajuan"><a class="btn btn-warning" href="#"><i class="feather icon-edit-2"></i> Ubah Luaran</a></dd>
-                        </dl>
+                            <dl class="row">
+                                <dt class="col-sm-4 text-md-right">Luaran</dt>
+                                <dd class="col-sm-8" id="revisi-luaran-pengajuan">-</dd>
+                            </dl>
+                            <dl class="row">
+                                <dt class="col-sm-4 text-md-right"></dt>
+                                <dd class="col-sm-8" id="revisi-luaran-2-pengajuan"><a class="btn btn-warning" href="#"><i class="feather icon-edit-2"></i> Ubah Luaran</a></dd>
+                            </dl>
+                        </div>
+
+                        <div id="monev" hidden>
+                            <dl class="row">
+                                <dt class="col-sm-4 text-md-right">Komentar</dt>
+                                <dd class="col-sm-8" id="komentar-monev">-</dd>
+                            </dl>
+                            <dl class="row">
+                                <dt class="col-sm-4 text-md-right">Laporan Kemajuan</dt>
+                                <dd class="col-sm-8" id="lk-pengajuan">-</dd>
+                            </dl>
+                            <form action="#" method="post" id="form-monev" enctype="multipart/form-data">
+                                @csrf
+                                @method('PATCH')
+                                <dl class="row mb-0">
+                                    <dt class="col-sm-4 text-md-right">Upload Laporan Kemajuan</dt>
+                                    <dd class="col-sm-8">
+                                        <div class="custom-file mr-1">
+                                            <input type="hidden" name="usulan_id" id="lk-usulan-id" required>
+                                            <input type="file" class="custom-file-input" id="inputGroupFile01" name="surat_path" accept=".pdf" required>
+                                            <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl class="row">
+                                    <dt class="col-sm-4 text-md-right"></dt>
+                                    <dd class="col-sm-8" id=""><button type="submit" class="btn btn-success"><i class="feather icon-edit-2"></i> Unggah Laporan Kemajuan</button></dd>
+                                </dl>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -598,14 +630,14 @@
                 responsive: true,
                 "order": [[1, "desc"]]
             })
-            
+
             $('#tablePengabdian').DataTable({
                 responsive: true,
                 "order": [[1, "desc"]]
             })
 
             $('#usulan').DataTable()
-            
+
             $('#usulan-berjalan').DataTable()
 
             $(document).on('click', '#tablePenelitian tbody tr td a', function(e) {
@@ -645,7 +677,7 @@
                 var id = $(this).attr('data-value');
                 $.get( "/usulan/" + id, function( data ) {
                     console.log(JSON.parse(data));
-                    var d = JSON.parse(data);  
+                    var d = JSON.parse(data);
                     $('#label').text('Detail Pengabdian');
                     $('#jenis').text('Pengabdian');
                     $('#judul').html(d.judul);
@@ -685,7 +717,7 @@
                     console.log(d);
                     $('#jenis-pengajuan').text('Penelitian');
                     if(d.jenis == 2){
-                        $('#jenis-pengajuan').text('Pengabdian');    
+                        $('#jenis-pengajuan').text('Pengabdian');
                     }
                     $('#judul-pengajuan').html(d.judul);
                     $('#skema-pengajuan').html(d.skema_usulan.nama);
@@ -696,53 +728,100 @@
                     for(var l = 0; l < d.luaran.length;l++){
                         $('#luaran-pengajuan').append('<li>'+d.luaran[l].nama_luaran+'</li>')
                     }
-                    $('#revisi-komentar-pengajuan').empty()
-                    for (let i = 0; i < d.komentar.length; i++) {
-                        if (d.komentar[i].penilaian_tahap_id == 1) {
-                            $('#revisi-komentar-pengajuan').text(d.komentar[i].komentar)
-                        } else {
-                            $('#revisi-komentar-pengajuan').text('-')
+
+                    $('#proposal').attr('hidden', true)
+                    $('#monev').attr('hidden', true)
+                    $('#hasil').attr('hidden', true)
+
+                    /*
+                        ------------ Proposal ------------
+                    */
+                    if (d.step == 9) {
+                        $('#proposal').removeAttr('hidden')
+                        $('#revisi-komentar-pengajuan').empty()
+                        for (let i = 0; i < d.komentar.length; i++) {
+                            if (d.komentar[i].penilaian_tahap_id == 1) {
+                                $('#revisi-komentar-pengajuan').text(d.komentar[i].komentar)
+                            } else {
+                                $('#revisi-komentar-pengajuan').text('-')
+                            }
                         }
-                    }
 
-                    $('#revisi-proposal-pengajuan').empty()
-                    for (var i = 0; i < d.berkas.length; i++) {
-                        if (d.berkas[i]['jenis_berkas_id'] == 1) {
+                        $('#revisi-proposal-pengajuan').empty()
+                        for (var i = 0; i < d.berkas.length; i++) {
+                            if (d.berkas[i]['jenis_berkas_id'] == 1) {
 
-                            $('#revisi-proposal-pengajuan').html('<a href="/' + d.berkas[i]['berkas'] + '" target="_blank">Berkas Proposal</a>');
-                            console.log(d.berkas[i]);
-                            $('#form-proposal').attr('action', '{{ url("dosen/usulan/revisi/proposal") }}/' + id)
-                            $('#proposal-usulan-id').val(d.id);
-                            i = d.berkas.length + 1;
-                        } else {
-                            $('#revisi-proposal-pengajuan').text('-')
-                            $('#form-proposal').attr('action', '#')
-                            $('#proposal-usulan-id').val()
+                                $('#revisi-proposal-pengajuan').html('<a href="/' + d.berkas[i]['berkas'] + '" target="_blank">Berkas Proposal</a>');
+                                console.log(d.berkas[i]);
+                                $('#form-proposal').attr('action', '{{ url("dosen/usulan/revisi/proposal") }}/' + id)
+                                $('#proposal-usulan-id').val(d.id);
+                                i = d.berkas.length + 1;
+                            } else {
+                                $('#revisi-proposal-pengajuan').text('-')
+                                $('#form-proposal').attr('action', '#')
+                                $('#proposal-usulan-id').val()
+                            }
                         }
-                    }
 
-                    $('#revisi-rab-pengajuan').empty()
-                    $('#revisi-rab-2-pengajuan').empty()
-                    if (d.rab.length > 0) {
-                        $('#revisi-rab-pengajuan').html('<a href="/dosen/usulan/rab/' + d.id + '" target="_blank">Lihat RAB</a>')
-                        $('#revisi-rab-2-pengajuan').html('<a class="btn btn-warning" href="/dosen/usulan/rab/' + d.id + '#ubah"><i class="feather icon-edit-2"></i> Ubah RAB</a>')
-                    } else if(d.nilai > 0){
-                        $('#revisi-rab-pengajuan').html('<a href="/dosen/usulan/rab/' + d.id + '" target="_blank">Lihat RAB</a>')
-                        $('#revisi-rab-2-pengajuan').html('<a class="btn btn-warning" href="/dosen/usulan/rab/' + d.id + '#ubah"><i class="feather icon-edit-2"></i> Ubah RAB</a>')
-                    }
-                    else{
-                        $('#revisi-rab-pengajuan').text('-')
-                        $('#revisi-rab-2-pengajuan').text('-')
-                    }
+                        $('#revisi-rab-pengajuan').empty()
+                        $('#revisi-rab-2-pengajuan').empty()
+                        if (d.rab.length > 0) {
+                            $('#revisi-rab-pengajuan').html('<a href="/dosen/usulan/rab/' + d.id + '" target="_blank">Lihat RAB</a>')
+                            $('#revisi-rab-2-pengajuan').html('<a class="btn btn-warning" href="/dosen/usulan/rab/' + d.id + '#ubah"><i class="feather icon-edit-2"></i> Ubah RAB</a>')
+                        } else if(d.nilai > 0){
+                            $('#revisi-rab-pengajuan').html('<a href="/dosen/usulan/rab/' + d.id + '" target="_blank">Lihat RAB</a>')
+                            $('#revisi-rab-2-pengajuan').html('<a class="btn btn-warning" href="/dosen/usulan/rab/' + d.id + '#ubah"><i class="feather icon-edit-2"></i> Ubah RAB</a>')
+                        }
+                        else{
+                            $('#revisi-rab-pengajuan').text('-')
+                            $('#revisi-rab-2-pengajuan').text('-')
+                        }
 
-                    $('#revisi-luaran-pengajuan').empty()
-                    $('#revisi-luaran-2-pengajuan').empty()
-                    if (d.luaran.length > 0) {
-                        $('#revisi-luaran-pengajuan').html('<a href="/dosen/usulan/luaran/' + d.id + '" target="_blank">Lihat Luaran</a>')
-                        $('#revisi-luaran-2-pengajuan').html('<a class="btn btn-warning" href="/dosen/usulan/luaran/' + d.id + '#ubah"><i class="feather icon-edit-2"></i> Ubah Luaran</a>')
-                    } else {
-                        $('#revisi-luaran-pengajuan').text('-')
-                        $('#revisi-luaran-2-pengajuan').text('-')
+                        $('#revisi-luaran-pengajuan').empty()
+                        $('#revisi-luaran-2-pengajuan').empty()
+                        if (d.luaran.length > 0) {
+                            $('#revisi-luaran-pengajuan').html('<a href="/dosen/usulan/luaran/' + d.id + '" target="_blank">Lihat Luaran</a>')
+                            $('#revisi-luaran-2-pengajuan').html('<a class="btn btn-warning" href="/dosen/usulan/luaran/' + d.id + '#ubah"><i class="feather icon-edit-2"></i> Ubah Luaran</a>')
+                        } else {
+                            $('#revisi-luaran-pengajuan').text('-')
+                            $('#revisi-luaran-2-pengajuan').text('-')
+                        }
+
+                    /*
+                        ------------ MONEV ------------
+                    */
+                    } else if(d.step == 10) {
+                        $('#monev').removeAttr('hidden')
+                        $('#komentar-monev').empty()
+                        for (let i = 0; i < d.komentar.length; i++) {
+                            if (d.komentar[i].penilaian_tahap_id == 2) {
+                                $('#komentar-monev').text(d.komentar[i].komentar)
+                            } else {
+                                $('#komentar-monev').text('-')
+                            }
+                        }
+
+                        $('#lk-pengajuan').empty()
+                        $('#lk-usulan-id').val(d.id)
+                        for (var i = 0; i < d.berkas.length; i++) {
+                            if (d.berkas[i]['jenis_berkas_id'] == 2) {
+                                $('#lk-pengajuan').html('<a href="/' + d.berkas[i]['berkas'] + '" target="_blank">Berkas Laporan Kemajuan</a>');
+                                $('#form-monev').attr('action', '{{ url("dosen/usulan/revisi/laporan-kemajuan") }}/' + id)
+                                console.log(d.berkas[i])
+                                i = d.berkas.length + 1
+                            }
+                            else {
+                                $('#lk-pengajuan').text('-');
+                                $('#form-monev').attr('action', '{{ url("dosen/usulan/laporan-kemajuan") }}/' + id)
+                            }
+                        }
+
+                    /*
+                        ------------ Hasil ------------
+                    */
+                    } else if(d.step == 12) {
+                        $('#hasil').removeAttr('hidden')
+
                     }
                 });
             });

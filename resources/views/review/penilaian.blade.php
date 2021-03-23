@@ -304,11 +304,13 @@
                                                 </td> --}}
                                                 <td><a href="#modal" data-toggle="modal" data-value="{{ $item->id }}">{{ $item->judul }}</a></td>
                                                 <td>{{ $item->ketua }}</td>
-<td>@forelse($item->anggota as $anggota)
-<b>Anggota {{ $loop->index+1 }}: </b>{{ $anggota->dosen_nama }}
-@empty
--
-@endforelse</td>
+                                                <td>
+                                                    @forelse($item->anggota as $anggota)
+                                                        <b>Anggota {{ $loop->index+1 }}: </b>{{ $anggota->dosen_nama }}
+                                                    @empty
+                                                        -
+                                                    @endforelse
+                                                </td>
                                                 <td>{{ $item->skema_usulan->tahun_skema . ' - ' . $item->skema_usulan->kode }}</td>
 
                                                 @if($nilai[0] == 0)

@@ -73,9 +73,9 @@ class UsulanController extends Controller
         $usulanRab = UsulanRab::getRab($usulan->id);
 
         $rumpunIlmu = [];
-        $rumpunIlmu[] = ($usulan->rumpun_ilmu_1 != NULL) ? RumpunIlmu::firstRumpunIlmu($usulan->rumpun_ilmu_1)[0] : NULL ; 
-        $rumpunIlmu[] = ($usulan->rumpun_ilmu_2 != NULL) ? RumpunIlmu::firstRumpunIlmu($usulan->rumpun_ilmu_2)[0] : NULL ; 
-        $rumpunIlmu[] = ($usulan->rumpun_ilmu_3 != NULL) ? RumpunIlmu::firstRumpunIlmu($usulan->rumpun_ilmu_3)[0] : NULL ; 
+        $rumpunIlmu[] = ($usulan->rumpun_ilmu_1 != NULL) ? RumpunIlmu::firstRumpunIlmu($usulan->rumpun_ilmu_1)[0] : NULL ;
+        $rumpunIlmu[] = ($usulan->rumpun_ilmu_2 != NULL) ? RumpunIlmu::firstRumpunIlmu($usulan->rumpun_ilmu_2)[0] : NULL ;
+        $rumpunIlmu[] = ($usulan->rumpun_ilmu_3 != NULL) ? RumpunIlmu::firstRumpunIlmu($usulan->rumpun_ilmu_3)[0] : NULL ;
 
         return view('usulan.create', compact('data', 'dosen', 'jumlah', 'kabkota', 'kecamatan', 'kelompok', 'luaran', 'mitraJenis', 'peran', 'provinsi', 'rabJenis', 'rumpunIlmu', 'satuan', 'skema', 'target', 'tahun', 'usulan', 'usulanAnggota', 'usulanBerkas', 'usulanKegiatan', 'usulanLuaran', 'usulanMitra', 'usulanRab'));
     }
@@ -96,7 +96,7 @@ class UsulanController extends Controller
         $skemaUsulanId = explode("/",$request->skema_usulan_id)[0];
 
         Usulan::storeUsulan($request, $skemaUsulanId);
-   
+
         return redirect()->route('dosen.usulan.create')
                             ->withCookie(cookie('jenis', $request->jenis, 1000))
                             ->withCookie(cookie('skema_usulan_id', $skemaUsulanId, 1000))
@@ -141,8 +141,8 @@ class UsulanController extends Controller
                                 ->withCookie(cookie('jenis', $request->cookie('jenis'), 1000))
                                 ->withCookie(cookie('skema_usulan_id', $request->cookie('skema_usulan_id'), 1000))
                                 ->withCookie(cookie('page', $request->step, 1000));
-        } 
-        
+        }
+
         // Step 2
         else if ($request->cookie('page') == 2) {
             Usulan::updateUsulan2($request, $request->cookie('skema_usulan_id'));
@@ -150,8 +150,8 @@ class UsulanController extends Controller
                                 ->withCookie(cookie('jenis', $request->cookie('jenis'), 1000))
                                 ->withCookie(cookie('skema_usulan_id', $request->cookie('skema_usulan_id'), 1000))
                                 ->withCookie(cookie('page', $request->step, 1000));
-        } 
-        
+        }
+
         // Step 3
         else if ($request->cookie('page') == 3) {
             Usulan::updateUsulan3($request, $request->cookie('skema_usulan_id'));
@@ -159,8 +159,8 @@ class UsulanController extends Controller
                                 ->withCookie(cookie('jenis', $request->cookie('jenis'), 1000))
                                 ->withCookie(cookie('skema_usulan_id', $request->cookie('skema_usulan_id'), 1000))
                                 ->withCookie(cookie('page', $request->step, 1000));
-        } 
-        
+        }
+
         // Step 4
         else if ($request->cookie('page') == 4) {
             Usulan::updateUsulan4($request, $request->cookie('skema_usulan_id'));
@@ -169,7 +169,7 @@ class UsulanController extends Controller
                                 ->withCookie(cookie('skema_usulan_id', $request->cookie('skema_usulan_id'), 1000))
                                 ->withCookie(cookie('page', $request->step, 1000));
         }
-        
+
         // Step 5
         else if ($request->cookie('page') == 5) {
             Usulan::updateUsulan5($request, $request->cookie('skema_usulan_id'));
@@ -178,7 +178,7 @@ class UsulanController extends Controller
                                 ->withCookie(cookie('skema_usulan_id', $request->cookie('skema_usulan_id'), 1000))
                                 ->withCookie(cookie('page', $request->step, 1000));
         }
-        
+
         // Step 6
         else if ($request->cookie('page') == 6) {
             Usulan::updateUsulan6($request, $request->cookie('skema_usulan_id'));
@@ -187,7 +187,7 @@ class UsulanController extends Controller
                                 ->withCookie(cookie('skema_usulan_id', $request->cookie('skema_usulan_id'), 1000))
                                 ->withCookie(cookie('page', $request->step, 1000));
         }
-        
+
         // Step 7
         else if ($request->cookie('page') == 7) {
             Usulan::updateUsulan7($request, $request->cookie('skema_usulan_id'));
@@ -196,7 +196,7 @@ class UsulanController extends Controller
                                 ->withCookie(cookie('skema_usulan_id', $request->cookie('skema_usulan_id'), 1000))
                                 ->withCookie(cookie('page', $request->step, 1000));
         }
-        
+
         // Step 8
         else if ($request->cookie('page') == 8) {
             Usulan::updateUsulan8($request, $request->cookie('skema_usulan_id'));
@@ -303,7 +303,41 @@ class UsulanController extends Controller
 
         return back()->with('success', 'Proposal berhasil diubah');
     }
-    
+
+    public function laporanKemajuan(Request $request, $id)
+    {
+        $request->validate([
+            'usulan_id'     => 'numeric|required',
+            'surat_path'    => 'max:5000|mimes:pdf|required'
+        ]);
+
+        UsulanBerkas::storeBerkas($request, 2);
+
+        return back()->with('success', 'Laporan kemajuan berhasil diunggah');
+    }
+
+    public function updateLaporanKemajuan(Request $request, $id)
+    {
+        $request->validate([
+            'usulan_id'     => 'numeric|required',
+            'surat_path'    => 'max:5000|mimes:pdf|required'
+        ]);
+
+        $oldBerkas = UsulanBerkas::getBerkas($id);
+        $backedUpBerkas = UsulanBerkasBackup::latestBerkasJenis(2, $id);
+
+        if (empty($backedUpBerkas)) {
+            $revisi = 1;
+        } else {
+            $revisi = $backedUpBerkas->review + 1;
+        }
+
+        UsulanBerkasBackup::storeBerkas($oldBerkas, 2, $revisi);
+        UsulanBerkas::storeBerkas($request, 2);
+
+        return back()->with('success', 'Laporan kemajuan berhasil diubah');
+    }
+
     public function riwayat()
     {
         $penelitian = Usulan::getUsulanPenelitianByDosenId(Auth::user()->id);

@@ -142,6 +142,8 @@ Route::namespace('Dosen')->name('dosen.')->prefix('dosen')->middleware('auth', '
         });
         Route::patch('proposal/{id}', 'UsulanController@proposal')->name('proposal');
         Route::patch('revisi/proposal/{id}', 'UsulanController@updateProposal');
+        Route::patch('laporan-kemajuan/{id}', 'UsulanController@laporanKemajuan')->name('laporanKemajuan');
+        Route::patch('revisi/laporan-kemajuan/{id}', 'UsulanController@updateLaporanKemajuan');
         Route::get('riwayat', 'UsulanController@riwayat')->name('riwayat');
         Route::resource('rab', 'RabController');
         Route::get('rab/detail/{id}', 'RabController@getDetail');

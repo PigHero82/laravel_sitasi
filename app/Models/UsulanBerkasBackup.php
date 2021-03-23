@@ -29,9 +29,9 @@ class UsulanBerkasBackup extends Model
         if (!file_exists($path)) {
             mkdir($path, 0777, true);
         }
-
+        
         $newFile = $path.'/'.Str::of($jenis->nama)->replace(' ', '-').'-'.$revisi.'.pdf';
-        $fileMoved = rename($request[0]->berkas, $newFile);
+        $fileMoved = rename($request[$jenisBerkasId-1]->berkas, $newFile);
 
         UsulanBerkasBackup::create([
             'usulan_id'         => $request[0]->usulan_id,
