@@ -22,6 +22,7 @@ use App\Models\UsulanBerkas;
 use App\Models\UsulanBerkasBackup;
 use App\Models\UsulanKegiatan;
 use App\Models\UsulanLuaran;
+use App\Models\UsulanMahasiswa;
 use App\Models\UsulanMitra;
 use App\Models\UsulanRab;
 use Auth;
@@ -68,6 +69,7 @@ class UsulanController extends Controller
         $usulanAnggota = UsulanAnggota::getAnggota($usulan->id);
         $usulanBerkas = UsulanBerkas::getBerkas($usulan->id);
         $usulanKegiatan = UsulanKegiatan::getKegiatan($usulan->id);
+        $usulanMahasiswa = UsulanMahasiswa::getMahasiswa($usulan->id);
         $usulanMitra = UsulanMitra::getMitra($usulan->id);
         $usulanLuaran = UsulanLuaran::getLuaran($usulan->id);
         $usulanRab = UsulanRab::getRab($usulan->id);
@@ -77,7 +79,7 @@ class UsulanController extends Controller
         $rumpunIlmu[] = ($usulan->rumpun_ilmu_2 != NULL) ? RumpunIlmu::firstRumpunIlmu($usulan->rumpun_ilmu_2)[0] : NULL ;
         $rumpunIlmu[] = ($usulan->rumpun_ilmu_3 != NULL) ? RumpunIlmu::firstRumpunIlmu($usulan->rumpun_ilmu_3)[0] : NULL ;
 
-        return view('usulan.create', compact('data', 'dosen', 'jumlah', 'kabkota', 'kecamatan', 'kelompok', 'luaran', 'mitraJenis', 'peran', 'provinsi', 'rabJenis', 'rumpunIlmu', 'satuan', 'skema', 'target', 'tahun', 'usulan', 'usulanAnggota', 'usulanBerkas', 'usulanKegiatan', 'usulanLuaran', 'usulanMitra', 'usulanRab'));
+        return view('usulan.create', compact('data', 'dosen', 'jumlah', 'kabkota', 'kecamatan', 'kelompok', 'luaran', 'mitraJenis', 'peran', 'provinsi', 'rabJenis', 'rumpunIlmu', 'satuan', 'skema', 'target', 'tahun', 'usulan', 'usulanAnggota', 'usulanBerkas', 'usulanKegiatan', 'usulanLuaran', 'usulanMahasiswa', 'usulanMitra', 'usulanRab'));
     }
 
     /**
@@ -222,17 +224,41 @@ class UsulanController extends Controller
     public function anggota(Request $request)
     {
         if (UsulanAnggota::firstAnggota($request->usulan_id, $request->dosen_id)) {
-            return redirect()->back()->with('danger', 'Anggota sudah terdaftar sebagai anggota');
+            return back()->with('danger', 'Dosen sudah terdaftar sebagai anggota');
         } else {
             UsulanAnggota::storeAnggota($request);
-            return redirect()->back()->with('success', 'Anggota berhasil ditambahkan');
+            return back()->with('success', 'Dosen berhasil ditambahkan');
         }
+    }
+
+    public function mahasiswa(Request $request)
+    {
+        $request->validate([
+            'usulan_id' => 'numeric|required',
+            'nim'       => 'numeric|required',
+            'nama'      => 'required'
+        ]);
+
+        if (UsulanMahasiswa::firstMahasiswa($request->usulan_id, $request->nim)) {
+            return back()->with('danger', 'Mahasiswa sudah terdaftar sebagai anggota');
+        } else {
+            UsulanMahasiswa::storeMahasiswa($request);
+            return back()->with('success', 'Mahasiswa berhasil ditambahkan');
+        }
+
+
     }
 
     public function destroyAnggota(UsulanAnggota $usulanAnggota)
     {
         UsulanAnggota::destroyAnggota($usulanAnggota->id);
-        return back()->with('success', 'Anggota berhasil dihapus');
+        return back()->with('success', 'Dosen berhasil dihapus');
+    }
+
+    public function destroyMahasiswa(UsulanMahasiswa $usulanMahasiswa)
+    {
+        UsulanMahasiswa::destroyMahasiswa($usulanMahasiswa->id);
+        return back()->with('success', 'Mahasiswa berhasil dihapus');
     }
 
     public function backward(Request $request)

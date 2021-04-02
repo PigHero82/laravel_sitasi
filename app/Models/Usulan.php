@@ -61,6 +61,7 @@ class Usulan extends Model
             $data['kegiatan'] = UsulanKegiatan::getKegiatan($id);
             $data['komentar'] = UsulanKomentar::getKomentar($id);
             $data['luaran'] = UsulanLuaran::getLuaran($id);
+            $data['mahasiswa'] = UsulanMahasiswa::getMahasiswa($id);
             $data['penilaian'] = UsulanNilai::getNilai($id);
             $data['rab'] = UsulanRab::getRab($id);
             $data['skema_usulan'] = SkemaUsulan::firstSkema($usulan->skema_usulan_id);
@@ -87,6 +88,7 @@ class Usulan extends Model
         $data['kegiatan'] = UsulanKegiatan::getKegiatan($data->id);
         $data['komentar'] = UsulanKomentar::getKomentar($data->id);
         $data['luaran'] = UsulanLuaran::getLuaran($data->id);
+        $data['mahasiswa'] = UsulanMahasiswa::getMahasiswa($data->id);
         $data['mitra'] = UsulanMitra::firstMitra($data->id);
         $data['penilaian'] = UsulanNilai::getNilai($data->id);
         $data['rab'] = UsulanRab::getRab($data->id);
@@ -130,6 +132,7 @@ class Usulan extends Model
                 $data[$key]['kegiatan'] = UsulanKegiatan::getKegiatan($value->id);
                 $data[$key]['komentar'] = UsulanKomentar::getKomentar($value->id);
                 $data[$key]['luaran'] = UsulanLuaran::getLuaran($value->id);
+                $data[$key]['mahasiswa'] = UsulanMahasiswa::getMahasiswa($value->id);
                 $data[$key]['mitra'] = UsulanMitra::firstMitra($value->id);
                 $data[$key]['penilaian'] = UsulanNilai::getNilai($value->id);
                 $data[$key]['rab'] = UsulanRab::getRab($value->id);
@@ -159,6 +162,7 @@ class Usulan extends Model
                 $data[$key]['kegiatan'] = UsulanKegiatan::getKegiatan($value->id);
                 $data[$key]['komentar'] = UsulanKomentar::getKomentar($value->id);
                 $data[$key]['luaran'] = UsulanLuaran::getLuaran($value->id);
+                $data[$key]['mahasiswa'] = UsulanMahasiswa::getMahasiswa($value->id);
                 $data[$key]['mitra'] = UsulanMitra::firstMitra($value->id);
                 $data[$key]['penilaian'] = UsulanNilai::getNilai($value->id);
                 $data[$key]['rab'] = UsulanRab::getRab($value->id);
@@ -190,6 +194,7 @@ class Usulan extends Model
                 $data[$key]['kegiatan'] = UsulanKegiatan::getKegiatan($value->id);
                 $data[$key]['komentar'] = UsulanKomentar::getKomentar($value->id);
                 $data[$key]['luaran'] = UsulanLuaran::getLuaran($value->id);
+                $data[$key]['mahasiswa'] = UsulanMahasiswa::getMahasiswa($value->id);
                 $data[$key]['mitra'] = UsulanMitra::firstMitra($value->id);
                 $data[$key]['penilaian'] = UsulanNilai::getNilai($value->id);
                 $data[$key]['rab'] = UsulanRab::getRab($value->id);
@@ -405,6 +410,7 @@ class Usulan extends Model
                 $data[$key]['kegiatan'] = UsulanKegiatan::getKegiatan($value->id);
                 $data[$key]['komentar'] = UsulanKomentar::getKomentar($value->id);
                 $data[$key]['luaran'] = UsulanLuaran::getLuaran($value->id);
+                $data[$key]['mahasiswa'] = UsulanMahasiswa::getMahasiswa($value->id);
                 $data[$key]['mitra'] = UsulanMitra::firstMitra($value->id);
                 $data[$key]['penilaian'] = UsulanNilai::getNilai($value->id);
                 $data[$key]['rab'] = UsulanRab::getRab($value->id);
@@ -445,6 +451,7 @@ class Usulan extends Model
                 $data[$key]['kegiatan'] = UsulanKegiatan::getKegiatan($value->id);
                 $data[$key]['komentar'] = UsulanKomentar::getKomentar($value->id);
                 $data[$key]['luaran'] = UsulanLuaran::getLuaran($value->id);
+                $data[$key]['mahasiswa'] = UsulanMahasiswa::getMahasiswa($value->id);
                 $data[$key]['mitra'] = UsulanMitra::firstMitra($value->id);
                 $data[$key]['penilaian'] = UsulanNilai::getNilai($value->id);
                 $data[$key]['rab'] = UsulanRab::getRab($value->id);

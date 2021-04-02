@@ -35,29 +35,32 @@
 
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Step 2 - Anggota</h3>
-
-            <div class="card-tools">
-                <a href="#inlineForm" class="btn btn-outline-success 
-                @if (count($usulanAnggota)+1 >= $skema->jumlah)
-                    disabled
-                @endif
-                " data-toggle="modal"><i class="fas fa-plus"></i> Tambah</a>
-            </div>
+            <h3 class="card-title">Step 2 - Anggota <br><small>{{ count($usulanAnggota)+count($usulanMahasiswa) }} dari {{ $skema->jumlah-1 }} anggota</small></h3>
         </div>
         <!-- /.card-header -->
         <div class="card-body mt-2">
-            <h3>ANGGOTA DOSEN</h3>
-            <p class="text-secondary 
-                @if (count($usulanAnggota)+1 >= $skema->jumlah)
-                    text-danger mb-0
-                @else
-                    mb-2
-                @endif
-            ">{{ count($usulanAnggota) }} dari {{ $skema->jumlah-1 }} anggota</p>
-            @if (count($usulanAnggota)+1 >= $skema->jumlah)
-                <p class="text-secondary mb-2 text-danger">Tidak dapat menambahkan anggota baru</p>
-            @endif
+            <div class="row justify-content-between">
+                <div class="col">
+                    <h3>ANGGOTA DOSEN</h3>
+                    <p class="text-secondary
+                        @if (count($usulanAnggota)+1 >= $skema->jumlah)
+                            text-danger mb-0
+                        @else
+                            mb-2
+                        @endif
+                    ">{{ count($usulanAnggota) }} dosen</p>
+                    @if (count($usulanAnggota)+count($usulanMahasiswa)+1 >= $skema->jumlah)
+                        <p class="text-secondary mb-2 text-danger">Tidak dapat menambahkan anggota baru</p>
+                    @endif
+                </div>
+                <div class="col text-right">
+                    <a href="#inlineForm" class="btn btn-outline-success
+                    @if (count($usulanAnggota)+count($usulanMahasiswa)+1 >= $skema->jumlah)
+                        disabled
+                    @endif
+                    " data-toggle="modal"><i class="fas fa-plus"></i> Tambah</a>
+                </div>
+            </div>
             <a href="#modalPenelitian" data-toggle="modal"></a>
             <div class="table-responsive">
                 <table class="table">
@@ -91,6 +94,56 @@
                                 </td>
                                 <td>
                                     <form action="{{ route('dosen.usulan.anggota.destroy', $item->id)}}" method="post" onsubmit="return confirm('Apakah Anda yakin ingin menghapus {{ $item->dosen_nama }}?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" style="padding: 0; border: none; background: none;" class="action-edit text-danger" title="Hapus"><i class="feather icon-trash"></i></button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            <hr>
+            <div class="row justify-content-between">
+                <div class="col">
+                    <h3>ANGGOTA MAHASISWA</h3>
+                    <p class="text-secondary
+                        @if (count($usulanMahasiswa)+1 >= $skema->jumlah)
+                            text-danger mb-0
+                        @else
+                            mb-2
+                        @endif
+                    ">{{ count($usulanMahasiswa) }} mahasiswa</p>
+                    @if (count($usulanAnggota)+count($usulanMahasiswa)+1 >= $skema->jumlah)
+                        <p class="text-secondary mb-2 text-danger">Tidak dapat menambahkan mahasiswa baru</p>
+                    @endif
+                </div>
+                <div class="col text-right">
+                    <a href="#inlineFormMahasiswa" class="btn btn-outline-success
+                    @if (count($usulanAnggota)+count($usulanMahasiswa)+1 >= $skema->jumlah)
+                        disabled
+                    @endif
+                    " data-toggle="modal"><i class="fas fa-plus"></i> Tambah</a>
+                </div>
+            </div>
+            <a href="#modalPenelitian" data-toggle="modal"></a>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>NIM</th>
+                            <th>Nama</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($usulanMahasiswa as $item)
+                            <tr>
+                                <th>{{ $item->nim }}</th>
+                                <td>{{ $item->nama }}</td>
+                                <td>
+                                    <form action="{{ route('dosen.usulan.mahasiswa.destroy', $item->id)}}" method="post" onsubmit="return confirm('Apakah Anda yakin ingin menghapus {{ $item->nama }}?');">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" style="padding: 0; border: none; background: none;" class="action-edit text-danger" title="Hapus"><i class="feather icon-trash"></i></button>
@@ -153,6 +206,38 @@
                                 @endforeach
                             </select>
                         </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="hidden" name="usulan_id" value="{{ $usulan->id }}">
+                        <button type="submit" class="btn btn-primary">Tambah</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade text-left" id="inlineFormMahasiswa" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel33">Tambah Mahasiswa</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="{{ route('dosen.usulan.mahasiswa') }}" method="POST">
+                    @csrf
+                    <div class="modal-body mt-1">
+                        <fieldset class="form-label-group">
+                            <input type="number" class="form-control" name="nim" placeholder="NIM">
+                            <label>NIM</label>
+                        </fieldset>
+
+                        <fieldset class="form-label-group">
+                            <input type="text" class="form-control" name="nama" placeholder="Nama">
+                            <label>Nama</label>
+                        </fieldset>
                     </div>
                     <div class="modal-footer">
                         <input type="hidden" name="usulan_id" value="{{ $usulan->id }}">
