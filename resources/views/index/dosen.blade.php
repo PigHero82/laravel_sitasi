@@ -714,11 +714,12 @@
                 $('#berkas-proposal-pengajuan').html('-');
                 $.get( "/usulan/" + id, function(data) {
                     var d = JSON.parse(data);
-                    console.log(d);
+                  
                     $('#jenis-pengajuan').text('Penelitian');
                     if(d.jenis == 2){
                         $('#jenis-pengajuan').text('Pengabdian');
                     }
+                    var linkrab = ' <a href="{{ url('reviewer/rab/') }}/' + d.id +'" target="_blank"> Lihat anggaran </a>';
                     $('#judul-pengajuan').html(d.judul);
                     $('#skema-pengajuan').html(d.skema_usulan.nama);
                     $('#tahun-usulan-pengajuan').html(d.skema_usulan.tahun_skema);

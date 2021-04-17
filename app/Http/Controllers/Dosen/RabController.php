@@ -52,11 +52,19 @@ class RabController extends Controller
      */
     public function show($usulanId)
     {
-        $rab = UsulanRab::getRab($usulanId);
-        $jenis = RabJenis::getActiveJenis();
+        $usulan = Usulan::firstUsulan($usulanID);
+        $usulanRab = UsulanRab::getRab($usulanID);
 
-        return view('usulan.lihat-rab', compact('jenis', 'rab', 'usulanId'));
+
+        return view('rab',compact('usulan','usulanRab'));
     }
+    /*public function rabShow($usulanID){
+        $usulan = Usulan::firstUsulan($usulanID);
+        $usulanRab = UsulanRab::getRab($usulanID);
+
+
+        return view('rab',compact('usulan','usulanRab'));
+    }*/
 
     /**
      * Show the form for editing the specified resource.
