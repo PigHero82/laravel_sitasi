@@ -144,7 +144,7 @@
                                                 @endif
 
                                                 <td>{{ number_format($total, 0, '.', ',') }}</td>
-                                                <td>{{ number_format((($nilai[0]/100) * $total), 0, '.', ',')}}</td>
+                                                <td>{{ number_format((($nilai[0]/100) * $item->dana_maksimal), 0, '.', ',')}}</td>
 
                                                 <td>{{ $item->skema_usulan->tahun_pelaksanaan }}</td>
                                                 <td>

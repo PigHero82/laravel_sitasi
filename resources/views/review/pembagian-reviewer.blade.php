@@ -56,11 +56,12 @@
             </div>
             <!-- /.card-header -->
             <div class="card-content collapse show">
-                <div class="card-body">
-                    <table id="penelitianTable" class="table zero-configuration table-striped table-responsive" style="width:100%">
+                <div class="card-body table-responsive">
+                    <table id="penelitianTable" class="table zero-configuration table-striped " style="width:100%">
                         <thead>
                             <tr>
-                                <th style="width: 50%">Judul</th>
+                                <th>Judul</th>
+                                <th>Ketua</th>
                                 <th>Skema Usulan</th>
                                 <th>Tahun Pelaksanaan</th>
                                 <th>Reviewer</th>
@@ -70,6 +71,7 @@
                             @foreach ($penelitian as $item)
                                 <tr>
                                     <td><a href="#modal" data-toggle="modal" data-value="{{ $item->id }}">{{ $item->judul }}</a></td>
+                                    <td>{{ $item->ketua }}</td>
                                     <td>{{ $item->skema_usulan->tahun_skema . ' - ' . $item->skema_usulan->kode }}</td>
                                     <td>{{ $item->skema_usulan->tahun_pelaksanaan }}</td>
                                     <td>
@@ -119,7 +121,8 @@
                     <table id="pengabdianTable" class="table zero-configuration table-striped table-responsive" style="width:100%">
                         <thead>
                             <tr>
-                                <th style="width: 50%">Judul</th>
+                                <th>Judul</th>
+                                <th>Ketua</th>
                                 <th>Skema Usulan</th>
                                 <th>Tahun Pelaksanaan</th>
                                 <th>Reviewer</th>
@@ -129,6 +132,7 @@
                             @foreach ($pengabdian as $item)
                                 <tr>
                                     <td><a href="#modal" data-toggle="modal" data-value="{{ $item->id }}">{{ $item->judul }}</a></td>
+                                    <td>{{ $item->ketua }}</td>
                                     <td>{{ $item->skema_usulan->tahun_skema . ' - ' . $item->skema_usulan->kode }}</td>
                                     <td>{{ $item->skema_usulan->tahun_pelaksanaan }}</td>
                                     <td>
@@ -267,7 +271,7 @@
 @section('js')
     <!-- BEGIN: Datatables JS-->
     <script src="{{ asset('app-assets/vendors/js/vendors.min.js') }}"></script>
-    <script src="{{ asset('app-assets/vendors/js/tables/datatable/pdfmake.min.js') }}"></script>
+
     <script src="{{ asset('app-assets/vendors/js/tables/datatable/vfs_fonts.js') }}"></script>
     <script src="{{ asset('app-assets/vendors/js/tables/datatable/datatables.min.js') }}"></script>
     <script src="{{ asset('app-assets/vendors/js/tables/datatable/datatables.buttons.min.js') }}"></script>
@@ -275,12 +279,30 @@
     <script src="{{ asset('app-assets/vendors/js/tables/datatable/buttons.print.min.js') }}"></script>
     <script src="{{ asset('app-assets/vendors/js/tables/datatable/buttons.bootstrap.min.js') }}"></script>
     <script src="{{ asset('app-assets/vendors/js/tables/datatable/datatables.bootstrap4.min.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+
     <!-- END: Datatables JS-->
     
     <script>
-        $('#penelitianTable').DataTable();
+        $('#penelitianTable').DataTable({
+            responsive: true,
+        dom: '<"top row" <"col-md-4"l><"col-md-4 text-center"p><"col-md-4 text-md-right"fB>>rt<"bottom row"<"col-md-4"l><"col-md-4"p>><"clear">',
+        buttons: {
+            buttons: [
+                { extend: 'excel', className: 'excelButton btn btn-success btn-sm' }
+            ]
+        }
+        });
 
-        $('#pengabdianTable').DataTable();
+        $('#pengabdianTable').DataTable({
+            responsive: true,
+        dom: '<"top row" <"col-md-4"l><"col-md-4 text-center"p><"col-md-4 text-md-right"fB>>rt<"bottom row"<"col-md-4"l><"col-md-4"p>><"clear">',
+        buttons: {
+            buttons: [
+                { extend: 'excel', className: 'excelButton btn btn-success btn-sm' }
+            ]
+        }
+        });
 
         $(document).ready( function () {
             $(document).on('click', '#penelitianTable tbody tr td a', function(e) {

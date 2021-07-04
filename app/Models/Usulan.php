@@ -51,7 +51,7 @@ class Usulan extends Model
 
         if (isset($usulan)) {
             $data = [];
-            $data = Usulan::select(DB::raw('usulan.*, skema.kode, skema_usulan.tahun_skema, dosen.nama as ketua'))->join('dosen', 'usulan.dosen_id', 'dosen.id')
+            $data = Usulan::select(DB::raw('usulan.*, skema.kode, skema_usulan.tahun_skema, dosen.nama as ketua, skema_usulan.dana_maksimal'))->join('dosen', 'usulan.dosen_id', 'dosen.id')
                         ->join('skema_usulan', 'usulan.skema_usulan_id', 'skema_usulan.id')
                         ->join('skema', 'skema_usulan.skema_id', 'skema.id')
                         ->firstWhere('usulan.id', $id);
@@ -116,7 +116,8 @@ class Usulan extends Model
     }
 
     static function getUsulanaktif($jenis){
-        $usulan = Usulan::select('usulan.id', 'skema_usulan_id', 'reviewer','step', 'skema_usulan.status')
+        $usulan = Usulan::select('usulan.id', 'skema_usulan_id', 'reviewer','step', 'skema_usulan.status','dosen.nama AS ketua','usulan.dosen_id')
+                        ->join('dosen', 'usulan.dosen_id', 'dosen.id')
                         ->join('skema_usulan','usulan.skema_usulan_id','skema_usulan.id')
                         ->where('usulan.jenis', $jenis)
                         ->whereNotNull('judul')

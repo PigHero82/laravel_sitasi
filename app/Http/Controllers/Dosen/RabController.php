@@ -7,6 +7,7 @@ use App\Models\RabJenis;
 use App\Models\UsulanRab;
 use App\Models\UsulanRabBackup;
 use Illuminate\Http\Request;
+use App\Models\Usulan;
 
 class RabController extends Controller
 {
@@ -50,7 +51,7 @@ class RabController extends Controller
      * @param  \App\Models\UsulanRab  $usulanRab
      * @return \Illuminate\Http\Response
      */
-    public function show($usulanId)
+    public function show($usulanID)
     {
         $usulan = Usulan::firstUsulan($usulanID);
         $usulanRab = UsulanRab::getRab($usulanID);

@@ -719,12 +719,12 @@
                     if(d.jenis == 2){
                         $('#jenis-pengajuan').text('Pengabdian');
                     }
-                    var linkrab = ' <a href="{{ url('reviewer/rab/') }}/' + d.id +'" target="_blank"> Lihat anggaran </a>';
+                    var linkrab = ' <a href="{{ url('dosen/usulan/rab/') }}/' + d.id +'" target="_blank"> Lihat anggaran </a>';
                     $('#judul-pengajuan').html(d.judul);
                     $('#skema-pengajuan').html(d.skema_usulan.nama);
                     $('#tahun-usulan-pengajuan').html(d.skema_usulan.tahun_skema);
                     $('#tahun-pelaksanaan-pengajuan').html(d.skema_usulan.tahun_pelaksanaan);
-                    $('#anggaran-pengajuan').html(formatRupiah(''+d.usulan_dana, 'Rp. '));
+                    $('#anggaran-pengajuan').html(formatRupiah(''+d.usulan_dana, 'Rp. ') + linkrab);
                     $('#luaran-pengajuan').html('');
                     for(var l = 0; l < d.luaran.length;l++){
                         $('#luaran-pengajuan').append('<li>'+d.luaran[l].nama_luaran+'</li>')

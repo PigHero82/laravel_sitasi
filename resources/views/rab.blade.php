@@ -33,7 +33,15 @@
                     <b>Total Anggaran</b>  
                 </div>
                 <div class="col-sm-10">
-                    : Rp. {{ number_format($usulan->usulan_dana, 0, ',', '.') }}
+                    @php
+                        $totalanggaran = 0;
+                    @endphp
+                    @foreach ($usulanRab as $item)
+                        @php
+                        $totalanggaran += $item->total;
+                        @endphp
+                    @endforeach
+                    : Rp. {{ number_format($totalanggaran, 0, ',', '.') }}
                 </div>
             </div>
         <div class="table-responsive">        
