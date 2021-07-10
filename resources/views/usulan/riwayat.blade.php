@@ -230,24 +230,12 @@
 
             $('#table-penelitian').DataTable({
                 responsive: true,
-            "order": [[2, "desc"]],
-            dom: '<"top row" <"col-md-4"l><"col-md-4 text-center"p><"col-md-4 text-md-right"fB>>rt<"bottom row"<"col-md-4"l><"col-md-4"p>><"clear">',
-            buttons: {
-                buttons: [
-                    { extend: 'excel', className: 'excelButton btn btn-success btn-sm' }
-                ]
-            }
+                "order": [[2, "desc"]]
             });
     
             $('#table-pengabdian').DataTable({
                 responsive: true,
-            "order": [[2, "desc"]],
-            dom: '<"top row" <"col-md-4"l><"col-md-4 text-center"p><"col-md-4 text-md-right"fB>>rt<"bottom row"<"col-md-4"l><"col-md-4"p>><"clear">',
-            buttons: {
-                buttons: [
-                    { extend: 'excel', className: 'excelButton btn btn-success btn-sm' }
-                ]
-            }
+                "order": [[2, "desc"]]
             });
     
             $(document).on('click', '#table-penelitian tbody tr td a', function(e) {

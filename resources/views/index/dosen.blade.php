@@ -233,7 +233,7 @@
                                 <dt class="col-sm-3 text-right">Foto Profil</dt>
                                 <dd class="col-sm-9">
                                     @isset ($composerUser->profile_photo_path)
-                                        <img src="{{ asset($composerUser->profile_photo_path) }}" class="img-fluid" alt="Profile picture">
+                                        <img src="{{ asset($composerUser->profile_photo_path) }}" style="height:250px;" class="img-fluid" alt="Profile picture">
                                     @else
                                         <img src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png" class="img-fluid" alt="Profile picture">
                                     @endisset
@@ -268,6 +268,69 @@
                   <!-- /.card -->
                 </div>
                 <!--/.col (left) -->
+                <div class="col-md-12">
+					<div class="card">
+	<div class="card-header">
+		<h4 class="card-title ml-25">
+			Download Template
+		</h4>
+	</div>
+	<div class="card-body">
+		<ul data-v-2ab4bc8a="" class="app-timeline" style="list-style-type:none;">
+			<li data-v-2d5c58bc="" class="timeline-item timeline-variant-primary" data-v-2ab4bc8a="">
+				<div data-v-2d5c58bc="" class="timeline-item-point"></div> 
+				<div data-v-2d5c58bc="" class="d-flex justify-content-between flex-sm-row flex-column mb-sm-0 mb-1">
+					<h6 data-v-2d5c58bc="">Penelitian Pengembangan Dosen STIKI (PPDS)</h6> 
+				</div> 
+				<a href="https://drive.google.com/drive/folders/1gBRFnI6WPFzB-9FQmbqBfzZn5cgMNJv5?usp=sharing" taget="_blank">
+				<div data-v-2d5c58bc="" class="media">
+					<div data-v-2d5c58bc="" class="media-aside mr-1 align-self-start">
+						<img data-v-2d5c58bc="" src="/images/word.png" alt="file" class="" height="23">
+					</div> 
+					<div data-v-2d5c58bc="" class="media-body my-auto">
+						<h6 data-v-2d5c58bc="" class="media-body mb-0"  style="color:#5e50ee">Download Template</h6>
+					</div>
+				</div>
+				</a><br>
+			</li>
+			<li data-v-2d5c58bc="" class="timeline-item timeline-variant-primary" data-v-2ab4bc8a="">
+				<div data-v-2d5c58bc="" class="timeline-item-point"></div> 
+				<div data-v-2d5c58bc="" class="d-flex justify-content-between flex-sm-row flex-column mb-sm-0 mb-1">
+					<h6 data-v-2d5c58bc="">Penelitian Dosen dan Mahasiswa (PDM)</h6> 
+				</div> 
+				<a href="https://drive.google.com/drive/folders/1gHfXV0JaAy8hV_AQujMdwzU5jRTuG2tX?usp=sharing" target="_blank">
+				<div data-v-2d5c58bc="" class="media">
+					<div data-v-2d5c58bc="" class="media-aside mr-1 align-self-start">
+						<img data-v-2d5c58bc="" src="/images/word.png" alt="file" class="" height="23">
+					</div> 
+					<div data-v-2d5c58bc="" class="media-body my-auto">
+						<h6 data-v-2d5c58bc="" class="media-body mb-0"  style="color:#5e50ee">Download Template</h6>
+					</div>
+				</div>
+				</a>
+				<br>
+			</li>
+			<li data-v-2d5c58bc="" class="timeline-item timeline-variant-primary" data-v-2ab4bc8a="">
+				<div data-v-2d5c58bc="" class="timeline-item-point"></div> 
+				<div data-v-2d5c58bc="" class="d-flex justify-content-between flex-sm-row flex-column mb-sm-0 mb-1">
+					<h6 data-v-2d5c58bc="">STIKI Social Engagement (SSE)</h6> 
+				</div> 
+				<a href="https://drive.google.com/drive/folders/1gPf7Evq7VN-3OV2Z_kD8H_bhJyv-J8ZN?usp=sharing" target="_blank">
+				<div data-v-2d5c58bc="" class="media">
+					<div data-v-2d5c58bc="" class="media-aside mr-1 align-self-start">
+						<img data-v-2d5c58bc="" src="/images/word.png" alt="file" class="" height="23">
+					</div> 
+					<div data-v-2d5c58bc="" class="media-body my-auto">
+						<h6 data-v-2d5c58bc="" class="media-body mb-0" style="color:#5e50ee">Download Template</h6>
+					</div>
+				</div>
+				</a>
+				<br>
+			</li>
+		</ul>
+	</div>
+</div>
+                </div>
               </div>
               <!-- /.row -->
         </div>

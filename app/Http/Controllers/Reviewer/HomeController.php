@@ -49,11 +49,12 @@ class HomeController extends Controller
         $request->validate([
             'nilai'                 => 'required',
             'komentar'              => 'required',
-            'penilaian_tahap_id'    => 'required|numeric'
+            'penilaian_tahap_id'    => 'required|numeric',
+            'bukti'                 => 'required|image'
         ]);
 
-        UsulanNilai::storeNilai($request, $id);
         UsulanKomentar::storeKomentar($request, $id);
+        UsulanNilai::storeNilai($request, $id);
 
         /*
             1 = Tahap 1 pending

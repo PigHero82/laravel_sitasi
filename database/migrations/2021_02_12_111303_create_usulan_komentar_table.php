@@ -18,6 +18,7 @@ class CreateUsulanKomentarTable extends Migration
             $table->bigInteger('usulan_id');
             $table->bigInteger('penilaian_tahap_id');
             $table->text('komentar')->nullable();
+            $table->string('bukti')->nullable();
             $table->timestamps();
         });
     }

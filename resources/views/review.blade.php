@@ -65,7 +65,9 @@
                                 <td>{{ $item->skema_usulan->tahun_pelaksanaan }}</td>
                                 <td>
                                     @if ($item->nilai == 1)
-                                        <h3 class="badge badge-md badge-pill badge-success"><i class="feather icon-check"></i> Selesai</h3>
+                                        <h3 class="badge badge-md badge-pill badge-success"><i class="feather icon-check"></i> Selesai Tahap Proposal</h3>
+                                    @elseif ($item->nilai == 4)
+                                        <h3 class="badge badge-md badge-pill badge-success"><i class="feather icon-check"></i> Selesai Tahap Monev</h3>
                                     @else
                                         <h3 class="badge badge-md badge-pill badge-warning"><i class="feather icon-clock"></i> Menunggu</h3>
                                     @endif
@@ -153,7 +155,9 @@
                                 <td>{{ $item->skema_usulan->tahun_pelaksanaan }}</td>
                                 <td>
                                     @if ($item->nilai == 1)
-                                        <h3 class="badge badge-md badge-pill badge-success"><i class="feather icon-check"></i> Selesai</h3>
+                                        <h3 class="badge badge-md badge-pill badge-success"><i class="feather icon-check"></i> Selesai Tahap Proposal</h3>
+                                    @elseif ($item->nilai == 4)
+                                        <h3 class="badge badge-md badge-pill badge-success"><i class="feather icon-check"></i> Selesai Tahap Monev</h3>
                                     @else
                                         <h3 class="badge badge-md badge-pill badge-warning"><i class="feather icon-clock"></i> Menunggu</h3>
                                     @endif
@@ -258,7 +262,7 @@
                         </dl>
                         <hr class="d-none"/>
                         <div class="d-none" id="nilai-modal"></div>
-                        <form action="#" method="POST" id="modal-form" onsubmit="return confirm('Apakah Anda yakin? Nilai tidak dapat diubah kembali');">
+                        <form action="#" method="POST" enctype="multipart/form-data" id="modal-form" onsubmit="return confirm('Apakah Anda yakin? Nilai tidak dapat diubah kembali');">
                             @csrf
                             @method('PATCH')
                             <h5>Penilaian</h5>
@@ -272,6 +276,16 @@
                                     <fieldset class="form-group">
                                         <input type="hidden" name="penilaian_tahap_id" id="tahapId" required>
                                         <textarea class="form-control" name="komentar" id="basicTextarea" rows="3" placeholder="Komentar" required></textarea>
+                                    </fieldset>
+                                </dd>
+                            </dl>
+
+                            <dl class="row mb-0 d-none" id="bukti">
+                                <dt class="col-sm-4 text-md-right">Bukti Pelaksanaan Penilaian</dt>
+                                <dd class="col-sm-8">
+                                    <fieldset class="custom-file">
+                                        <input type="file" class="custom-file-input" id="bukti" name="bukti" accept="image/*" required>
+                                        <label class="custom-file-label" for="bukti">Choose file</label>
                                     </fieldset>
                                 </dd>
                             </dl>
@@ -319,12 +333,14 @@
                     $('#tahun-pelaksanaan').html(d.skema_usulan.tahun_pelaksanaan);
                     $('#anggaran').html(formatRupiah(''+d.usulan_dana, 'Rp. ') + linkrab);
                     $('#luaran').empty();
-                    for(var l = 0; l < d.luaran.length; l++){
+                    $('#berkas-proposal').text('-')
+                    $('#berkas-laporan-kemajuan').text('-')
+                    $('#berkas-laporan-akhir').text('-')
+                    $('#berkas-laporan-anggaran').text('-')
 
+                    for (var l = 0; l < d.luaran.length; l++) {
                         $('#luaran').append('<li>'+d.luaran[l].nama_luaran + ' <span class="text-info">(' + d.luaran[l].nama_target + ')</span><br/></li>');
-
                     }
-
 
                     for (var i = 0; i < d.berkas.length; i++) {
                         if (d.berkas[i]['jenis_berkas_id'] == 1) {
@@ -345,10 +361,19 @@
                             $('#nilai-modal').removeClass('d-none');
                             $('#nilai-modal').empty();
 
-                            for (let i = 0; i < 5; i++) {
-                                $('#nilai-modal').append('<dl class="row"><dt class="col-sm-4 text-md-right">Nilai ' + d.penilaian[i].nama + '</dt><dd class="col-sm-8">' + d.penilaian[i].nilai + '</dd></dl>');
-                            }
-                            $('#nilai-modal').append('<dl class="row"><dt class="col-sm-4 text-md-right">Komentar</dt><dd class="col-sm-8">' + d.komentar[0].komentar + '</dd></dl>');
+                            $.map( d.penilaian, function( penilaian, i ) {
+                                if (penilaian.penilaian_tahap_id == 1) {
+                                    $('#nilai-modal').append('<dl class="row"><dt class="col-sm-4 text-md-right">Nilai ' + penilaian.nama + '</dt><dd class="col-sm-8">' + penilaian.nilai + '</dd></dl>');
+                                }
+                            })
+
+                            $.map( d.komentar, function( komentar, i ) {
+                                if (komentar.penilaian_tahap_id == 1) {
+                                    $('#nilai-modal').append('<dl class="row"><dt class="col-sm-4 text-md-right">Komentar</dt><dd class="col-sm-8">' + komentar.komentar + '</dd></dl>');
+                                    $('#nilai-modal').append('<dl class="row"><dt class="col-sm-4 text-md-right">Bukti Pelaksanaan Penilaian</dt><dd class="col-sm-8"><img class="img-fluid" src="/' + komentar.bukti + '" alt="' + komentar.bukti + '"></dd></dl>');
+                                }
+                            })
+
                         } else {
 
                             $('#modal-form').attr('action', '/reviewer/review/' + id);
@@ -370,19 +395,29 @@
                                 }
                                 $('#tahapId').val(1);
                                 $('#komentar').removeClass('d-none');
+                                $('#bukti').removeClass('d-none');
                             })
                         }
                     } else if (d.step == 10) {
-                        if (d.nilai == 2) {
+                        if (d.nilai == 4) {
                             $('#modal-form').hide();
                             $('hr').removeClass('d-none');
                             $('#nilai-modal').removeClass('d-none');
                             $('#nilai-modal').empty();
 
-                            for (let i = 0; i < 5; i++) {
-                                $('#nilai-modal').append('<dl class="row"><dt class="col-sm-4 text-md-right">Nilai ' + d.penilaian[i].nama + '</dt><dd class="col-sm-8">' + d.penilaian[i].nilai + '</dd></dl>');
-                            }
-                            $('#nilai-modal').append('<dl class="row"><dt class="col-sm-4 text-md-right">Komentar</dt><dd class="col-sm-8">' + d.komentar[0].komentar + '</dd></dl>');
+                            $.map( d.penilaian, function( penilaian, i ) {
+                                if (penilaian.penilaian_tahap_id == 2) {
+                                    $('#nilai-modal').append('<dl class="row"><dt class="col-sm-4 text-md-right">Nilai ' + penilaian.nama + '</dt><dd class="col-sm-8">' + penilaian.nilai + '</dd></dl>');
+                                }
+                            })
+
+                            $.map( d.komentar, function( komentar, i ) {
+                                if (komentar.penilaian_tahap_id == 2) {
+                                    $('#nilai-modal').append('<dl class="row"><dt class="col-sm-4 text-md-right">Komentar</dt><dd class="col-sm-8">' + komentar.komentar + '</dd></dl>');
+                                    $('#nilai-modal').append('<dl class="row"><dt class="col-sm-4 text-md-right">Bukti Pelaksanaan Penilaian</dt><dd class="col-sm-8"><img class="img-fluid" src="/' + komentar.bukti + '" alt="' + komentar.bukti + '"></dd></dl>');
+                                }
+                            })
+
                         } else {
 
                             $('#modal-form').attr('action', '/reviewer/review/' + id);
@@ -404,6 +439,7 @@
                                 }
                                 $('#tahapId').val(2);
                                 $('#komentar').removeClass('d-none');
+                                $('#bukti').removeClass('d-none');
                             })
                         }
 
@@ -428,10 +464,13 @@
                     $('#tahun-pelaksanaan').html(d.skema_usulan.tahun_pelaksanaan);
                     $('#anggaran').html(formatRupiah(''+d.usulan_dana, 'Rp. ') + linkrab);
                     $('#luaran').empty();
-                    for(var l = 0; l < d.luaran.length; l++){
+                    $('#berkas-proposal').text('-')
+                    $('#berkas-laporan-kemajuan').text('-')
+                    $('#berkas-laporan-akhir').text('-')
+                    $('#berkas-laporan-anggaran').text('-')
 
+                    for (var l = 0; l < d.luaran.length; l++) {
                         $('#luaran').append('<li>'+d.luaran[l].nama_luaran + ' <span class="text-info">(' + d.luaran[l].nama_target + ')</span><br/></li>');
-
                     }
 
                     for (var i = 0; i < d.berkas.length; i++) {
@@ -452,10 +491,19 @@
                             $('hr').removeClass('d-none');
                             $('#nilai-modal').removeClass('d-none');
                             $('#nilai-modal').empty();
-                            for (let i = 0; i < 5; i++) {
-                                $('#nilai-modal').append('<dl class="row"><dt class="col-sm-4 text-md-right">Nilai ' + d.penilaian[i].nama + '</dt><dd class="col-sm-8">' + d.penilaian[i].nilai + '</dd></dl>');
-                            }
-                            $('#nilai-modal').append('<dl class="row"><dt class="col-sm-4 text-md-right">Komentar</dt><dd class="col-sm-8">' + d.komentar[0].komentar + '</dd></dl>');
+
+                            $.map( d.penilaian, function( penilaian, i ) {
+                                if (penilaian.penilaian_tahap_id == 1) {
+                                    $('#nilai-modal').append('<dl class="row"><dt class="col-sm-4 text-md-right">Nilai ' + penilaian.nama + '</dt><dd class="col-sm-8">' + penilaian.nilai + '</dd></dl>');
+                                }
+                            })
+
+                            $.map( d.komentar, function( komentar, i ) {
+                                if (komentar.penilaian_tahap_id == 1) {
+                                    $('#nilai-modal').append('<dl class="row"><dt class="col-sm-4 text-md-right">Komentar</dt><dd class="col-sm-8">' + komentar.komentar + '</dd></dl>');
+                                    $('#nilai-modal').append('<dl class="row"><dt class="col-sm-4 text-md-right">Bukti Pelaksanaan Penilaian</dt><dd class="col-sm-8"><img class="img-fluid" src="/' + komentar.bukti + '" alt="' + komentar.bukti + '"></dd></dl>');
+                                }
+                            })
                         } else {
                             $('#nilai').empty();
                             $('#modal-form').attr('action', '/reviewer/review/' + id);
@@ -470,18 +518,28 @@
                                 }
                                 $('#tahapId').val(1);
                                 $('#komentar').removeClass('d-none');
+                                $('#bukti').removeClass('d-none');
                             })
                         }
                     } else if (d.step == 10) {
-                        if (d.nilai == 1) {
+                        if (d.nilai == 4) {
                             $('#modal-form').hide();
                             $('hr').removeClass('d-none');
                             $('#nilai-modal').removeClass('d-none');
                             $('#nilai-modal').empty();
-                            for (let i = 0; i < 5; i++) {
-                                $('#nilai-modal').append('<dl class="row"><dt class="col-sm-4 text-md-right">Nilai ' + d.penilaian[i].nama + '</dt><dd class="col-sm-8">' + d.penilaian[i].nilai + '</dd></dl>');
-                            }
-                            $('#nilai-modal').append('<dl class="row"><dt class="col-sm-4 text-md-right">Komentar</dt><dd class="col-sm-8">' + d.komentar[0].komentar + '</dd></dl>');
+
+                            $.map( d.penilaian, function( penilaian, i ) {
+                                if (penilaian.penilaian_tahap_id == 2) {
+                                    $('#nilai-modal').append('<dl class="row"><dt class="col-sm-4 text-md-right">Nilai ' + penilaian.nama + '</dt><dd class="col-sm-8">' + penilaian.nilai + '</dd></dl>');
+                                }
+                            })
+
+                            $.map( d.komentar, function( komentar, i ) {
+                                if (komentar.penilaian_tahap_id == 2) {
+                                    $('#nilai-modal').append('<dl class="row"><dt class="col-sm-4 text-md-right">Komentar</dt><dd class="col-sm-8">' + komentar.komentar + '</dd></dl>');
+                                    $('#nilai-modal').append('<dl class="row"><dt class="col-sm-4 text-md-right">Bukti Pelaksanaan Penilaian</dt><dd class="col-sm-8"><img class="img-fluid" src="/' + komentar.bukti + '" alt="' + komentar.bukti + '"></dd></dl>');
+                                }
+                            })
                         } else {
                             $('#nilai').empty();
                             $('#modal-form').attr('action', '/reviewer/review/' + id);
@@ -496,6 +554,7 @@
                                 }
                                 $('#tahapId').val(2);
                                 $('#komentar').removeClass('d-none');
+                                $('#bukti').removeClass('d-none');
                             })
                         }
                     } else if (d.step == 12) {
